@@ -1,0 +1,19 @@
+.app-shell {
+  @apply flex flex-col h-screen;
+}
+
+.app-toolbar {
+  flex-shrink: 0;
+}
+
+.app-title {
+  @apply font-bold text-lg;
+}
+
+.app-nav {
+  flex-shrink: 0;
+}
+
+.app-content {
+  @apply flex-1 overflow-auto;
+}

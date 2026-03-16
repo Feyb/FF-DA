@@ -1,0 +1,51 @@
+.home-container {
+  @apply max-w-2xl mx-auto px-4 py-8 flex flex-col gap-6;
+}
+
+.home-title {
+  @apply text-3xl font-bold;
+}
+
+.search-panel {
+  @apply flex flex-col gap-4 pt-4;
+
+  mat-form-field {
+    @apply w-full;
+  }
+}
+
+.loading-state {
+  @apply flex items-center gap-3;
+}
+
+.error-message {
+  @apply text-red-600 text-sm;
+}
+
+.leagues-section {
+  @apply flex flex-col gap-2;
+}
+
+.leagues-title {
+  @apply text-lg font-semibold;
+}
+
+.league-item {
+  @apply flex justify-between items-center w-full py-1;
+}
+
+.league-name {
+  @apply font-medium;
+}
+
+.league-meta {
+  @apply flex items-center gap-2;
+}
+
+.league-season {
+  @apply text-sm text-gray-500;
+}
+
+.selected-banner {
+  @apply flex items-center gap-2 p-3 rounded-lg bg-green-50 text-green-800;
+}

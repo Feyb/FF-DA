@@ -1,0 +1,92 @@
+<div class="home-container">
+  <h1 class="home-title">Draft Assistant</h1>
+
+  <mat-tab-group>
+    <mat-tab label="Find by Username">
+      <div class="search-panel">
+        <mat-form-field appearance="outline">
+          <mat-label>Sleeper Username</mat-label>
+          <input
+            matInput
+            [formControl]="usernameControl"
+            (keyup.enter)="searchByUsername()"
+            placeholder="e.g. johndoe"
+          />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <button
+          mat-flat-button
+          (click)="searchByUsername()"
+          [disabled]="store.loading()"
+        >
+          Load Leagues
+        </button>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Enter League ID">
+      <div class="search-panel">
+        <mat-form-field appearance="outline">
+          <mat-label>League ID</mat-label>
+          <input
+            matInput
+            [formControl]="leagueIdControl"
+            (keyup.enter)="searchByLeagueId()"
+            placeholder="e.g. 123456789"
+          />
+          <mat-icon matSuffix>tag</mat-icon>
+        </mat-form-field>
+        <button
+          mat-flat-button
+          (click)="searchByLeagueId()"
+          [disabled]="store.loading()"
+        >
+          Load League
+        </button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  @if (store.loading()) {
+    <div class="loading-state">
+      <mat-spinner diameter="40" />
+      <span>Loading leagues…</span>
+    </div>
+  }
+
+  @if (store.error()) {
+    <p class="error-message">{{ store.error() }}</p>
+  }
+
+  @if (store.hasLeagues()) {
+    <section class="leagues-section">
+      <h2 class="leagues-title">Your Leagues</h2>
+      <mat-selection-list [multiple]="false">
+        @for (league of store.leagues(); track league.league_id) {
+          <mat-list-option
+            [value]="league"
+            [selected]="appStore.selectedLeague()?.league_id === league.league_id"
+            (click)="selectLeague(league)"
+          >
+            <div class="league-item">
+              <span class="league-name">{{ league.name }}</span>
+              <div class="league-meta">
+                <span class="league-season">{{ league.season }}</span>
+                <mat-chip [highlighted]="true">{{ league.status }}</mat-chip>
+              </div>
+            </div>
+          </mat-list-option>
+        }
+      </mat-selection-list>
+    </section>
+  }
+
+  @if (appStore.selectedLeague()) {
+    <div class="selected-banner">
+      <mat-icon>check_circle</mat-icon>
+      <span
+        >Active league: <strong>{{ appStore.selectedLeague()!.name }}</strong></span
+      >
+    </div>
+  }
+</div>

@@ -1,0 +1,25 @@
+<div class="app-shell">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <span class="app-title">Draft Assistant</span>
+  </mat-toolbar>
+
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="app-nav">
+    @for (link of navLinks; track link.path) {
+      <a
+        mat-tab-link
+        [routerLink]="link.path"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+      >
+        {{ link.label }}
+      </a>
+    }
+  </nav>
+
+  <mat-tab-nav-panel #tabPanel>
+    <main class="app-content">
+      <router-outlet />
+    </main>
+  </mat-tab-nav-panel>
+</div>
