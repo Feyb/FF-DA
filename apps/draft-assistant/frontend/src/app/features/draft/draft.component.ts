@@ -106,6 +106,14 @@ export class DraftComponent {
     return this.store.rosterDisplayNames()[String(rosterId)] ?? `Roster ${rosterId}`;
   }
 
+  protected playerNameForId(playerId: string | null | undefined): string {
+    if (!playerId) {
+      return 'Unknown player';
+    }
+
+    return this.store.playerNameMap()[playerId] ?? playerId;
+  }
+
   protected draftTypeLabel(draft: SleeperDraft): string {
     const type = draft.type?.trim();
     if (type && type.length > 0) {
@@ -207,7 +215,8 @@ export class DraftComponent {
       .sort((a, b) => a[0] - b[0])
       .map<RecommendationTierGroup>(([tier, rows]) => ({
         tier,
-        positions: this.recommendationPositionGroups(rows),
+        // Defensive safeguard: cap each tier to 3 recommendations max
+        positions: this.recommendationPositionGroups(rows.slice(0, 3)),
       }));
 
     if (untiered.length > 0) {

@@ -35,6 +35,7 @@ interface DraftState {
   selectedDraftId: string | null;
   draftStatus: string | null;
   rosterDisplayNames: Record<string, string>;
+  playerNameMap: Record<string, string>;
   picks: SleeperDraftPick[];
   rows: DraftPlayerRow[];
   selectedPositions: DraftPositionFilter[];
@@ -56,6 +57,7 @@ export const DraftStore = signalStore(
     selectedDraftId: null,
     draftStatus: null,
     rosterDisplayNames: {},
+    playerNameMap: {},
     picks: [],
     rows: [],
     selectedPositions: DEFAULT_POSITIONS,
@@ -122,7 +124,7 @@ export const DraftStore = signalStore(
         TE: 3,
       };
 
-      return store.rows()
+      const sortedRows = store.rows()
         .filter((row) => selected.has(row.position))
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
@@ -143,9 +145,36 @@ export const DraftStore = signalStore(
           const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
           if (aRank !== bRank) return aRank - bRank;
           return a.sleeperRank - b.sleeperRank;
-        })
-        .slice(0, 24)
-        .map<DraftRecommendation>((row) => ({
+        });
+
+      // Find top 3 distinct tier values
+      const tierOrder: number[] = [];
+      const seenTiers = new Set<number>();
+      for (const row of sortedRows) {
+        const tier = normalizedTier(row.overallTier, row.positionalTier);
+        if (!seenTiers.has(tier)) {
+          tierOrder.push(tier);
+          seenTiers.add(tier);
+        }
+      }
+      const top3Tiers = new Set(tierOrder.slice(0, 3));
+
+      // Filter to top 3 tiers and cap at 3 players per tier
+      const tierPlayerCounts = new Map<number, number>();
+      const filtered = sortedRows.filter((row) => {
+        const tier = normalizedTier(row.overallTier, row.positionalTier);
+        if (!top3Tiers.has(tier)) {
+          return false;
+        }
+        const count = tierPlayerCounts.get(tier) ?? 0;
+        if (count >= 3) {
+          return false;
+        }
+        tierPlayerCounts.set(tier, count + 1);
+        return true;
+      });
+
+      return filtered.map<DraftRecommendation>((row) => ({
           boostedScore:
             (row.ktcValue ?? 0) +
             tierBonus(row.overallTier, row.positionalTier),
@@ -375,6 +404,7 @@ export const DraftStore = signalStore(
     ): Promise<{
       selectedLeagueId: string | null;
       rosterDisplayNames: Record<string, string>;
+      playerNameMap: Record<string, string>;
       rows: DraftPlayerRow[];
       starredPlayerIds: string[];
     }> => {
@@ -389,6 +419,17 @@ export const DraftStore = signalStore(
       const [playersById, ktcPlayers] = await firstValueFrom(
         forkJoin([sleeper.getAllPlayers(), ktc.fetchPlayers(isSuperflex)]),
       );
+
+      // Build player name map from all players
+      const playerNameMap = Object.entries(playersById).reduce<Record<string, string>>((acc, [id, player]) => {
+        const firstName = player.first_name ?? '';
+        const lastName = player.last_name ?? '';
+        const fullName = player.full_name?.trim() || `${firstName} ${lastName}`.trim();
+        if (fullName.length > 0) {
+          acc[id] = fullName;
+        }
+        return acc;
+      }, {});
 
       const ktcLookup = ktc.buildNameLookup(ktcPlayers);
       const rows = mapRows(playersById, ktcLookup, Number(season));
@@ -411,6 +452,7 @@ export const DraftStore = signalStore(
       return {
         selectedLeagueId,
         rosterDisplayNames,
+        playerNameMap,
         rows,
         starredPlayerIds: loadStarredPlayerIds(selectedLeagueId),
       };
@@ -583,6 +625,7 @@ export const DraftStore = signalStore(
             selectedLeagueId: context.selectedLeagueId,
             draftSource: options?.source ?? store.draftSource() ?? 'league',
             rosterDisplayNames: context.rosterDisplayNames,
+            playerNameMap: context.playerNameMap,
             rows: context.rows,
             drafts: nextDrafts,
             draftStatus: draft.status ?? null,

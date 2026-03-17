@@ -224,8 +224,8 @@
                           (error)="onPlayerImageError($event)"
                         />
                         <div class="player-meta">
-                          <p class="player-name">{{ player.fullName }}</p>
-                          <p class="player-sub">{{ player.position }} • {{ player.team ?? 'FA' }} • Age {{ player.age ?? '-' }}</p>
+                          <span class="player-name">{{ player.fullName }}</span>
+                          <span class="player-sub">{{ player.position }} • {{ player.team ?? 'FA' }} • Age {{ player.age ?? '-' }}</span>
                         </div>
                         <span class="player-rank">#{{ player.ktcRank ?? '-' }}</span>
                         <span class="player-value">{{ player.ktcValue ?? '-' }}</span>
@@ -277,7 +277,7 @@
                   @for (pick of store.recentPicks(); track pick.pick_no) {
                     <div class="pick-item">
                       <span class="pick-number">#{{ pick.pick_no }}</span>
-                      <span class="pick-player">{{ pick.player_id }}</span>
+                      <span class="pick-player">{{ playerNameForId(pick.player_id) }}</span>
                       <span class="pick-owner">{{ ownerNameForRoster(pick.roster_id) }}</span>
                     </div>
                   }
