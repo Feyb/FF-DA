@@ -3,6 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   League,
+  SleeperDraft,
+  SleeperDraftPick,
   LeagueRoster,
   LeagueUser,
   SleeperCatalogPlayer,
@@ -37,5 +39,17 @@ export class SleeperService {
 
   getAllPlayers(): Observable<Record<string, SleeperCatalogPlayer>> {
     return this.http.get<Record<string, SleeperCatalogPlayer>>(`${BASE}/players/nfl`);
+  }
+
+  getLeagueDrafts(leagueId: string): Observable<SleeperDraft[]> {
+    return this.http.get<SleeperDraft[]>(`${BASE}/league/${leagueId}/drafts`);
+  }
+
+  getDraft(draftId: string): Observable<SleeperDraft> {
+    return this.http.get<SleeperDraft>(`${BASE}/draft/${draftId}`);
+  }
+
+  getDraftPicks(draftId: string): Observable<SleeperDraftPick[]> {
+    return this.http.get<SleeperDraftPick[]>(`${BASE}/draft/${draftId}/picks`);
   }
 }

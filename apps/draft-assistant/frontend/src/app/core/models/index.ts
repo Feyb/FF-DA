@@ -49,6 +49,63 @@ export interface DraftPick {
   original_roster_id: number;
 }
 
+export interface SleeperDraft {
+  draft_id: string;
+  league_id: string;
+  season?: string;
+  status?: string;
+  type?: string;
+  start_time?: number;
+  metadata?: Record<string, string>;
+  settings?: Record<string, string | number | null>;
+  slot_to_roster_id?: Record<string, number>;
+  draft_order?: Record<string, number>;
+}
+
+export interface SleeperDraftPick {
+  draft_id?: string;
+  player_id: string;
+  picked_by?: string | null;
+  roster_id?: number | null;
+  round: number;
+  pick_no: number;
+  draft_slot?: number | null;
+  metadata?: Record<string, string>;
+  is_keeper?: boolean;
+}
+
+export interface DraftPlayerRow {
+  playerId: string;
+  fullName: string;
+  position: 'QB' | 'RB' | 'WR' | 'TE';
+  team: string | null;
+  age: number | null;
+  rookie: boolean;
+  ktcValue: number | null;
+  ktcRank: number | null;
+  overallTier: number | null;
+  positionalTier: number | null;
+  sleeperRank: number;
+}
+
+export interface DraftTeamHistoryEntry {
+  rosterId: number;
+  ownerDisplayName: string;
+  picks: SleeperDraftPick[];
+}
+
+export interface DraftRecommendation {
+  playerId: string;
+  fullName: string;
+  position: 'QB' | 'RB' | 'WR' | 'TE';
+  team: string | null;
+  ktcValue: number | null;
+  ktcRank: number | null;
+  overallTier: number | null;
+  positionalTier: number | null;
+  boostedScore: number;
+}
+
 export type TierLabel = 'S' | 'A' | 'B' | 'C' | 'D';
 
 export interface PlayerTier {

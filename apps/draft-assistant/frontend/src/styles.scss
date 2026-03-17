@@ -6,25 +6,49 @@
 @tailwind utilities;
 
 // ── Angular Material M3 theme ──────────────────────────────────────────────────
-$theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: (
-      plain-family: 'Roboto',
-      brand-family: 'Roboto',
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
-);
+@mixin apply-theme($density-scale) {
+  $theme: mat.define-theme(
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: (
+        plain-family: 'Roboto',
+        brand-family: 'Roboto',
+      ),
+      density: (
+        scale: $density-scale,
+      ),
+    )
+  );
 
-:root {
   @include mat.all-component-themes($theme);
+}
+
+html {
+  @include apply-theme(0);
+}
+
+html.app-density--1 {
+  @include apply-theme(-1);
+}
+
+html.app-density--2 {
+  @include apply-theme(-2);
+}
+
+html.app-density--3 {
+  @include apply-theme(-3);
+}
+
+html.app-density--4 {
+  @include apply-theme(-4);
+}
+
+html.app-density--5 {
+  @include apply-theme(-5);
 }
 
 html,
