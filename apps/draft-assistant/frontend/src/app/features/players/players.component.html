@@ -1,113 +1,175 @@
 <section class="players-page">
-  <header class="players-header">
-    <h1 class="players-title">Players</h1>
-    <p class="players-subtitle">All available players with KTC-first ordering and Sleeper fallback.</p>
-  </header>
+      <header class="players-header">
+        <h1 class="players-title">Players</h1>
+        <p class="players-subtitle">All available players with KTC-first ordering and Sleeper fallback.</p>
+      </header>
 
-  <mat-card class="controls-card">
-    <div class="controls-grid">
-      <div class="position-filters">
-        @for (position of positions; track position) {
-          <button
-            mat-stroked-button
-            type="button"
-            [class.filter-active]="store.selectedPositions().includes(position)"
-            (click)="togglePosition(position)"
-          >
-            {{ position }}
-          </button>
-        }
-      </div>
-
-      <mat-slide-toggle
-        [ngModel]="store.rookiesOnly()"
-        (ngModelChange)="store.setRookiesOnly($event)"
-      >
-        Rookies only
-      </mat-slide-toggle>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Sort by</mat-label>
-        <mat-select
-          [ngModel]="store.sortBy()"
-          (ngModelChange)="store.setSortBy($event)"
-        >
-          <mat-option value="default">KTC rank (default)</mat-option>
-          <mat-option value="ktcValue">KTC value</mat-option>
-          <mat-option value="name">Name</mat-option>
-          <mat-option value="position">Position</mat-option>
-          <mat-option value="team">Team</mat-option>
-          <mat-option value="age">Age</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Direction</mat-label>
-        <mat-select
-          [ngModel]="store.sortDirection()"
-          (ngModelChange)="store.setSortDirection($event)"
-        >
-          <mat-option value="asc">Ascending</mat-option>
-          <mat-option value="desc">Descending</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </mat-card>
-
-  @if (store.ktcUnavailable()) {
-    <div class="warning-banner">
-      <mat-icon>warning</mat-icon>
-      <span>KTC data is unavailable right now. Showing Sleeper fallback ordering.</span>
-    </div>
-  }
-
-  @if (store.loading()) {
-    <div class="loading-row">
-      <mat-spinner diameter="36" />
-      <span>Loading players...</span>
-    </div>
-  }
-
-  @if (store.error()) {
-    <mat-card class="error-card">
-      <p>{{ store.error() }}</p>
-      <button mat-flat-button type="button" (click)="retryLoad()">Retry</button>
-    </mat-card>
-  }
-
-  @if (!store.loading()) {
-    <mat-card class="table-card">
-      <div class="table-scroll">
-        <table class="players-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Pos</th>
-              <th>Team</th>
-              <th>Age</th>
-              <th>KTC Rank</th>
-              <th>KTC Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (player of store.displayedRows(); track player.playerId; let i = $index) {
-              <tr>
-                <td>{{ i + 1 }}</td>
-                <td>{{ player.fullName }}</td>
-                <td>{{ player.position }}</td>
-                <td>{{ player.team ?? 'FA' }}</td>
-                <td>{{ player.age ?? '-' }}</td>
-                <td>{{ player.ktcRank ?? '-' }}</td>
-                <td>{{ player.ktcValue ?? '-' }}</td>
-              </tr>
+      <mat-card class="controls-card">
+        <div class="controls-grid">
+          <div class="position-filters">
+            @for (position of positions; track position) {
+              <button
+                mat-stroked-button
+                type="button"
+                [class.filter-active]="store.selectedPositions().includes(position)"
+                (click)="togglePosition(position)"
+              >
+                {{ position }}
+              </button>
             }
-          </tbody>
-        </table>
-      </div>
-      @if (store.displayedRows().length === 0) {
-        <p class="empty-copy">No players match the selected filters.</p>
+          </div>
+
+          <mat-slide-toggle
+            [ngModel]="store.rookiesOnly()"
+            (ngModelChange)="store.setRookiesOnly($event)"
+          >
+            Rookies only
+          </mat-slide-toggle>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Sort by</mat-label>
+            <mat-select [ngModel]="store.sortBy()" (ngModelChange)="store.setSortBy($event)">
+              <mat-option value="default">KTC rank (default)</mat-option>
+              <mat-option value="ktcValue">KTC value</mat-option>
+              <mat-option value="name">Name</mat-option>
+              <mat-option value="position">Position</mat-option>
+              <mat-option value="team">Team</mat-option>
+              <mat-option value="age">Age</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Direction</mat-label>
+            <mat-select [ngModel]="store.sortDirection()" (ngModelChange)="store.setSortDirection($event)">
+              <mat-option value="asc">Ascending</mat-option>
+              <mat-option value="desc">Descending</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card>
+
+      @if (store.ktcUnavailable()) {
+        <div class="warning-banner">
+          <mat-icon>warning</mat-icon>
+          <span>KTC data is unavailable right now. Showing Sleeper fallback ordering.</span>
+        </div>
       }
-    </mat-card>
-  }
-</section>
+
+      @if (store.loading()) {
+        <div class="loading-row">
+          <mat-spinner diameter="36" />
+          <span>Loading players...</span>
+        </div>
+      }
+
+      @if (store.error()) {
+        <mat-card class="error-card">
+          <p>{{ store.error() }}</p>
+          <button mat-flat-button type="button" (click)="retryLoad()">Retry</button>
+        </mat-card>
+      }
+
+      @if (!store.loading()) {
+        <mat-card class="table-card">
+          <div class="table-scroll">
+            <table class="players-table">
+              <thead>
+                <tr>
+                  <th class="expander-col"></th>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Pos</th>
+                  <th>Team</th>
+                  <th>Age</th>
+                  <th>KTC Rank</th>
+                  <th>KTC Value</th>
+                  <th>Tier</th>
+                  <th>Pos Tier</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (player of store.displayedRows(); track player.playerId; let i = $index) {
+                  <tr
+                    [class.row-expanded]="isExpanded(player.playerId)"
+                    [class.row-tier-s]="isTier(player.positionalTier, 's')"
+                    [class.row-tier-a]="isTier(player.positionalTier, 'a')"
+                    [class.row-tier-b]="isTier(player.positionalTier, 'b')"
+                    [class.row-tier-c]="isTier(player.positionalTier, 'c')"
+                    [class.row-tier-d]="isTier(player.positionalTier, 'd')"
+                  >
+                    <td class="expander-cell">
+                      <button
+                        mat-icon-button
+                        type="button"
+                        (click)="toggleExpanded(player.playerId)"
+                        [attr.aria-label]="'Toggle details for ' + player.fullName"
+                      >
+                        <mat-icon>
+                          {{ isExpanded(player.playerId) ? 'expand_less' : 'expand_more' }}
+                        </mat-icon>
+                      </button>
+                    </td>
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                      <div class="player-cell">
+                        <img
+                          class="player-avatar"
+                          [src]="playerHeadshotUrl(player.playerId)"
+                          [alt]="player.fullName"
+                          loading="lazy"
+                          (error)="onPlayerImageError($event)"
+                        />
+                        <span class="player-cell-name">{{ player.fullName }}</span>
+                      </div>
+                    </td>
+                    <td>{{ player.position }}</td>
+                    <td>{{ player.team ?? 'FA' }}</td>
+                    <td>{{ player.age ?? '-' }}</td>
+                    <td>{{ player.ktcRank ?? '-' }}</td>
+                    <td>{{ player.ktcValue ?? '-' }}</td>
+                    <td>{{ player.overallTier ?? '-' }}</td>
+                    <td>{{ player.positionalTier ?? '-' }}</td>
+                  </tr>
+
+                  @if (isExpanded(player.playerId)) {
+                    <tr class="player-details-row">
+                      <td colspan="10">
+                        <div class="player-details-grid">
+                          <div class="player-detail-item">
+                            <span class="detail-label">Rookie</span>
+                            <span class="detail-value">{{ player.rookie ? 'Yes' : 'No' }}</span>
+                          </div>
+                          <div class="player-detail-item">
+                            <span class="detail-label">Sleeper Rank</span>
+                            <span class="detail-value">{{ player.sleeperRank }}</span>
+                          </div>
+                          <div class="player-detail-item">
+                            <span class="detail-label">Overall Tier</span>
+                            <span class="detail-value">{{ player.overallTier ?? '-' }}</span>
+                          </div>
+                          <div class="player-detail-item">
+                            <span class="detail-label">Positional Tier</span>
+                            <span class="detail-value">{{ player.positionalTier ?? '-' }}</span>
+                          </div>
+                          <div class="player-detail-item">
+                            <span class="detail-label">KTC Rank</span>
+                            <span class="detail-value">{{ player.ktcRank ?? '-' }}</span>
+                          </div>
+                          <div class="player-detail-item">
+                            <span class="detail-label">KTC Value</span>
+                            <span class="detail-value">{{ player.ktcValue ?? '-' }}</span>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  }
+                }
+              </tbody>
+            </table>
+          </div>
+          @if (store.displayedRows().length === 0) {
+            <p class="empty-copy">No players match the selected filters.</p>
+          }
+        </mat-card>
+      }
+    </section>

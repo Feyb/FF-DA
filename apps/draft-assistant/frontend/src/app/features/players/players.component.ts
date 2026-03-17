@@ -33,119 +33,7 @@ interface PlayersStoreView {
 
 @Component({
   selector: 'app-players',
-  template: `
-    <section class="players-page">
-      <header class="players-header">
-        <h1 class="players-title">Players</h1>
-        <p class="players-subtitle">All available players with KTC-first ordering and Sleeper fallback.</p>
-      </header>
-
-      <mat-card class="controls-card">
-        <div class="controls-grid">
-          <div class="position-filters">
-            @for (position of positions; track position) {
-              <button
-                mat-stroked-button
-                type="button"
-                [class.filter-active]="store.selectedPositions().includes(position)"
-                (click)="togglePosition(position)"
-              >
-                {{ position }}
-              </button>
-            }
-          </div>
-
-          <mat-slide-toggle
-            [ngModel]="store.rookiesOnly()"
-            (ngModelChange)="store.setRookiesOnly($event)"
-          >
-            Rookies only
-          </mat-slide-toggle>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Sort by</mat-label>
-            <mat-select [ngModel]="store.sortBy()" (ngModelChange)="store.setSortBy($event)">
-              <mat-option value="default">KTC rank (default)</mat-option>
-              <mat-option value="ktcValue">KTC value</mat-option>
-              <mat-option value="name">Name</mat-option>
-              <mat-option value="position">Position</mat-option>
-              <mat-option value="team">Team</mat-option>
-              <mat-option value="age">Age</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Direction</mat-label>
-            <mat-select [ngModel]="store.sortDirection()" (ngModelChange)="store.setSortDirection($event)">
-              <mat-option value="asc">Ascending</mat-option>
-              <mat-option value="desc">Descending</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </mat-card>
-
-      @if (store.ktcUnavailable()) {
-        <div class="warning-banner">
-          <mat-icon>warning</mat-icon>
-          <span>KTC data is unavailable right now. Showing Sleeper fallback ordering.</span>
-        </div>
-      }
-
-      @if (store.loading()) {
-        <div class="loading-row">
-          <mat-spinner diameter="36" />
-          <span>Loading players...</span>
-        </div>
-      }
-
-      @if (store.error()) {
-        <mat-card class="error-card">
-          <p>{{ store.error() }}</p>
-          <button mat-flat-button type="button" (click)="retryLoad()">Retry</button>
-        </mat-card>
-      }
-
-      @if (!store.loading()) {
-        <mat-card class="table-card">
-          <div class="table-scroll">
-            <table class="players-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Pos</th>
-                  <th>Team</th>
-                  <th>Age</th>
-                  <th>KTC Rank</th>
-                  <th>KTC Value</th>
-                  <th>Tier</th>
-                  <th>Pos Tier</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (player of store.displayedRows(); track player.playerId; let i = $index) {
-                  <tr>
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ player.fullName }}</td>
-                    <td>{{ player.position }}</td>
-                    <td>{{ player.team ?? 'FA' }}</td>
-                    <td>{{ player.age ?? '-' }}</td>
-                    <td>{{ player.ktcRank ?? '-' }}</td>
-                    <td>{{ player.ktcValue ?? '-' }}</td>
-                    <td>{{ player.overallTier ?? '-' }}</td>
-                    <td>{{ player.positionalTier ?? '-' }}</td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-          @if (store.displayedRows().length === 0) {
-            <p class="empty-copy">No players match the selected filters.</p>
-          }
-        </mat-card>
-      }
-    </section>
-  `,
+  templateUrl: './players.component.html',
   styles: [
     `
       .players-page {
@@ -242,8 +130,94 @@ interface PlayersStoreView {
         background: rgb(248 250 252);
         font-weight: 600;
       }
+
+      .expander-col {
+        width: 2.75rem;
+      }
+
+      .expander-cell {
+        width: 2.75rem;
+        text-align: center;
+      }
+
       .players-table tbody tr:hover {
         background: rgb(248 250 252);
+      }
+
+      .row-expanded {
+        background: rgb(248 250 252);
+      }
+
+      .row-tier-s {
+        background: rgb(236 253 245);
+      }
+
+      .row-tier-a {
+        background: rgb(239 246 255);
+      }
+
+      .row-tier-b {
+        background: rgb(250 245 255);
+      }
+
+      .row-tier-c {
+        background: rgb(255 251 235);
+      }
+
+      .row-tier-d {
+        background: rgb(248 250 252);
+      }
+
+      .player-details-row td {
+        background: rgb(241 245 249);
+        border-bottom: 1px solid rgb(203 213 225);
+      }
+
+      .player-details-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem 1rem;
+        padding: 0.75rem 0.25rem;
+      }
+
+      @media (max-width: 768px) {
+        .player-details-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .player-detail-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.75rem;
+        font-size: 0.8125rem;
+      }
+
+      .detail-label {
+        color: rgb(71 85 105);
+      }
+
+      .detail-value {
+        font-weight: 600;
+        color: rgb(15 23 42);
+      }
+
+      .player-cell {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 12rem;
+      }
+      .player-avatar {
+        width: 1.75rem;
+        height: 1.75rem;
+        border-radius: 9999px;
+        object-fit: cover;
+        background: rgb(226 232 240);
+        flex-shrink: 0;
+      }
+      .player-cell-name {
+        white-space: nowrap;
       }
       .empty-copy {
         padding: 0.75rem 1rem;
@@ -267,6 +241,9 @@ interface PlayersStoreView {
 })
 export class PlayersComponent {
   protected readonly store = inject(PlayersStore) as PlayersStoreView;
+  protected expandedPlayerId: string | null = null;
+  protected readonly playerFallbackImage =
+    'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22 viewBox=%220 0 80 80%22%3E%3Crect width=%2280%22 height=%2280%22 rx=%2240%22 fill=%22%23e2e8f0%22/%3E%3Ccircle cx=%2240%22 cy=%2230%22 r=%2214%22 fill=%22%2394a3b8%22/%3E%3Cpath d=%22M18 66c3-12 13-19 22-19s19 7 22 19%22 fill=%22%2394a3b8%22/%3E%3C/svg%3E';
   protected readonly positions = ['QB', 'RB', 'WR', 'TE'] as const;
 
   protected togglePosition(position: 'QB' | 'RB' | 'WR' | 'TE'): void {
@@ -276,4 +253,49 @@ export class PlayersComponent {
   protected retryLoad(): void {
     this.store.loadPlayers();
   }
+
+  protected playerHeadshotUrl(playerId: string): string {
+    return `https://sleepercdn.com/content/nfl/players/thumb/${playerId}.jpg`;
+  }
+
+  protected onPlayerImageError(event: Event): void {
+    const img = event.target as HTMLImageElement | null;
+    if (!img || img.src === this.playerFallbackImage) {
+      return;
+    }
+    img.src = this.playerFallbackImage;
+  }
+
+  protected toggleExpanded(playerId: string): void {
+    this.expandedPlayerId = this.expandedPlayerId === playerId ? null : playerId;
+  }
+
+  protected isExpanded(playerId: string): boolean {
+    return this.expandedPlayerId === playerId;
+  }
+
+  protected isTier(
+    tier: number | null,
+    target: 's' | 'a' | 'b' | 'c' | 'd',
+  ): boolean {
+    if (tier === null) {
+      return false;
+    }
+
+    if (target === 's') {
+      return tier <= 2;
+    }
+    if (target === 'a') {
+      return tier >= 3 && tier <= 4;
+    }
+    if (target === 'b') {
+      return tier >= 5 && tier <= 6;
+    }
+    if (target === 'c') {
+      return tier >= 7 && tier <= 8;
+    }
+
+    return tier >= 9;
+  }
 }
+

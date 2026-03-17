@@ -53,105 +53,298 @@
     }
 
     @if (store.rating(); as rating) {
-      <section class="rating-section">
-        <h2 class="section-title">Team Rating</h2>
+      <div class="team-layout">
+        <div class="team-main">
+          <section class="rating-section">
+            <h2 class="section-title">Team Rating</h2>
 
-        @if (store.ratingWarning()) {
-          <div class="warning-banner">
-            <mat-icon>warning</mat-icon>
-            <span>{{ store.ratingWarning() }}</span>
-          </div>
-        }
-
-        <div class="rating-grid">
-          <mat-card class="combined-rating-card">
-            <p class="combined-rating-label">Combined Score</p>
-            <p class="combined-rating-value">{{ rating.combinedScore }}</p>
-            <p class="combined-rating-meta">{{ rating.playerCount }} players evaluated</p>
-          </mat-card>
-
-          <div class="position-chips">
-            @for (position of positionLabels; track position) {
-              <mat-chip class="position-chip" [highlighted]="true">
-                {{ position }}: {{ rating.positionScores[position] }}
-              </mat-chip>
+            @if (store.ratingWarning()) {
+              <div class="warning-banner">
+                <mat-icon>warning</mat-icon>
+                <span>{{ store.ratingWarning() }}</span>
+              </div>
             }
-          </div>
+
+            <div class="rating-grid">
+              <mat-card class="combined-rating-card">
+                <p class="combined-rating-label">Combined Score</p>
+                <p class="combined-rating-value">{{ rating.combinedScore | number:'1.0-0' }}</p>
+                <p class="combined-rating-meta">{{ rating.playerCount }} players evaluated</p>
+              </mat-card>
+
+              <div class="position-chips">
+                @for (position of positionLabels; track position) {
+                  <mat-chip class="position-chip" [highlighted]="true">
+                    {{ position }}: {{ rating.positionScores[position] | number:'1.0-0' }}
+                  </mat-chip>
+                }
+              </div>
+            </div>
+          </section>
+
+          <section class="tier-legend">
+            <h3 class="tier-legend-title">Positional Tier Legend</h3>
+            <div class="tier-legend-grid">
+              <div class="tier-legend-item">
+                <span class="tier-legend-swatch tier-legend-swatch--s"></span>
+                <span>S (1-2)</span>
+              </div>
+              <div class="tier-legend-item">
+                <span class="tier-legend-swatch tier-legend-swatch--a"></span>
+                <span>A (3-4)</span>
+              </div>
+              <div class="tier-legend-item">
+                <span class="tier-legend-swatch tier-legend-swatch--b"></span>
+                <span>B (5-6)</span>
+              </div>
+              <div class="tier-legend-item">
+                <span class="tier-legend-swatch tier-legend-swatch--c"></span>
+                <span>C (7-8)</span>
+              </div>
+              <div class="tier-legend-item">
+                <span class="tier-legend-swatch tier-legend-swatch--d"></span>
+                <span>D (9+)</span>
+              </div>
+              <div class="tier-legend-item">
+                <span class="tier-legend-swatch tier-legend-swatch--none"></span>
+                <span>No tier</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title">Starters</h2>
+            @if (store.sections().starters.length === 0) {
+              <p class="empty-copy">No starter data available.</p>
+            } @else {
+              @for (position of positionOrder; track position) {
+                @if (getStartersByPosition(position).length > 0) {
+                  <div class="position-section">
+                    <h3 class="position-heading">{{ position }}</h3>
+                    <div class="players-grid">
+                      @for (player of getStartersByPosition(position); track player.playerId) {
+                        <mat-card
+                          class="player-card"
+                          appearance="outlined"
+                          [ngClass]="getTierClass(player.ktcPositionalTier)"
+                        >
+                          <mat-card-header>
+                            <img
+                              mat-card-avatar
+                              class="player-avatar"
+                              [src]="playerHeadshotUrl(player.playerId)"
+                              [alt]="player.fullName"
+                              loading="lazy"
+                              (error)="onPlayerImageError($event)"
+                            />
+                            <mat-card-title class="player-name">{{ player.fullName }}</mat-card-title>
+                            <mat-card-subtitle class="player-meta">
+                              {{ player.position }} • {{ player.team ?? 'FA' }}
+                            </mat-card-subtitle>
+                          </mat-card-header>
+                          <mat-card-content class="player-card-content">
+                            <div class="player-meta-grid">
+                              <span class="player-meta-item"
+                                >Rank: <strong>{{ player.ktcRank ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item"
+                                >Pos Rank: <strong>{{ player.ktcPositionalRank ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item"
+                                >Value: <strong>{{ player.ktcValue ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item"
+                                >Tier: <strong>{{ player.ktcPositionalTier ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item"
+                                >Age: <strong>{{ player.age ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item"
+                                >Exp: <strong>{{ player.yearsExp ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item player-meta-item--wide"
+                                >Injury: <strong>{{ player.injuryStatus ?? 'Healthy' }}</strong></span
+                              >
+                            </div>
+                          </mat-card-content>
+                        </mat-card>
+                      }
+                    </div>
+                  </div>
+                }
+              }
+            }
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title">Bench</h2>
+            @if (store.sections().bench.length === 0) {
+              <p class="empty-copy">No bench players found.</p>
+            } @else {
+              @for (position of positionOrder; track position) {
+                @if (getBenchByPosition(position).length > 0) {
+                  <div class="position-section">
+                    <h3 class="position-heading">{{ position }}</h3>
+                    <div class="players-grid">
+                      @for (player of getBenchByPosition(position); track player.playerId) {
+                        <mat-card
+                          class="player-card"
+                          appearance="outlined"
+                          [ngClass]="getTierClass(player.ktcPositionalTier)"
+                        >
+                          <mat-card-header>
+                            <img
+                              mat-card-avatar
+                              class="player-avatar"
+                              [src]="playerHeadshotUrl(player.playerId)"
+                              [alt]="player.fullName"
+                              loading="lazy"
+                              (error)="onPlayerImageError($event)"
+                            />
+                            <mat-card-title class="player-name">{{ player.fullName }}</mat-card-title>
+                            <mat-card-subtitle class="player-meta">
+                              {{ player.position }} • {{ player.team ?? 'FA' }}
+                            </mat-card-subtitle>
+                          </mat-card-header>
+                          <mat-card-content class="player-card-content">
+                            <div class="player-meta-grid">
+                              <span class="player-meta-item"
+                                >Rank: <strong>{{ player.ktcRank ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item"
+                                >Pos Rank: <strong>{{ player.ktcPositionalRank ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item"
+                                >Value: <strong>{{ player.ktcValue ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item"
+                                >Tier: <strong>{{ player.ktcPositionalTier ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item"
+                                >Age: <strong>{{ player.age ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item"
+                                >Exp: <strong>{{ player.yearsExp ?? '-' }}</strong></span
+                              >
+                              <span class="player-meta-item player-meta-item--wide"
+                                >Injury: <strong>{{ player.injuryStatus ?? 'Healthy' }}</strong></span
+                              >
+                            </div>
+                          </mat-card-content>
+                        </mat-card>
+                      }
+                    </div>
+                  </div>
+                }
+              }
+            }
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title">IR</h2>
+            @if (store.sections().ir.length === 0) {
+              <p class="empty-copy">No players currently in IR.</p>
+            } @else {
+              <div class="players-grid">
+                @for (player of store.sections().ir; track player.playerId) {
+                  <mat-card
+                    class="player-card"
+                    appearance="outlined"
+                    [ngClass]="getTierClass(player.ktcPositionalTier)"
+                  >
+                    <mat-card-header>
+                      <img
+                        mat-card-avatar
+                        class="player-avatar"
+                        [src]="playerHeadshotUrl(player.playerId)"
+                        [alt]="player.fullName"
+                        loading="lazy"
+                        (error)="onPlayerImageError($event)"
+                      />
+                      <mat-card-title class="player-name">{{ player.fullName }}</mat-card-title>
+                      <mat-card-subtitle class="player-meta">
+                        {{ player.position }} • {{ player.team ?? 'FA' }}
+                      </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content class="player-card-content">
+                      <div class="player-meta-grid">
+                        <span class="player-meta-item"
+                          >Rank: <strong>{{ player.ktcRank ?? '-' }}</strong></span
+                        >
+                        <span class="player-meta-item"
+                          >Pos Rank: <strong>{{ player.ktcPositionalRank ?? '-' }}</strong></span
+                        >
+                        <span class="player-meta-item"
+                          >Value: <strong>{{ player.ktcValue ?? '-' }}</strong></span
+                        >
+                        <span class="player-meta-item"
+                          >Tier: <strong>{{ player.ktcPositionalTier ?? '-' }}</strong></span
+                        >
+                        <span class="player-meta-item"
+                          >Age: <strong>{{ player.age ?? '-' }}</strong></span
+                        >
+                        <span class="player-meta-item"
+                          >Exp: <strong>{{ player.yearsExp ?? '-' }}</strong></span
+                        >
+                        <span class="player-meta-item player-meta-item--wide"
+                          >Injury: <strong>{{ player.injuryStatus ?? 'Healthy' }}</strong></span
+                        >
+                      </div>
+                    </mat-card-content>
+                  </mat-card>
+                }
+              </div>
+            }
+          </section>
+
+          <section class="section-block">
+            <h2 class="section-title">Future Picks</h2>
+            @if (store.sections().futurePicks.length === 0) {
+              <p class="empty-copy">No future picks recorded.</p>
+            } @else {
+              <div class="picks-grid">
+                @for (pick of store.sections().futurePicks; track $index) {
+                  <mat-card class="pick-card">
+                    <p class="pick-season">{{ pick.season }}</p>
+                    <p class="pick-round">Round {{ pick.round }}</p>
+                  </mat-card>
+                }
+              </div>
+            }
+          </section>
         </div>
-      </section>
 
-      <section class="section-block">
-        <h2 class="section-title">Starters</h2>
-        @if (store.sections().starters.length === 0) {
-          <p class="empty-copy">No starter data available.</p>
-        } @else {
-          <div class="players-grid">
-            @for (player of store.sections().starters; track player.playerId) {
-              <mat-card class="player-card">
-                <div class="player-headline">
-                  <span class="player-name">{{ player.fullName }}</span>
-                  <span class="player-score">{{ player.ktcRank ?? '-' }}</span>
+        @if (store.leagueStandings().length > 0) {
+          <aside class="standings-panel">
+            <h2 class="section-title">League Rankings</h2>
+            @if (myRank()) {
+              <p class="standings-my-rank">
+                Your rank: <strong>{{ myRank() }}</strong> of {{ store.leagueStandings().length }}
+              </p>
+            }
+            <div class="standings-list">
+              @for (entry of store.leagueStandings(); track entry.rosterId) {
+                <div
+                  class="standings-entry"
+                  [class.standings-entry--mine]="entry.rosterId === store.selectedRosterId()"
+                >
+                  <div class="standings-header">
+                    <span class="standings-rank">{{ entry.rank }}</span>
+                    <span class="standings-name">{{ entry.ownerDisplayName }}</span>
+                    <span class="standings-score">{{ entry.combinedScore | number:'1.0-0' }}</span>
+                  </div>
+                  <div class="standings-positions">
+                    <span class="pos-chip">QB:{{ entry.positionScores.QB | number:'1.0-0' }}</span>
+                    <span class="pos-chip">RB:{{ entry.positionScores.RB | number:'1.0-0' }}</span>
+                    <span class="pos-chip">WR:{{ entry.positionScores.WR | number:'1.0-0' }}</span>
+                    <span class="pos-chip">TE:{{ entry.positionScores.TE | number:'1.0-0' }}</span>
+                  </div>
                 </div>
-                <p class="player-meta">{{ player.position }} • {{ player.team ?? 'FA' }}</p>
-              </mat-card>
-            }
-          </div>
+              }
+            </div>
+          </aside>
         }
-      </section>
-
-      <section class="section-block">
-        <h2 class="section-title">Bench</h2>
-        @if (store.sections().bench.length === 0) {
-          <p class="empty-copy">No bench players found.</p>
-        } @else {
-          <div class="players-grid">
-            @for (player of store.sections().bench; track player.playerId) {
-              <mat-card class="player-card">
-                <div class="player-headline">
-                  <span class="player-name">{{ player.fullName }}</span>
-                  <span class="player-score">{{ player.ktcRank ?? '-' }}</span>
-                </div>
-                <p class="player-meta">{{ player.position }} • {{ player.team ?? 'FA' }}</p>
-              </mat-card>
-            }
-          </div>
-        }
-      </section>
-
-      <section class="section-block">
-        <h2 class="section-title">IR</h2>
-        @if (store.sections().ir.length === 0) {
-          <p class="empty-copy">No players currently in IR.</p>
-        } @else {
-          <div class="players-grid">
-            @for (player of store.sections().ir; track player.playerId) {
-              <mat-card class="player-card">
-                <div class="player-headline">
-                  <span class="player-name">{{ player.fullName }}</span>
-                  <span class="player-score">{{ player.ktcRank ?? '-' }}</span>
-                </div>
-                <p class="player-meta">{{ player.position }} • {{ player.team ?? 'FA' }}</p>
-              </mat-card>
-            }
-          </div>
-        }
-      </section>
-
-      <section class="section-block">
-        <h2 class="section-title">Future Picks</h2>
-        @if (store.sections().futurePicks.length === 0) {
-          <p class="empty-copy">No future picks recorded.</p>
-        } @else {
-          <div class="picks-grid">
-            @for (pick of store.sections().futurePicks; track $index) {
-              <mat-card class="pick-card">
-                <p class="pick-season">{{ pick.season }}</p>
-                <p class="pick-round">Round {{ pick.round }}</p>
-              </mat-card>
-            }
-          </div>
-        }
-      </section>
+      </div>
     }
   }
 </section>

@@ -110,6 +110,9 @@ export interface TeamViewPlayer {
   injuryStatus: string | null;
   ktcValue: number | null;
   ktcRank: number | null;
+  ktcPositionalRank: number | null;
+  ktcOverallTier: number | null;
+  ktcPositionalTier: number | null;
 }
 
 export interface TeamViewRating {
@@ -152,4 +155,17 @@ export interface KtcPlayer {
   positionalRank: number;
   overallTier: number;
   positionalTier: number;
+}
+
+export interface LeagueStandingEntry {
+  rosterId: number;
+  ownerDisplayName: string;
+  combinedScore: number;
+  positionScores: {
+    QB: number;
+    RB: number;
+    WR: number;
+    TE: number;
+  };
+  rank: number;
 }

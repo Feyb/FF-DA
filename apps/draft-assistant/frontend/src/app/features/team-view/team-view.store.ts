@@ -7,6 +7,7 @@ import {
   DraftPick,
   KtcPlayer,
   LeagueRoster,
+  LeagueStandingEntry,
   LeagueUser,
   SleeperCatalogPlayer,
   TeamViewPlayer,
@@ -25,6 +26,7 @@ interface TeamViewState {
   sections: TeamViewRosterSections;
   rating: TeamViewRating | null;
   ratingWarning: string | null;
+  leagueStandings: LeagueStandingEntry[];
 }
 
 const emptySections = (): TeamViewRosterSections => ({
@@ -44,6 +46,7 @@ export const TeamViewStore = signalStore(
     sections: emptySections(),
     rating: null,
     ratingWarning: null,
+    leagueStandings: [],
   }),
   withMethods(
     (
@@ -64,6 +67,31 @@ export const TeamViewStore = signalStore(
           const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
           return aRank - bRank;
         });
+
+      const groupByPosition = (
+        players: TeamViewPlayer[],
+      ): Record<string, TeamViewPlayer[]> => {
+        const groups: Record<string, TeamViewPlayer[]> = {
+          QB: [],
+          RB: [],
+          WR: [],
+          TE: [],
+        };
+        players.forEach((player) => {
+          const pos = (player.position as keyof typeof groups) || 'UNKNOWN';
+          if (groups[pos]) {
+            groups[pos].push(player);
+          }
+        });
+        Object.keys(groups).forEach((pos) => {
+          groups[pos] = groups[pos].sort((a, b) => {
+            const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
+            const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
+            return aRank - bRank;
+          });
+        });
+        return groups;
+      };
 
       const buildRosterOptions = (
         rosters: LeagueRoster[],
@@ -108,6 +136,9 @@ export const TeamViewStore = signalStore(
           injuryStatus,
           ktcValue: ktcPlayer?.value ?? null,
           ktcRank: ktcPlayer?.rank ?? null,
+          ktcPositionalRank: ktcPlayer?.positionalRank ?? null,
+          ktcOverallTier: ktcPlayer?.overallTier ?? null,
+          ktcPositionalTier: ktcPlayer?.positionalTier ?? null,
         };
       };
 
@@ -119,6 +150,25 @@ export const TeamViewStore = signalStore(
           }
           return a.round - b.round;
         });
+
+      const computeLeagueStandings = (): LeagueStandingEntry[] => {
+        const entries = rostersCache.map((roster) => {
+          const uniquePlayerIds = [...new Set(roster.players ?? [])];
+          const players = uniquePlayerIds.map((id) => toPlayer(id, playersByIdCache[id]));
+          const rating = ratingService.computeTeamRating(players, ktcLookupCache);
+          const owner = roster.owner_id ? usersByIdCache[roster.owner_id] : undefined;
+          return {
+            rosterId: roster.roster_id,
+            ownerDisplayName: owner?.display_name ?? `Roster ${roster.roster_id}`,
+            combinedScore: rating.combinedScore,
+            positionScores: rating.positionScores,
+            rank: 0,
+          };
+        });
+        return entries
+          .sort((a, b) => b.combinedScore - a.combinedScore)
+          .map((entry, i) => ({ ...entry, rank: i + 1 }));
+      };
 
       const applyRosterSelection = (rosterId: number): void => {
         const selectedRoster = rostersCache.find((roster) => roster.roster_id === rosterId);
@@ -194,6 +244,7 @@ export const TeamViewStore = signalStore(
           sections: emptySections(),
           rating: null,
           ratingWarning: null,
+          leagueStandings: [],
         });
       };
 
@@ -229,7 +280,8 @@ export const TeamViewStore = signalStore(
           seasonCache = season;
 
           const availableRosters = buildRosterOptions(rostersCache, usersByIdCache);
-          patchState(store, { availableRosters });
+          const leagueStandings = computeLeagueStandings();
+          patchState(store, { availableRosters, leagueStandings });
 
           const currentUser = appStore.user();
           if (!currentUser) {
