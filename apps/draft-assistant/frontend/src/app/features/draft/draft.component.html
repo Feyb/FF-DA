@@ -1,0 +1,314 @@
+<section class="draft-page">
+  <header class="draft-header">
+    <div class="draft-title-row">
+      <h1 class="draft-title">Draft</h1>
+      @if (store.draftSource(); as draftSource) {
+        <span class="draft-source-badge">
+          {{ draftSource === 'direct' ? 'Direct URL' : 'League Draft' }}
+        </span>
+      }
+    </div>
+    <p class="draft-subtitle">
+      Live draft board with available players, stars, and KTC best-available recommendations.
+    </p>
+  </header>
+
+  @if (!appStore.selectedLeague()) {
+    <mat-card class="info-card" appearance="outlined">
+      <div class="info-card-content">
+        <mat-icon>info</mat-icon>
+        <div>
+          <p class="info-card-title">No league selected</p>
+          <p class="info-card-copy">Select a league in Home first, then return to Draft.</p>
+        </div>
+      </div>
+    </mat-card>
+  } @else {
+    <mat-card class="controls-card" appearance="outlined">
+      <div class="controls-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Draft context</mat-label>
+          <mat-select [value]="store.selectedDraftId()" (selectionChange)="onDraftChange($event)">
+            @for (draft of store.drafts(); track draft.draft_id) {
+              <mat-option [value]="draft.draft_id">
+                {{ draft.type ?? 'Draft' }} • {{ draft.status ?? 'unknown' }} • {{ draft.draft_id }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <div class="position-filters">
+          @for (position of positions; track position) {
+            <button
+              mat-stroked-button
+              [class.filter-active]="store.selectedPositions().includes(position)"
+              (click)="togglePosition(position)"
+            >
+              {{ position }}
+            </button>
+          }
+        </div>
+
+        <mat-slide-toggle
+          [ngModel]="store.rookiesOnly()"
+          (ngModelChange)="store.setRookiesOnly($event)"
+        >
+          Rookies only
+        </mat-slide-toggle>
+
+        <div class="controls-actions">
+          <button mat-flat-button (click)="refreshDraft()">Refresh</button>
+          @if (store.lastUpdatedAt()) {
+            <span class="updated-at">Updated {{ store.lastUpdatedAt()! | date:'mediumTime' }}</span>
+          }
+        </div>
+      </div>
+
+      <div class="mock-draft-row">
+        <mat-form-field appearance="outline" class="mock-draft-field">
+          <mat-label>Mock draft URL or draft id</mat-label>
+          <input
+            matInput
+            [ngModel]="mockDraftUrl"
+            (ngModelChange)="mockDraftUrl = $event"
+            placeholder="https://sleeper.com/draft/nfl/1338981448228569088"
+          />
+        </mat-form-field>
+        <button mat-flat-button (click)="loadMockDraftUrl()">Load mock draft</button>
+      </div>
+
+      @if (mockDraftUrlError) {
+        <p class="mock-draft-error">{{ mockDraftUrlError }}</p>
+      }
+    </mat-card>
+
+    @if (store.loading()) {
+      <div class="loading-row">
+        <mat-spinner diameter="34"></mat-spinner>
+        <span>Loading draft data...</span>
+      </div>
+    }
+
+    @if (store.error()) {
+      <mat-card class="error-card" appearance="outlined">
+        <p>{{ store.error() }}</p>
+        <button mat-flat-button (click)="retryLoad()">Retry</button>
+      </mat-card>
+    }
+
+    @if (store.staleData()) {
+      <mat-card class="warning-card" appearance="outlined">
+        <div class="warning-content">
+          <mat-icon>warning</mat-icon>
+          <span>Draft updates are stale. Automatic retries are active.</span>
+        </div>
+      </mat-card>
+    }
+
+    @if (store.drafts().length === 0 && !store.loading()) {
+      <mat-card class="info-card" appearance="outlined">
+        <div class="info-card-content">
+          <mat-icon>event_busy</mat-icon>
+          <div>
+            <p class="info-card-title">No draft found for this league</p>
+            <p class="info-card-copy">When a Sleeper draft is available it will appear here.</p>
+          </div>
+        </div>
+      </mat-card>
+    } @else {
+      @if (store.selectedDraft(); as selectedDraft) {
+        <div class="draft-layout">
+          <div class="draft-main">
+            <mat-card class="summary-card" appearance="outlined">
+              <p class="summary-title">Current Draft Status</p>
+              <div class="summary-grid">
+                <div>
+                  <p class="summary-label">Status</p>
+                  <p class="summary-value">{{ selectedDraft.status ?? 'unknown' }}</p>
+                </div>
+                <div>
+                  <p class="summary-label">Type</p>
+                  <p class="summary-value">{{ draftTypeLabel(selectedDraft) }}</p>
+                </div>
+                <div>
+                  <p class="summary-label">Rounds</p>
+                  <p class="summary-value">{{ draftSetting(selectedDraft, 'rounds') }}</p>
+                </div>
+                <div>
+                  <p class="summary-label">Slots</p>
+                  <p class="summary-value">{{ draftSetting(selectedDraft, 'teams') }}</p>
+                </div>
+                <div>
+                  <p class="summary-label">Total picks made</p>
+                  <p class="summary-value">{{ store.pickBoard().length }}</p>
+                </div>
+                <div>
+                  <p class="summary-label">Next pick</p>
+                  <p class="summary-value">#{{ store.nextPickNumber() }}</p>
+                </div>
+              </div>
+            </mat-card>
+
+            <mat-card class="recommendations-card" appearance="outlined">
+              <div class="section-header">
+                <h2>Recommendations</h2>
+                <span class="section-hint">Mode: KTC best available</span>
+              </div>
+              @if (store.recommendations().length === 0) {
+                <p class="empty-copy">No recommendation candidates right now.</p>
+              } @else {
+                <div class="recommendation-list">
+                  @for (tierGroup of recommendationTierGroups(store.recommendations()); track tierGroupLabel(tierGroup)) {
+                    <div class="recommendation-tier-header">{{ tierGroupLabel(tierGroup) }}</div>
+                    @for (positionGroup of tierGroup.positions; track positionGroup.position) {
+                      <div class="recommendation-position-header">{{ positionGroup.position }}</div>
+                      @for (rec of positionGroup.recommendations; track rec.playerId) {
+                        <div
+                          class="recommendation-item"
+                          [class.tier-s]="tierBand(rec.positionalTier ?? rec.overallTier) === 's'"
+                          [class.tier-a]="tierBand(rec.positionalTier ?? rec.overallTier) === 'a'"
+                          [class.tier-b]="tierBand(rec.positionalTier ?? rec.overallTier) === 'b'"
+                          [class.tier-c]="tierBand(rec.positionalTier ?? rec.overallTier) === 'c'"
+                          [class.tier-d]="tierBand(rec.positionalTier ?? rec.overallTier) === 'd'"
+                        >
+                          <span class="recommendation-rank">#{{ rec.ktcRank ?? '-' }}</span>
+                          <div>
+                            <span class="recommendation-name">{{ rec.fullName }}</span>
+                            <span class="recommendation-meta">
+                              {{ rec.position }} • {{ rec.team ?? 'FA' }} • O-Tier {{ rec.overallTier ?? '-' }} • P-Tier {{ rec.positionalTier ?? '-' }}
+                            </span>
+                          </div>
+                          <div class="recommendation-values">
+                            <span class="recommendation-value">{{ rec.ktcValue ?? '-' }}</span>
+                            <span class="recommendation-boost">Boost {{ rec.boostedScore | number:'1.0-0' }}</span>
+                          </div>
+                        </div>
+                      }
+                    }
+                  }
+                </div>
+              }
+            </mat-card>
+
+            <mat-card class="players-card" appearance="outlined">
+              <div class="section-header">
+                <h2>Available Players</h2>
+                <span class="section-hint">{{ store.availableRows().length }} players</span>
+              </div>
+
+              @if (store.availableRows().length === 0) {
+                <p class="empty-copy">No players match your current filters.</p>
+              } @else {
+                <div class="players-list">
+                  @if (store.availableRows().slice(0, 80); as visibleRows) {
+                    @for (player of visibleRows; track player.playerId; let i = $index) {
+                      @if (shouldShowTierDivider(visibleRows, i)) {
+                        <div class="tier-divider-row">
+                          <span class="tier-divider-label">{{ tierDividerLabel(player) }}</span>
+                        </div>
+                      }
+
+                      <div
+                        class="player-row"
+                        [class.tier-s]="tierBand(player.positionalTier ?? player.overallTier) === 's'"
+                        [class.tier-a]="tierBand(player.positionalTier ?? player.overallTier) === 'a'"
+                        [class.tier-b]="tierBand(player.positionalTier ?? player.overallTier) === 'b'"
+                        [class.tier-c]="tierBand(player.positionalTier ?? player.overallTier) === 'c'"
+                        [class.tier-d]="tierBand(player.positionalTier ?? player.overallTier) === 'd'"
+                      >
+                        <img
+                          class="player-avatar"
+                          [src]="playerHeadshotUrl(player.playerId)"
+                          [alt]="player.fullName"
+                          loading="lazy"
+                          (error)="onPlayerImageError($event)"
+                        />
+                        <div class="player-meta">
+                          <p class="player-name">{{ player.fullName }}</p>
+                          <p class="player-sub">{{ player.position }} • {{ player.team ?? 'FA' }} • Age {{ player.age ?? '-' }}</p>
+                        </div>
+                        <span class="player-rank">#{{ player.ktcRank ?? '-' }}</span>
+                        <span class="player-value">{{ player.ktcValue ?? '-' }}</span>
+                        <button
+                          type="button"
+                          class="star-button"
+                          [class.star-active]="isStarred(player.playerId)"
+                          (click)="toggleStar(player.playerId)"
+                          [attr.aria-label]="isStarred(player.playerId) ? 'Unstar player' : 'Star player'"
+                        >
+                          <mat-icon>{{ isStarred(player.playerId) ? 'star' : 'star_border' }}</mat-icon>
+                        </button>
+                      </div>
+                    }
+                  }
+                </div>
+              }
+            </mat-card>
+          </div>
+
+          <aside class="draft-side">
+            <mat-card class="stars-card" appearance="outlined">
+              <div class="section-header">
+                <h2>Starred</h2>
+                <span class="section-hint">{{ store.starredRows().length }} available</span>
+              </div>
+              @if (store.starredRows().length === 0) {
+                <p class="empty-copy">No starred players available.</p>
+              } @else {
+                <div class="chip-list">
+                  @for (row of store.starredRows(); track row.playerId) {
+                    <mat-chip>
+                      {{ row.fullName }}
+                    </mat-chip>
+                  }
+                </div>
+              }
+            </mat-card>
+
+            <mat-card class="board-card" appearance="outlined">
+              <div class="section-header">
+                <h2>Recent Picks</h2>
+                <span class="section-hint">Latest 10</span>
+              </div>
+              @if (store.recentPicks().length === 0) {
+                <p class="empty-copy">No picks recorded yet.</p>
+              } @else {
+                <div class="pick-list">
+                  @for (pick of store.recentPicks(); track pick.pick_no) {
+                    <div class="pick-item">
+                      <span class="pick-number">#{{ pick.pick_no }}</span>
+                      <span class="pick-player">{{ pick.player_id }}</span>
+                      <span class="pick-owner">{{ ownerNameForRoster(pick.roster_id) }}</span>
+                    </div>
+                  }
+                </div>
+              }
+            </mat-card>
+
+            <mat-card class="history-card" appearance="outlined">
+              <div class="section-header">
+                <h2>Team Draft History</h2>
+              </div>
+              @if (store.teamHistory().length === 0) {
+                <p class="empty-copy">No team draft history yet.</p>
+              } @else {
+                <div class="history-list">
+                  @for (team of store.teamHistory(); track team.rosterId) {
+                    <div class="history-item">
+                      <p class="history-team">{{ team.ownerDisplayName }}</p>
+                      <div class="chip-list">
+                        @for (pick of team.picks; track pick.pick_no) {
+                          <mat-chip>R{{ pick.round }} • #{{ pick.pick_no }}</mat-chip>
+                        }
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            </mat-card>
+          </aside>
+        </div>
+      }
+    }
+  }
+</section>
