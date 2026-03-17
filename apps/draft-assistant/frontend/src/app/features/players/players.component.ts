@@ -118,6 +118,8 @@ interface PlayersStoreView {
                   <th>Age</th>
                   <th>KTC Rank</th>
                   <th>KTC Value</th>
+                  <th>Tier</th>
+                  <th>Pos Tier</th>
                 </tr>
               </thead>
               <tbody>
@@ -130,6 +132,8 @@ interface PlayersStoreView {
                     <td>{{ player.age ?? '-' }}</td>
                     <td>{{ player.ktcRank ?? '-' }}</td>
                     <td>{{ player.ktcValue ?? '-' }}</td>
+                    <td>{{ player.overallTier ?? '-' }}</td>
+                    <td>{{ player.positionalTier ?? '-' }}</td>
                   </tr>
                 }
               </tbody>

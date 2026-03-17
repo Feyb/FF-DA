@@ -108,7 +108,8 @@ export interface TeamViewPlayer {
   age: number | null;
   yearsExp: number | null;
   injuryStatus: string | null;
-  fallbackScore: number;
+  ktcValue: number | null;
+  ktcRank: number | null;
 }
 
 export interface TeamViewRating {

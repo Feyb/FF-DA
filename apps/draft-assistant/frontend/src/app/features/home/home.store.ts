@@ -41,8 +41,15 @@ export const HomeStore = signalStore(
                 return sleeperService.getLeaguesByUserId(user.user_id, season);
               }),
               tapResponse({
-                next: (leagues) =>
-                  patchState(store, { leagues, loading: false }),
+                next: (leagues) => {
+                  patchState(store, { leagues, loading: false });
+                  // Auto-select the previously stored league using fresh data
+                  const storedLeagueId = appStore.selectedLeague()?.league_id;
+                  if (storedLeagueId) {
+                    const match = leagues.find((l) => l.league_id === storedLeagueId);
+                    if (match) appStore.setSelectedLeague(match);
+                  }
+                },
                 error: (err: unknown) =>
                   patchState(store, {
                     loading: false,

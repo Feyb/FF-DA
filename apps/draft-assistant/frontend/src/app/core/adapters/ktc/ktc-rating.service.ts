@@ -119,8 +119,7 @@ export class KtcRatingService {
     let combinedScore = 0;
 
     for (const player of players) {
-      const ktcEntry = ktcLookup?.get(this.normalizeName(player.fullName));
-      const score = ktcEntry?.value ?? player.fallbackScore;
+      const score = player.ktcValue ?? 0;
       combinedScore += score;
       if (player.position === 'QB') positionScores.QB += score;
       else if (player.position === 'RB') positionScores.RB += score;

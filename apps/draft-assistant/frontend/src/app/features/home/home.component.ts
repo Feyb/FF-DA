@@ -43,6 +43,7 @@ export class HomeComponent {
     const savedUsername = this.getSavedUsername();
     if (savedUsername) {
       this.usernameControl.setValue(savedUsername);
+      this.store.loadByUsername(savedUsername);
     }
   }
 

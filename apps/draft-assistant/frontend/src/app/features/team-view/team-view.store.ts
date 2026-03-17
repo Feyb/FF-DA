@@ -59,7 +59,11 @@ export const TeamViewStore = signalStore(
       let ktcLookupCache: Map<string, KtcPlayer> = new Map();
 
       const sortByValueDesc = (players: TeamViewPlayer[]): TeamViewPlayer[] =>
-        [...players].sort((a, b) => b.fallbackScore - a.fallbackScore);
+        [...players].sort((a, b) => {
+          const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
+          const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
+          return aRank - bRank;
+        });
 
       const buildRosterOptions = (
         rosters: LeagueRoster[],
@@ -90,12 +94,7 @@ export const TeamViewStore = signalStore(
         const yearsExp = sleeperPlayer?.years_exp ?? null;
         const injuryStatus = sleeperPlayer?.injury_status ?? null;
 
-        const fallbackScore = ratingService.scorePlayerFromSleeperFallback({
-          position,
-          age,
-          yearsExp,
-          injuryStatus,
-        });
+        const ktcPlayer = ktcLookupCache.get(ratingService.normalizeName(fullName));
 
         return {
           playerId,
@@ -107,7 +106,8 @@ export const TeamViewStore = signalStore(
           age,
           yearsExp,
           injuryStatus,
-          fallbackScore,
+          ktcValue: ktcPlayer?.value ?? null,
+          ktcRank: ktcPlayer?.rank ?? null,
         };
       };
 

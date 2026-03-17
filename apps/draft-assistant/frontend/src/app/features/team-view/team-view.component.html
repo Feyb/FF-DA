@@ -90,7 +90,7 @@
               <mat-card class="player-card">
                 <div class="player-headline">
                   <span class="player-name">{{ player.fullName }}</span>
-                  <span class="player-score">{{ player.fallbackScore }}</span>
+                  <span class="player-score">{{ player.ktcRank ?? '-' }}</span>
                 </div>
                 <p class="player-meta">{{ player.position }} • {{ player.team ?? 'FA' }}</p>
               </mat-card>
@@ -109,7 +109,7 @@
               <mat-card class="player-card">
                 <div class="player-headline">
                   <span class="player-name">{{ player.fullName }}</span>
-                  <span class="player-score">{{ player.fallbackScore }}</span>
+                  <span class="player-score">{{ player.ktcRank ?? '-' }}</span>
                 </div>
                 <p class="player-meta">{{ player.position }} • {{ player.team ?? 'FA' }}</p>
               </mat-card>
@@ -128,7 +128,7 @@
               <mat-card class="player-card">
                 <div class="player-headline">
                   <span class="player-name">{{ player.fullName }}</span>
-                  <span class="player-score">{{ player.fallbackScore }}</span>
+                  <span class="player-score">{{ player.ktcRank ?? '-' }}</span>
                 </div>
                 <p class="player-meta">{{ player.position }} • {{ player.team ?? 'FA' }}</p>
               </mat-card>

@@ -19,8 +19,9 @@ export interface PlayerRow {
   rookie: boolean;
   ktcValue: number | null;
   ktcRank: number | null;
+  overallTier: number | null;
+  positionalTier: number | null;
   sleeperRank: number;
-  fallbackScore: number;
 }
 
 interface PlayersState {
@@ -119,13 +120,6 @@ export const PlayersStore = signalStore(
       const positionRaw = source.position ?? '';
       const position = positionRaw as PositionFilter;
 
-      const fallbackScore = ktcService.scorePlayerFromSleeperFallback({
-        position: positionRaw,
-        age: source.age ?? null,
-        yearsExp: source.years_exp ?? null,
-        injuryStatus: source.injury_status ?? null,
-      });
-
       const ktcPlayer = ktcLookup.get(ktcService.normalizeName(fullName));
 
       return {
@@ -137,7 +131,8 @@ export const PlayersStore = signalStore(
         rookie: ktcPlayer?.rookie ?? source.rookie_year === currentSeason,
         ktcValue: ktcPlayer?.value ?? null,
         ktcRank: ktcPlayer?.rank ?? null,
-        fallbackScore,
+        overallTier: ktcPlayer?.overallTier ?? null,
+        positionalTier: ktcPlayer?.positionalTier ?? null,
       };
     };
 
@@ -166,7 +161,11 @@ export const PlayersStore = signalStore(
             .filter((row) => DEFAULT_POSITIONS.includes(row.position))
             .filter((row) => row.team !== null || row.rookie);
 
-          const sleeperSorted = [...rawRows].sort((a, b) => b.fallbackScore - a.fallbackScore);
+          const sleeperSorted = [...rawRows].sort((a, b) => {
+            const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
+            const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
+            return aRank - bRank;
+          });
           const sleeperRankMap = new Map<string, number>();
           for (let i = 0; i < sleeperSorted.length; i++) {
             sleeperRankMap.set(sleeperSorted[i].playerId, i + 1);

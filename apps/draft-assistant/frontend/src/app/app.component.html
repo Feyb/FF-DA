@@ -1,6 +1,12 @@
 <div class="app-shell">
   <mat-toolbar color="primary" class="app-toolbar">
     <span class="app-title">Draft Assistant</span>
+    @if (appStore.selectedLeague()) {
+      <span class="toolbar-league">
+        <mat-icon>check_circle</mat-icon>
+        {{ appStore.selectedLeague()!.name }}
+      </span>
+    }
   </mat-toolbar>
 
   <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="app-nav">

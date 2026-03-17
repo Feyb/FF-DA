@@ -10,6 +10,16 @@
   @apply font-bold text-lg;
 }
 
+.toolbar-league {
+  @apply flex items-center gap-1 ml-auto text-sm opacity-90;
+
+  mat-icon {
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
 .app-nav {
   flex-shrink: 0;
 }
