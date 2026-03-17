@@ -1,0 +1,143 @@
+.team-view-page {
+  @apply max-w-5xl mx-auto px-4 py-8 flex flex-col gap-6;
+}
+
+.team-view-header {
+  @apply flex flex-col gap-1;
+}
+
+.team-view-title {
+  @apply text-3xl font-bold;
+}
+
+.team-view-subtitle {
+  @apply text-sm text-slate-600;
+}
+
+.info-card-content {
+  @apply flex items-start gap-3;
+}
+
+.info-card-title {
+  @apply text-base font-semibold;
+}
+
+.info-card-copy {
+  @apply text-sm text-slate-600;
+}
+
+.loading-row {
+  @apply flex items-center gap-3;
+}
+
+.error-card {
+  @apply flex flex-col gap-3;
+}
+
+.error-text {
+  @apply text-red-700;
+}
+
+.selection-card {
+  @apply flex flex-col gap-2;
+}
+
+.selection-title {
+  @apply text-base font-semibold;
+}
+
+.selection-copy {
+  @apply text-sm text-slate-600;
+}
+
+.selection-field {
+  @apply w-full;
+}
+
+.rating-section {
+  @apply flex flex-col gap-4;
+}
+
+.section-title {
+  @apply text-lg font-semibold;
+}
+
+.warning-banner {
+  @apply rounded-lg border border-amber-300 bg-amber-50 text-amber-900 px-3 py-2 flex items-center gap-2 text-sm;
+}
+
+.rating-grid {
+  @apply grid gap-4 md:grid-cols-[220px_1fr];
+}
+
+.combined-rating-card {
+  @apply flex flex-col gap-1;
+}
+
+.combined-rating-label {
+  @apply text-sm text-slate-500;
+}
+
+.combined-rating-value {
+  @apply text-4xl font-bold;
+}
+
+.combined-rating-meta {
+  @apply text-xs text-slate-500;
+}
+
+.position-chips {
+  @apply flex flex-wrap gap-2;
+}
+
+.position-chip {
+  @apply text-sm;
+}
+
+.section-block {
+  @apply flex flex-col gap-3;
+}
+
+.empty-copy {
+  @apply text-sm text-slate-500;
+}
+
+.players-grid {
+  @apply grid gap-3 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+.player-card {
+  @apply flex flex-col gap-1;
+}
+
+.player-headline {
+  @apply flex items-center justify-between gap-2;
+}
+
+.player-name {
+  @apply font-medium;
+}
+
+.player-score {
+  @apply text-sm font-semibold text-slate-700;
+}
+
+.player-meta {
+  @apply text-xs text-slate-500;
+}
+
+.picks-grid {
+  @apply grid gap-3 sm:grid-cols-2 md:grid-cols-3;
+}
+
+.pick-card {
+  @apply flex flex-col gap-1;
+}
+
+.pick-season {
+  @apply text-lg font-semibold;
+}
+
+.pick-round {
+  @apply text-sm text-slate-600;
+}

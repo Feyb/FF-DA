@@ -1,0 +1,11 @@
+{
+  "/ktc": {
+    "target": "https://keeptradecut.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/ktc": ""
+    },
+    "logLevel": "debug"
+  }
+}

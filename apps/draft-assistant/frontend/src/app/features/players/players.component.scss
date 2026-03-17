@@ -1,0 +1,72 @@
+.players-page {
+  @apply max-w-6xl mx-auto px-4 py-8 flex flex-col gap-5;
+}
+
+.players-header {
+  @apply flex flex-col gap-1;
+}
+
+.players-title {
+  @apply text-3xl font-bold;
+}
+
+.players-subtitle {
+  @apply text-sm text-slate-600;
+}
+
+.controls-card {
+  @apply p-4;
+}
+
+.controls-grid {
+  @apply grid gap-4 md:grid-cols-2 xl:grid-cols-4;
+}
+
+.position-filters {
+  @apply flex flex-wrap gap-2;
+}
+
+.filter-active {
+  @apply bg-slate-900 text-white;
+}
+
+.warning-banner {
+  @apply rounded-lg border border-amber-300 bg-amber-50 text-amber-900 px-3 py-2 flex items-center gap-2 text-sm;
+}
+
+.loading-row {
+  @apply flex items-center gap-3;
+}
+
+.error-card {
+  @apply flex items-center justify-between gap-3 p-4;
+}
+
+.table-card {
+  @apply p-0 overflow-hidden;
+}
+
+.table-scroll {
+  @apply overflow-x-auto;
+}
+
+.players-table {
+  @apply w-full border-collapse;
+
+  th,
+  td {
+    @apply text-left px-3 py-2 border-b border-slate-200 text-sm;
+  }
+
+  thead th {
+    @apply bg-slate-50 font-semibold;
+  }
+
+  tbody tr:hover {
+    @apply bg-slate-50;
+  }
+}
+
+.empty-copy {
+  @apply text-sm text-slate-600 px-4 py-3;
+}

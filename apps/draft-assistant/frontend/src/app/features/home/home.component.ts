@@ -12,6 +12,8 @@ import { HomeStore } from './home.store';
 import { AppStore } from '../../core/state/app.store';
 import { League } from '../../core/models';
 
+const HOME_USERNAME_STORAGE_KEY = 'draftAssistant.sleeperUsername';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -37,9 +39,19 @@ export class HomeComponent {
   protected readonly usernameControl = new FormControl('');
   protected readonly leagueIdControl = new FormControl('');
 
+  constructor() {
+    const savedUsername = this.getSavedUsername();
+    if (savedUsername) {
+      this.usernameControl.setValue(savedUsername);
+    }
+  }
+
   protected searchByUsername(): void {
     const val = this.usernameControl.value?.trim();
-    if (val) this.store.loadByUsername(val);
+    if (!val) return;
+
+    this.saveUsername(val);
+    this.store.loadByUsername(val);
   }
 
   protected searchByLeagueId(): void {
@@ -49,5 +61,21 @@ export class HomeComponent {
 
   protected selectLeague(league: League): void {
     this.store.selectLeague(league);
+  }
+
+  private saveUsername(username: string): void {
+    try {
+      localStorage.setItem(HOME_USERNAME_STORAGE_KEY, username);
+    } catch {
+      // Ignore storage failures (private mode or blocked storage).
+    }
+  }
+
+  private getSavedUsername(): string {
+    try {
+      return localStorage.getItem(HOME_USERNAME_STORAGE_KEY) ?? '';
+    } catch {
+      return '';
+    }
   }
 }

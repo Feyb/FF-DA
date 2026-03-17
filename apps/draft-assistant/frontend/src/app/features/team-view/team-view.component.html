@@ -1,0 +1,157 @@
+<section class="team-view-page">
+  <header class="team-view-header">
+    <h1 class="team-view-title">Team View</h1>
+    <p class="team-view-subtitle">
+      Review your roster strength, starters, bench depth, IR stashes, and future draft capital.
+    </p>
+  </header>
+
+  @if (!appStore.selectedLeague()) {
+    <mat-card class="info-card">
+      <div class="info-card-content">
+        <mat-icon>info</mat-icon>
+        <div>
+          <p class="info-card-title">No league selected</p>
+          <p class="info-card-copy">
+            Select a league in Home first, then return to Team View.
+          </p>
+        </div>
+      </div>
+    </mat-card>
+  } @else {
+    @if (store.loading()) {
+      <div class="loading-row">
+        <mat-spinner diameter="36" />
+        <span>Loading team data…</span>
+      </div>
+    }
+
+    @if (store.error()) {
+      <mat-card class="error-card">
+        <p class="error-text">{{ store.error() }}</p>
+        <button mat-flat-button (click)="retryLoad()">Retry</button>
+      </mat-card>
+    }
+
+    @if (store.availableRosters().length > 0 && !store.selectedRosterId()) {
+      <mat-card class="selection-card">
+        <p class="selection-title">Choose a roster to continue</p>
+        <p class="selection-copy">
+          This league was loaded without user context, so please pick the roster to analyze.
+        </p>
+        <mat-form-field appearance="outline" class="selection-field">
+          <mat-label>League roster</mat-label>
+          <mat-select (selectionChange)="onRosterSelect($event)">
+            @for (roster of store.availableRosters(); track roster.rosterId) {
+              <mat-option [value]="roster.rosterId">
+                {{ roster.ownerDisplayName }} (Roster {{ roster.rosterId }})
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </mat-card>
+    }
+
+    @if (store.rating(); as rating) {
+      <section class="rating-section">
+        <h2 class="section-title">Team Rating</h2>
+
+        @if (store.ratingWarning()) {
+          <div class="warning-banner">
+            <mat-icon>warning</mat-icon>
+            <span>{{ store.ratingWarning() }}</span>
+          </div>
+        }
+
+        <div class="rating-grid">
+          <mat-card class="combined-rating-card">
+            <p class="combined-rating-label">Combined Score</p>
+            <p class="combined-rating-value">{{ rating.combinedScore }}</p>
+            <p class="combined-rating-meta">{{ rating.playerCount }} players evaluated</p>
+          </mat-card>
+
+          <div class="position-chips">
+            @for (position of positionLabels; track position) {
+              <mat-chip class="position-chip" [highlighted]="true">
+                {{ position }}: {{ rating.positionScores[position] }}
+              </mat-chip>
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <h2 class="section-title">Starters</h2>
+        @if (store.sections().starters.length === 0) {
+          <p class="empty-copy">No starter data available.</p>
+        } @else {
+          <div class="players-grid">
+            @for (player of store.sections().starters; track player.playerId) {
+              <mat-card class="player-card">
+                <div class="player-headline">
+                  <span class="player-name">{{ player.fullName }}</span>
+                  <span class="player-score">{{ player.fallbackScore }}</span>
+                </div>
+                <p class="player-meta">{{ player.position }} • {{ player.team ?? 'FA' }}</p>
+              </mat-card>
+            }
+          </div>
+        }
+      </section>
+
+      <section class="section-block">
+        <h2 class="section-title">Bench</h2>
+        @if (store.sections().bench.length === 0) {
+          <p class="empty-copy">No bench players found.</p>
+        } @else {
+          <div class="players-grid">
+            @for (player of store.sections().bench; track player.playerId) {
+              <mat-card class="player-card">
+                <div class="player-headline">
+                  <span class="player-name">{{ player.fullName }}</span>
+                  <span class="player-score">{{ player.fallbackScore }}</span>
+                </div>
+                <p class="player-meta">{{ player.position }} • {{ player.team ?? 'FA' }}</p>
+              </mat-card>
+            }
+          </div>
+        }
+      </section>
+
+      <section class="section-block">
+        <h2 class="section-title">IR</h2>
+        @if (store.sections().ir.length === 0) {
+          <p class="empty-copy">No players currently in IR.</p>
+        } @else {
+          <div class="players-grid">
+            @for (player of store.sections().ir; track player.playerId) {
+              <mat-card class="player-card">
+                <div class="player-headline">
+                  <span class="player-name">{{ player.fullName }}</span>
+                  <span class="player-score">{{ player.fallbackScore }}</span>
+                </div>
+                <p class="player-meta">{{ player.position }} • {{ player.team ?? 'FA' }}</p>
+              </mat-card>
+            }
+          </div>
+        }
+      </section>
+
+      <section class="section-block">
+        <h2 class="section-title">Future Picks</h2>
+        @if (store.sections().futurePicks.length === 0) {
+          <p class="empty-copy">No future picks recorded.</p>
+        } @else {
+          <div class="picks-grid">
+            @for (pick of store.sections().futurePicks; track $index) {
+              <mat-card class="pick-card">
+                <p class="pick-season">{{ pick.season }}</p>
+                <p class="pick-round">Round {{ pick.round }}</p>
+              </mat-card>
+            }
+          </div>
+        }
+      </section>
+    }
+  }
+</section>
