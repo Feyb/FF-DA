@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,10 +10,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { extractSleeperDraftId } from '../../core/adapters/sleeper/sleeper-draft.util';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {
+  extractSleeperDraftId,
+  getSleeperDraftNameLabel,
+  getSleeperDraftPresentation,
+  getSleeperDraftScoringLabel,
+  getSleeperDraftStatusLabel,
+  getSleeperDraftTypeLabel,
+  getSleeperUserDraftPosition,
+} from '../../core/adapters/sleeper/sleeper-draft.util';
 import { DraftPlayerRow, DraftRecommendation, SleeperDraft } from '../../core/models';
 import { AppStore } from '../../core/state/app.store';
-import { DraftStore, DraftPositionFilter } from './draft.store';
+import { DraftStore, DraftPositionFilter, DraftSourceMode } from './draft.store';
 
 interface RecommendationPositionGroup {
   position: DraftPositionFilter;
@@ -23,6 +32,21 @@ interface RecommendationPositionGroup {
 interface RecommendationTierGroup {
   tier: number | null;
   positions: RecommendationPositionGroup[];
+}
+
+interface DraftOptionView {
+  draft: SleeperDraft;
+  draftId: string;
+  title: string;
+  subtitle: string;
+  meta: string[];
+}
+
+interface SavedDirectUrlView {
+  draftId: string;
+  title: string;
+  subtitle: string;
+  meta: string[];
 }
 
 @Component({
@@ -42,6 +66,7 @@ interface RecommendationTierGroup {
     MatIconModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatButtonToggleModule,
     MatSelectModule,
     MatSlideToggleModule,
   ],
@@ -57,6 +82,65 @@ export class DraftComponent implements OnInit {
   protected readonly recommendationPositionOrder: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
   protected readonly savedDirectUrls = signal<Array<{ url: string; draftId: string }>>([]);
   protected readonly directUrlStorageKey = 'draft-assistant:direct-urls';
+  protected readonly sourceModes: DraftSourceMode[] = ['league', 'direct'];
+  protected readonly activeSourceMode = computed<DraftSourceMode>(() => this.store.draftSource() ?? 'league');
+  protected readonly sourceLabel = computed(() =>
+    this.activeSourceMode() === 'direct' ? 'Direct URL' : 'League Draft',
+  );
+  protected readonly savedDirectDraftIds = computed(() =>
+    new Set(this.savedDirectUrls().map((item) => item.draftId)),
+  );
+  protected readonly leagueDraftOptions = computed(() =>
+    this.store
+      .drafts()
+      .filter((draft) => !this.savedDirectDraftIds().has(draft.draft_id))
+      .map((draft) => this.buildLeagueDraftOption(draft)),
+  );
+  protected readonly savedDirectUrlOptions = computed(() =>
+    this.savedDirectUrls().map((item) => this.buildSavedDirectUrlOption(item)),
+  );
+  protected readonly userNextPickNumber = computed(() => {
+    const userId = this.appStore.user()?.user_id;
+    const draft = this.store.selectedDraft();
+    if (!userId || !draft) {
+      return null;
+    }
+
+    const userSlot = draft.draft_order?.[userId];
+    if (!userSlot || typeof userSlot !== 'number' || userSlot <= 0) {
+      return null;
+    }
+
+    const teams = draft.settings?.['teams'];
+    if (!teams || typeof teams !== 'number' || teams <= 0) {
+      return null;
+    }
+
+    const nextPickNum = this.store.nextPickNumber();
+    const currentRound = Math.floor((nextPickNum - 1) / teams);
+    const pickInRound = ((nextPickNum - 1) % teams) + 1;
+
+    let userPickInRound: number;
+    if (currentRound % 2 === 0) {
+      userPickInRound = userSlot;
+    } else {
+      userPickInRound = teams - userSlot + 1;
+    }
+
+    if (pickInRound < userPickInRound) {
+      return currentRound * teams + userPickInRound;
+    }
+
+    const nextRound = currentRound + 1;
+    let nextRoundUserPickInRound: number;
+    if (nextRound % 2 === 0) {
+      nextRoundUserPickInRound = userSlot;
+    } else {
+      nextRoundUserPickInRound = teams - userSlot + 1;
+    }
+
+    return nextRound * teams + nextRoundUserPickInRound;
+  });
 
   ngOnInit(): void {
     this.loadSavedDirectUrls();
@@ -68,7 +152,35 @@ export class DraftComponent implements OnInit {
       return;
     }
 
-    void this.store.selectDraft(draftId, { source: this.store.draftSource() ?? 'league' });
+    void this.store.selectDraft(draftId, { source: this.activeSourceMode() });
+  }
+
+  protected onSourceModeChange(mode: DraftSourceMode): void {
+    this.mockDraftUrlError = null;
+    if (this.activeSourceMode() === mode) {
+      return;
+    }
+
+    this.store.setDraftSource(mode);
+
+    if (mode === 'league') {
+      if (!this.appStore.selectedLeague()) {
+        return;
+      }
+
+      const [firstLeagueDraft] = this.leagueDraftOptions();
+      if (firstLeagueDraft) {
+        void this.store.selectDraft(firstLeagueDraft.draftId, { source: 'league' });
+      } else {
+        void this.store.loadForSelectedLeague();
+      }
+      return;
+    }
+
+    const [firstDirectDraft] = this.savedDirectUrlOptions();
+    if (firstDirectDraft) {
+      void this.store.selectDraft(firstDirectDraft.draftId, { source: 'direct' });
+    }
   }
 
   protected togglePosition(position: DraftPositionFilter): void {
@@ -158,17 +270,7 @@ export class DraftComponent implements OnInit {
   }
 
   protected draftTypeLabel(draft: SleeperDraft): string {
-    const type = draft.type?.trim();
-    if (type && type.length > 0) {
-      return type;
-    }
-
-    const metadataName = draft.metadata?.['name'];
-    if (metadataName && metadataName.trim().length > 0) {
-      return metadataName;
-    }
-
-    return 'Unknown';
+    return getSleeperDraftTypeLabel(draft);
   }
 
   protected draftSetting(draft: SleeperDraft, key: string): string {
@@ -178,6 +280,49 @@ export class DraftComponent implements OnInit {
     }
 
     return String(raw);
+  }
+
+  protected draftStartLabel(draft: SleeperDraft): string {
+    if (!draft.start_time) {
+      return '-';
+    }
+
+    return new Date(draft.start_time).toLocaleString([], {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+  }
+
+  protected draftNameLabel(draft: SleeperDraft): string {
+    return getSleeperDraftNameLabel(draft);
+  }
+
+  protected draftScoringLabel(draft: SleeperDraft): string {
+    return getSleeperDraftScoringLabel(draft, this.draftLeague(draft));
+  }
+
+  protected userDraftSlotLabel(draft: SleeperDraft): string {
+    const position = this.userDraftPosition(draft);
+    return position === null ? '-' : String(position.slot);
+  }
+
+  protected userDraftPositionLabel(draft: SleeperDraft): string {
+    return this.userDraftPosition(draft)?.label ?? '-';
+  }
+
+  protected draftStatusLabel(draft: SleeperDraft): string {
+    return getSleeperDraftStatusLabel(draft);
+  }
+
+  protected draftOptionTrackBy(option: DraftOptionView | SavedDirectUrlView): string {
+    return option.draftId;
+  }
+
+  protected draftOptionStatusClass(draft: SleeperDraft): string {
+    const status = draft.status?.toLowerCase() ?? 'unknown';
+    return `draft-option-status-${status.replace(/[^a-z0-9]+/g, '-')}`;
   }
 
   protected loadMockDraftUrl(): void {
@@ -199,25 +344,14 @@ export class DraftComponent implements OnInit {
     void this.store.selectDraft(draftId, { rookieHint, source: 'direct' });
   }
 
-  protected tierBand(tier: number | null): 's' | 'a' | 'b' | 'c' | 'd' | 'none' {
+  protected tierColorClass(tier: number | null): string {
     if (tier === null) {
-      return 'none';
+      return 'tier-unranked';
     }
 
-    if (tier <= 2) {
-      return 's';
-    }
-    if (tier <= 4) {
-      return 'a';
-    }
-    if (tier <= 6) {
-      return 'b';
-    }
-    if (tier <= 8) {
-      return 'c';
-    }
-
-    return 'd';
+    const tierNum = Math.max(1, Math.min(tier, 10));
+    const cycledTier = ((tierNum - 1) % 10) + 1;
+    return `tier-${cycledTier}`;
   }
 
   protected shouldShowTierDivider(rows: DraftPlayerRow[], index: number): boolean {
@@ -228,6 +362,40 @@ export class DraftComponent implements OnInit {
     const currentTier = rows[index]?.positionalTier ?? rows[index]?.overallTier ?? null;
     const previousTier = rows[index - 1]?.positionalTier ?? rows[index - 1]?.overallTier ?? null;
     return currentTier !== previousTier;
+  }
+
+  protected shouldShowNextPickDivider(rows: DraftPlayerRow[], index: number): boolean {
+    const userNextPick = this.userNextPickNumber();
+    if (!userNextPick || index === 0) {
+      return false;
+    }
+
+    const pickedCount = this.store.picks().length;
+    const picksBetweenNowAndUserPick = userNextPick - pickedCount - 1;
+
+    if (index === picksBetweenNowAndUserPick && index > 0) {
+      return true;
+    }
+
+    return false;
+  }
+
+  protected nextPickDividerLabel(): string {
+    const userNextPick = this.userNextPickNumber();
+    if (!userNextPick) {
+      return 'Your next pick';
+    }
+
+    const draft = this.store.selectedDraft();
+    if (!draft?.settings?.['teams']) {
+      return `Your next pick (#${userNextPick})`;
+    }
+
+    const teams = draft.settings['teams'] as number;
+    const round = Math.floor((userNextPick - 1) / teams) + 1;
+    const pickInRound = ((userNextPick - 1) % teams) + 1;
+
+    return `Your next pick (#${userNextPick} • R${round}.${String(pickInRound).padStart(String(teams).length, '0')})`;
   }
 
   protected tierDividerLabel(row: DraftPlayerRow): string {
@@ -288,5 +456,84 @@ export class DraftComponent implements OnInit {
         recommendations: recommendations.filter((recommendation) => recommendation.position === position),
       }))
       .filter((group) => group.recommendations.length > 0);
+  }
+
+  private buildLeagueDraftOption(draft: SleeperDraft): DraftOptionView {
+    const presentation = getSleeperDraftPresentation(draft, this.draftLeague(draft));
+    const teams = this.draftSetting(draft, 'teams');
+    const rounds = this.draftSetting(draft, 'rounds');
+    const userPosition = this.userDraftPosition(draft);
+    const startTime = draft.start_time ? this.draftStartLabel(draft) : null;
+
+    const meta = [presentation.scoring, `${teams} teams`, `${rounds} rounds`];
+    if (userPosition !== null) {
+      meta.push(`Pick ${userPosition.label}`);
+    }
+    if (startTime) {
+      meta.push(startTime);
+    }
+
+    return {
+      draft,
+      draftId: draft.draft_id,
+      title: presentation.name,
+      subtitle: `${presentation.type} • ${presentation.status}`,
+      meta,
+    };
+  }
+
+  private buildSavedDirectUrlOption(item: { url: string; draftId: string }): SavedDirectUrlView {
+    const loadedDraft = this.store.drafts().find((draft) => draft.draft_id === item.draftId) ?? null;
+    if (loadedDraft) {
+      const presentation = getSleeperDraftPresentation(loadedDraft, this.draftLeague(loadedDraft));
+      const userPosition = this.userDraftPosition(loadedDraft);
+      const meta = [presentation.scoring];
+      if (userPosition !== null) {
+        meta.push(`Pick ${userPosition.label}`);
+      }
+
+      return {
+        draftId: item.draftId,
+        title: presentation.name,
+        subtitle: `${presentation.type} • ${presentation.status}`,
+        meta,
+      };
+    }
+
+    let title = item.url;
+    try {
+      const parsedUrl = new URL(item.url);
+      title = `${parsedUrl.hostname}${parsedUrl.pathname}`;
+    } catch {
+      title = item.url;
+    }
+
+    return {
+      draftId: item.draftId,
+      title,
+      subtitle: `Draft ID: ${item.draftId}`,
+      meta: [],
+    };
+  }
+
+  private draftLeague(draft: SleeperDraft) {
+    const selectedLeague = this.appStore.selectedLeague();
+    if (!selectedLeague) {
+      return null;
+    }
+
+    if (!draft.league_id || draft.league_id === selectedLeague.league_id) {
+      return selectedLeague;
+    }
+
+    return null;
+  }
+
+  private userDraftSlot(draft: SleeperDraft): number | null {
+    return this.userDraftPosition(draft)?.slot ?? null;
+  }
+
+  private userDraftPosition(draft: SleeperDraft) {
+    return getSleeperUserDraftPosition(draft, this.appStore.user()?.user_id);
   }
 }

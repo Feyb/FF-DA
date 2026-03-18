@@ -80,3 +80,48 @@ Validate active draft flow, completed draft flow, no-draft flow, polling recover
 22. Improve mobile layout with collapsible sections and sticky recommendation context.
 23. Add telemetry events for polling interruptions, stale transitions, and recommendation interactions.
 24. Add targeted tests for pick normalization, rookie detection, exclusion logic, and recommendation ranking.
+
+
+**Implemented Since Last Plan Sync**
+1. Rookie draft auto-detection now prioritizes `settings.player_type` with fallback metadata/type hints.
+2. Direct draft URL mode is implemented end-to-end (draft id parsing, payload fetch, context hydration without league preselection).
+3. Recommendation logic is tier-first and position-aware, limited to remaining top 3 tiers with max 3 players per tier.
+4. Recommendation UI renders Tier -> Position grouping with stable ordering safeguards.
+5. Recent picks show player names using a persisted player id -> full name map (id fallback retained).
+6. Direct URLs are persisted in localStorage, shown in Draft context selection, and can be cleared with a dedicated action.
+
+
+**Immediate Next 5 (Execution Queue)**
+1. Add targeted tests for recommendation tier capping (top 3 remaining tiers, max 3 players per tier).
+2. Add targeted tests for direct URL persistence and clear flow in Draft context selection.
+3. Add targeted tests for recent pick player-name resolution with id fallback.
+4. Improve draft selection UX with richer option metadata (type/status/teams/rounds/slot) while keeping grouped sources.
+5. Implement adaptive polling cadence by draft status (`drafting`, `pre_draft`/paused, `complete`).
+
+
+## Plan: Draft Recommendation Tier Capping
+
+Update Draft recommendations so the panel only shows players from the remaining top 3 tiers, keeps Tier -> Position grouping, and enforces a maximum of 3 players per tier.
+
+**Steps**
+1. Update recommendation source filtering in `apps/draft-assistant/frontend/src/app/features/draft/draft.store.ts` inside `recommendations` computed signal: keep existing picked/position/rookie filters, then restrict to rows where `(positionalTier ?? overallTier)` is not null and within the top three remaining tier values.
+2. Keep existing tier-first and position-second sorting in the same computed signal, then replace the flat cap with a per-tier cap pass so each tier contributes at most 3 players total.
+3. Preserve current rendering structure in `apps/draft-assistant/frontend/src/app/features/draft/draft.component.html` (already Tier -> Position). Only adjust `apps/draft-assistant/frontend/src/app/features/draft/draft.component.ts` helper grouping if needed to ensure stable ordering after new capped output.
+4. Verify that when one or more of tiers 1-3 are exhausted, the “remaining top 3 tiers” logic still selects the next three available tier levels (for example tiers 2, 3, and 4).
+5. Run compile verification and spot-check in UI with rookies-only and position filters enabled to ensure no regression in recommendation visibility.
+
+**Relevant files**
+- `apps/draft-assistant/frontend/src/app/features/draft/draft.store.ts` — `recommendations` computed selector is the primary logic change.
+- `apps/draft-assistant/frontend/src/app/features/draft/draft.component.ts` — `recommendationTierGroups` and `recommendationPositionGroups` may need minor ordering safeguards only.
+- `apps/draft-assistant/frontend/src/app/features/draft/draft.component.html` — should remain as Tier -> Position grouped rendering.
+
+**Verification**
+1. For a populated draft pool, confirm output contains only 3 tier groups (the best remaining tiers available in data).
+2. Confirm each tier group has no more than 3 total players across positions.
+3. Confirm players inside each tier are grouped under position headers only.
+4. Confirm picked players never appear and rookies-only filter still constrains recommendation pool.
+5. Compile with `pnpm --dir apps/draft-assistant/frontend exec tsc -p tsconfig.app.json --noEmit`.
+
+**Decisions**
+- Scope includes recommendation data selection and ordering only.
+- Scope excludes changes to available player list behavior and visual tier color mapping.

@@ -2,81 +2,115 @@
   <header class="draft-header">
     <div class="draft-title-row">
       <h1 class="draft-title">Draft</h1>
-      @if (store.draftSource(); as draftSource) {
-        <span class="draft-source-badge">
-          {{ draftSource === 'direct' ? 'Direct URL' : 'League Draft' }}
-        </span>
-      }
+      <span class="draft-source-badge">{{ sourceLabel() }}</span>
     </div>
     <p class="draft-subtitle">
       Live draft board with available players, stars, and KTC best-available recommendations.
     </p>
   </header>
 
-  @if (!appStore.selectedLeague()) {
-    <mat-card class="info-card" appearance="outlined">
-      <div class="info-card-content">
-        <mat-icon>info</mat-icon>
-        <div>
-          <p class="info-card-title">No league selected</p>
-          <p class="info-card-copy">Select a league in Home first, then return to Draft.</p>
-        </div>
-      </div>
-    </mat-card>
-  } @else {
-    <mat-card class="controls-card" appearance="outlined">
-      <div class="controls-grid">
-        <mat-form-field appearance="outline">
-          <mat-label>Draft context</mat-label>
-          <mat-select [value]="store.selectedDraftId()" (selectionChange)="onDraftChange($event)">
-            @if (store.drafts().length > 0) {
+  <mat-card class="controls-card" appearance="outlined">
+    <div class="source-switch-row">
+      <span class="source-switch-label">Source mode</span>
+      <mat-button-toggle-group
+        [value]="activeSourceMode()"
+        (change)="onSourceModeChange($event.value)"
+        aria-label="Draft source mode"
+      >
+        @for (source of sourceModes; track source) {
+          <mat-button-toggle [value]="source">
+            {{ source === 'direct' ? 'Direct URL' : 'League Drafts' }}
+          </mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="controls-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ activeSourceMode() === 'direct' ? 'Saved direct drafts' : 'League draft context' }}</mat-label>
+        <mat-select [value]="store.selectedDraftId()" (selectionChange)="onDraftChange($event)">
+          @if (activeSourceMode() === 'league') {
+            @if (leagueDraftOptions().length > 0) {
               <mat-optgroup label="League Drafts">
-                @for (draft of store.drafts(); track draft.draft_id) {
-                  <mat-option [value]="draft.draft_id">
-                    {{ draft.type ?? 'Draft' }} • {{ draft.status ?? 'unknown' }} • {{ draft.draft_id }}
+                @for (option of leagueDraftOptions(); track draftOptionTrackBy(option)) {
+                  <mat-option [value]="option.draftId">
+                    <div class="draft-option-content">
+                      <div class="draft-option-header">
+                        <span class="draft-option-title">{{ option.title }}</span>
+                        <span class="draft-option-status" [class]="draftOptionStatusClass(option.draft)">
+                          {{ draftStatusLabel(option.draft) }}
+                        </span>
+                      </div>
+                      <div class="draft-option-meta-row">
+                        @for (entry of option.meta; track entry) {
+                          <span class="draft-option-meta-pill">{{ entry }}</span>
+                        }
+                      </div>
+                      <div class="draft-option-subtitle">{{ option.subtitle }}</div>
+                    </div>
                   </mat-option>
                 }
               </mat-optgroup>
+            } @else {
+              <mat-option disabled>No league drafts available</mat-option>
             }
-            @if (savedDirectUrls().length > 0) {
+          } @else {
+            @if (savedDirectUrlOptions().length > 0) {
               <mat-optgroup label="Saved Direct URLs">
-                @for (item of savedDirectUrls(); track item.draftId) {
-                  <mat-option [value]="item.draftId">
-                    {{ item.url }}
+                @for (option of savedDirectUrlOptions(); track draftOptionTrackBy(option)) {
+                  <mat-option [value]="option.draftId">
+                    <div class="draft-option-content draft-option-content-direct">
+                      <div class="draft-option-header">
+                        <span class="draft-option-title">{{ option.title }}</span>
+                        <span class="draft-option-status draft-option-status-direct">Direct URL</span>
+                      </div>
+                      @if (option.meta.length > 0) {
+                        <div class="draft-option-meta-row">
+                          @for (entry of option.meta; track entry) {
+                            <span class="draft-option-meta-pill">{{ entry }}</span>
+                          }
+                        </div>
+                      }
+                      <div class="draft-option-subtitle">{{ option.subtitle }}</div>
+                    </div>
                   </mat-option>
                 }
               </mat-optgroup>
+            } @else {
+              <mat-option disabled>No saved direct URLs yet</mat-option>
             }
-          </mat-select>
-        </mat-form-field>
-
-        <div class="position-filters">
-          @for (position of positions; track position) {
-            <button
-              mat-stroked-button
-              [class.filter-active]="store.selectedPositions().includes(position)"
-              (click)="togglePosition(position)"
-            >
-              {{ position }}
-            </button>
           }
-        </div>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-slide-toggle
-          [ngModel]="store.rookiesOnly()"
-          (ngModelChange)="store.setRookiesOnly($event)"
-        >
-          Rookies only
-        </mat-slide-toggle>
-
-        <div class="controls-actions">
-          <button mat-flat-button (click)="refreshDraft()">Refresh</button>
-          @if (store.lastUpdatedAt()) {
-            <span class="updated-at">Updated {{ store.lastUpdatedAt()! | date:'mediumTime' }}</span>
-          }
-        </div>
+      <div class="position-filters">
+        @for (position of positions; track position) {
+          <button
+            mat-stroked-button
+            [class.filter-active]="store.selectedPositions().includes(position)"
+            (click)="togglePosition(position)"
+          >
+            {{ position }}
+          </button>
+        }
       </div>
 
+      <mat-slide-toggle
+        [ngModel]="store.rookiesOnly()"
+        (ngModelChange)="store.setRookiesOnly($event)"
+      >
+        Rookies only
+      </mat-slide-toggle>
+
+      <div class="controls-actions">
+        <button mat-flat-button (click)="refreshDraft()">Refresh</button>
+        @if (store.lastUpdatedAt()) {
+          <span class="updated-at">Updated {{ store.lastUpdatedAt()! | date:'mediumTime' }}</span>
+        }
+      </div>
+    </div>
+
+    @if (activeSourceMode() === 'direct') {
       <div class="mock-draft-row">
         <mat-form-field appearance="outline" class="mock-draft-field">
           <mat-label>Mock draft URL or draft id</mat-label>
@@ -92,18 +126,31 @@
           <button mat-stroked-button (click)="clearSavedUrls()">Clear saved URLs</button>
         }
       </div>
+    }
 
-      @if (mockDraftUrlError) {
-        <p class="mock-draft-error">{{ mockDraftUrlError }}</p>
-      }
+    @if (mockDraftUrlError) {
+      <p class="mock-draft-error">{{ mockDraftUrlError }}</p>
+    }
+  </mat-card>
+
+  @if (!appStore.selectedLeague() && activeSourceMode() === 'league') {
+    <mat-card class="info-card" appearance="outlined">
+      <div class="info-card-content">
+        <mat-icon>info</mat-icon>
+        <div>
+          <p class="info-card-title">No league selected</p>
+          <p class="info-card-copy">Select a league in Home to load league drafts, or switch source mode to Direct URL.</p>
+        </div>
+      </div>
     </mat-card>
+  }
 
-    @if (store.loading()) {
+  @if (store.loading()) {
       <div class="loading-row">
         <mat-spinner diameter="34"></mat-spinner>
         <span>Loading draft data...</span>
       </div>
-    }
+  }
 
     @if (store.error()) {
       <mat-card class="error-card" appearance="outlined">
@@ -121,23 +168,32 @@
       </mat-card>
     }
 
-    @if (store.drafts().length === 0 && !store.loading()) {
+  @if (store.drafts().length === 0 && !store.loading()) {
       <mat-card class="info-card" appearance="outlined">
         <div class="info-card-content">
           <mat-icon>event_busy</mat-icon>
           <div>
-            <p class="info-card-title">No draft found for this league</p>
-            <p class="info-card-copy">When a Sleeper draft is available it will appear here.</p>
+            <p class="info-card-title">No draft found for this source</p>
+            <p class="info-card-copy">
+              {{ activeSourceMode() === 'direct'
+                ? 'Load a Sleeper draft URL or pick one from Saved Direct URLs.'
+                : 'When a Sleeper draft is available for the selected league it will appear here.' }}
+            </p>
           </div>
         </div>
       </mat-card>
-    } @else {
+  } @else {
       @if (store.selectedDraft(); as selectedDraft) {
         <div class="draft-layout">
           <div class="draft-main">
             <mat-card class="recommendations-card" appearance="outlined">
               <div class="section-header">
                 <h2>Recommendations</h2>
+                <div class="tier-legend">
+                  @for (tier of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track tier) {
+                    <span class="tier-legend-item" [ngClass]="tierColorClass(tier)">{{ tier }}</span>
+                  }
+                </div>
                 <span class="section-hint">Mode: KTC best available</span>
               </div>
               @if (store.recommendations().length === 0) {
@@ -151,11 +207,7 @@
                       @for (rec of positionGroup.recommendations; track rec.playerId) {
                         <div
                           class="recommendation-item"
-                          [class.tier-s]="tierBand(rec.positionalTier ?? rec.overallTier) === 's'"
-                          [class.tier-a]="tierBand(rec.positionalTier ?? rec.overallTier) === 'a'"
-                          [class.tier-b]="tierBand(rec.positionalTier ?? rec.overallTier) === 'b'"
-                          [class.tier-c]="tierBand(rec.positionalTier ?? rec.overallTier) === 'c'"
-                          [class.tier-d]="tierBand(rec.positionalTier ?? rec.overallTier) === 'd'"
+                        [ngClass]="tierColorClass(rec.positionalTier ?? rec.overallTier)"
                         >
                           <span class="recommendation-rank">#{{ rec.ktcRank ?? '-' }}</span>
                           <div>
@@ -188,6 +240,12 @@
                 <div class="players-list">
                   @if (store.availableRows().slice(0, 80); as visibleRows) {
                     @for (player of visibleRows; track player.playerId; let i = $index) {
+                      @if (shouldShowNextPickDivider(visibleRows, i)) {
+                        <div class="next-pick-divider-row">
+                          <span class="next-pick-divider-label">{{ nextPickDividerLabel() }}</span>
+                        </div>
+                      }
+
                       @if (shouldShowTierDivider(visibleRows, i)) {
                         <div class="tier-divider-row">
                           <span class="tier-divider-label">{{ tierDividerLabel(player) }}</span>
@@ -196,11 +254,7 @@
 
                       <div
                         class="player-row"
-                        [class.tier-s]="tierBand(player.positionalTier ?? player.overallTier) === 's'"
-                        [class.tier-a]="tierBand(player.positionalTier ?? player.overallTier) === 'a'"
-                        [class.tier-b]="tierBand(player.positionalTier ?? player.overallTier) === 'b'"
-                        [class.tier-c]="tierBand(player.positionalTier ?? player.overallTier) === 'c'"
-                        [class.tier-d]="tierBand(player.positionalTier ?? player.overallTier) === 'd'"
+                        [ngClass]="tierColorClass(player.positionalTier ?? player.overallTier)"
                       >
                         <img
                           class="player-avatar"
@@ -274,22 +328,50 @@
 						            <mat-card class="summary-card" appearance="outlined">
               <p class="summary-title">Current Draft Status</p>
               <div class="summary-grid">
+                            <div>
+                              <p class="summary-label">Name</p>
+                              <p class="summary-value">{{ draftNameLabel(selectedDraft) }}</p>
+                            </div>
+                <div>
+                  <p class="summary-label">Source</p>
+                  <p class="summary-value">{{ sourceLabel() }}</p>
+                </div>
                 <div>
                   <p class="summary-label">Status</p>
-                  <p class="summary-value">{{ selectedDraft.status ?? 'unknown' }}</p>
+                              <p class="summary-value">{{ draftStatusLabel(selectedDraft) }}</p>
                 </div>
                 <div>
                   <p class="summary-label">Type</p>
                   <p class="summary-value">{{ draftTypeLabel(selectedDraft) }}</p>
                 </div>
                 <div>
+                  <p class="summary-label">Scoring</p>
+                  <p class="summary-value">{{ draftScoringLabel(selectedDraft) }}</p>
+                </div>
+                <div>
                   <p class="summary-label">Rounds</p>
                   <p class="summary-value">{{ draftSetting(selectedDraft, 'rounds') }}</p>
                 </div>
                 <div>
-                  <p class="summary-label">Slots</p>
+                              <p class="summary-label">Teams</p>
                   <p class="summary-value">{{ draftSetting(selectedDraft, 'teams') }}</p>
                 </div>
+                            <div>
+                              <p class="summary-label">Draft position</p>
+                              <p class="summary-value">{{ userDraftPositionLabel(selectedDraft) }}</p>
+                            </div>
+                            <div>
+                              <p class="summary-label">My slot</p>
+                              <p class="summary-value">{{ userDraftSlotLabel(selectedDraft) }}</p>
+                            </div>
+                            <div>
+                              <p class="summary-label">Start time</p>
+                              <p class="summary-value">{{ draftStartLabel(selectedDraft) }}</p>
+                            </div>
+                            <div>
+                              <p class="summary-label">Draft ID</p>
+                              <p class="summary-value summary-value-mono">{{ selectedDraft.draft_id }}</p>
+                            </div>
                 <div>
                   <p class="summary-label">Total picks made</p>
                   <p class="summary-value">{{ store.pickBoard().length }}</p>
@@ -325,6 +407,5 @@
           </aside>
         </div>
       }
-    }
   }
 </section>

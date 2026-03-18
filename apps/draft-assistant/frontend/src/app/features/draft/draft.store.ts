@@ -248,10 +248,28 @@ export const DraftStore = signalStore(
       }
     };
 
+    const getPollingInterval = (status: string | null): number | null => {
+      if (!status) {
+        return null;
+      }
+
+      const normalizedStatus = status.toLowerCase().trim();
+      if (normalizedStatus === 'drafting') {
+        return 1000;
+      }
+      if (normalizedStatus === 'pre_draft' || normalizedStatus === 'scheduled' || normalizedStatus === 'paused') {
+        return 5000;
+      }
+
+      return null;
+    };
+
     const maybeStartPolling = (): void => {
       const selectedDraftId = store.selectedDraftId();
       const status = store.draftStatus();
-      if (!selectedDraftId || status !== 'drafting') {
+      const interval = getPollingInterval(status);
+
+      if (!selectedDraftId || interval === null) {
         stopPolling();
         return;
       }
@@ -262,7 +280,7 @@ export const DraftStore = signalStore(
 
       pollHandle = setInterval(() => {
         void refreshDraft();
-      }, 1000);
+      }, interval);
     };
 
     const mapRosterDisplayNames = (rosters: LeagueRoster[], users: LeagueUser[]): Record<string, string> => {
@@ -656,7 +674,18 @@ export const DraftStore = signalStore(
         await refreshDraft();
       },
       retry(): void {
+        if (store.selectedDraftId()) {
+          void refreshDraft();
+          return;
+        }
+
         void this.loadForSelectedLeague();
+      },
+      setDraftSource(source: DraftSourceMode): void {
+        patchState(store, {
+          draftSource: source,
+          error: null,
+        });
       },
       togglePosition(position: DraftPositionFilter): void {
         const current = store.selectedPositions();
