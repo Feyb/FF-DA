@@ -29,10 +29,23 @@
         <mat-form-field appearance="outline">
           <mat-label>Draft context</mat-label>
           <mat-select [value]="store.selectedDraftId()" (selectionChange)="onDraftChange($event)">
-            @for (draft of store.drafts(); track draft.draft_id) {
-              <mat-option [value]="draft.draft_id">
-                {{ draft.type ?? 'Draft' }} • {{ draft.status ?? 'unknown' }} • {{ draft.draft_id }}
-              </mat-option>
+            @if (store.drafts().length > 0) {
+              <mat-optgroup label="League Drafts">
+                @for (draft of store.drafts(); track draft.draft_id) {
+                  <mat-option [value]="draft.draft_id">
+                    {{ draft.type ?? 'Draft' }} • {{ draft.status ?? 'unknown' }} • {{ draft.draft_id }}
+                  </mat-option>
+                }
+              </mat-optgroup>
+            }
+            @if (savedDirectUrls().length > 0) {
+              <mat-optgroup label="Saved Direct URLs">
+                @for (item of savedDirectUrls(); track item.draftId) {
+                  <mat-option [value]="item.draftId">
+                    {{ item.url }}
+                  </mat-option>
+                }
+              </mat-optgroup>
             }
           </mat-select>
         </mat-form-field>
@@ -75,6 +88,9 @@
           />
         </mat-form-field>
         <button mat-flat-button (click)="loadMockDraftUrl()">Load mock draft</button>
+        @if (savedDirectUrls().length > 0) {
+          <button mat-stroked-button (click)="clearSavedUrls()">Clear saved URLs</button>
+        }
       </div>
 
       @if (mockDraftUrlError) {
@@ -119,36 +135,6 @@
       @if (store.selectedDraft(); as selectedDraft) {
         <div class="draft-layout">
           <div class="draft-main">
-            <mat-card class="summary-card" appearance="outlined">
-              <p class="summary-title">Current Draft Status</p>
-              <div class="summary-grid">
-                <div>
-                  <p class="summary-label">Status</p>
-                  <p class="summary-value">{{ selectedDraft.status ?? 'unknown' }}</p>
-                </div>
-                <div>
-                  <p class="summary-label">Type</p>
-                  <p class="summary-value">{{ draftTypeLabel(selectedDraft) }}</p>
-                </div>
-                <div>
-                  <p class="summary-label">Rounds</p>
-                  <p class="summary-value">{{ draftSetting(selectedDraft, 'rounds') }}</p>
-                </div>
-                <div>
-                  <p class="summary-label">Slots</p>
-                  <p class="summary-value">{{ draftSetting(selectedDraft, 'teams') }}</p>
-                </div>
-                <div>
-                  <p class="summary-label">Total picks made</p>
-                  <p class="summary-value">{{ store.pickBoard().length }}</p>
-                </div>
-                <div>
-                  <p class="summary-label">Next pick</p>
-                  <p class="summary-value">#{{ store.nextPickNumber() }}</p>
-                </div>
-              </div>
-            </mat-card>
-
             <mat-card class="recommendations-card" appearance="outlined">
               <div class="section-header">
                 <h2>Recommendations</h2>
@@ -283,6 +269,36 @@
                   }
                 </div>
               }
+            </mat-card>
+
+						            <mat-card class="summary-card" appearance="outlined">
+              <p class="summary-title">Current Draft Status</p>
+              <div class="summary-grid">
+                <div>
+                  <p class="summary-label">Status</p>
+                  <p class="summary-value">{{ selectedDraft.status ?? 'unknown' }}</p>
+                </div>
+                <div>
+                  <p class="summary-label">Type</p>
+                  <p class="summary-value">{{ draftTypeLabel(selectedDraft) }}</p>
+                </div>
+                <div>
+                  <p class="summary-label">Rounds</p>
+                  <p class="summary-value">{{ draftSetting(selectedDraft, 'rounds') }}</p>
+                </div>
+                <div>
+                  <p class="summary-label">Slots</p>
+                  <p class="summary-value">{{ draftSetting(selectedDraft, 'teams') }}</p>
+                </div>
+                <div>
+                  <p class="summary-label">Total picks made</p>
+                  <p class="summary-value">{{ store.pickBoard().length }}</p>
+                </div>
+                <div>
+                  <p class="summary-label">Next pick</p>
+                  <p class="summary-value">#{{ store.nextPickNumber() }}</p>
+                </div>
+              </div>
             </mat-card>
 
             <mat-card class="history-card" appearance="outlined">

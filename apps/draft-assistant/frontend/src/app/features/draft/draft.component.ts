@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,7 +46,7 @@ interface RecommendationTierGroup {
     MatSlideToggleModule,
   ],
 })
-export class DraftComponent {
+export class DraftComponent implements OnInit {
   protected readonly store = inject(DraftStore);
   protected readonly appStore = inject(AppStore);
   protected readonly positions: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
@@ -55,6 +55,12 @@ export class DraftComponent {
   protected readonly playerFallbackImage =
     'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22 viewBox=%220 0 80 80%22%3E%3Crect width=%2280%22 height=%2280%22 rx=%2240%22 fill=%22%23e2e8f0%22/%3E%3Ccircle cx=%2240%22 cy=%2230%22 r=%2214%22 fill=%22%2394a3b8%22/%3E%3Cpath d=%22M18 66c3-12 13-19 22-19s19 7 22 19%22 fill=%22%2394a3b8%22/%3E%3C/svg%3E';
   protected readonly recommendationPositionOrder: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
+  protected readonly savedDirectUrls = signal<Array<{ url: string; draftId: string }>>([]);
+  protected readonly directUrlStorageKey = 'draft-assistant:direct-urls';
+
+  ngOnInit(): void {
+    this.loadSavedDirectUrls();
+  }
 
   protected onDraftChange(event: MatSelectChange): void {
     const draftId = String(event.value ?? '');
@@ -75,6 +81,43 @@ export class DraftComponent {
 
   protected retryLoad(): void {
     this.store.retry();
+  }
+
+  protected loadSavedDirectUrls(): void {
+    try {
+      const raw = localStorage.getItem(this.directUrlStorageKey);
+      if (!raw) {
+        this.savedDirectUrls.set([]);
+        return;
+      }
+      const parsed = JSON.parse(raw) as Array<{ url: string; draftId: string }>;
+      this.savedDirectUrls.set(Array.isArray(parsed) ? parsed : []);
+    } catch {
+      this.savedDirectUrls.set([]);
+    }
+  }
+
+  protected saveDirectUrl(url: string, draftId: string): void {
+    try {
+      const current = this.savedDirectUrls();
+      const exists = current.some((item) => item.draftId === draftId);
+      if (!exists) {
+        const updated = [{ url, draftId }, ...current];
+        this.savedDirectUrls.set(updated);
+        localStorage.setItem(this.directUrlStorageKey, JSON.stringify(updated));
+      }
+    } catch {
+      // Silently fail if localStorage is unavailable
+    }
+  }
+
+  protected clearSavedUrls(): void {
+    try {
+      this.savedDirectUrls.set([]);
+      localStorage.removeItem(this.directUrlStorageKey);
+    } catch {
+      // Silently fail if localStorage is unavailable
+    }
   }
 
   protected toggleStar(playerId: string): void {
@@ -152,6 +195,7 @@ export class DraftComponent {
 
     this.mockDraftUrlError = null;
     const rookieHint = /rookie/i.test(value);
+    this.saveDirectUrl(value, draftId);
     void this.store.selectDraft(draftId, { rookieHint, source: 'direct' });
   }
 
