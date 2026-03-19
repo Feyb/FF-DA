@@ -10,6 +10,7 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { TeamViewRating } from '../../core/models';
 import { AppStore } from '../../core/state/app.store';
 import { TeamViewStore } from './team-view.store';
+import { TierLegendComponent } from '../../shared/components/tier-legend';
 
 @Component({
   selector: 'app-team-view',
@@ -27,6 +28,7 @@ import { TeamViewStore } from './team-view.store';
     MatProgressSpinnerModule,
     MatChipsModule,
     MatIconModule,
+    TierLegendComponent,
   ],
 })
 export class TeamViewComponent {
@@ -71,12 +73,12 @@ export class TeamViewComponent {
   }
 
   protected getTierClass(tier: number | null): string {
-    if (tier === null) return 'tier-none';
-    if (tier <= 2) return 'tier-s';
-    if (tier <= 4) return 'tier-a';
-    if (tier <= 6) return 'tier-b';
-    if (tier <= 8) return 'tier-c';
-    return 'tier-d';
+    if (tier === null) {
+      return 'tier-unranked';
+    }
+    const tierNum = Math.max(1, Math.min(tier, 10));
+    const cycledTier = ((tierNum - 1) % 10) + 1;
+    return `tier-${cycledTier}`;
   }
 
   protected readonly positionOrder = ['QB', 'RB', 'WR', 'TE'];

@@ -1,0 +1,5 @@
+<div class="tier-legend">
+  @for (tier of tiers(); track tier) {
+    <span class="tier-legend-item" [ngClass]="getItemClass(tier)">{{ tier }}</span>
+  }
+</div>

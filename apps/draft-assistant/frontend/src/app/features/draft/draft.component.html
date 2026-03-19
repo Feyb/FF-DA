@@ -189,11 +189,7 @@
             <mat-card class="recommendations-card" appearance="outlined">
               <div class="section-header">
                 <h2>Recommendations</h2>
-                <div class="tier-legend">
-                  @for (tier of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track tier) {
-                    <span class="tier-legend-item" [ngClass]="tierColorClass(tier)">{{ tier }}</span>
-                  }
-                </div>
+                <app-tier-legend/>
                 <span class="section-hint">Mode: KTC best available</span>
               </div>
               @if (store.recommendations().length === 0) {

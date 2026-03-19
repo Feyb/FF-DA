@@ -48,6 +48,13 @@
         </div>
       </mat-card>
 
+      <mat-card class="tier-legend-card">
+        <div class="tier-legend-container">
+          <span class="tier-legend-label">Tier Legend (1=Best):</span>
+          <app-tier-legend />
+        </div>
+      </mat-card>
+
       @if (store.ktcUnavailable()) {
         <div class="warning-banner">
           <mat-icon>warning</mat-icon>
@@ -91,11 +98,7 @@
                 @for (player of store.displayedRows(); track player.playerId; let i = $index) {
                   <tr
                     [class.row-expanded]="isExpanded(player.playerId)"
-                    [class.row-tier-s]="isTier(player.positionalTier, 's')"
-                    [class.row-tier-a]="isTier(player.positionalTier, 'a')"
-                    [class.row-tier-b]="isTier(player.positionalTier, 'b')"
-                    [class.row-tier-c]="isTier(player.positionalTier, 'c')"
-                    [class.row-tier-d]="isTier(player.positionalTier, 'd')"
+                    [ngClass]="getTierClass(player.positionalTier)"
                   >
                     <td class="expander-cell">
                       <button

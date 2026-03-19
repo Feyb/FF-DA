@@ -135,27 +135,4 @@ export class KtcRatingService {
       ktcUnavailable,
     };
   }
-
-  scorePlayerFromSleeperFallback(player: {
-    position: string;
-    age: number | null;
-    yearsExp: number | null;
-    injuryStatus: string | null;
-  }): number {
-    const positionBase: Record<string, number> = {
-      QB: 82,
-      RB: 74,
-      WR: 76,
-      TE: 70,
-      K: 45,
-      DEF: 50,
-    };
-
-    const base = positionBase[player.position] ?? 60;
-    const agePenalty = player.age !== null ? Math.max(0, player.age - 28) * 1.5 : 0;
-    const expBonus = player.yearsExp !== null ? Math.min(player.yearsExp, 8) : 0;
-    const injuryPenalty = player.injuryStatus ? 8 : 0;
-
-    return Math.max(20, Math.round(base + expBonus - agePenalty - injuryPenalty));
-  }
 }
