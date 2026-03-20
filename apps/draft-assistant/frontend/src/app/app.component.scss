@@ -43,5 +43,5 @@
 }
 
 .app-content {
-  @apply flex-1 overflow-auto;
+  @apply grow overflow-auto;
 }

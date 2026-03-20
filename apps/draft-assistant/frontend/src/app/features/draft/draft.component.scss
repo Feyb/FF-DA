@@ -75,7 +75,7 @@
 @media (min-width: 1080px) {
   .controls-grid {
     grid-template-columns: 1.2fr 1.2fr 0.8fr 1fr;
-    align-items: center;
+    // align-items: center;
   }
 }
 
@@ -83,11 +83,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-}
-
-.filter-active {
-  background: rgb(198, 212, 245);
-  color: white;
 }
 
 .controls-actions {
@@ -380,7 +375,7 @@
 }
 
 .tier-unranked {
-  background: rgb(243 244 246);
+  @apply bg-slate-100;
 }
 
 .recommendation-rank {

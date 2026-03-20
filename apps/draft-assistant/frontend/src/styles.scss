@@ -1,30 +1,30 @@
 @use '@angular/material' as mat;
-@import url('https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&family=Inter:wght@400;600;700&display=swap');
 
 // ── TailwindCSS ────────────────────────────────────────────────────────────────
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-// ── Angular Material M3 theme ──────────────────────────────────────────────────
+
+// ── Custom Angular Material Theme: Digital Curator ─────────────────────────────
 @mixin apply-theme($density-scale) {
   $theme: mat.define-theme(
     (
       color: (
         theme-type: light,
-        primary: mat.$azure-palette,
+        primary: mat.$violet-palette,
         tertiary: mat.$blue-palette,
       ),
       typography: (
-        plain-family: 'Roboto',
-        brand-family: 'Roboto',
+        plain-family: 'Inter',
+        brand-family: 'Plus Jakarta Sans',
       ),
       density: (
         scale: $density-scale,
       ),
     )
   );
-
   @include mat.all-component-themes($theme);
 }
 
@@ -52,22 +52,38 @@ html.app-density--5 {
   @include apply-theme(-5);
 }
 
+
 html,
 body {
   height: 100%;
   margin: 0;
-  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', 'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--surface, #fdf8fb);
+  color: var(--on-surface, #1c1b1d);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-b,
-strong {
-  font-family: 'Lekton', serif;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', 'Inter', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+b, strong {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 700;
+}
+
+// ── Design System CSS Variables for Tonal Surfaces ────────────────────────────
+:root {
+  --primary: #4c22bd;
+  --primary-container: #6442d6;
+  --surface: #fdf8fb;
+  --surface-container-low: #f7f2f5;
+  --surface-container-lowest: #ffffff;
+  --surface-container-high: #ebe7e9;
+  --surface-container-highest: #e6e1e4;
+  --on-surface: #1c1b1d;
+  --outline-variant: #4c22bd26; // 15% opacity
 }
 
 

@@ -38,11 +38,6 @@
   @apply flex flex-wrap gap-2;
 }
 
-.filter-active {
-  background: rgb(198, 212, 245);
-  color: white;
-}
-
 .warning-banner {
   @apply rounded-lg border border-amber-300 bg-amber-50 text-amber-900 px-3 py-2 flex items-center gap-2 text-sm;
 }
@@ -143,7 +138,7 @@
 }
 
 .row-tier-unranked {
-  @apply bg-gray-100 border-2 border-gray-300;
+  @apply bg-slate-100 border-2 border-slate-300;
 }
 
 .player-details-row td {
