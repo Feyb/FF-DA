@@ -7,6 +7,14 @@
   flex-shrink: 0;
 }
 
+.app-brand {
+  @apply flex items-center gap-2 min-w-0;
+}
+
+.app-logo {
+  @apply h-8 w-auto object-contain;
+}
+
 .app-title {
   @apply font-bold text-lg;
 }

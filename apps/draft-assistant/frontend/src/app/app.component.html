@@ -1,6 +1,15 @@
 <div class="app-shell">
   <mat-toolbar color="primary" class="app-toolbar">
-    <span class="app-title">Draft Assistant</span>
+    <div class="app-brand">
+      <img
+        src="assets/logo.png"
+        width="168"
+        height="40"
+        alt="Draft Assistant logo"
+        class="app-logo"
+      />
+      <span class="app-title">Draft Assistant</span>
+    </div>
     <mat-form-field appearance="outline" class="density-field">
       <mat-label>Density</mat-label>
       <mat-select [value]="appStore.densityScale()" (selectionChange)="onDensityChange($event)">

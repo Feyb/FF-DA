@@ -2,22 +2,21 @@
   <header class="team-view-header">
     <h1 class="team-view-title">Team View</h1>
     <p class="team-view-subtitle">
-      Review your roster strength, starters, bench depth, IR stashes, and future draft capital.
+      Review your roster strength, starters, bench depth, IR stashes, and future
+      draft capital.
     </p>
   </header>
 
   @if (!appStore.selectedLeague()) {
-    <mat-card class="info-card">
-      <div class="info-card-content">
-        <mat-icon>info</mat-icon>
-        <div>
-          <p class="info-card-title">No league selected</p>
-          <p class="info-card-copy">
-            Select a league in Home first, then return to Team View.
-          </p>
-        </div>
+    <section class="info-panel" role="status">
+      <mat-icon>info</mat-icon>
+      <div>
+        <p class="info-panel-title">No league selected</p>
+        <p class="info-panel-copy">
+          Select a league in Home first, then return to Team View.
+        </p>
       </div>
-    </mat-card>
+    </section>
   } @else {
     @if (store.loading()) {
       <div class="loading-row">
@@ -27,17 +26,18 @@
     }
 
     @if (store.error()) {
-      <mat-card class="error-card">
+      <section class="error-panel" role="alert">
         <p class="error-text">{{ store.error() }}</p>
         <button mat-flat-button (click)="retryLoad()">Retry</button>
-      </mat-card>
+      </section>
     }
 
     @if (store.availableRosters().length > 0 && !store.selectedRosterId()) {
-      <mat-card class="selection-card">
+      <section class="selection-panel">
         <p class="selection-title">Choose a roster to continue</p>
         <p class="selection-copy">
-          This league was loaded without user context, so please pick the roster to analyze.
+          This league was loaded without user context, so please pick the roster
+          to analyze.
         </p>
         <mat-form-field appearance="outline" class="selection-field">
           <mat-label>League roster</mat-label>
@@ -49,42 +49,15 @@
             }
           </mat-select>
         </mat-form-field>
-      </mat-card>
+      </section>
     }
 
-    @if (store.rating(); as rating) {
+    @if (store.rating()) {
       <div class="team-layout">
         <div class="team-main">
-          <section class="rating-section">
-            <h2 class="section-title">Team Rating</h2>
-
-            @if (store.ratingWarning()) {
-              <div class="warning-banner">
-                <mat-icon>warning</mat-icon>
-                <span>{{ store.ratingWarning() }}</span>
-              </div>
-            }
-
-            <div class="rating-grid">
-              <mat-card class="combined-rating-card">
-                <p class="combined-rating-label">Combined Score</p>
-                <p class="combined-rating-value">{{ rating.combinedScore | number:'1.0-0' }}</p>
-                <p class="combined-rating-meta">{{ rating.playerCount }} players evaluated</p>
-              </mat-card>
-
-              <div class="position-chips">
-                @for (position of positionLabels; track position) {
-                  <mat-chip class="position-chip" [highlighted]="true">
-                    {{ position }}: {{ rating.positionScores[position] | number:'1.0-0' }}
-                  </mat-chip>
-                }
-              </div>
-            </div>
-          </section>
-
           <section class="tier-legend">
             <h3 class="tier-legend-title">Positional Tier Legend</h3>
-            <app-tier-legend/>
+            <app-tier-legend />
           </section>
 
           <section class="section-block">
@@ -93,59 +66,50 @@
               <p class="empty-copy">No starter data available.</p>
             } @else {
               @for (position of positionOrder; track position) {
-                @if (getStartersByPosition(position).length > 0) {
-                  <div class="position-section">
-                    <h3 class="position-heading">{{ position }}</h3>
-                    <div class="players-grid">
-                      @for (player of getStartersByPosition(position); track player.playerId) {
-                        <mat-card
-                          class="player-card"
-                          appearance="outlined"
-                          [ngClass]="getTierClass(player.ktcPositionalTier)"
-                        >
-                          <mat-card-header>
+                @if (getStartersByPosition(position); as players) {
+                  @if (players.length > 0) {
+                    <div class="position-section">
+                      <h3 class="position-heading">{{ position }}</h3>
+                      <mat-list class="players-list" role="list">
+                        @for (player of players; track player.playerId) {
+                          <mat-list-item
+                            role="listitem"
+                            [class]="
+                              'player-row ' +
+                              getTierClass(player.ktcPositionalTier)
+                            "
+                          >
                             <img
-                              mat-card-avatar
+                              matListItemAvatar
                               class="player-avatar"
                               [src]="playerHeadshotUrl(player.playerId)"
                               [alt]="player.fullName"
                               loading="lazy"
                               (error)="onPlayerImageError($event)"
                             />
-                            <mat-card-title class="player-name">{{ player.fullName }}</mat-card-title>
-                            <mat-card-subtitle class="player-meta">
-                              {{ player.position }} • {{ player.team ?? 'FA' }}
-                            </mat-card-subtitle>
-                          </mat-card-header>
-                          <mat-card-content class="player-card-content">
-                            <div class="player-meta-grid">
-                              <span class="player-meta-item"
-                                >Rank: <strong>{{ player.ktcRank ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item"
-                                >Pos Rank: <strong>{{ player.ktcPositionalRank ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item"
-                                >Value: <strong>{{ player.ktcValue ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item"
-                                >Tier: <strong>{{ player.ktcPositionalTier ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item"
-                                >Age: <strong>{{ player.age ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item"
-                                >Exp: <strong>{{ player.yearsExp ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item player-meta-item--wide"
-                                >Injury: <strong>{{ player.injuryStatus ?? 'Healthy' }}</strong></span
-                              >
-                            </div>
-                          </mat-card-content>
-                        </mat-card>
-                      }
+                            <span matListItemTitle class="player-name"
+                              >{{ player.fullName }} •
+                              {{ player.team ?? "FA" }} •
+                              Rk {{ player.ktcRank ?? "-" }} • T{{
+                                player.ktcPositionalTier ?? "-"
+                              }} • PosRk
+                                  {{ player.ktcPositionalRank ?? "-" }}</span
+                            >
+                            <span matListItemMeta>
+                              <div class="flex gap-1">
+                                <span>Val {{ player.ktcValue ?? "-" }}</span>
+                                <span>Age {{ player.age ?? "-" }}</span>
+                                <span
+                                  >Injury:
+                                  {{ player.injuryStatus ?? "Healthy" }}</span
+                                >
+                              </div>
+                            </span>
+                          </mat-list-item>
+                        }
+                      </mat-list>
                     </div>
-                  </div>
+                  }
                 }
               }
             }
@@ -157,59 +121,53 @@
               <p class="empty-copy">No bench players found.</p>
             } @else {
               @for (position of positionOrder; track position) {
-                @if (getBenchByPosition(position).length > 0) {
-                  <div class="position-section">
-                    <h3 class="position-heading">{{ position }}</h3>
-                    <div class="players-grid">
-                      @for (player of getBenchByPosition(position); track player.playerId) {
-                        <mat-card
-                          class="player-card"
-                          appearance="outlined"
-                          [ngClass]="getTierClass(player.ktcPositionalTier)"
-                        >
-                          <mat-card-header>
+                @if (getBenchByPosition(position); as players) {
+                  @if (players.length > 0) {
+                   <div class="position-section">
+                      <h3 class="position-heading">{{ position }}</h3>
+                      <mat-list class="players-list" role="list">
+                        @for (player of players; track player.playerId) {
+                          <mat-list-item
+                            role="listitem"
+                            [class]="
+                              'player-row ' +
+                              getTierClass(player.ktcPositionalTier)
+                            "
+                          >
                             <img
-                              mat-card-avatar
+                              matListItemAvatar
                               class="player-avatar"
                               [src]="playerHeadshotUrl(player.playerId)"
                               [alt]="player.fullName"
                               loading="lazy"
                               (error)="onPlayerImageError($event)"
                             />
-                            <mat-card-title class="player-name">{{ player.fullName }}</mat-card-title>
-                            <mat-card-subtitle class="player-meta">
-                              {{ player.position }} • {{ player.team ?? 'FA' }}
-                            </mat-card-subtitle>
-                          </mat-card-header>
-                          <mat-card-content class="player-card-content">
-                            <div class="player-meta-grid">
-                              <span class="player-meta-item"
-                                >Rank: <strong>{{ player.ktcRank ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item"
-                                >Pos Rank: <strong>{{ player.ktcPositionalRank ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item"
-                                >Value: <strong>{{ player.ktcValue ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item"
-                                >Tier: <strong>{{ player.ktcPositionalTier ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item"
-                                >Age: <strong>{{ player.age ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item"
-                                >Exp: <strong>{{ player.yearsExp ?? '-' }}</strong></span
-                              >
-                              <span class="player-meta-item player-meta-item--wide"
-                                >Injury: <strong>{{ player.injuryStatus ?? 'Healthy' }}</strong></span
-                              >
-                            </div>
-                          </mat-card-content>
-                        </mat-card>
-                      }
+                            <span matListItemTitle class="player-name"
+                              >{{ player.fullName }} •
+                              {{ player.team ?? "FA" }} •
+                              Rk {{ player.ktcRank ?? "-" }} • T{{
+                                player.ktcPositionalTier ?? "-"
+                              }}</span
+                            >
+                            <span matListItemMeta>
+                              <div class="flex gap-1">
+                                <span
+                                  >Pos
+                                  {{ player.ktcPositionalRank ?? "-" }}</span
+                                >
+                                <span>Val {{ player.ktcValue ?? "-" }}</span>
+                                <span>Age {{ player.age ?? "-" }}</span>
+                                <span
+                                  >Injury:
+                                  {{ player.injuryStatus ?? "Healthy" }}</span
+                                >
+                              </div>
+                            </span>
+                          </mat-list-item>
+                        }
+                      </mat-list>
                     </div>
-                  </div>
+                  }
                 }
               }
             }
@@ -220,55 +178,51 @@
             @if (store.sections().ir.length === 0) {
               <p class="empty-copy">No players currently in IR.</p>
             } @else {
-              <div class="players-grid">
+              <mat-list class="players-list" role="list">
                 @for (player of store.sections().ir; track player.playerId) {
-                  <mat-card
-                    class="player-card"
-                    appearance="outlined"
-                    [ngClass]="getTierClass(player.ktcPositionalTier)"
+                  <mat-list-item
+                    role="listitem"
+                    [lines]="3"
+                    [class]="
+                      'player-row ' + getTierClass(player.ktcPositionalTier)
+                    "
                   >
-                    <mat-card-header>
-                      <img
-                        mat-card-avatar
-                        class="player-avatar"
-                        [src]="playerHeadshotUrl(player.playerId)"
-                        [alt]="player.fullName"
-                        loading="lazy"
-                        (error)="onPlayerImageError($event)"
-                      />
-                      <mat-card-title class="player-name">{{ player.fullName }}</mat-card-title>
-                      <mat-card-subtitle class="player-meta">
-                        {{ player.position }} • {{ player.team ?? 'FA' }}
-                      </mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content class="player-card-content">
-                      <div class="player-meta-grid">
-                        <span class="player-meta-item"
-                          >Rank: <strong>{{ player.ktcRank ?? '-' }}</strong></span
-                        >
-                        <span class="player-meta-item"
-                          >Pos Rank: <strong>{{ player.ktcPositionalRank ?? '-' }}</strong></span
-                        >
-                        <span class="player-meta-item"
-                          >Value: <strong>{{ player.ktcValue ?? '-' }}</strong></span
-                        >
-                        <span class="player-meta-item"
-                          >Tier: <strong>{{ player.ktcPositionalTier ?? '-' }}</strong></span
-                        >
-                        <span class="player-meta-item"
-                          >Age: <strong>{{ player.age ?? '-' }}</strong></span
-                        >
-                        <span class="player-meta-item"
-                          >Exp: <strong>{{ player.yearsExp ?? '-' }}</strong></span
-                        >
-                        <span class="player-meta-item player-meta-item--wide"
-                          >Injury: <strong>{{ player.injuryStatus ?? 'Healthy' }}</strong></span
-                        >
-                      </div>
-                    </mat-card-content>
-                  </mat-card>
+                    <img
+                      matListItemAvatar
+                      class="player-avatar"
+                      [src]="playerHeadshotUrl(player.playerId)"
+                      [alt]="player.fullName"
+                      loading="lazy"
+                      (error)="onPlayerImageError($event)"
+                    />
+                    <span matListItemTitle class="player-name">{{
+                      player.fullName
+                    }}</span>
+                    <span matListItemLine class="player-meta-line"
+                      >{{ player.position }} • {{ player.team ?? "FA" }}</span
+                    >
+                    <span matListItemLine class="player-meta-line"
+                      >Age {{ player.age ?? "-" }} • Exp
+                      {{ player.yearsExp ?? "-" }} • Injury
+                      {{ player.injuryStatus ?? "Healthy" }}</span
+                    >
+                    <span matListItemMeta class="player-row-meta">
+                      <span class="meta-pill"
+                        >Rk {{ player.ktcRank ?? "-" }}</span
+                      >
+                      <span class="meta-pill"
+                        >Pos {{ player.ktcPositionalRank ?? "-" }}</span
+                      >
+                      <span class="meta-pill"
+                        >Val {{ player.ktcValue ?? "-" }}</span
+                      >
+                      <span class="meta-pill"
+                        >T{{ player.ktcPositionalTier ?? "-" }}</span
+                      >
+                    </span>
+                  </mat-list-item>
                 }
-              </div>
+              </mat-list>
             }
           </section>
 
@@ -277,14 +231,22 @@
             @if (store.sections().futurePicks.length === 0) {
               <p class="empty-copy">No future picks recorded.</p>
             } @else {
-              <div class="picks-grid">
+              <mat-list class="picks-list" role="list">
                 @for (pick of store.sections().futurePicks; track $index) {
-                  <mat-card class="pick-card">
-                    <p class="pick-season">{{ pick.season }}</p>
-                    <p class="pick-round">Round {{ pick.round }}</p>
-                  </mat-card>
+                  <mat-list-item role="listitem" [lines]="2" class="pick-row">
+                    <mat-icon matListItemIcon>sports_football</mat-icon>
+                    <span matListItemTitle class="pick-season">{{
+                      pick.season
+                    }}</span>
+                    <span matListItemLine class="pick-round"
+                      >Round {{ pick.round }}</span
+                    >
+                    <span matListItemMeta class="pick-meta-pill"
+                      >R{{ pick.round }}</span
+                    >
+                  </mat-list-item>
                 }
-              </div>
+              </mat-list>
             }
           </section>
         </div>
@@ -294,27 +256,46 @@
             <h2 class="section-title">League Rankings</h2>
             @if (myRank()) {
               <p class="standings-my-rank">
-                Your rank: <strong>{{ myRank() }}</strong> of {{ store.leagueStandings().length }}
+                Your rank: <strong>{{ myRank() }}</strong> of
+                {{ store.leagueStandings().length }}
               </p>
             }
             <div class="standings-list">
               @for (entry of store.leagueStandings(); track entry.rosterId) {
-                <div
-                  class="standings-entry"
-                  [class.standings-entry--mine]="entry.rosterId === store.selectedRosterId()"
+                <mat-card
+                  [class]="
+                    entry.rosterId === store.selectedRosterId()
+                      ? 'standings-entry standings-entry--mine'
+                      : 'standings-entry'
+                  "
+                  appearance="outlined"
                 >
                   <div class="standings-header">
-                    <span class="standings-rank">{{ entry.rank }}</span>
-                    <span class="standings-name">{{ entry.ownerDisplayName }}</span>
-                    <span class="standings-score">{{ entry.combinedScore | number:'1.0-0' }}</span>
+                    <div class="standings-title-row">
+                      <span class="standings-rank">#{{ entry.rank }}</span>
+                      <span class="standings-name">{{
+                        entry.ownerDisplayName
+                      }}</span>
+                    </div>
+                    <span class="standings-score">{{
+                      entry.combinedScore | number: "1.0-0"
+                    }}</span>
                   </div>
                   <div class="standings-positions">
-                    <span class="pos-chip">QB:{{ entry.positionScores.QB | number:'1.0-0' }}</span>
-                    <span class="pos-chip">RB:{{ entry.positionScores.RB | number:'1.0-0' }}</span>
-                    <span class="pos-chip">WR:{{ entry.positionScores.WR | number:'1.0-0' }}</span>
-                    <span class="pos-chip">TE:{{ entry.positionScores.TE | number:'1.0-0' }}</span>
+                    <span class="pos-chip"
+                      >QB {{ entry.positionScores.QB | number: "1.0-0" }}</span
+                    >
+                    <span class="pos-chip"
+                      >RB {{ entry.positionScores.RB | number: "1.0-0" }}</span
+                    >
+                    <span class="pos-chip"
+                      >WR {{ entry.positionScores.WR | number: "1.0-0" }}</span
+                    >
+                    <span class="pos-chip"
+                      >TE {{ entry.positionScores.TE | number: "1.0-0" }}</span
+                    >
                   </div>
-                </div>
+                </mat-card>
               }
             </div>
           </aside>

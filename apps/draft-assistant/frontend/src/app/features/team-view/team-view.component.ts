@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { TeamViewRating } from '../../core/models';
@@ -22,6 +23,7 @@ import { TierLegendComponent } from '../../shared/components/tier-legend';
     CommonModule,
     DecimalPipe,
     MatCardModule,
+    MatListModule,
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
