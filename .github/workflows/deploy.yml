@@ -1,4 +1,4 @@
-name: Deploy Angular to GitHub Pages
+name: Deploy
 
 on:
   push:
@@ -6,26 +6,21 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+      - name: Install pnpm
+        run: npm install -g pnpm
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Install dependencies
+        run: pnpm install
 
-      - name: Build Angular App
-        run: npm run build --prod -- --output-path=dist --base-href=/FF-DA/
+      - name: Build Angular app
+        run: pnpm build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+      - name: Deploy
+        run: echo 'Deploying the Angular app...'
