@@ -1,5 +1,3 @@
-# Updated workflow file
-
 name: Deploy
 
 on:
@@ -10,17 +8,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
-          cache: 'pnpm'
+          node-version: '14'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install dependencies
         run: pnpm install
-      - name: Build the project
-        run: pnpm draft-assistant:build --prod -- --output-path=dist --base-href=/FF-DA/
-      - name: Deploy
-        run: echo 'Deploying...'
+
+      - name: Build project
+        run: pnpm run build
