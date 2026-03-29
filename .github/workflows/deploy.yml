@@ -1,27 +1,26 @@
+# Updated workflow file
+
 name: Deploy
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-
-      - name: Build Angular app
-        run: pnpm build
-
+      - name: Build the project
+        run: pnpm draft-assistant:build --prod -- --output-path=dist --base-href=/FF-DA/
       - name: Deploy
-        run: echo 'Deploying the Angular app...'
+        run: echo 'Deploying...'
