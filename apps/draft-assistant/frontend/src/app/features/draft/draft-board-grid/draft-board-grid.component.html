@@ -1,0 +1,97 @@
+<div class="board-outer">
+  @if (isLoading() || teamCount() === 0) {
+    <!-- Skeleton loading state -->
+    <div
+      class="board-skeleton"
+      [ngStyle]="{'grid-template-columns': 'repeat(' + skeletonColumns.length + ', minmax(0, 1fr))'}"
+    >
+      @for (col of skeletonColumns; track col) {
+        <div class="skeleton-header"></div>
+      }
+      @for (row of skeletonRows; track row) {
+        @for (col of skeletonColumns; track col) {
+          <div class="skeleton-cell"></div>
+        }
+      }
+    </div>
+  } @else {
+    <!-- Team header row -->
+    <div
+      class="board-headers"
+      [ngStyle]="{'grid-template-columns': gridColumnsStyle()}"
+    >
+      @for (header of headers(); track header.slot) {
+        <div class="header-cell" [class.header-mine]="header.isMyTeam">
+          <img
+            class="header-avatar"
+            [src]="avatarUrl(header.avatarId) || fallbackAvatar"
+            [alt]="header.displayName"
+            loading="lazy"
+            (error)="onImgError($event)"
+          />
+          <span class="header-name" [attr.title]="header.displayName">
+            {{ header.displayName }}
+          </span>
+        </div>
+      }
+    </div>
+
+    <!-- Position legend -->
+    <div class="pos-legend" role="list" aria-label="Position color legend">
+      <span class="legend-item pos-qb" role="listitem">QB</span>
+      <span class="legend-item pos-rb" role="listitem">RB</span>
+      <span class="legend-item pos-wr" role="listitem">WR</span>
+      <span class="legend-item pos-te" role="listitem">TE</span>
+      <span class="legend-item legend-current" role="listitem">On clock</span>
+      <span class="legend-item legend-mine" role="listitem">My picks</span>
+    </div>
+
+    <!-- Grid rows -->
+    @for (row of gridRows(); track row.round) {
+      <div
+        class="board-row"
+        [ngStyle]="{'grid-template-columns': gridColumnsStyle()}"
+      >
+        @for (cell of row.cells; track cell.pickNo) {
+          <div
+            class="board-cell"
+            [class.cell-current]="cell.isCurrentPick"
+            [class.cell-mine-empty]="cell.isMyTeam && !cell.pick && !cell.isCurrentPick"
+            [class.cell-picked]="!!cell.pick"
+            [ngClass]="cell.pick ? positionClass(cell.position) : ''"
+            [attr.aria-label]="cell.pick ? (cell.playerLastName ?? 'Pick') + ' ' + (cell.position ?? '') : 'Empty pick ' + cell.pickLabel"
+          >
+            <span class="cell-label">{{ cell.pickLabel }}</span>
+
+            @if (cell.pick) {
+              <div class="cell-content">
+                <img
+                  class="cell-thumb"
+                  [src]="playerHeadshotUrl(cell.playerId!)"
+                  [alt]="cell.playerLastName ?? ''"
+                  loading="lazy"
+                  (error)="onImgError($event)"
+                />
+                <div class="cell-player-info">
+                  <span class="cell-last-name">{{ cell.playerLastName }}</span>
+                  <span class="cell-position">{{ cell.position }}</span>
+                </div>
+                @if (cell.overallTier !== null) {
+                  <span
+                    class="cell-tier-badge"
+                    [ngClass]="tierClass(cell.overallTier)"
+                    [attr.aria-label]="'Tier ' + cell.overallTier"
+                  >T{{ cell.overallTier }}</span>
+                }
+              </div>
+            } @else {
+              <span class="cell-arrow" aria-hidden="true">
+                {{ row.flowRight ? '→' : '←' }}
+              </span>
+            }
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

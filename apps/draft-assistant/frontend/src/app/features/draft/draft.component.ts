@@ -24,6 +24,7 @@ import { DraftPlayerRow, DraftRecommendation, SleeperDraft } from '../../core/mo
 import { AppStore } from '../../core/state/app.store';
 import { DraftStore, DraftPositionFilter, DraftSourceMode } from './draft.store';
 import { TierLegendComponent } from '../../shared/components/tier-legend';
+import { DraftBoardGridComponent } from './draft-board-grid/draft-board-grid.component';
 
 interface RecommendationPositionGroup {
   position: DraftPositionFilter;
@@ -71,6 +72,7 @@ interface SavedDirectUrlView {
     MatSelectModule,
     MatSlideToggleModule,
     TierLegendComponent,
+    DraftBoardGridComponent,
   ],
 })
 export class DraftComponent implements OnInit {

@@ -184,6 +184,28 @@
       </mat-card>
   } @else {
       @if (store.selectedDraft(); as selectedDraft) {
+        <!-- Snake Draft Board Grid -->
+        <mat-card class="board-grid-card" appearance="outlined">
+          <div class="section-header">
+            <h2>Draft Board</h2>
+            <span class="section-hint">
+              {{ draftSetting(selectedDraft, 'teams') }} teams ·
+              {{ draftSetting(selectedDraft, 'rounds') }} rounds ·
+              {{ draftTypeLabel(selectedDraft) }}
+            </span>
+          </div>
+          <app-draft-board-grid
+            [draft]="selectedDraft"
+            [picks]="store.picks()"
+            [rosterDisplayNames]="store.rosterDisplayNames()"
+            [rosterAvatarIds]="store.rosterAvatarIds()"
+            [playerNameMap]="store.playerNameMap()"
+            [rows]="store.rows()"
+            [currentUserId]="appStore.user()?.user_id ?? null"
+            [isLoading]="store.loading()"
+          />
+        </mat-card>
+
         <div class="draft-layout">
           <div class="draft-main">
             <mat-card class="recommendations-card" appearance="outlined">

@@ -15,6 +15,7 @@ import {
   SleeperDraft,
   SleeperDraftPick,
 } from '../../core/models';
+import { mapRosterAvatarIds } from './draft-board-grid/draft-board-grid.util';
 import { AppStore } from '../../core/state/app.store';
 
 export type DraftPositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
@@ -35,6 +36,7 @@ interface DraftState {
   selectedDraftId: string | null;
   draftStatus: string | null;
   rosterDisplayNames: Record<string, string>;
+  rosterAvatarIds: Record<string, string | null>;
   playerNameMap: Record<string, string>;
   picks: SleeperDraftPick[];
   rows: DraftPlayerRow[];
@@ -57,6 +59,7 @@ export const DraftStore = signalStore(
     selectedDraftId: null,
     draftStatus: null,
     rosterDisplayNames: {},
+    rosterAvatarIds: {},
     playerNameMap: {},
     picks: [],
     rows: [],
@@ -422,6 +425,7 @@ export const DraftStore = signalStore(
     ): Promise<{
       selectedLeagueId: string | null;
       rosterDisplayNames: Record<string, string>;
+      rosterAvatarIds: Record<string, string | null>;
       playerNameMap: Record<string, string>;
       rows: DraftPlayerRow[];
       starredPlayerIds: string[];
@@ -453,6 +457,7 @@ export const DraftStore = signalStore(
       const rows = mapRows(playersById, ktcLookup, Number(season));
 
       let rosterDisplayNames: Record<string, string> = {};
+      let rosterAvatarIds: Record<string, string | null> = {};
       if (selectedLeagueId) {
         try {
           const [rosters, users] = await firstValueFrom(
@@ -462,14 +467,17 @@ export const DraftStore = signalStore(
             ]),
           );
           rosterDisplayNames = mapRosterDisplayNames(rosters, users);
+          rosterAvatarIds = mapRosterAvatarIds(rosters, users);
         } catch {
           rosterDisplayNames = {};
+          rosterAvatarIds = {};
         }
       }
 
       return {
         selectedLeagueId,
         rosterDisplayNames,
+        rosterAvatarIds,
         playerNameMap,
         rows,
         starredPlayerIds: loadStarredPlayerIds(selectedLeagueId),
@@ -533,6 +541,7 @@ export const DraftStore = signalStore(
         );
 
         const rosterDisplayNames = mapRosterDisplayNames(rosters, users);
+        const rosterAvatarIds = mapRosterAvatarIds(rosters, users);
         const ktcLookup = ktc.buildNameLookup(ktcPlayers);
         const rows = mapRows(playersById, ktcLookup, Number(season));
         const selectedDraftId = chooseDraftId(leagueId, drafts);
@@ -568,6 +577,7 @@ export const DraftStore = signalStore(
           selectedDraftId,
           draftStatus: selectedDraft?.status ?? null,
           rosterDisplayNames,
+          rosterAvatarIds,
           rows,
           picks,
           rookiesOnly: selectedDraft ? isSleeperRookieDraft(selectedDraft) : false,
@@ -604,6 +614,7 @@ export const DraftStore = signalStore(
         selectedDraftId: null,
         draftStatus: null,
         rosterDisplayNames: {},
+        rosterAvatarIds: {},
         picks: [],
         rows: [],
         starredPlayerIds: [],
@@ -643,6 +654,7 @@ export const DraftStore = signalStore(
             selectedLeagueId: context.selectedLeagueId,
             draftSource: options?.source ?? store.draftSource() ?? 'league',
             rosterDisplayNames: context.rosterDisplayNames,
+            rosterAvatarIds: context.rosterAvatarIds,
             playerNameMap: context.playerNameMap,
             rows: context.rows,
             drafts: nextDrafts,
