@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,8 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
-          registry-url: 'https://registry.npmjs.org/'
+          node-version: '18'
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -26,4 +26,4 @@ jobs:
         run: pnpm install
 
       - name: Build project
-        run: pnpm run build
+        run: pnpm draft-assistant:build
