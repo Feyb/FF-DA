@@ -35,7 +35,7 @@ jobs:
         run: pnpm install
 
       - name: Build project
-        run: pnpm draft-assistant:build -- --base-href /FF-DA/
+        run: pnpm draft-assistant:build --base-href /FF-DA/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -49,7 +49,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
