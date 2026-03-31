@@ -41,7 +41,11 @@ jobs:
         run: pnpm draft-assistant:build --base-href /FF-DA/
 
       - name: Verify Pages artifact contents
-        run: test -f apps/draft-assistant/frontend/dist/frontend/browser/index.html
+        run: |
+          [ -f apps/draft-assistant/frontend/dist/frontend/browser/index.html ] || {
+            echo 'Error: Build artifact index.html not found at expected Pages path.'
+            exit 1
+          }
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
