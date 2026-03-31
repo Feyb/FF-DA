@@ -39,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Fetch KTC rankings
+        run: node scripts/fetch-ktc.mjs
+
       - name: Build project
         run: pnpm draft-assistant:build --base-href /FF-DA/
 
