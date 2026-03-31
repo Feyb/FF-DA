@@ -23,6 +23,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -36,6 +39,9 @@ jobs:
 
       - name: Build project
         run: pnpm draft-assistant:build --base-href /FF-DA/
+
+      - name: Verify Pages artifact contents
+        run: test -f apps/draft-assistant/frontend/dist/frontend/browser/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
