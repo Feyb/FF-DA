@@ -6,6 +6,16 @@
       "sourceType": "github",
       "computedHash": "da0d3fef219577871a36854e6f9163a3068ffce6d808a691ede86cdd7020e254"
     },
+    "angular-developer": {
+      "source": "angular/skills",
+      "sourceType": "github",
+      "computedHash": "13f864392379685bb8935f93989ac3c08c74e36391499d2748e8e0657ef0ee90"
+    },
+    "angular-new-app": {
+      "source": "angular/skills",
+      "sourceType": "github",
+      "computedHash": "d9f712544847ab80ef7ed20043820afd275c394ca05340c2f20a0f051e35d945"
+    },
     "animate": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
