@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "draft-assistant:sync": "pnpm --filter @ff/draft-assistant-frontend run ktc:sync",
     "draft-assistant:start": "pnpm --filter @ff/draft-assistant-frontend run start",
     "draft-assistant:build": "pnpm --filter @ff/draft-assistant-frontend run build"
   },

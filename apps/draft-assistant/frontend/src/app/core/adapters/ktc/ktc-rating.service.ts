@@ -4,6 +4,8 @@ import { Observable, catchError, map, of, shareReplay } from 'rxjs';
 import { KtcPlayer, TeamViewPlayer, TeamViewRating } from '../../models';
 
 const KTC_RANKINGS_URL = '/ktc/dynasty-rankings';
+const KTC_ASSET_1QB_URL = '/assets/ktc/players-1qb.json';
+const KTC_ASSET_SUPERFLEX_URL = '/assets/ktc/players-superflex.json';
 
 interface KtcRawValueBlock {
   value: number;
@@ -38,10 +40,16 @@ export class KtcRatingService {
     const cached = this.cache.get(cacheKey);
     if (cached) return cached;
 
+    const assetUrl = superflex ? KTC_ASSET_SUPERFLEX_URL : KTC_ASSET_1QB_URL;
     const url = `${KTC_RANKINGS_URL}?filters=QB|WR|RB|TE&format=${format}`;
-    const obs$ = this.http.get(url, { responseType: 'text' }).pipe(
-      map((html) => this.extractPlayersArray(html, superflex)),
-      catchError(() => of([])),
+    const obs$ = this.http.get<KtcPlayer[]>(assetUrl).pipe(
+      map((players) => players ?? []),
+      catchError(() =>
+        this.http.get(url, { responseType: 'text' }).pipe(
+          map((html) => this.extractPlayersArray(html, superflex)),
+          catchError(() => of([])),
+        ),
+      ),
       shareReplay(1),
     );
 

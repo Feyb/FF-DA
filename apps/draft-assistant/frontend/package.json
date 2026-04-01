@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "ktc:sync": "node ./scripts/fetch-ktc-players.mjs",
+    "start": "pnpm run ktc:sync && ng serve",
+    "build": "pnpm run ktc:sync && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
