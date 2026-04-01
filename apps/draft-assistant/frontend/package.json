@@ -5,8 +5,10 @@
   "scripts": {
     "ng": "ng",
     "ktc:sync": "node ./scripts/fetch-ktc-players.mjs",
-    "start": "pnpm run ktc:sync && ng serve",
-    "build": "pnpm run ktc:sync && ng build",
+    "flock:sync": "node ./scripts/fetch-flock-players.mjs",
+    "rankings:sync": "pnpm run ktc:sync && pnpm run flock:sync",
+    "start": "pnpm run rankings:sync && ng serve",
+    "build": "pnpm run rankings:sync && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"

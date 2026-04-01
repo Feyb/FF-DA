@@ -401,27 +401,6 @@
               </div>
             </mat-card>
 
-            <mat-card class="history-card" appearance="outlined">
-              <div class="section-header">
-                <h2>Team Draft History</h2>
-              </div>
-              @if (store.teamHistory().length === 0) {
-                <p class="empty-copy">No team draft history yet.</p>
-              } @else {
-                <div class="history-list">
-                  @for (team of store.teamHistory(); track team.rosterId) {
-                    <div class="history-item">
-                      <p class="history-team">{{ team.ownerDisplayName }}</p>
-                      <div class="chip-list">
-                        @for (pick of team.picks; track pick.pick_no) {
-                          <mat-chip>R{{ pick.round }} • #{{ pick.pick_no }}</mat-chip>
-                        }
-                      </div>
-                    </div>
-                  }
-                </div>
-              }
-            </mat-card>
           </aside>
         </div>
       }

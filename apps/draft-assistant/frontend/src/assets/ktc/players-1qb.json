@@ -23,7 +23,7 @@
     "team": "CIN",
     "rookie": false,
     "age": 26.1,
-    "value": 9997,
+    "value": 9998,
     "rank": 2,
     "positionalRank": 1,
     "overallTier": 1,
@@ -83,7 +83,7 @@
     "team": "NYG",
     "rookie": false,
     "age": 22.7,
-    "value": 8057,
+    "value": 8063,
     "rank": 6,
     "positionalRank": 4,
     "overallTier": 3,
@@ -98,7 +98,7 @@
     "team": "LVR",
     "rookie": false,
     "age": 23.3,
-    "value": 7967,
+    "value": 7970,
     "rank": 7,
     "positionalRank": 1,
     "overallTier": 3,
@@ -113,7 +113,7 @@
     "team": "DET",
     "rookie": false,
     "age": 26.4,
-    "value": 7941,
+    "value": 7936,
     "rank": 8,
     "positionalRank": 5,
     "overallTier": 3,
@@ -143,7 +143,7 @@
     "team": "ARI",
     "rookie": false,
     "age": 26.4,
-    "value": 7888,
+    "value": 7889,
     "rank": 10,
     "positionalRank": 2,
     "overallTier": 3,
@@ -203,10 +203,10 @@
     "team": "BUF",
     "rookie": false,
     "age": 29.9,
-    "value": 7622,
+    "value": 7620,
     "rank": 14,
     "positionalRank": 1,
-    "overallTier": 3,
+    "overallTier": 4,
     "positionalTier": 1
   },
   {
@@ -221,7 +221,7 @@
     "value": 7412,
     "rank": 15,
     "positionalRank": 8,
-    "overallTier": 4,
+    "overallTier": 5,
     "positionalTier": 2
   },
   {
@@ -233,10 +233,10 @@
     "team": "MIA",
     "rookie": false,
     "age": 24.5,
-    "value": 7410,
+    "value": 7408,
     "rank": 16,
     "positionalRank": 5,
-    "overallTier": 4,
+    "overallTier": 5,
     "positionalTier": 2
   },
   {
@@ -251,7 +251,7 @@
     "value": 7293,
     "rank": 17,
     "positionalRank": 6,
-    "overallTier": 4,
+    "overallTier": 5,
     "positionalTier": 2
   },
   {
@@ -266,7 +266,7 @@
     "value": 7139,
     "rank": 18,
     "positionalRank": 9,
-    "overallTier": 5,
+    "overallTier": 6,
     "positionalTier": 3
   },
   {
@@ -281,7 +281,7 @@
     "value": 7085,
     "rank": 19,
     "positionalRank": 0,
-    "overallTier": 5,
+    "overallTier": 6,
     "positionalTier": 0
   },
   {
@@ -296,7 +296,7 @@
     "value": 6837,
     "rank": 20,
     "positionalRank": 10,
-    "overallTier": 6,
+    "overallTier": 7,
     "positionalTier": 4
   },
   {
@@ -308,10 +308,10 @@
     "team": "BUF",
     "rookie": false,
     "age": 26.5,
-    "value": 6820,
+    "value": 6817,
     "rank": 21,
     "positionalRank": 7,
-    "overallTier": 6,
+    "overallTier": 7,
     "positionalTier": 2
   },
   {
@@ -326,7 +326,7 @@
     "value": 6797,
     "rank": 22,
     "positionalRank": 8,
-    "overallTier": 6,
+    "overallTier": 7,
     "positionalTier": 2
   },
   {
@@ -338,10 +338,10 @@
     "team": "DAL",
     "rookie": false,
     "age": 25.1,
-    "value": 6780,
+    "value": 6782,
     "rank": 23,
     "positionalRank": 11,
-    "overallTier": 6,
+    "overallTier": 7,
     "positionalTier": 4
   },
   {
@@ -356,7 +356,7 @@
     "value": 6638,
     "rank": 24,
     "positionalRank": 3,
-    "overallTier": 7,
+    "overallTier": 8,
     "positionalTier": 2
   },
   {
@@ -371,7 +371,7 @@
     "value": 6628,
     "rank": 25,
     "positionalRank": 2,
-    "overallTier": 7,
+    "overallTier": 8,
     "positionalTier": 2
   },
   {
@@ -386,7 +386,7 @@
     "value": 6575,
     "rank": 26,
     "positionalRank": 12,
-    "overallTier": 7,
+    "overallTier": 8,
     "positionalTier": 4
   },
   {
@@ -398,10 +398,10 @@
     "team": "KCC",
     "rookie": false,
     "age": 25.4,
-    "value": 6536,
+    "value": 6533,
     "rank": 27,
     "positionalRank": 9,
-    "overallTier": 7,
+    "overallTier": 8,
     "positionalTier": 2
   },
   {
@@ -413,10 +413,10 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 6518,
+    "value": 6521,
     "rank": 28,
     "positionalRank": 0,
-    "overallTier": 7,
+    "overallTier": 8,
     "positionalTier": 0
   },
   {
@@ -428,10 +428,10 @@
     "team": "HOU",
     "rookie": false,
     "age": 27,
-    "value": 6513,
+    "value": 6516,
     "rank": 29,
     "positionalRank": 13,
-    "overallTier": 7,
+    "overallTier": 8,
     "positionalTier": 4
   },
   {
@@ -446,7 +446,7 @@
     "value": 6471,
     "rank": 30,
     "positionalRank": 14,
-    "overallTier": 7,
+    "overallTier": 8,
     "positionalTier": 4
   },
   {
@@ -461,21 +461,6 @@
     "value": 6436,
     "rank": 31,
     "positionalRank": 4,
-    "overallTier": 7,
-    "positionalTier": 2
-  },
-  {
-    "playerName": "Jayden Daniels",
-    "playerID": 1552,
-    "slug": "jayden-daniels-1552",
-    "position": "QB",
-    "positionID": 1,
-    "team": "WAS",
-    "rookie": false,
-    "age": 25.3,
-    "value": 6295,
-    "rank": 32,
-    "positionalRank": 3,
     "overallTier": 8,
     "positionalTier": 2
   },
@@ -488,11 +473,26 @@
     "team": "CHI",
     "rookie": false,
     "age": 23.8,
-    "value": 6294,
-    "rank": 33,
+    "value": 6297,
+    "rank": 32,
     "positionalRank": 15,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 5
+  },
+  {
+    "playerName": "Jayden Daniels",
+    "playerID": 1552,
+    "slug": "jayden-daniels-1552",
+    "position": "QB",
+    "positionID": 1,
+    "team": "WAS",
+    "rookie": false,
+    "age": 25.3,
+    "value": 6292,
+    "rank": 33,
+    "positionalRank": 3,
+    "overallTier": 9,
+    "positionalTier": 2
   },
   {
     "playerName": "Quinshon Judkins",
@@ -506,7 +506,7 @@
     "value": 6282,
     "rank": 34,
     "positionalRank": 10,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 3
   },
   {
@@ -518,10 +518,10 @@
     "team": "NEP",
     "rookie": false,
     "age": 23.4,
-    "value": 6267,
+    "value": 6263,
     "rank": 35,
     "positionalRank": 11,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 3
   },
   {
@@ -536,7 +536,7 @@
     "value": 6261,
     "rank": 36,
     "positionalRank": 4,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 2
   },
   {
@@ -551,7 +551,7 @@
     "value": 6250,
     "rank": 37,
     "positionalRank": 12,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 3
   },
   {
@@ -566,7 +566,7 @@
     "value": 6209,
     "rank": 38,
     "positionalRank": 16,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 5
   },
   {
@@ -581,7 +581,7 @@
     "value": 6208,
     "rank": 39,
     "positionalRank": 17,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 5
   },
   {
@@ -593,10 +593,10 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 6021,
+    "value": 6020,
     "rank": 40,
     "positionalRank": 18,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 6
   },
   {
@@ -611,7 +611,7 @@
     "value": 5961,
     "rank": 41,
     "positionalRank": 0,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 0
   },
   {
@@ -626,7 +626,7 @@
     "value": 5946,
     "rank": 42,
     "positionalRank": 13,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 4
   },
   {
@@ -638,10 +638,10 @@
     "team": "TBB",
     "rookie": false,
     "age": 23.6,
-    "value": 5901,
+    "value": 5902,
     "rank": 43,
     "positionalRank": 14,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 4
   },
   {
@@ -656,7 +656,7 @@
     "value": 5851,
     "rank": 44,
     "positionalRank": 19,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 7
   },
   {
@@ -671,7 +671,7 @@
     "value": 5734,
     "rank": 45,
     "positionalRank": 15,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 5
   },
   {
@@ -683,10 +683,10 @@
     "team": "CIN",
     "rookie": false,
     "age": 27.2,
-    "value": 5719,
+    "value": 5722,
     "rank": 46,
     "positionalRank": 20,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -701,7 +701,7 @@
     "value": 5710,
     "rank": 47,
     "positionalRank": 21,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -716,7 +716,7 @@
     "value": 5695,
     "rank": 48,
     "positionalRank": 5,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 3
   },
   {
@@ -731,7 +731,7 @@
     "value": 5674,
     "rank": 49,
     "positionalRank": 22,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -743,10 +743,10 @@
     "team": "LAR",
     "rookie": false,
     "age": 25.6,
-    "value": 5655,
+    "value": 5658,
     "rank": 50,
     "positionalRank": 16,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 5
   },
   {
@@ -758,10 +758,10 @@
     "team": "PHI",
     "rookie": false,
     "age": 29.1,
-    "value": 5647,
+    "value": 5644,
     "rank": 51,
     "positionalRank": 17,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 5
   },
   {
@@ -776,7 +776,7 @@
     "value": 5626,
     "rank": 52,
     "positionalRank": 23,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -791,7 +791,7 @@
     "value": 5620,
     "rank": 53,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -803,10 +803,10 @@
     "team": "CLE",
     "rookie": false,
     "age": 21.7,
-    "value": 5584,
+    "value": 5587,
     "rank": 54,
     "positionalRank": 5,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 3
   },
   {
@@ -821,7 +821,7 @@
     "value": 5573,
     "rank": 55,
     "positionalRank": 24,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -836,7 +836,7 @@
     "value": 5570,
     "rank": 56,
     "positionalRank": 6,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 3
   },
   {
@@ -851,7 +851,7 @@
     "value": 5550,
     "rank": 57,
     "positionalRank": 25,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -863,10 +863,10 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 5539,
-    "rank": 59,
+    "value": 5542,
+    "rank": 58,
     "positionalRank": 26,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -878,10 +878,10 @@
     "team": "GBP",
     "rookie": false,
     "age": 25.4,
-    "value": 5539,
-    "rank": 58,
+    "value": 5533,
+    "rank": 59,
     "positionalRank": 6,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 3
   },
   {
@@ -896,7 +896,7 @@
     "value": 5530,
     "rank": 60,
     "positionalRank": 18,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 5
   },
   {
@@ -911,7 +911,7 @@
     "value": 5529,
     "rank": 61,
     "positionalRank": 27,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -926,7 +926,7 @@
     "value": 5518,
     "rank": 62,
     "positionalRank": 28,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -941,7 +941,7 @@
     "value": 5505,
     "rank": 63,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -956,7 +956,7 @@
     "value": 5494,
     "rank": 64,
     "positionalRank": 29,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -971,7 +971,7 @@
     "value": 5479,
     "rank": 65,
     "positionalRank": 7,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 3
   },
   {
@@ -986,7 +986,7 @@
     "value": 5477,
     "rank": 66,
     "positionalRank": 8,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 3
   },
   {
@@ -1001,7 +1001,7 @@
     "value": 5468,
     "rank": 67,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -1013,10 +1013,10 @@
     "team": "DAL",
     "rookie": false,
     "age": 25.9,
-    "value": 5465,
+    "value": 5462,
     "rank": 68,
     "positionalRank": 19,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 5
   },
   {
@@ -1031,7 +1031,7 @@
     "value": 5415,
     "rank": 69,
     "positionalRank": 9,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 3
   },
   {
@@ -1046,7 +1046,7 @@
     "value": 5383,
     "rank": 70,
     "positionalRank": 20,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 5
   },
   {
@@ -1061,7 +1061,7 @@
     "value": 5381,
     "rank": 71,
     "positionalRank": 21,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 5
   },
   {
@@ -1076,7 +1076,7 @@
     "value": 5373,
     "rank": 72,
     "positionalRank": 10,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 3
   },
   {
@@ -1091,7 +1091,7 @@
     "value": 5240,
     "rank": 73,
     "positionalRank": 30,
-    "overallTier": 11,
+    "overallTier": 12,
     "positionalTier": 9
   },
   {
@@ -1106,7 +1106,7 @@
     "value": 5234,
     "rank": 74,
     "positionalRank": 7,
-    "overallTier": 11,
+    "overallTier": 12,
     "positionalTier": 3
   },
   {
@@ -1118,10 +1118,10 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 5166,
+    "value": 5169,
     "rank": 75,
     "positionalRank": 0,
-    "overallTier": 11,
+    "overallTier": 12,
     "positionalTier": 0
   },
   {
@@ -1136,7 +1136,7 @@
     "value": 5154,
     "rank": 76,
     "positionalRank": 8,
-    "overallTier": 11,
+    "overallTier": 12,
     "positionalTier": 3
   },
   {
@@ -1151,7 +1151,7 @@
     "value": 5105,
     "rank": 77,
     "positionalRank": 9,
-    "overallTier": 11,
+    "overallTier": 12,
     "positionalTier": 3
   },
   {
@@ -1166,7 +1166,7 @@
     "value": 5083,
     "rank": 78,
     "positionalRank": 0,
-    "overallTier": 11,
+    "overallTier": 12,
     "positionalTier": 0
   },
   {
@@ -1181,7 +1181,7 @@
     "value": 5061,
     "rank": 79,
     "positionalRank": 11,
-    "overallTier": 11,
+    "overallTier": 12,
     "positionalTier": 4
   },
   {
@@ -1196,7 +1196,7 @@
     "value": 5032,
     "rank": 80,
     "positionalRank": 22,
-    "overallTier": 11,
+    "overallTier": 12,
     "positionalTier": 6
   },
   {
@@ -1208,10 +1208,10 @@
     "team": "BUF",
     "rookie": false,
     "age": 29,
-    "value": 4836,
+    "value": 4839,
     "rank": 81,
     "positionalRank": 31,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1226,7 +1226,7 @@
     "value": 4831,
     "rank": 82,
     "positionalRank": 32,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1241,7 +1241,7 @@
     "value": 4810,
     "rank": 83,
     "positionalRank": 10,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 4
   },
   {
@@ -1256,7 +1256,7 @@
     "value": 4802,
     "rank": 84,
     "positionalRank": 23,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 7
   },
   {
@@ -1271,7 +1271,7 @@
     "value": 4782,
     "rank": 85,
     "positionalRank": 0,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 0
   },
   {
@@ -1286,7 +1286,7 @@
     "value": 4779,
     "rank": 86,
     "positionalRank": 12,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 5
   },
   {
@@ -1301,7 +1301,7 @@
     "value": 4772,
     "rank": 87,
     "positionalRank": 24,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 7
   },
   {
@@ -1316,7 +1316,7 @@
     "value": 4710,
     "rank": 88,
     "positionalRank": 13,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 5
   },
   {
@@ -1331,7 +1331,7 @@
     "value": 4710,
     "rank": 89,
     "positionalRank": 25,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 7
   },
   {
@@ -1346,7 +1346,7 @@
     "value": 4696,
     "rank": 90,
     "positionalRank": 33,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1358,10 +1358,10 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 4668,
+    "value": 4665,
     "rank": 91,
     "positionalRank": 34,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1376,7 +1376,7 @@
     "value": 4660,
     "rank": 92,
     "positionalRank": 14,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 5
   },
   {
@@ -1391,7 +1391,7 @@
     "value": 4601,
     "rank": 93,
     "positionalRank": 35,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1403,10 +1403,10 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 4593,
+    "value": 4596,
     "rank": 94,
     "positionalRank": 0,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 0
   },
   {
@@ -1418,10 +1418,10 @@
     "team": "ARI",
     "rookie": false,
     "age": 26.1,
-    "value": 4577,
+    "value": 4575,
     "rank": 95,
     "positionalRank": 36,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1436,7 +1436,7 @@
     "value": 4544,
     "rank": 96,
     "positionalRank": 15,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 5
   },
   {
@@ -1451,7 +1451,7 @@
     "value": 4534,
     "rank": 97,
     "positionalRank": 37,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1463,10 +1463,10 @@
     "team": "JAC",
     "rookie": false,
     "age": 22.9,
-    "value": 4525,
+    "value": 4522,
     "rank": 98,
     "positionalRank": 38,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1481,7 +1481,7 @@
     "value": 4497,
     "rank": 99,
     "positionalRank": 39,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1496,7 +1496,7 @@
     "value": 4490,
     "rank": 100,
     "positionalRank": 40,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1511,7 +1511,7 @@
     "value": 4485,
     "rank": 101,
     "positionalRank": 41,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1526,7 +1526,7 @@
     "value": 4468,
     "rank": 102,
     "positionalRank": 26,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 8
   },
   {
@@ -1541,7 +1541,7 @@
     "value": 4461,
     "rank": 103,
     "positionalRank": 42,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -1556,7 +1556,7 @@
     "value": 4453,
     "rank": 104,
     "positionalRank": 16,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 5
   },
   {
@@ -1568,10 +1568,10 @@
     "team": "CHI",
     "rookie": false,
     "age": 27.2,
-    "value": 4392,
+    "value": 4389,
     "rank": 105,
     "positionalRank": 27,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 8
   },
   {
@@ -1586,7 +1586,7 @@
     "value": 4383,
     "rank": 106,
     "positionalRank": 43,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1601,7 +1601,7 @@
     "value": 4378,
     "rank": 107,
     "positionalRank": 28,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 8
   },
   {
@@ -1613,10 +1613,10 @@
     "team": "LAR",
     "rookie": false,
     "age": 33.3,
-    "value": 4350,
+    "value": 4353,
     "rank": 108,
     "positionalRank": 44,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1628,10 +1628,10 @@
     "team": "HOU",
     "rookie": false,
     "age": 28.8,
-    "value": 4342,
+    "value": 4345,
     "rank": 109,
     "positionalRank": 29,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 8
   },
   {
@@ -1646,7 +1646,7 @@
     "value": 4322,
     "rank": 110,
     "positionalRank": 45,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1661,7 +1661,7 @@
     "value": 4285,
     "rank": 111,
     "positionalRank": 11,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 5
   },
   {
@@ -1673,10 +1673,10 @@
     "team": "WAS",
     "rookie": false,
     "age": 30.5,
-    "value": 4269,
+    "value": 4272,
     "rank": 112,
     "positionalRank": 46,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1691,23 +1691,8 @@
     "value": 4239,
     "rank": 113,
     "positionalRank": 17,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 6
-  },
-  {
-    "playerName": "Jakobi Meyers",
-    "playerID": 13,
-    "slug": "jakobi-meyers-13",
-    "position": "WR",
-    "positionID": 3,
-    "team": "JAC",
-    "rookie": false,
-    "age": 29.4,
-    "value": 4216,
-    "rank": 114,
-    "positionalRank": 47,
-    "overallTier": 12,
-    "positionalTier": 11
   },
   {
     "playerName": "Xavier Worthy",
@@ -1718,10 +1703,25 @@
     "team": "KCC",
     "rookie": false,
     "age": 22.9,
-    "value": 4215,
+    "value": 4218,
+    "rank": 114,
+    "positionalRank": 47,
+    "overallTier": 13,
+    "positionalTier": 11
+  },
+  {
+    "playerName": "Jakobi Meyers",
+    "playerID": 13,
+    "slug": "jakobi-meyers-13",
+    "position": "WR",
+    "positionID": 3,
+    "team": "JAC",
+    "rookie": false,
+    "age": 29.4,
+    "value": 4213,
     "rank": 115,
     "positionalRank": 48,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1736,7 +1736,7 @@
     "value": 4210,
     "rank": 116,
     "positionalRank": 0,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 0
   },
   {
@@ -1748,10 +1748,10 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 4155,
+    "value": 4152,
     "rank": 117,
     "positionalRank": 49,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1766,7 +1766,7 @@
     "value": 4151,
     "rank": 118,
     "positionalRank": 50,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1781,7 +1781,7 @@
     "value": 4141,
     "rank": 119,
     "positionalRank": 18,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 6
   },
   {
@@ -1793,10 +1793,10 @@
     "team": "CAR",
     "rookie": false,
     "age": 26.8,
-    "value": 4141,
+    "value": 4138,
     "rank": 120,
     "positionalRank": 30,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 9
   },
   {
@@ -1808,10 +1808,10 @@
     "team": "IND",
     "rookie": false,
     "age": 24.6,
-    "value": 4126,
+    "value": 4129,
     "rank": 121,
     "positionalRank": 51,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1826,7 +1826,7 @@
     "value": 4115,
     "rank": 122,
     "positionalRank": 52,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1841,7 +1841,7 @@
     "value": 4091,
     "rank": 123,
     "positionalRank": 0,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 0
   },
   {
@@ -1853,10 +1853,10 @@
     "team": "LAC",
     "rookie": false,
     "age": 24.6,
-    "value": 4064,
-    "rank": 125,
+    "value": 4067,
+    "rank": 124,
     "positionalRank": 53,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1869,9 +1869,9 @@
     "rookie": false,
     "age": 27.8,
     "value": 4064,
-    "rank": 124,
+    "rank": 125,
     "positionalRank": 31,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 9
   },
   {
@@ -1886,7 +1886,7 @@
     "value": 4057,
     "rank": 126,
     "positionalRank": 12,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 5
   },
   {
@@ -1898,10 +1898,10 @@
     "team": "BUF",
     "rookie": false,
     "age": 26.4,
-    "value": 4055,
+    "value": 4052,
     "rank": 127,
     "positionalRank": 13,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 5
   },
   {
@@ -1913,10 +1913,10 @@
     "team": "LAR",
     "rookie": false,
     "age": 25.4,
-    "value": 4047,
+    "value": 4050,
     "rank": 128,
     "positionalRank": 32,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 9
   },
   {
@@ -1931,7 +1931,7 @@
     "value": 4036,
     "rank": 129,
     "positionalRank": 33,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 9
   },
   {
@@ -1943,10 +1943,10 @@
     "team": "GBP",
     "rookie": false,
     "age": 25.9,
-    "value": 4034,
+    "value": 4030,
     "rank": 130,
     "positionalRank": 54,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -1961,7 +1961,7 @@
     "value": 4003,
     "rank": 131,
     "positionalRank": 19,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 7
   },
   {
@@ -1976,7 +1976,7 @@
     "value": 3973,
     "rank": 132,
     "positionalRank": 14,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 5
   },
   {
@@ -1991,7 +1991,7 @@
     "value": 3945,
     "rank": 133,
     "positionalRank": 20,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 7
   },
   {
@@ -2006,7 +2006,7 @@
     "value": 3894,
     "rank": 134,
     "positionalRank": 21,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 7
   },
   {
@@ -2021,7 +2021,7 @@
     "value": 3883,
     "rank": 135,
     "positionalRank": 22,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 7
   },
   {
@@ -2036,7 +2036,7 @@
     "value": 3877,
     "rank": 136,
     "positionalRank": 55,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 12
   },
   {
@@ -2048,10 +2048,10 @@
     "team": "CAR",
     "rookie": false,
     "age": 24.4,
-    "value": 3831,
+    "value": 3829,
     "rank": 137,
     "positionalRank": 56,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 12
   },
   {
@@ -2063,10 +2063,10 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 3830,
+    "value": 3827,
     "rank": 138,
     "positionalRank": 34,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 10
   },
   {
@@ -2081,7 +2081,7 @@
     "value": 3779,
     "rank": 139,
     "positionalRank": 0,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 0
   },
   {
@@ -2096,7 +2096,7 @@
     "value": 3777,
     "rank": 140,
     "positionalRank": 57,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 12
   },
   {
@@ -2111,7 +2111,7 @@
     "value": 3769,
     "rank": 141,
     "positionalRank": 23,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 7
   },
   {
@@ -2126,7 +2126,7 @@
     "value": 3759,
     "rank": 142,
     "positionalRank": 0,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 0
   },
   {
@@ -2141,7 +2141,7 @@
     "value": 3757,
     "rank": 143,
     "positionalRank": 58,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 12
   },
   {
@@ -2156,7 +2156,7 @@
     "value": 3744,
     "rank": 144,
     "positionalRank": 0,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 0
   },
   {
@@ -2171,7 +2171,7 @@
     "value": 3731,
     "rank": 145,
     "positionalRank": 15,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 6
   },
   {
@@ -2186,7 +2186,7 @@
     "value": 3701,
     "rank": 146,
     "positionalRank": 59,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 12
   },
   {
@@ -2201,8 +2201,23 @@
     "value": 3694,
     "rank": 147,
     "positionalRank": 60,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 12
+  },
+  {
+    "playerName": "J.K. Dobbins",
+    "playerID": 636,
+    "slug": "jk-dobbins-636",
+    "position": "RB",
+    "positionID": 2,
+    "team": "DEN",
+    "rookie": false,
+    "age": 27.3,
+    "value": 3686,
+    "rank": 148,
+    "positionalRank": 35,
+    "overallTier": 13,
+    "positionalTier": 11
   },
   {
     "playerName": "Rhamondre Stevenson",
@@ -2214,24 +2229,9 @@
     "rookie": false,
     "age": 28.1,
     "value": 3681,
-    "rank": 148,
-    "positionalRank": 35,
-    "overallTier": 12,
-    "positionalTier": 11
-  },
-  {
-    "playerName": "J.K. Dobbins",
-    "playerID": 636,
-    "slug": "jk-dobbins-636",
-    "position": "RB",
-    "positionID": 2,
-    "team": "DEN",
-    "rookie": false,
-    "age": 27.3,
-    "value": 3680,
     "rank": 149,
     "positionalRank": 36,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -2246,7 +2246,7 @@
     "value": 3668,
     "rank": 150,
     "positionalRank": 37,
-    "overallTier": 12,
+    "overallTier": 13,
     "positionalTier": 11
   },
   {
@@ -2261,22 +2261,7 @@
     "value": 3610,
     "rank": 151,
     "positionalRank": 38,
-    "overallTier": 13,
-    "positionalTier": 11
-  },
-  {
-    "playerName": "Jonah Coleman",
-    "playerID": 1939,
-    "slug": "jonah-coleman-1939",
-    "position": "RB",
-    "positionID": 2,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 3606,
-    "rank": 152,
-    "positionalRank": 39,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 11
   },
   {
@@ -2289,10 +2274,25 @@
     "rookie": false,
     "age": 23.2,
     "value": 3603,
-    "rank": 153,
+    "rank": 152,
     "positionalRank": 61,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
+  },
+  {
+    "playerName": "Jonah Coleman",
+    "playerID": 1939,
+    "slug": "jonah-coleman-1939",
+    "position": "RB",
+    "positionID": 2,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 3603,
+    "rank": 153,
+    "positionalRank": 39,
+    "overallTier": 14,
+    "positionalTier": 11
   },
   {
     "playerName": "Mason Taylor",
@@ -2306,7 +2306,7 @@
     "value": 3588,
     "rank": 154,
     "positionalRank": 16,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 6
   },
   {
@@ -2321,7 +2321,7 @@
     "value": 3582,
     "rank": 155,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 0
   },
   {
@@ -2336,7 +2336,7 @@
     "value": 3565,
     "rank": 156,
     "positionalRank": 62,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2351,7 +2351,7 @@
     "value": 3550,
     "rank": 157,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 0
   },
   {
@@ -2366,7 +2366,7 @@
     "value": 3547,
     "rank": 158,
     "positionalRank": 40,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 12
   },
   {
@@ -2381,7 +2381,7 @@
     "value": 3537,
     "rank": 159,
     "positionalRank": 41,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 12
   },
   {
@@ -2396,7 +2396,7 @@
     "value": 3535,
     "rank": 160,
     "positionalRank": 24,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 8
   },
   {
@@ -2411,7 +2411,7 @@
     "value": 3535,
     "rank": 161,
     "positionalRank": 63,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2426,7 +2426,7 @@
     "value": 3521,
     "rank": 162,
     "positionalRank": 17,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 6
   },
   {
@@ -2441,7 +2441,7 @@
     "value": 3519,
     "rank": 163,
     "positionalRank": 64,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2456,7 +2456,7 @@
     "value": 3517,
     "rank": 164,
     "positionalRank": 65,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2471,7 +2471,7 @@
     "value": 3508,
     "rank": 165,
     "positionalRank": 18,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 6
   },
   {
@@ -2486,22 +2486,7 @@
     "value": 3507,
     "rank": 166,
     "positionalRank": 66,
-    "overallTier": 13,
-    "positionalTier": 13
-  },
-  {
-    "playerName": "Tre Harris",
-    "playerID": 1772,
-    "slug": "tre-harris-1772",
-    "position": "WR",
-    "positionID": 3,
-    "team": "LAC",
-    "rookie": false,
-    "age": 24.1,
-    "value": 3505,
-    "rank": 167,
-    "positionalRank": 67,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2514,10 +2499,40 @@
     "rookie": false,
     "age": 28.8,
     "value": 3504,
-    "rank": 168,
+    "rank": 167,
     "positionalRank": 25,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 8
+  },
+  {
+    "playerName": "Jaylin Noel",
+    "playerID": 1780,
+    "slug": "jaylin-noel-1780",
+    "position": "WR",
+    "positionID": 3,
+    "team": "HOU",
+    "rookie": false,
+    "age": 23.6,
+    "value": 3503,
+    "rank": 168,
+    "positionalRank": 67,
+    "overallTier": 14,
+    "positionalTier": 13
+  },
+  {
+    "playerName": "Tre Harris",
+    "playerID": 1772,
+    "slug": "tre-harris-1772",
+    "position": "WR",
+    "positionID": 3,
+    "team": "LAC",
+    "rookie": false,
+    "age": 24.1,
+    "value": 3502,
+    "rank": 169,
+    "positionalRank": 68,
+    "overallTier": 14,
+    "positionalTier": 13
   },
   {
     "playerName": "Jacory Croskey-Merritt",
@@ -2529,25 +2544,10 @@
     "rookie": false,
     "age": 25,
     "value": 3502,
-    "rank": 169,
-    "positionalRank": 42,
-    "overallTier": 13,
-    "positionalTier": 12
-  },
-  {
-    "playerName": "Jaylin Noel",
-    "playerID": 1780,
-    "slug": "jaylin-noel-1780",
-    "position": "WR",
-    "positionID": 3,
-    "team": "HOU",
-    "rookie": false,
-    "age": 23.6,
-    "value": 3500,
     "rank": 170,
-    "positionalRank": 68,
-    "overallTier": 13,
-    "positionalTier": 13
+    "positionalRank": 42,
+    "overallTier": 14,
+    "positionalTier": 12
   },
   {
     "playerName": "Chimere Dike",
@@ -2558,10 +2558,10 @@
     "team": "TEN",
     "rookie": false,
     "age": 24.3,
-    "value": 3473,
+    "value": 3476,
     "rank": 171,
     "positionalRank": 69,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2576,7 +2576,7 @@
     "value": 3468,
     "rank": 172,
     "positionalRank": 43,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 12
   },
   {
@@ -2591,7 +2591,7 @@
     "value": 3440,
     "rank": 173,
     "positionalRank": 70,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2606,7 +2606,7 @@
     "value": 3432,
     "rank": 174,
     "positionalRank": 26,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 8
   },
   {
@@ -2621,7 +2621,7 @@
     "value": 3410,
     "rank": 175,
     "positionalRank": 44,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2633,10 +2633,10 @@
     "team": "NEP",
     "rookie": false,
     "age": 23.4,
-    "value": 3395,
+    "value": 3392,
     "rank": 176,
     "positionalRank": 71,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2651,7 +2651,7 @@
     "value": 3386,
     "rank": 177,
     "positionalRank": 45,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2666,7 +2666,7 @@
     "value": 3374,
     "rank": 178,
     "positionalRank": 46,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2681,23 +2681,8 @@
     "value": 3373,
     "rank": 179,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 0
-  },
-  {
-    "playerName": "Tony Pollard",
-    "playerID": 344,
-    "slug": "tony-pollard-344",
-    "position": "RB",
-    "positionID": 2,
-    "team": "TEN",
-    "rookie": false,
-    "age": 28.9,
-    "value": 3361,
-    "rank": 180,
-    "positionalRank": 47,
-    "overallTier": 13,
-    "positionalTier": 13
   },
   {
     "playerName": "T.J. Hockenson",
@@ -2708,11 +2693,26 @@
     "team": "MIN",
     "rookie": false,
     "age": 28.7,
-    "value": 3357,
-    "rank": 181,
+    "value": 3360,
+    "rank": 180,
     "positionalRank": 19,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 7
+  },
+  {
+    "playerName": "Tony Pollard",
+    "playerID": 344,
+    "slug": "tony-pollard-344",
+    "position": "RB",
+    "positionID": 2,
+    "team": "TEN",
+    "rookie": false,
+    "age": 28.9,
+    "value": 3358,
+    "rank": 181,
+    "positionalRank": 47,
+    "overallTier": 14,
+    "positionalTier": 13
   },
   {
     "playerName": "Tyjae Spears",
@@ -2726,7 +2726,7 @@
     "value": 3356,
     "rank": 182,
     "positionalRank": 48,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2738,10 +2738,10 @@
     "team": "NYJ",
     "rookie": false,
     "age": 23.5,
-    "value": 3339,
+    "value": 3336,
     "rank": 183,
     "positionalRank": 72,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2756,7 +2756,7 @@
     "value": 3328,
     "rank": 184,
     "positionalRank": 20,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 7
   },
   {
@@ -2771,7 +2771,7 @@
     "value": 3327,
     "rank": 185,
     "positionalRank": 21,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 7
   },
   {
@@ -2786,7 +2786,7 @@
     "value": 3298,
     "rank": 186,
     "positionalRank": 73,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2801,7 +2801,7 @@
     "value": 3292,
     "rank": 187,
     "positionalRank": 22,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 7
   },
   {
@@ -2816,7 +2816,7 @@
     "value": 3267,
     "rank": 188,
     "positionalRank": 23,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 7
   },
   {
@@ -2831,7 +2831,7 @@
     "value": 3259,
     "rank": 189,
     "positionalRank": 49,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 14
   },
   {
@@ -2846,7 +2846,7 @@
     "value": 3258,
     "rank": 190,
     "positionalRank": 74,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 13
   },
   {
@@ -2861,7 +2861,7 @@
     "value": 3215,
     "rank": 191,
     "positionalRank": 24,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 7
   },
   {
@@ -2873,10 +2873,10 @@
     "team": "MIA",
     "rookie": false,
     "age": 22.2,
-    "value": 3212,
+    "value": 3215,
     "rank": 192,
     "positionalRank": 50,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 14
   },
   {
@@ -2888,10 +2888,10 @@
     "team": "SEA",
     "rookie": false,
     "age": 23,
-    "value": 3194,
+    "value": 3191,
     "rank": 193,
     "positionalRank": 25,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 7
   },
   {
@@ -2906,7 +2906,7 @@
     "value": 3154,
     "rank": 194,
     "positionalRank": 51,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 15
   },
   {
@@ -2921,7 +2921,7 @@
     "value": 3143,
     "rank": 195,
     "positionalRank": 52,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 15
   },
   {
@@ -2936,7 +2936,7 @@
     "value": 3104,
     "rank": 196,
     "positionalRank": 75,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 14
   },
   {
@@ -2951,7 +2951,7 @@
     "value": 3101,
     "rank": 197,
     "positionalRank": 27,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 9
   },
   {
@@ -2963,10 +2963,10 @@
     "team": "BUF",
     "rookie": false,
     "age": 22.9,
-    "value": 3090,
-    "rank": 199,
-    "positionalRank": 77,
-    "overallTier": 13,
+    "value": 3093,
+    "rank": 198,
+    "positionalRank": 76,
+    "overallTier": 14,
     "positionalTier": 14
   },
   {
@@ -2979,9 +2979,9 @@
     "rookie": false,
     "age": 25.1,
     "value": 3090,
-    "rank": 198,
-    "positionalRank": 76,
-    "overallTier": 13,
+    "rank": 199,
+    "positionalRank": 77,
+    "overallTier": 14,
     "positionalTier": 14
   },
   {
@@ -2996,7 +2996,22 @@
     "value": 3087,
     "rank": 200,
     "positionalRank": 53,
-    "overallTier": 13,
+    "overallTier": 14,
+    "positionalTier": 15
+  },
+  {
+    "playerName": "Keaton Mitchell",
+    "playerID": 1393,
+    "slug": "keaton-mitchell-1393",
+    "position": "RB",
+    "positionID": 2,
+    "team": "LAC",
+    "rookie": false,
+    "age": 24.2,
+    "value": 3070,
+    "rank": 201,
+    "positionalRank": 54,
+    "overallTier": 14,
     "positionalTier": 15
   },
   {
@@ -3009,25 +3024,10 @@
     "rookie": false,
     "age": 26.4,
     "value": 3070,
-    "rank": 201,
-    "positionalRank": 78,
-    "overallTier": 13,
-    "positionalTier": 14
-  },
-  {
-    "playerName": "Keaton Mitchell",
-    "playerID": 1393,
-    "slug": "keaton-mitchell-1393",
-    "position": "RB",
-    "positionID": 2,
-    "team": "LAC",
-    "rookie": false,
-    "age": 24.2,
-    "value": 3066,
     "rank": 202,
-    "positionalRank": 54,
-    "overallTier": 13,
-    "positionalTier": 15
+    "positionalRank": 78,
+    "overallTier": 14,
+    "positionalTier": 14
   },
   {
     "playerName": "Ty Simpson",
@@ -3041,7 +3041,7 @@
     "value": 3059,
     "rank": 203,
     "positionalRank": 28,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 9
   },
   {
@@ -3056,7 +3056,7 @@
     "value": 3052,
     "rank": 204,
     "positionalRank": 55,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 15
   },
   {
@@ -3071,7 +3071,7 @@
     "value": 3035,
     "rank": 206,
     "positionalRank": 29,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 9
   },
   {
@@ -3086,7 +3086,7 @@
     "value": 3035,
     "rank": 205,
     "positionalRank": 56,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 15
   },
   {
@@ -3101,7 +3101,7 @@
     "value": 3026,
     "rank": 207,
     "positionalRank": 26,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 8
   },
   {
@@ -3116,7 +3116,7 @@
     "value": 3015,
     "rank": 208,
     "positionalRank": 79,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 14
   },
   {
@@ -3131,7 +3131,7 @@
     "value": 3013,
     "rank": 209,
     "positionalRank": 80,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 14
   },
   {
@@ -3146,7 +3146,7 @@
     "value": 3012,
     "rank": 210,
     "positionalRank": 27,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 8
   },
   {
@@ -3161,7 +3161,7 @@
     "value": 2999,
     "rank": 211,
     "positionalRank": 81,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 14
   },
   {
@@ -3176,7 +3176,7 @@
     "value": 2978,
     "rank": 212,
     "positionalRank": 30,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 9
   },
   {
@@ -3191,7 +3191,7 @@
     "value": 2963,
     "rank": 213,
     "positionalRank": 82,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 14
   },
   {
@@ -3206,7 +3206,7 @@
     "value": 2951,
     "rank": 214,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 0
   },
   {
@@ -3221,7 +3221,7 @@
     "value": 2940,
     "rank": 215,
     "positionalRank": 28,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 8
   },
   {
@@ -3236,7 +3236,7 @@
     "value": 2935,
     "rank": 216,
     "positionalRank": 29,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 8
   },
   {
@@ -3251,7 +3251,7 @@
     "value": 2931,
     "rank": 217,
     "positionalRank": 30,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 8
   },
   {
@@ -3266,7 +3266,7 @@
     "value": 2924,
     "rank": 218,
     "positionalRank": 57,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 16
   },
   {
@@ -3281,7 +3281,7 @@
     "value": 2903,
     "rank": 219,
     "positionalRank": 58,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 16
   },
   {
@@ -3296,7 +3296,7 @@
     "value": 2898,
     "rank": 220,
     "positionalRank": 83,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 15
   },
   {
@@ -3311,7 +3311,7 @@
     "value": 2885,
     "rank": 221,
     "positionalRank": 84,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 15
   },
   {
@@ -3326,7 +3326,7 @@
     "value": 2877,
     "rank": 222,
     "positionalRank": 59,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 16
   },
   {
@@ -3341,7 +3341,7 @@
     "value": 2866,
     "rank": 223,
     "positionalRank": 60,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 16
   },
   {
@@ -3356,23 +3356,8 @@
     "value": 2862,
     "rank": 224,
     "positionalRank": 85,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 15
-  },
-  {
-    "playerName": "Emmett Johnson",
-    "playerID": 1936,
-    "slug": "emmett-johnson-1936",
-    "position": "RB",
-    "positionID": 2,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 2854,
-    "rank": 225,
-    "positionalRank": 61,
-    "overallTier": 13,
-    "positionalTier": 16
   },
   {
     "playerName": "2026 Early 3rd",
@@ -3384,10 +3369,25 @@
     "rookie": false,
     "age": 0,
     "value": 2852,
-    "rank": 226,
+    "rank": 225,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 0
+  },
+  {
+    "playerName": "Emmett Johnson",
+    "playerID": 1936,
+    "slug": "emmett-johnson-1936",
+    "position": "RB",
+    "positionID": 2,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 2851,
+    "rank": 226,
+    "positionalRank": 61,
+    "overallTier": 14,
+    "positionalTier": 16
   },
   {
     "playerName": "Isaiah Bond",
@@ -3401,7 +3401,7 @@
     "value": 2845,
     "rank": 227,
     "positionalRank": 86,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 15
   },
   {
@@ -3416,7 +3416,7 @@
     "value": 2819,
     "rank": 228,
     "positionalRank": 62,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 16
   },
   {
@@ -3428,10 +3428,10 @@
     "team": "SFO",
     "rookie": false,
     "age": 26.7,
-    "value": 2816,
+    "value": 2813,
     "rank": 229,
     "positionalRank": 31,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 9
   },
   {
@@ -3446,7 +3446,7 @@
     "value": 2804,
     "rank": 230,
     "positionalRank": 87,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 15
   },
   {
@@ -3461,7 +3461,7 @@
     "value": 2793,
     "rank": 231,
     "positionalRank": 63,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 16
   },
   {
@@ -3476,7 +3476,7 @@
     "value": 2762,
     "rank": 232,
     "positionalRank": 32,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 9
   },
   {
@@ -3491,7 +3491,7 @@
     "value": 2749,
     "rank": 233,
     "positionalRank": 33,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 9
   },
   {
@@ -3506,7 +3506,7 @@
     "value": 2748,
     "rank": 234,
     "positionalRank": 88,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 16
   },
   {
@@ -3521,7 +3521,7 @@
     "value": 2747,
     "rank": 235,
     "positionalRank": 64,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 16
   },
   {
@@ -3536,7 +3536,7 @@
     "value": 2733,
     "rank": 236,
     "positionalRank": 89,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 16
   },
   {
@@ -3551,7 +3551,7 @@
     "value": 2716,
     "rank": 237,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 0
   },
   {
@@ -3566,7 +3566,7 @@
     "value": 2703,
     "rank": 238,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 0
   },
   {
@@ -3581,7 +3581,7 @@
     "value": 2673,
     "rank": 239,
     "positionalRank": 34,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 10
   },
   {
@@ -3596,7 +3596,7 @@
     "value": 2669,
     "rank": 240,
     "positionalRank": 90,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3611,7 +3611,7 @@
     "value": 2662,
     "rank": 241,
     "positionalRank": 91,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3626,7 +3626,7 @@
     "value": 2655,
     "rank": 242,
     "positionalRank": 65,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3641,7 +3641,7 @@
     "value": 2646,
     "rank": 243,
     "positionalRank": 66,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3656,7 +3656,7 @@
     "value": 2645,
     "rank": 244,
     "positionalRank": 92,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3671,7 +3671,7 @@
     "value": 2642,
     "rank": 245,
     "positionalRank": 67,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3686,7 +3686,7 @@
     "value": 2623,
     "rank": 246,
     "positionalRank": 93,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3701,7 +3701,7 @@
     "value": 2608,
     "rank": 247,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 0
   },
   {
@@ -3716,7 +3716,7 @@
     "value": 2604,
     "rank": 248,
     "positionalRank": 68,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3731,7 +3731,7 @@
     "value": 2595,
     "rank": 249,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 0
   },
   {
@@ -3746,7 +3746,7 @@
     "value": 2593,
     "rank": 250,
     "positionalRank": 35,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 10
   },
   {
@@ -3761,7 +3761,7 @@
     "value": 2589,
     "rank": 251,
     "positionalRank": 94,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3776,7 +3776,7 @@
     "value": 2580,
     "rank": 252,
     "positionalRank": 69,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3791,22 +3791,7 @@
     "value": 2578,
     "rank": 253,
     "positionalRank": 95,
-    "overallTier": 13,
-    "positionalTier": 17
-  },
-  {
-    "playerName": "Rashod Bateman",
-    "playerID": 1070,
-    "slug": "rashod-bateman-1070",
-    "position": "WR",
-    "positionID": 3,
-    "team": "BAL",
-    "rookie": false,
-    "age": 26.3,
-    "value": 2577,
-    "rank": 254,
-    "positionalRank": 96,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3818,11 +3803,26 @@
     "team": "LAR",
     "rookie": false,
     "age": 27.2,
-    "value": 2573,
-    "rank": 255,
+    "value": 2577,
+    "rank": 254,
     "positionalRank": 36,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 10
+  },
+  {
+    "playerName": "Rashod Bateman",
+    "playerID": 1070,
+    "slug": "rashod-bateman-1070",
+    "position": "WR",
+    "positionID": 3,
+    "team": "BAL",
+    "rookie": false,
+    "age": 26.3,
+    "value": 2577,
+    "rank": 255,
+    "positionalRank": 96,
+    "overallTier": 14,
+    "positionalTier": 17
   },
   {
     "playerName": "Ja'Tavion Sanders",
@@ -3836,7 +3836,7 @@
     "value": 2573,
     "rank": 256,
     "positionalRank": 37,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 10
   },
   {
@@ -3851,22 +3851,7 @@
     "value": 2548,
     "rank": 257,
     "positionalRank": 70,
-    "overallTier": 13,
-    "positionalTier": 17
-  },
-  {
-    "playerName": "Darnell Mooney",
-    "playerID": 911,
-    "slug": "darnell-mooney-911",
-    "position": "WR",
-    "positionID": 3,
-    "team": "NYG",
-    "rookie": false,
-    "age": 28.4,
-    "value": 2547,
-    "rank": 258,
-    "positionalRank": 97,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3879,9 +3864,24 @@
     "rookie": true,
     "age": -1,
     "value": 2545,
-    "rank": 259,
+    "rank": 258,
     "positionalRank": 71,
-    "overallTier": 13,
+    "overallTier": 14,
+    "positionalTier": 17
+  },
+  {
+    "playerName": "Darnell Mooney",
+    "playerID": 911,
+    "slug": "darnell-mooney-911",
+    "position": "WR",
+    "positionID": 3,
+    "team": "NYG",
+    "rookie": false,
+    "age": 28.4,
+    "value": 2544,
+    "rank": 259,
+    "positionalRank": 97,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3896,7 +3896,7 @@
     "value": 2532,
     "rank": 260,
     "positionalRank": 72,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3911,7 +3911,7 @@
     "value": 2526,
     "rank": 261,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 0
   },
   {
@@ -3926,7 +3926,7 @@
     "value": 2507,
     "rank": 262,
     "positionalRank": 73,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3941,7 +3941,7 @@
     "value": 2502,
     "rank": 263,
     "positionalRank": 74,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3953,10 +3953,10 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 2497,
+    "value": 2500,
     "rank": 264,
     "positionalRank": 98,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -3971,7 +3971,7 @@
     "value": 2490,
     "rank": 265,
     "positionalRank": 38,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 10
   },
   {
@@ -3986,7 +3986,7 @@
     "value": 2489,
     "rank": 266,
     "positionalRank": 99,
-    "overallTier": 13,
+    "overallTier": 14,
     "positionalTier": 17
   },
   {
@@ -4001,7 +4001,7 @@
     "value": 2428,
     "rank": 268,
     "positionalRank": 75,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 18
   },
   {
@@ -4016,7 +4016,7 @@
     "value": 2428,
     "rank": 267,
     "positionalRank": 100,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 18
   },
   {
@@ -4031,7 +4031,7 @@
     "value": 2412,
     "rank": 269,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -4046,7 +4046,7 @@
     "value": 2400,
     "rank": 270,
     "positionalRank": 31,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 10
   },
   {
@@ -4061,7 +4061,7 @@
     "value": 2394,
     "rank": 271,
     "positionalRank": 76,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 18
   },
   {
@@ -4076,7 +4076,7 @@
     "value": 2366,
     "rank": 272,
     "positionalRank": 101,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -4091,7 +4091,7 @@
     "value": 2366,
     "rank": 273,
     "positionalRank": 102,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -4106,7 +4106,7 @@
     "value": 2351,
     "rank": 274,
     "positionalRank": 103,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -4121,7 +4121,7 @@
     "value": 2343,
     "rank": 275,
     "positionalRank": 104,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -4136,7 +4136,7 @@
     "value": 2312,
     "rank": 276,
     "positionalRank": 77,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -4151,7 +4151,7 @@
     "value": 2291,
     "rank": 277,
     "positionalRank": 32,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 10
   },
   {
@@ -4166,7 +4166,7 @@
     "value": 2279,
     "rank": 278,
     "positionalRank": 33,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 10
   },
   {
@@ -4181,7 +4181,7 @@
     "value": 2278,
     "rank": 279,
     "positionalRank": 34,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 10
   },
   {
@@ -4196,7 +4196,7 @@
     "value": 2271,
     "rank": 280,
     "positionalRank": 39,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -4211,7 +4211,7 @@
     "value": 2270,
     "rank": 281,
     "positionalRank": 40,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -4226,7 +4226,7 @@
     "value": 2269,
     "rank": 282,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -4241,7 +4241,7 @@
     "value": 2259,
     "rank": 283,
     "positionalRank": 35,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 10
   },
   {
@@ -4256,7 +4256,7 @@
     "value": 2246,
     "rank": 284,
     "positionalRank": 105,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -4271,7 +4271,7 @@
     "value": 2243,
     "rank": 285,
     "positionalRank": 41,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -4286,7 +4286,7 @@
     "value": 2239,
     "rank": 286,
     "positionalRank": 78,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -4301,7 +4301,7 @@
     "value": 2231,
     "rank": 287,
     "positionalRank": 36,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 10
   },
   {
@@ -4316,7 +4316,7 @@
     "value": 2224,
     "rank": 288,
     "positionalRank": 37,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 10
   },
   {
@@ -4331,7 +4331,7 @@
     "value": 2216,
     "rank": 289,
     "positionalRank": 106,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -4346,7 +4346,7 @@
     "value": 2193,
     "rank": 290,
     "positionalRank": 107,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -4361,7 +4361,7 @@
     "value": 2181,
     "rank": 291,
     "positionalRank": 108,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -4376,7 +4376,7 @@
     "value": 2151,
     "rank": 292,
     "positionalRank": 109,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -4388,10 +4388,10 @@
     "team": "GBP",
     "rookie": false,
     "age": 25.2,
-    "value": 2144,
+    "value": 2141,
     "rank": 293,
     "positionalRank": 79,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -4406,7 +4406,7 @@
     "value": 2134,
     "rank": 294,
     "positionalRank": 110,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -4421,7 +4421,7 @@
     "value": 2134,
     "rank": 295,
     "positionalRank": 80,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -4433,10 +4433,10 @@
     "team": "LAR",
     "rookie": false,
     "age": 23.2,
-    "value": 2125,
+    "value": 2128,
     "rank": 296,
     "positionalRank": 81,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -4451,7 +4451,7 @@
     "value": 2114,
     "rank": 297,
     "positionalRank": 42,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 12
   },
   {
@@ -4466,7 +4466,7 @@
     "value": 2097,
     "rank": 298,
     "positionalRank": 43,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 12
   },
   {
@@ -4481,7 +4481,7 @@
     "value": 2081,
     "rank": 299,
     "positionalRank": 111,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4496,7 +4496,7 @@
     "value": 2074,
     "rank": 300,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -4511,7 +4511,7 @@
     "value": 2074,
     "rank": 301,
     "positionalRank": 112,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4526,7 +4526,7 @@
     "value": 2052,
     "rank": 302,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -4541,7 +4541,7 @@
     "value": 2051,
     "rank": 303,
     "positionalRank": 113,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4556,7 +4556,7 @@
     "value": 2048,
     "rank": 305,
     "positionalRank": 115,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4571,7 +4571,7 @@
     "value": 2048,
     "rank": 304,
     "positionalRank": 114,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4586,7 +4586,7 @@
     "value": 2034,
     "rank": 306,
     "positionalRank": 82,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4601,7 +4601,7 @@
     "value": 2032,
     "rank": 307,
     "positionalRank": 116,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4616,7 +4616,7 @@
     "value": 2031,
     "rank": 308,
     "positionalRank": 117,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4631,7 +4631,7 @@
     "value": 2027,
     "rank": 309,
     "positionalRank": 118,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4646,7 +4646,7 @@
     "value": 2014,
     "rank": 310,
     "positionalRank": 119,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4661,7 +4661,7 @@
     "value": 2007,
     "rank": 311,
     "positionalRank": 83,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4676,7 +4676,7 @@
     "value": 1998,
     "rank": 312,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -4691,7 +4691,7 @@
     "value": 1991,
     "rank": 313,
     "positionalRank": 120,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4706,7 +4706,7 @@
     "value": 1973,
     "rank": 314,
     "positionalRank": 121,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4718,10 +4718,10 @@
     "team": "NYG",
     "rookie": false,
     "age": 29.2,
-    "value": 1969,
+    "value": 1965,
     "rank": 315,
     "positionalRank": 122,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4736,7 +4736,7 @@
     "value": 1961,
     "rank": 316,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -4751,7 +4751,7 @@
     "value": 1960,
     "rank": 317,
     "positionalRank": 84,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4766,7 +4766,7 @@
     "value": 1956,
     "rank": 318,
     "positionalRank": 44,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 13
   },
   {
@@ -4781,7 +4781,7 @@
     "value": 1954,
     "rank": 319,
     "positionalRank": 123,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4796,7 +4796,7 @@
     "value": 1954,
     "rank": 320,
     "positionalRank": 124,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4811,7 +4811,7 @@
     "value": 1930,
     "rank": 321,
     "positionalRank": 85,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4826,7 +4826,7 @@
     "value": 1903,
     "rank": 322,
     "positionalRank": 86,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4838,10 +4838,10 @@
     "team": "MIA",
     "rookie": false,
     "age": 26.5,
-    "value": 1899,
+    "value": 1902,
     "rank": 323,
     "positionalRank": 125,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -4856,7 +4856,7 @@
     "value": 1893,
     "rank": 324,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -4871,7 +4871,7 @@
     "value": 1873,
     "rank": 325,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -4886,7 +4886,7 @@
     "value": 1869,
     "rank": 326,
     "positionalRank": 126,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -4901,7 +4901,7 @@
     "value": 1854,
     "rank": 327,
     "positionalRank": 45,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 14
   },
   {
@@ -4916,7 +4916,7 @@
     "value": 1851,
     "rank": 328,
     "positionalRank": 46,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 14
   },
   {
@@ -4931,7 +4931,7 @@
     "value": 1849,
     "rank": 329,
     "positionalRank": 47,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 14
   },
   {
@@ -4946,7 +4946,7 @@
     "value": 1847,
     "rank": 330,
     "positionalRank": 87,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 21
   },
   {
@@ -4961,7 +4961,7 @@
     "value": 1826,
     "rank": 331,
     "positionalRank": 127,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -4976,7 +4976,7 @@
     "value": 1825,
     "rank": 332,
     "positionalRank": 128,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -4991,7 +4991,7 @@
     "value": 1821,
     "rank": 333,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -5006,7 +5006,7 @@
     "value": 1809,
     "rank": 334,
     "positionalRank": 129,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -5021,7 +5021,22 @@
     "value": 1806,
     "rank": 335,
     "positionalRank": 130,
-    "overallTier": 14,
+    "overallTier": 15,
+    "positionalTier": 22
+  },
+  {
+    "playerName": "Konata Mumpfield",
+    "playerID": 1830,
+    "slug": "konata-mumpfield-1830",
+    "position": "WR",
+    "positionID": 3,
+    "team": "LAR",
+    "rookie": false,
+    "age": 23.4,
+    "value": 1803,
+    "rank": 337,
+    "positionalRank": 131,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -5036,23 +5051,8 @@
     "value": 1803,
     "rank": 336,
     "positionalRank": 48,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 14
-  },
-  {
-    "playerName": "Konata Mumpfield",
-    "playerID": 1830,
-    "slug": "konata-mumpfield-1830",
-    "position": "WR",
-    "positionID": 3,
-    "team": "LAR",
-    "rookie": false,
-    "age": 23.4,
-    "value": 1800,
-    "rank": 337,
-    "positionalRank": 131,
-    "overallTier": 14,
-    "positionalTier": 22
   },
   {
     "playerName": "Antonio Williams",
@@ -5066,7 +5066,7 @@
     "value": 1795,
     "rank": 338,
     "positionalRank": 132,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -5081,22 +5081,7 @@
     "value": 1794,
     "rank": 339,
     "positionalRank": 133,
-    "overallTier": 14,
-    "positionalTier": 22
-  },
-  {
-    "playerName": "Dyami Brown",
-    "playerID": 1069,
-    "slug": "dyami-brown-1069",
-    "position": "WR",
-    "positionID": 3,
-    "team": "WAS",
-    "rookie": false,
-    "age": 26.4,
-    "value": 1786,
-    "rank": 340,
-    "positionalRank": 134,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -5109,9 +5094,24 @@
     "rookie": false,
     "age": 28.6,
     "value": 1784,
-    "rank": 341,
+    "rank": 340,
     "positionalRank": 88,
-    "overallTier": 14,
+    "overallTier": 15,
+    "positionalTier": 22
+  },
+  {
+    "playerName": "Dyami Brown",
+    "playerID": 1069,
+    "slug": "dyami-brown-1069",
+    "position": "WR",
+    "positionID": 3,
+    "team": "WAS",
+    "rookie": false,
+    "age": 26.4,
+    "value": 1783,
+    "rank": 341,
+    "positionalRank": 134,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -5126,7 +5126,7 @@
     "value": 1777,
     "rank": 342,
     "positionalRank": 49,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 14
   },
   {
@@ -5141,7 +5141,7 @@
     "value": 1758,
     "rank": 343,
     "positionalRank": 89,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -5156,7 +5156,7 @@
     "value": 1750,
     "rank": 344,
     "positionalRank": 90,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 22
   },
   {
@@ -5171,7 +5171,7 @@
     "value": 1737,
     "rank": 345,
     "positionalRank": 50,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 14
   },
   {
@@ -5183,10 +5183,10 @@
     "team": "BAL",
     "rookie": false,
     "age": 24.8,
-    "value": 1728,
+    "value": 1725,
     "rank": 346,
     "positionalRank": 135,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5201,7 +5201,7 @@
     "value": 1724,
     "rank": 347,
     "positionalRank": 136,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5216,7 +5216,7 @@
     "value": 1724,
     "rank": 348,
     "positionalRank": 51,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 14
   },
   {
@@ -5231,7 +5231,7 @@
     "value": 1720,
     "rank": 349,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -5246,7 +5246,7 @@
     "value": 1704,
     "rank": 350,
     "positionalRank": 52,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 14
   },
   {
@@ -5261,7 +5261,7 @@
     "value": 1691,
     "rank": 351,
     "positionalRank": 137,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5276,7 +5276,7 @@
     "value": 1687,
     "rank": 352,
     "positionalRank": 53,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 14
   },
   {
@@ -5291,7 +5291,7 @@
     "value": 1684,
     "rank": 353,
     "positionalRank": 38,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -5306,7 +5306,7 @@
     "value": 1678,
     "rank": 354,
     "positionalRank": 39,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -5321,7 +5321,7 @@
     "value": 1677,
     "rank": 355,
     "positionalRank": 91,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5336,7 +5336,7 @@
     "value": 1664,
     "rank": 356,
     "positionalRank": 138,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5348,10 +5348,10 @@
     "team": "ARI",
     "rookie": false,
     "age": 26.9,
-    "value": 1659,
+    "value": 1662,
     "rank": 357,
     "positionalRank": 92,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5366,7 +5366,7 @@
     "value": 1612,
     "rank": 358,
     "positionalRank": 93,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5381,7 +5381,7 @@
     "value": 1588,
     "rank": 359,
     "positionalRank": 94,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5396,7 +5396,7 @@
     "value": 1588,
     "rank": 360,
     "positionalRank": 95,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5411,7 +5411,7 @@
     "value": 1582,
     "rank": 361,
     "positionalRank": 40,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -5426,7 +5426,7 @@
     "value": 1576,
     "rank": 362,
     "positionalRank": 139,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5441,7 +5441,7 @@
     "value": 1556,
     "rank": 363,
     "positionalRank": 96,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5456,7 +5456,7 @@
     "value": 1553,
     "rank": 364,
     "positionalRank": 97,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5471,7 +5471,7 @@
     "value": 1549,
     "rank": 365,
     "positionalRank": 140,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5486,7 +5486,7 @@
     "value": 1538,
     "rank": 366,
     "positionalRank": 54,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 15
   },
   {
@@ -5501,7 +5501,7 @@
     "value": 1537,
     "rank": 367,
     "positionalRank": 41,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -5516,7 +5516,7 @@
     "value": 1536,
     "rank": 368,
     "positionalRank": 98,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5531,7 +5531,7 @@
     "value": 1515,
     "rank": 369,
     "positionalRank": 99,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5546,7 +5546,7 @@
     "value": 1503,
     "rank": 370,
     "positionalRank": 141,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5561,7 +5561,7 @@
     "value": 1498,
     "rank": 371,
     "positionalRank": 0,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 0
   },
   {
@@ -5576,7 +5576,7 @@
     "value": 1488,
     "rank": 372,
     "positionalRank": 142,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5591,7 +5591,7 @@
     "value": 1482,
     "rank": 373,
     "positionalRank": 42,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -5606,7 +5606,7 @@
     "value": 1480,
     "rank": 374,
     "positionalRank": 43,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -5621,7 +5621,7 @@
     "value": 1479,
     "rank": 375,
     "positionalRank": 100,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5636,7 +5636,7 @@
     "value": 1474,
     "rank": 376,
     "positionalRank": 143,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5651,7 +5651,7 @@
     "value": 1473,
     "rank": 377,
     "positionalRank": 101,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5666,7 +5666,7 @@
     "value": 1473,
     "rank": 378,
     "positionalRank": 55,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 15
   },
   {
@@ -5681,7 +5681,7 @@
     "value": 1466,
     "rank": 379,
     "positionalRank": 144,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5696,7 +5696,7 @@
     "value": 1463,
     "rank": 380,
     "positionalRank": 145,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5711,7 +5711,7 @@
     "value": 1463,
     "rank": 381,
     "positionalRank": 146,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5726,7 +5726,7 @@
     "value": 1457,
     "rank": 382,
     "positionalRank": 147,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5741,7 +5741,7 @@
     "value": 1453,
     "rank": 383,
     "positionalRank": 44,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -5756,7 +5756,7 @@
     "value": 1442,
     "rank": 384,
     "positionalRank": 148,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5771,7 +5771,7 @@
     "value": 1439,
     "rank": 385,
     "positionalRank": 149,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5786,7 +5786,7 @@
     "value": 1423,
     "rank": 386,
     "positionalRank": 102,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5801,7 +5801,7 @@
     "value": 1423,
     "rank": 387,
     "positionalRank": 103,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5816,7 +5816,7 @@
     "value": 1414,
     "rank": 388,
     "positionalRank": 56,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 15
   },
   {
@@ -5831,7 +5831,7 @@
     "value": 1411,
     "rank": 389,
     "positionalRank": 104,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5846,7 +5846,7 @@
     "value": 1407,
     "rank": 390,
     "positionalRank": 45,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 11
   },
   {
@@ -5861,7 +5861,7 @@
     "value": 1406,
     "rank": 391,
     "positionalRank": 105,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 23
   },
   {
@@ -5876,7 +5876,7 @@
     "value": 1396,
     "rank": 392,
     "positionalRank": 57,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 15
   },
   {
@@ -5891,7 +5891,7 @@
     "value": 1391,
     "rank": 393,
     "positionalRank": 58,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 15
   },
   {
@@ -5906,7 +5906,7 @@
     "value": 1371,
     "rank": 394,
     "positionalRank": 150,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -5921,7 +5921,7 @@
     "value": 1367,
     "rank": 395,
     "positionalRank": 151,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -5936,7 +5936,7 @@
     "value": 1347,
     "rank": 396,
     "positionalRank": 106,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5951,7 +5951,7 @@
     "value": 1346,
     "rank": 397,
     "positionalRank": 152,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -5966,7 +5966,7 @@
     "value": 1343,
     "rank": 398,
     "positionalRank": 107,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5981,7 +5981,7 @@
     "value": 1340,
     "rank": 399,
     "positionalRank": 108,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -5996,7 +5996,7 @@
     "value": 1319,
     "rank": 400,
     "positionalRank": 109,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6011,7 +6011,7 @@
     "value": 1317,
     "rank": 401,
     "positionalRank": 46,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 12
   },
   {
@@ -6026,7 +6026,7 @@
     "value": 1316,
     "rank": 402,
     "positionalRank": 153,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6041,7 +6041,7 @@
     "value": 1308,
     "rank": 403,
     "positionalRank": 59,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 16
   },
   {
@@ -6056,7 +6056,7 @@
     "value": 1299,
     "rank": 404,
     "positionalRank": 154,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6071,7 +6071,7 @@
     "value": 1297,
     "rank": 405,
     "positionalRank": 60,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 16
   },
   {
@@ -6086,7 +6086,7 @@
     "value": 1296,
     "rank": 406,
     "positionalRank": 155,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6101,7 +6101,7 @@
     "value": 1290,
     "rank": 407,
     "positionalRank": 156,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6116,7 +6116,7 @@
     "value": 1279,
     "rank": 408,
     "positionalRank": 61,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 16
   },
   {
@@ -6131,7 +6131,7 @@
     "value": 1269,
     "rank": 409,
     "positionalRank": 110,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6146,7 +6146,7 @@
     "value": 1265,
     "rank": 410,
     "positionalRank": 157,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6161,7 +6161,7 @@
     "value": 1254,
     "rank": 411,
     "positionalRank": 62,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 16
   },
   {
@@ -6176,7 +6176,7 @@
     "value": 1236,
     "rank": 412,
     "positionalRank": 158,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6191,7 +6191,7 @@
     "value": 1231,
     "rank": 413,
     "positionalRank": 63,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 16
   },
   {
@@ -6206,7 +6206,7 @@
     "value": 1230,
     "rank": 414,
     "positionalRank": 111,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6221,7 +6221,7 @@
     "value": 1221,
     "rank": 415,
     "positionalRank": 112,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6236,7 +6236,7 @@
     "value": 1219,
     "rank": 416,
     "positionalRank": 159,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6251,7 +6251,7 @@
     "value": 1213,
     "rank": 417,
     "positionalRank": 160,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6266,7 +6266,7 @@
     "value": 1197,
     "rank": 418,
     "positionalRank": 113,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6281,7 +6281,7 @@
     "value": 1187,
     "rank": 419,
     "positionalRank": 161,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6296,7 +6296,7 @@
     "value": 1180,
     "rank": 420,
     "positionalRank": 114,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6311,7 +6311,22 @@
     "value": 1177,
     "rank": 421,
     "positionalRank": 115,
-    "overallTier": 14,
+    "overallTier": 15,
+    "positionalTier": 24
+  },
+  {
+    "playerName": "Sione Vaki",
+    "playerID": 1627,
+    "slug": "sione-vaki-1627",
+    "position": "RB",
+    "positionID": 2,
+    "team": "DET",
+    "rookie": false,
+    "age": 24.7,
+    "value": 1173,
+    "rank": 422,
+    "positionalRank": 116,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6324,25 +6339,10 @@
     "rookie": false,
     "age": 25.4,
     "value": 1171,
-    "rank": 422,
+    "rank": 423,
     "positionalRank": 64,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 17
-  },
-  {
-    "playerName": "Sione Vaki",
-    "playerID": 1627,
-    "slug": "sione-vaki-1627",
-    "position": "RB",
-    "positionID": 2,
-    "team": "DET",
-    "rookie": false,
-    "age": 24.7,
-    "value": 1170,
-    "rank": 424,
-    "positionalRank": 116,
-    "overallTier": 14,
-    "positionalTier": 24
   },
   {
     "playerName": "Isaiah Hodgins",
@@ -6354,9 +6354,9 @@
     "rookie": false,
     "age": 27.4,
     "value": 1170,
-    "rank": 423,
+    "rank": 424,
     "positionalRank": 162,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6368,10 +6368,10 @@
     "team": "NOS",
     "rookie": false,
     "age": 25.5,
-    "value": 1170,
+    "value": 1167,
     "rank": 425,
     "positionalRank": 163,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6383,10 +6383,10 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1152,
-    "rank": 427,
+    "value": 1155,
+    "rank": 426,
     "positionalRank": 47,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 13
   },
   {
@@ -6399,9 +6399,9 @@
     "rookie": false,
     "age": 27.6,
     "value": 1152,
-    "rank": 426,
+    "rank": 427,
     "positionalRank": 164,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6416,23 +6416,8 @@
     "value": 1131,
     "rank": 429,
     "positionalRank": 48,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 13
-  },
-  {
-    "playerName": "Deuce Vaughn",
-    "playerID": 1391,
-    "slug": "deuce-vaughn-1391",
-    "position": "RB",
-    "positionID": 2,
-    "team": "DEN",
-    "rookie": false,
-    "age": 24.4,
-    "value": 1116,
-    "rank": 430,
-    "positionalRank": 118,
-    "overallTier": 14,
-    "positionalTier": 24
   },
   {
     "playerName": "Charlie Kolar",
@@ -6444,24 +6429,24 @@
     "rookie": false,
     "age": 27.1,
     "value": 1113,
-    "rank": 431,
+    "rank": 430,
     "positionalRank": 65,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 17
   },
   {
-    "playerName": "Frank Gore Jr.",
-    "playerID": 1570,
-    "slug": "frank-gore-jr-1570",
+    "playerName": "Deuce Vaughn",
+    "playerID": 1391,
+    "slug": "deuce-vaughn-1391",
     "position": "RB",
     "positionID": 2,
-    "team": "BUF",
+    "team": "DEN",
     "rookie": false,
-    "age": 24,
-    "value": 1112,
-    "rank": 432,
-    "positionalRank": 119,
-    "overallTier": 14,
+    "age": 24.4,
+    "value": 1113,
+    "rank": 431,
+    "positionalRank": 118,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6473,11 +6458,26 @@
     "team": "IND",
     "rookie": false,
     "age": 29,
-    "value": 1109,
-    "rank": 433,
+    "value": 1112,
+    "rank": 432,
     "positionalRank": 165,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
+  },
+  {
+    "playerName": "Frank Gore Jr.",
+    "playerID": 1570,
+    "slug": "frank-gore-jr-1570",
+    "position": "RB",
+    "positionID": 2,
+    "team": "BUF",
+    "rookie": false,
+    "age": 24,
+    "value": 1112,
+    "rank": 433,
+    "positionalRank": 119,
+    "overallTier": 15,
+    "positionalTier": 24
   },
   {
     "playerName": "Brock Wright",
@@ -6491,7 +6491,7 @@
     "value": 1100,
     "rank": 434,
     "positionalRank": 66,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 17
   },
   {
@@ -6506,7 +6506,7 @@
     "value": 1086,
     "rank": 435,
     "positionalRank": 120,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6521,7 +6521,7 @@
     "value": 1085,
     "rank": 436,
     "positionalRank": 49,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 13
   },
   {
@@ -6536,7 +6536,7 @@
     "value": 1076,
     "rank": 437,
     "positionalRank": 121,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6551,7 +6551,7 @@
     "value": 1075,
     "rank": 438,
     "positionalRank": 50,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 13
   },
   {
@@ -6566,7 +6566,7 @@
     "value": 1074,
     "rank": 439,
     "positionalRank": 166,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6581,7 +6581,7 @@
     "value": 1072,
     "rank": 440,
     "positionalRank": 167,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6596,7 +6596,7 @@
     "value": 1069,
     "rank": 441,
     "positionalRank": 168,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6611,7 +6611,7 @@
     "value": 1066,
     "rank": 442,
     "positionalRank": 122,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6626,7 +6626,7 @@
     "value": 1051,
     "rank": 443,
     "positionalRank": 123,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6641,23 +6641,8 @@
     "value": 1047,
     "rank": 444,
     "positionalRank": 51,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 13
-  },
-  {
-    "playerName": "Bub Means",
-    "playerID": 1634,
-    "slug": "bub-means-1634",
-    "position": "WR",
-    "positionID": 3,
-    "team": "NOS",
-    "rookie": false,
-    "age": 25.2,
-    "value": 1046,
-    "rank": 445,
-    "positionalRank": 169,
-    "overallTier": 14,
-    "positionalTier": 25
   },
   {
     "playerName": "Xavier Gipson",
@@ -6669,9 +6654,24 @@
     "rookie": false,
     "age": 25.1,
     "value": 1042,
+    "rank": 445,
+    "positionalRank": 169,
+    "overallTier": 15,
+    "positionalTier": 25
+  },
+  {
+    "playerName": "Bub Means",
+    "playerID": 1634,
+    "slug": "bub-means-1634",
+    "position": "WR",
+    "positionID": 3,
+    "team": "NOS",
+    "rookie": false,
+    "age": 25.2,
+    "value": 1040,
     "rank": 446,
     "positionalRank": 170,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6686,7 +6686,7 @@
     "value": 1026,
     "rank": 447,
     "positionalRank": 52,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 13
   },
   {
@@ -6701,7 +6701,7 @@
     "value": 1025,
     "rank": 448,
     "positionalRank": 124,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6716,7 +6716,7 @@
     "value": 1024,
     "rank": 449,
     "positionalRank": 171,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6731,7 +6731,7 @@
     "value": 1023,
     "rank": 450,
     "positionalRank": 125,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6746,22 +6746,7 @@
     "value": 1017,
     "rank": 451,
     "positionalRank": 126,
-    "overallTier": 14,
-    "positionalTier": 24
-  },
-  {
-    "playerName": "Jeremy McNichols",
-    "playerID": 782,
-    "slug": "jeremy-mcnichols-782",
-    "position": "RB",
-    "positionID": 2,
-    "team": "WAS",
-    "rookie": false,
-    "age": 30.3,
-    "value": 1015,
-    "rank": 452,
-    "positionalRank": 127,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6774,10 +6759,25 @@
     "rookie": false,
     "age": 29.4,
     "value": 1014,
-    "rank": 453,
+    "rank": 452,
     "positionalRank": 172,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
+  },
+  {
+    "playerName": "Jeremy McNichols",
+    "playerID": 782,
+    "slug": "jeremy-mcnichols-782",
+    "position": "RB",
+    "positionID": 2,
+    "team": "WAS",
+    "rookie": false,
+    "age": 30.3,
+    "value": 1012,
+    "rank": 453,
+    "positionalRank": 127,
+    "overallTier": 15,
+    "positionalTier": 24
   },
   {
     "playerName": "Curtis Samuel",
@@ -6791,7 +6791,7 @@
     "value": 1005,
     "rank": 454,
     "positionalRank": 173,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6806,7 +6806,7 @@
     "value": 1002,
     "rank": 455,
     "positionalRank": 174,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6818,10 +6818,10 @@
     "team": "NYJ",
     "rookie": false,
     "age": 25.6,
-    "value": 993,
+    "value": 996,
     "rank": 456,
     "positionalRank": 67,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 18
   },
   {
@@ -6836,7 +6836,7 @@
     "value": 992,
     "rank": 458,
     "positionalRank": 175,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6851,7 +6851,7 @@
     "value": 992,
     "rank": 457,
     "positionalRank": 128,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6866,7 +6866,7 @@
     "value": 985,
     "rank": 459,
     "positionalRank": 129,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6881,7 +6881,7 @@
     "value": 976,
     "rank": 460,
     "positionalRank": 176,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6896,7 +6896,7 @@
     "value": 971,
     "rank": 461,
     "positionalRank": 53,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 13
   },
   {
@@ -6908,10 +6908,10 @@
     "team": "MIN",
     "rookie": false,
     "age": 26.7,
-    "value": 965,
+    "value": 962,
     "rank": 462,
     "positionalRank": 130,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6923,10 +6923,10 @@
     "team": "PHI",
     "rookie": false,
     "age": 27.3,
-    "value": 957,
+    "value": 960,
     "rank": 463,
     "positionalRank": 68,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 18
   },
   {
@@ -6938,10 +6938,10 @@
     "team": "CIN",
     "rookie": false,
     "age": 24.1,
-    "value": 949,
+    "value": 952,
     "rank": 464,
     "positionalRank": 131,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6956,7 +6956,7 @@
     "value": 944,
     "rank": 465,
     "positionalRank": 132,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -6971,7 +6971,7 @@
     "value": 936,
     "rank": 467,
     "positionalRank": 177,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -6986,7 +6986,7 @@
     "value": 936,
     "rank": 466,
     "positionalRank": 133,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -7001,7 +7001,7 @@
     "value": 919,
     "rank": 468,
     "positionalRank": 134,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -7016,7 +7016,7 @@
     "value": 914,
     "rank": 469,
     "positionalRank": 178,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -7031,7 +7031,7 @@
     "value": 905,
     "rank": 471,
     "positionalRank": 135,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -7046,7 +7046,7 @@
     "value": 904,
     "rank": 472,
     "positionalRank": 136,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 24
   },
   {
@@ -7061,7 +7061,7 @@
     "value": 895,
     "rank": 473,
     "positionalRank": 180,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -7076,7 +7076,7 @@
     "value": 884,
     "rank": 474,
     "positionalRank": 181,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -7091,7 +7091,7 @@
     "value": 878,
     "rank": 475,
     "positionalRank": 182,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -7106,7 +7106,7 @@
     "value": 875,
     "rank": 476,
     "positionalRank": 183,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -7121,7 +7121,7 @@
     "value": 847,
     "rank": 477,
     "positionalRank": 184,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -7136,7 +7136,7 @@
     "value": 833,
     "rank": 478,
     "positionalRank": 185,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -7151,7 +7151,7 @@
     "value": 830,
     "rank": 479,
     "positionalRank": 69,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -7166,7 +7166,7 @@
     "value": 829,
     "rank": 480,
     "positionalRank": 54,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 14
   },
   {
@@ -7181,7 +7181,7 @@
     "value": 815,
     "rank": 482,
     "positionalRank": 187,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -7196,7 +7196,7 @@
     "value": 808,
     "rank": 483,
     "positionalRank": 188,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -7211,7 +7211,7 @@
     "value": 803,
     "rank": 485,
     "positionalRank": 70,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -7226,7 +7226,7 @@
     "value": 798,
     "rank": 486,
     "positionalRank": 189,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 25
   },
   {
@@ -7241,7 +7241,7 @@
     "value": 775,
     "rank": 491,
     "positionalRank": 74,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -7256,7 +7256,7 @@
     "value": 755,
     "rank": 492,
     "positionalRank": 55,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 15
   },
   {
@@ -7271,7 +7271,7 @@
     "value": 679,
     "rank": 499,
     "positionalRank": 56,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 16
   },
   {
@@ -7286,7 +7286,7 @@
     "value": 675,
     "rank": 501,
     "positionalRank": 57,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 16
   },
   {
@@ -7301,7 +7301,7 @@
     "value": 649,
     "rank": 502,
     "positionalRank": 58,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 16
   },
   {
@@ -7316,7 +7316,7 @@
     "value": 641,
     "rank": 503,
     "positionalRank": 59,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 16
   },
   {
@@ -7331,7 +7331,7 @@
     "value": 614,
     "rank": 505,
     "positionalRank": 60,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 16
   },
   {
@@ -7346,7 +7346,7 @@
     "value": 535,
     "rank": 513,
     "positionalRank": 61,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 17
   },
   {
@@ -7361,7 +7361,7 @@
     "value": 523,
     "rank": 514,
     "positionalRank": 62,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 17
   },
   {
@@ -7376,7 +7376,7 @@
     "value": 515,
     "rank": 517,
     "positionalRank": 63,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 17
   },
   {
@@ -7391,7 +7391,7 @@
     "value": 464,
     "rank": 525,
     "positionalRank": 64,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 18
   },
   {
@@ -7406,7 +7406,7 @@
     "value": 404,
     "rank": 539,
     "positionalRank": 65,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -7421,7 +7421,7 @@
     "value": 400,
     "rank": 541,
     "positionalRank": 66,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -7436,7 +7436,7 @@
     "value": 381,
     "rank": 545,
     "positionalRank": 67,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 19
   },
   {
@@ -7451,7 +7451,7 @@
     "value": 271,
     "rank": 624,
     "positionalRank": 76,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -7466,7 +7466,7 @@
     "value": 259,
     "rank": 627,
     "positionalRank": 79,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -7481,7 +7481,7 @@
     "value": 254,
     "rank": 628,
     "positionalRank": 80,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   },
   {
@@ -7496,7 +7496,7 @@
     "value": 234,
     "rank": 636,
     "positionalRank": 82,
-    "overallTier": 14,
+    "overallTier": 15,
     "positionalTier": 20
   }
 ]

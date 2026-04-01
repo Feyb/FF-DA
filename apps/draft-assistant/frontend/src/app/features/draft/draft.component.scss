@@ -244,8 +244,7 @@
 .players-card,
 .stars-card,
 .board-card,
-.board-grid-card,
-.history-card {
+.board-grid-card {
   padding: 1rem;
 }
 
@@ -301,8 +300,7 @@
 
 .recommendation-list,
 .players-list,
-.pick-list,
-.history-list {
+.pick-list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -514,20 +512,9 @@
   color: rgb(71 85 105);
 }
 
-.pick-player {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .pick-owner {
   font-size: 0.75rem;
   color: rgb(100 116 139);
-}
-
-.history-team {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
 }
 
 .chip-list {

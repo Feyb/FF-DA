@@ -7,7 +7,6 @@ import { SleeperService } from '../../core/adapters/sleeper/sleeper.service';
 import {
   DraftPlayerRow,
   DraftRecommendation,
-  DraftTeamHistoryEntry,
   KtcPlayer,
   LeagueRoster,
   LeagueUser,
@@ -214,27 +213,6 @@ export const DraftStore = signalStore(
     }),
     pickBoard: computed(() => [...store.picks()].sort((a, b) => a.pick_no - b.pick_no)),
     recentPicks: computed(() => [...store.picks()].sort((a, b) => b.pick_no - a.pick_no).slice(0, 10)),
-    teamHistory: computed(() => {
-      const grouped = new Map<number, SleeperDraftPick[]>();
-      for (const pick of store.picks()) {
-        const rosterId = pick.roster_id ?? 0;
-        if (!grouped.has(rosterId)) {
-          grouped.set(rosterId, []);
-        }
-        grouped.get(rosterId)?.push(pick);
-      }
-
-      const history: DraftTeamHistoryEntry[] = [];
-      for (const [rosterId, picks] of grouped.entries()) {
-        history.push({
-          rosterId,
-          ownerDisplayName: store.rosterDisplayNames()[String(rosterId)] ?? `Roster ${rosterId}`,
-          picks: [...picks].sort((a, b) => a.pick_no - b.pick_no),
-        });
-      }
-
-      return history.sort((a, b) => a.rosterId - b.rosterId);
-    }),
     nextPickNumber: computed(() => store.picks().length + 1),
   })),
   withMethods((store, appStore = inject(AppStore), sleeper = inject(SleeperService), ktc = inject(KtcRatingService)) => {

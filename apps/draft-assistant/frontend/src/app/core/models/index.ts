@@ -88,12 +88,6 @@ export interface DraftPlayerRow {
   sleeperRank: number;
 }
 
-export interface DraftTeamHistoryEntry {
-  rosterId: number;
-  ownerDisplayName: string;
-  picks: SleeperDraftPick[];
-}
-
 export interface DraftRecommendation {
   playerId: string;
   fullName: string;
