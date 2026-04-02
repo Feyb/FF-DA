@@ -3,8 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, catchError, map, of, shareReplay } from 'rxjs';
 import { FlockPlayer } from '../../models';
 
-const FLOCK_ASSET_1QB_URL = '/assets/flock/players-1qb.json';
-const FLOCK_ASSET_SUPERFLEX_URL = '/assets/flock/players-superflex.json';
+const FLOCK_ASSET_1QB_URL = 'assets/flock/players-1qb.json';
+const FLOCK_ASSET_SUPERFLEX_URL = 'assets/flock/players-superflex.json';
 
 interface FlockAssetPlayer {
   playerName?: string;
