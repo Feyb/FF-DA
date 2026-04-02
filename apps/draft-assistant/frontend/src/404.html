@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Draft Assistant</title>
+    <script>
+      // Single Page App redirect for GitHub Pages
+      // Encodes the current path into a query string and redirects to the root index.html,
+      // which then restores the path using history.replaceState.
+      // pathSegmentsToKeep = 1 preserves the repository name prefix (e.g. /FF-DA/).
+      // Set to 0 when deploying at the domain root (e.g. myname.github.io with no subpath).
+      var pathSegmentsToKeep = 1;
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          '//' +
+          l.host +
+          l.pathname
+            .split('/')
+            .slice(0, 1 + pathSegmentsToKeep)
+            .join('/') +
+          '/?/' +
+          l.pathname
+            .slice(1)
+            .split('/')
+            .slice(pathSegmentsToKeep)
+            .join('/')
+            .replace(/&/g, '~and~') +
+          (l.search
+            ? '&' + l.search.slice(1).replace(/&/g, '~and~')
+            : '') +
+          l.hash,
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
