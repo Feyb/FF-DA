@@ -52,6 +52,24 @@ interface DraftState {
 
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
 
+function resolveTier(row: DraftPlayerRow, tierSrc: TierSource): number {
+  const ktcTier = row.positionalTier ?? row.overallTier ?? Number.MAX_SAFE_INTEGER;
+  const flockTier = row.flockAveragePositionalTier ?? row.flockAverageTier ?? Number.MAX_SAFE_INTEGER;
+  if (tierSrc === 'ktc') return ktcTier;
+  if (tierSrc === 'flock') return flockTier !== Number.MAX_SAFE_INTEGER ? flockTier : ktcTier;
+  if (ktcTier === Number.MAX_SAFE_INTEGER) return flockTier;
+  if (flockTier === Number.MAX_SAFE_INTEGER) return ktcTier;
+  return Math.round((ktcTier + flockTier) / 2);
+}
+
+function resolveValue(row: DraftPlayerRow, valueSrc: DraftValueSource): number {
+  if (valueSrc === 'ktcValue') return row.ktcValue ?? 0;
+  // averageRank is lower-is-better; negate so higher return value = better player.
+  // Fall back to ktcValue when averageRank is unavailable.
+  if (row.averageRank !== null) return -row.averageRank;
+  return row.ktcValue ?? 0;
+}
+
 export const DraftStore = signalStore(
   withState<DraftState>({
     loading: false,
@@ -86,6 +104,7 @@ export const DraftStore = signalStore(
       return ids;
     }),
     availableRows: computed(() => {
+      const tierSrc = store.tierSource();
       const valueSrc = store.valueSource();
       const selected = new Set(store.selectedPositions());
       const picked = new Set(
@@ -99,12 +118,16 @@ export const DraftStore = signalStore(
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
         .sort((a, b) => {
+          const aTier = resolveTier(a, tierSrc);
+          const bTier = resolveTier(b, tierSrc);
+          if (aTier !== bTier) return aTier - bTier;
+
           const aRank = valueSrc === 'ktcValue'
             ? (a.ktcRank ?? Number.MAX_SAFE_INTEGER)
-            : (a.averageRank ?? Number.MAX_SAFE_INTEGER);
+            : (a.averageRank ?? a.ktcRank ?? Number.MAX_SAFE_INTEGER);
           const bRank = valueSrc === 'ktcValue'
             ? (b.ktcRank ?? Number.MAX_SAFE_INTEGER)
-            : (b.averageRank ?? Number.MAX_SAFE_INTEGER);
+            : (b.averageRank ?? b.ktcRank ?? Number.MAX_SAFE_INTEGER);
           if (aRank !== bRank) return aRank - bRank;
           return a.sleeperRank - b.sleeperRank;
         });
@@ -119,21 +142,6 @@ export const DraftStore = signalStore(
           .map((pick) => pick.player_id),
       );
 
-      const resolveTier = (row: DraftPlayerRow): number => {
-        const ktcTier = row.positionalTier ?? row.overallTier ?? Number.MAX_SAFE_INTEGER;
-        const flockTier = row.flockAveragePositionalTier ?? row.flockAverageTier ?? Number.MAX_SAFE_INTEGER;
-        if (tierSrc === 'ktc') return ktcTier;
-        if (tierSrc === 'flock') return flockTier;
-        if (ktcTier === Number.MAX_SAFE_INTEGER) return flockTier;
-        if (flockTier === Number.MAX_SAFE_INTEGER) return ktcTier;
-        return Math.round((ktcTier + flockTier) / 2);
-      };
-
-      const resolveValue = (row: DraftPlayerRow): number => {
-        if (valueSrc === 'ktcValue') return row.ktcValue ?? 0;
-        return row.averageRank !== null ? -row.averageRank : -Number.MAX_SAFE_INTEGER;
-      };
-
       const positionOrder: Record<DraftPositionFilter, number> = {
         QB: 0,
         RB: 1,
@@ -146,22 +154,22 @@ export const DraftStore = signalStore(
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
         .sort((a, b) => {
-          const aTier = resolveTier(a);
-          const bTier = resolveTier(b);
+          const aTier = resolveTier(a, tierSrc);
+          const bTier = resolveTier(b, tierSrc);
           if (aTier !== bTier) return aTier - bTier;
 
           const aPosition = positionOrder[a.position];
           const bPosition = positionOrder[b.position];
           if (aPosition !== bPosition) return aPosition - bPosition;
 
-          return resolveValue(b) - resolveValue(a);
+          return resolveValue(b, valueSrc) - resolveValue(a, valueSrc);
         });
 
       // Find top 3 distinct tier values
       const tierOrder: number[] = [];
       const seenTiers = new Set<number>();
       for (const row of sortedRows) {
-        const tier = resolveTier(row);
+        const tier = resolveTier(row, tierSrc);
         if (!seenTiers.has(tier)) {
           tierOrder.push(tier);
           seenTiers.add(tier);
@@ -172,7 +180,7 @@ export const DraftStore = signalStore(
       // Filter to top 3 tiers and cap at 3 players per tier
       const tierPlayerCounts = new Map<number, number>();
       const filtered = sortedRows.filter((row) => {
-        const tier = resolveTier(row);
+        const tier = resolveTier(row, tierSrc);
         if (!top3Tiers.has(tier)) return false;
         const count = tierPlayerCounts.get(tier) ?? 0;
         if (count >= 3) return false;
@@ -192,7 +200,7 @@ export const DraftStore = signalStore(
         flockAverageTier: row.flockAverageTier,
         flockAveragePositionalTier: row.flockAveragePositionalTier,
         averageRank: row.averageRank,
-        boostedScore: resolveValue(row),
+        boostedScore: resolveValue(row, valueSrc),
       }));
     }),
     starredRows: computed(() => {

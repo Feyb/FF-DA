@@ -75,8 +75,8 @@ export const PlayersStore = signalStore(
 
       const sort = [...filtered].sort((a, b) => {
         if (sortBy === 'default') {
-          const aRank = (valueSource === 'ktcValue' ? a.ktcRank : a.averageRank) ?? Number.MAX_SAFE_INTEGER;
-          const bRank = (valueSource === 'ktcValue' ? b.ktcRank : b.averageRank) ?? Number.MAX_SAFE_INTEGER;
+          const aRank = (valueSource === 'ktcValue' ? a.ktcRank : (a.averageRank ?? a.ktcRank)) ?? Number.MAX_SAFE_INTEGER;
+          const bRank = (valueSource === 'ktcValue' ? b.ktcRank : (b.averageRank ?? b.ktcRank)) ?? Number.MAX_SAFE_INTEGER;
           if (aRank !== bRank) return aRank - bRank;
           return a.sleeperRank - b.sleeperRank;
         }
