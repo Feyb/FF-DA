@@ -1,0 +1,45 @@
+<button
+  class="toggle-btn"
+  [class.is-dark]="appStore.darkMode()"
+  [class.expanding]="isExpanding()"
+  (click)="onToggle()"
+  (animationend)="onAnimationEnd()"
+  [attr.aria-label]="appStore.darkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+  [attr.aria-pressed]="appStore.darkMode()"
+  type="button"
+>
+  <!-- Sun / Moon SVG icon -->
+  <svg
+    class="toggle-icon"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <defs>
+      <!--
+        SVG mask that cuts a crescent from the main circle.
+        The black circle (crescent-cutout) is translated off-screen in light
+        mode so the full sun circle shows; in dark mode it slides over the
+        circle to carve out a crescent moon – no background colour hack needed.
+      -->
+      <mask id="dm-crescent-mask">
+        <rect width="24" height="24" fill="white" />
+        <circle class="crescent-cutout" cx="12" cy="12" r="5.25" />
+      </mask>
+    </defs>
+
+    <!-- Main circle (sun core ↔ moon body), crescent carved by mask in dark mode -->
+    <circle class="core" cx="12" cy="12" r="5" mask="url(#dm-crescent-mask)" />
+
+    <!-- Eight sun rays (hidden in dark mode) -->
+    <line class="ray" x1="12" y1="1"    x2="12" y2="3.5"  />
+    <line class="ray" x1="12" y1="20.5" x2="12" y2="23"   />
+    <line class="ray" x1="1"  y1="12"   x2="3.5" y2="12"  />
+    <line class="ray" x1="20.5" y1="12" x2="23"  y2="12"  />
+    <line class="ray" x1="18.36" y1="3.34" x2="16.95" y2="4.76" />
+    <line class="ray" x1="5.64"  y1="3.34" x2="7.05"  y2="4.76" />
+    <line class="ray" x1="18.36" y1="20.66" x2="16.95" y2="19.24" />
+    <line class="ray" x1="5.64"  y1="20.66" x2="7.05"  y2="19.24" />
+  </svg>
+</button>
