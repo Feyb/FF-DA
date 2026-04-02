@@ -1,9 +1,10 @@
 import { computed, effect, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { forkJoin, firstValueFrom } from 'rxjs';
+import { FlockRatingService } from '../../core/adapters/flock/flock-rating.service';
 import { KtcRatingService } from '../../core/adapters/ktc/ktc-rating.service';
 import { SleeperService } from '../../core/adapters/sleeper/sleeper.service';
-import { KtcPlayer, SleeperCatalogPlayer } from '../../core/models';
+import { FlockPlayer, KtcPlayer, SleeperCatalogPlayer, TierSource } from '../../core/models';
 import { AppStore } from '../../core/state/app.store';
 
 export type PositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
@@ -21,6 +22,8 @@ export interface PlayerRow {
   ktcRank: number | null;
   overallTier: number | null;
   positionalTier: number | null;
+  flockAverageTier: number | null;
+  flockAveragePositionalTier: number | null;
   sleeperRank: number;
 }
 
@@ -33,6 +36,7 @@ interface PlayersState {
   rookiesOnly: boolean;
   sortBy: SortBy;
   sortDirection: SortDirection;
+  tierSource: TierSource;
 }
 
 const DEFAULT_POSITIONS: PositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
@@ -47,6 +51,7 @@ export const PlayersStore = signalStore(
     rookiesOnly: false,
     sortBy: 'default',
     sortDirection: 'asc',
+    tierSource: 'average',
   }),
   withComputed((store) => ({
     hasRows: computed(() => store.rows().length > 0),
@@ -98,7 +103,14 @@ export const PlayersStore = signalStore(
       return sort;
     }),
   })),
-  withMethods((store, appStore = inject(AppStore), sleeperService = inject(SleeperService), ktcService = inject(KtcRatingService)) => {
+  withMethods(
+    (
+      store,
+      appStore = inject(AppStore),
+      sleeperService = inject(SleeperService),
+      ktcService = inject(KtcRatingService),
+      flockService = inject(FlockRatingService),
+    ) => {
     const isActiveSleeperPlayer = (source: SleeperCatalogPlayer): boolean => {
       if (source.active === false) return false;
 
@@ -112,6 +124,7 @@ export const PlayersStore = signalStore(
       playerId: string,
       source: SleeperCatalogPlayer,
       ktcLookup: Map<string, KtcPlayer>,
+      flockLookup: Map<string, FlockPlayer>,
       currentSeason: number,
     ): Omit<PlayerRow, 'sleeperRank'> => {
       const firstName = source.first_name ?? '';
@@ -121,6 +134,7 @@ export const PlayersStore = signalStore(
       const position = positionRaw as PositionFilter;
 
       const ktcPlayer = ktcLookup.get(ktcService.normalizeName(fullName));
+      const flockPlayer = flockLookup.get(flockService.normalizeName(fullName));
 
       return {
         playerId,
@@ -133,6 +147,8 @@ export const PlayersStore = signalStore(
         ktcRank: ktcPlayer?.rank ?? null,
         overallTier: ktcPlayer?.overallTier ?? null,
         positionalTier: ktcPlayer?.positionalTier ?? null,
+        flockAverageTier: flockPlayer?.averageTier ?? null,
+        flockAveragePositionalTier: flockPlayer?.averagePositionalTier ?? null,
       };
     };
 
@@ -145,18 +161,20 @@ export const PlayersStore = signalStore(
           const isSuperflex = (selectedLeague?.roster_positions ?? []).includes('SUPER_FLEX');
           const currentSeason = Number(selectedLeague?.season ?? new Date().getFullYear());
 
-          const [allPlayers, ktcPlayers] = await firstValueFrom(
+          const [allPlayers, ktcPlayers, flockPlayers] = await firstValueFrom(
             forkJoin([
               sleeperService.getAllPlayers(),
               ktcService.fetchPlayers(isSuperflex),
+              flockService.fetchPlayers(isSuperflex),
             ]),
           );
 
           const ktcLookup = ktcService.buildNameLookup(ktcPlayers);
+          const flockLookup = flockService.buildNameLookup(flockPlayers);
 
           const rawRows: Omit<PlayerRow, 'sleeperRank'>[] = Object.entries(allPlayers)
             .filter(([, source]) => isActiveSleeperPlayer(source))
-            .map(([playerId, source]) => normalizeSleeperPlayer(playerId, source, ktcLookup, currentSeason))
+            .map(([playerId, source]) => normalizeSleeperPlayer(playerId, source, ktcLookup, flockLookup, currentSeason))
             .filter((row) => row.fullName.length > 0)
             .filter((row) => DEFAULT_POSITIONS.includes(row.position))
             .filter((row) => row.team !== null || row.rookie);
@@ -207,8 +225,12 @@ export const PlayersStore = signalStore(
       setSortDirection(sortDirection: SortDirection): void {
         patchState(store, { sortDirection });
       },
+      setTierSource(tierSource: TierSource): void {
+        patchState(store, { tierSource });
+      },
     };
-  }),
+  },
+  ),
   withHooks((store, appStore = inject(AppStore)) => {
     const storeWithMethods = store as typeof store & { loadPlayers: () => Promise<void> };
     let previousLeagueId: string | null = null;

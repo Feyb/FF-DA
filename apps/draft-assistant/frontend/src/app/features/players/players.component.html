@@ -9,9 +9,7 @@
           <div class="position-filters">
             @for (position of positions; track position) {
               <button
-                mat-stroked-button
-                type="button"
-                [class.filter-active]="store.selectedPositions().includes(position)"
+                [matButton]="store.selectedPositions().includes(position) ? 'tonal' : 'text'"
                 (click)="togglePosition(position)"
               >
                 {{ position }}
@@ -43,6 +41,15 @@
             <mat-select [ngModel]="store.sortDirection()" (ngModelChange)="store.setSortDirection($event)">
               <mat-option value="asc">Ascending</mat-option>
               <mat-option value="desc">Descending</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Tier source</mat-label>
+            <mat-select [ngModel]="store.tierSource()" (ngModelChange)="store.setTierSource($event)">
+              @for (source of tierSources; track source.value) {
+                <mat-option [value]="source.value">{{ source.label }}</mat-option>
+              }
             </mat-select>
           </mat-form-field>
         </div>
@@ -130,8 +137,18 @@
                     <td>{{ player.age ?? '-' }}</td>
                     <td>{{ player.ktcRank ?? '-' }}</td>
                     <td>{{ player.ktcValue ?? '-' }}</td>
-                    <td>{{ player.overallTier ?? '-' }}</td>
-                    <td>{{ player.positionalTier ?? '-' }}</td>
+                    <td>
+                      <div class="tier-cell">
+                        <span class="tier-primary">{{ selectedTierValue(player, false) ?? '-' }}</span>
+                        <span class="tier-secondary">({{ secondaryTierText(player, false) }})</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="tier-cell">
+                        <span class="tier-primary">{{ selectedTierValue(player, true) ?? '-' }}</span>
+                        <span class="tier-secondary">({{ secondaryTierText(player, true) }})</span>
+                      </div>
+                    </td>
                   </tr>
 
                   @if (isExpanded(player.playerId)) {
@@ -148,11 +165,11 @@
                           </div>
                           <div class="player-detail-item">
                             <span class="detail-label">Overall Tier</span>
-                            <span class="detail-value">{{ player.overallTier ?? '-' }}</span>
+                            <span class="detail-value">{{ selectedTierValue(player, false) ?? '-' }} <span class="detail-subtext">({{ secondaryTierText(player, false) }})</span></span>
                           </div>
                           <div class="player-detail-item">
                             <span class="detail-label">Positional Tier</span>
-                            <span class="detail-value">{{ player.positionalTier ?? '-' }}</span>
+                            <span class="detail-value">{{ selectedTierValue(player, true) ?? '-' }} <span class="detail-subtext">({{ secondaryTierText(player, true) }})</span></span>
                           </div>
                           <div class="player-detail-item">
                             <span class="detail-label">KTC Rank</span>

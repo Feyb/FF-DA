@@ -208,6 +208,16 @@ export interface KtcPlayer {
   positionalTier: number;
 }
 
+export interface FlockPlayer {
+  playerName: string;
+  position: string;
+  team: string | null;
+  averageTier: number | null;
+  averagePositionalTier: number | null;
+}
+
+export type TierSource = 'average' | 'flock' | 'ktc';
+
 export interface LeagueStandingEntry {
   rosterId: number;
   ownerDisplayName: string;

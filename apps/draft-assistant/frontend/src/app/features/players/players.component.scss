@@ -31,7 +31,7 @@
 }
 
 .controls-grid {
-  @apply grid gap-4 md:grid-cols-2 xl:grid-cols-4;
+  @apply grid gap-4 md:grid-cols-2 xl:grid-cols-5;
 }
 
 .position-filters {
@@ -159,6 +159,22 @@
 
 .detail-value {
   @apply font-semibold text-slate-900;
+}
+
+.detail-subtext {
+  @apply text-[11px] text-slate-500 font-normal;
+}
+
+.tier-cell {
+  @apply flex flex-col leading-tight;
+}
+
+.tier-primary {
+  @apply font-semibold text-slate-900;
+}
+
+.tier-secondary {
+  @apply text-[11px] text-slate-500;
 }
 
 .player-cell {

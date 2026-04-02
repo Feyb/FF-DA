@@ -11,6 +11,25 @@ const ENV_FILE = resolve(__dirname, '../.env.local');
 const YEAR = process.env.FLOCK_YEAR ?? '2025';
 const STRICT = (process.env.FLOCK_SYNC_STRICT ?? 'false').toLowerCase() === 'true';
 
+const FORMATS = [
+  {
+    key: '1qb',
+    output: 'players-1qb.json',
+    url:
+      'https://api.flockfantasy.com/rankings?format=ONEQB&pickType=hybrid&year=' +
+      encodeURIComponent(YEAR) +
+      '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=1QB',
+  },
+  {
+    key: 'superflex',
+    output: 'players-superflex.json',
+    url:
+      'https://api.flockfantasy.com/rankings?format=SUPERFLEX&pickType=hybrid&year=' +
+      encodeURIComponent(YEAR) +
+      '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=SUPERFLEX',
+  },
+];
+
 const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
 
 function parseEnvFile(content) {
@@ -126,12 +145,7 @@ async function loginAndGetCookie(config) {
   }
 }
 
-async function fetchOneQbRankings(cookieHeader) {
-  const url =
-    'https://api.flockfantasy.com/rankings?format=ONEQB&pickType=hybrid&year=' +
-    encodeURIComponent(YEAR) +
-    '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=1QB';
-
+async function fetchRankings(url, cookieHeader) {
   const headers = {
     accept: 'application/json,text/plain,*/*',
     'user-agent': 'ff-draft-assistant-flock-sync/1.0',
@@ -142,8 +156,7 @@ async function fetchOneQbRankings(cookieHeader) {
   }
 
   const response = await fetchWithRetry(url, { headers });
-  const data = await response.json();
-  return { data, url };
+  return response.json();
 }
 
 async function writeJsonFile(path, data) {
@@ -171,26 +184,31 @@ async function run() {
       throw new Error('Flock credentials are missing. Set FLOCK_SESSION_COOKIE or FLOCK_EMAIL/FLOCK_PASSWORD.');
     }
 
-    const { data, url } = await fetchOneQbRankings(cookieHeader);
-
-    const playersPath = resolve(OUTPUT_DIR, 'players-1qb.json');
     const metadataPath = resolve(OUTPUT_DIR, 'metadata.json');
-
-    await writeJsonFile(playersPath, data);
-    await writeJsonFile(metadataPath, {
+    const metadata = {
       source: 'flockfantasy.com',
       generatedAt: new Date().toISOString(),
-      formats: {
-        '1qb': {
-          output: 'players-1qb.json',
-          count: Array.isArray(data?.data) ? data.data.length : null,
-          url,
-        },
-      },
-    });
+      formats: {},
+    };
 
-    const count = Array.isArray(data?.data) ? data.data.length : 'unknown';
-    console.log(`[flock-sync] wrote ${count} players to ${playersPath}`);
+    for (const formatConfig of FORMATS) {
+      const data = await fetchRankings(formatConfig.url, cookieHeader);
+      const playersPath = resolve(OUTPUT_DIR, formatConfig.output);
+      await writeJsonFile(playersPath, data);
+
+      metadata.formats[formatConfig.key] = {
+        output: formatConfig.output,
+        count: Array.isArray(data?.data) ? data.data.length : null,
+        url: formatConfig.url,
+      };
+
+      const count = Array.isArray(data?.data) ? data.data.length : 'unknown';
+      console.log(`[flock-sync] wrote ${count} players to ${playersPath}`);
+    }
+
+    await writeJsonFile(metadataPath, {
+      ...metadata,
+    });
   } catch (error) {
     if (STRICT) {
       throw error;

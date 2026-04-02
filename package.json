@@ -5,6 +5,7 @@
   "scripts": {
     "draft-assistant:sync": "pnpm --filter @ff/draft-assistant-frontend run rankings:sync",
     "draft-assistant:start": "pnpm --filter @ff/draft-assistant-frontend run start",
+    "draft-assistant:start-sync": "pnpm --filter @ff/draft-assistant-frontend run start-sync",
     "draft-assistant:build": "pnpm --filter @ff/draft-assistant-frontend run build"
   },
   "engines": {
