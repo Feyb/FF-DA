@@ -28,6 +28,22 @@ const FORMATS = [
       encodeURIComponent(YEAR) +
       '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=SUPERFLEX',
   },
+  {
+    key: 'rookies-1qb',
+    output: 'players-rookies-1qb.json',
+    url:
+      'https://api.flockfantasy.com/rankings?format=PROSPECTS&pickType=hybrid&year=' +
+      encodeURIComponent(YEAR) +
+      '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=1QB',
+  },
+  {
+    key: 'rookies-sf',
+    output: 'players-rookies-sf.json',
+    url:
+      'https://api.flockfantasy.com/rankings?format=PROSPECTS_SF&pickType=hybrid&year=' +
+      encodeURIComponent(YEAR) +
+      '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=SUPERFLEX',
+  },
 ];
 
 const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
