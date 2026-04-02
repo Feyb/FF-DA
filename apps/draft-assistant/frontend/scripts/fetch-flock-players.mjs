@@ -207,24 +207,40 @@ async function run() {
       formats: {},
     };
 
+    const errors = [];
+
     for (const formatConfig of FORMATS) {
-      const data = await fetchRankings(formatConfig.url, cookieHeader);
-      const playersPath = resolve(OUTPUT_DIR, formatConfig.output);
-      await writeJsonFile(playersPath, data);
+      try {
+        const data = await fetchRankings(formatConfig.url, cookieHeader);
+        const playersPath = resolve(OUTPUT_DIR, formatConfig.output);
+        await writeJsonFile(playersPath, data);
 
-      metadata.formats[formatConfig.key] = {
-        output: formatConfig.output,
-        count: Array.isArray(data?.data) ? data.data.length : null,
-        url: formatConfig.url,
-      };
+        metadata.formats[formatConfig.key] = {
+          output: formatConfig.output,
+          count: Array.isArray(data?.data) ? data.data.length : null,
+          url: formatConfig.url,
+        };
 
-      const count = Array.isArray(data?.data) ? data.data.length : 'unknown';
-      console.log(`[flock-sync] wrote ${count} players to ${playersPath}`);
+        const count = Array.isArray(data?.data) ? data.data.length : 'unknown';
+        console.log(`[flock-sync] wrote ${count} players to ${playersPath}`);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`[flock-sync] failed to fetch format "${formatConfig.key}": ${message}`);
+        errors.push({ key: formatConfig.key, error: message });
+        if (STRICT) {
+          throw error;
+        }
+      }
     }
 
     await writeJsonFile(metadataPath, {
       ...metadata,
     });
+
+    if (errors.length > 0) {
+      console.error(`[flock-sync] ${errors.length} format(s) failed: ${errors.map((e) => `${e.key}: ${e.error}`).join(', ')}`);
+      process.exitCode = 1;
+    }
   } catch (error) {
     if (STRICT) {
       throw error;
