@@ -4,12 +4,14 @@ import { League, SleeperUser } from '../models';
 const STORAGE_KEY_USER = 'draftAssistant.sleeperUser';
 const STORAGE_KEY_LEAGUE = 'draftAssistant.selectedLeague';
 const STORAGE_KEY_DENSITY = 'draftAssistant.materialDensity';
+const STORAGE_KEY_DARK_MODE = 'draftAssistant.darkMode';
 const ALLOWED_DENSITY_SCALES = new Set([-5, -4, -3, -2, -1, 0]);
 
 export interface AppState {
   user: SleeperUser | null;
   selectedLeague: League | null;
   densityScale: number;
+  darkMode: boolean;
 }
 
 export const AppStore = signalStore(
@@ -18,6 +20,7 @@ export const AppStore = signalStore(
     user: null,
     selectedLeague: null,
     densityScale: 0,
+    darkMode: false,
   }),
   withMethods((store) => ({
     setUser(user: SleeperUser): void {
@@ -47,6 +50,19 @@ export const AppStore = signalStore(
         // ignore localStorage errors
       }
     },
+    toggleDarkMode(): void {
+      const next = !store.darkMode();
+      patchState(store, { darkMode: next });
+      try {
+        localStorage.setItem(STORAGE_KEY_DARK_MODE, String(next));
+      } catch { /* ignore */ }
+    },
+    setDarkMode(darkMode: boolean): void {
+      patchState(store, { darkMode });
+      try {
+        localStorage.setItem(STORAGE_KEY_DARK_MODE, String(darkMode));
+      } catch { /* ignore */ }
+    },
   })),
   withHooks((store) => ({
     onInit(): void {
@@ -60,6 +76,15 @@ export const AppStore = signalStore(
         const parsedDensity = Number(rawDensity);
         if (ALLOWED_DENSITY_SCALES.has(parsedDensity)) {
           patchState(store, { densityScale: parsedDensity });
+        }
+
+        const rawDarkMode = localStorage.getItem(STORAGE_KEY_DARK_MODE);
+        if (rawDarkMode !== null) {
+          patchState(store, { darkMode: rawDarkMode === 'true' });
+        } else {
+          // Fall back to OS preference
+          const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
+          patchState(store, { darkMode: prefersDark });
         }
       } catch { /* ignore corrupt storage */ }
     },

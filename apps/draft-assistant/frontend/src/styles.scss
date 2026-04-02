@@ -52,6 +52,27 @@ html.app-density--5 {
   @include apply-theme(-5);
 }
 
+// ── Dark-mode: override only the color tokens (density stays from above) ──────
+html.dark {
+  $dark-theme: mat.define-theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: mat.$violet-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: (
+        plain-family: 'Inter',
+        brand-family: 'Plus Jakarta Sans',
+      ),
+      density: (
+        scale: 0,
+      ),
+    )
+  );
+  @include mat.all-component-colors($dark-theme);
+}
+
 
 html,
 body {
@@ -86,4 +107,18 @@ b, strong {
   --outline-variant: #4c22bd26; // 15% opacity
 }
 
+// ── Dark-mode CSS variable overrides ─────────────────────────────────────────
+html.dark {
+  --surface: #141218;
+  --surface-container-low: #1d1b20;
+  --surface-container-lowest: #0f0d13;
+  --surface-container-high: #2b2930;
+  --surface-container-highest: #36343b;
+  --on-surface: #e6e0e9;
+  --outline-variant: #b0acbc40; // 25% opacity
 
+  body {
+    background: var(--surface);
+    color: var(--on-surface);
+  }
+}
