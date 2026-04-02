@@ -83,7 +83,7 @@ export const AppStore = signalStore(
           patchState(store, { darkMode: rawDarkMode === 'true' });
         } else {
           // Fall back to OS preference
-          const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+          const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
           patchState(store, { darkMode: prefersDark });
         }
       } catch { /* ignore corrupt storage */ }
