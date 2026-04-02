@@ -23,14 +23,14 @@
         mode so the full sun circle shows; in dark mode it slides over the
         circle to carve out a crescent moon – no background colour hack needed.
       -->
-      <mask id="dm-crescent-mask">
+      <mask [id]="maskId">
         <rect width="24" height="24" fill="white" />
         <circle class="crescent-cutout" cx="12" cy="12" r="5.25" />
       </mask>
     </defs>
 
     <!-- Main circle (sun core ↔ moon body), crescent carved by mask in dark mode -->
-    <circle class="core" cx="12" cy="12" r="5" mask="url(#dm-crescent-mask)" />
+    <circle class="core" cx="12" cy="12" r="5" [attr.mask]="'url(#' + maskId + ')'" />
 
     <!-- Eight sun rays (hidden in dark mode) -->
     <line class="ray" x1="12" y1="1"    x2="12" y2="3.5"  />

@@ -8,8 +8,12 @@ import { AppStore } from '../../../core/state/app.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DarkModeToggleComponent {
+  private static nextId = 0;
+
   protected readonly appStore = inject(AppStore);
   protected readonly isExpanding = signal(false);
+  /** Stable unique ID so the SVG mask reference is scoped per instance. */
+  protected readonly maskId = `dm-crescent-mask-${DarkModeToggleComponent.nextId++}`;
 
   protected onToggle(): void {
     this.appStore.toggleDarkMode();
