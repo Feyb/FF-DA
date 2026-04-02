@@ -17,7 +17,10 @@ export class DarkModeToggleComponent {
 
   protected onToggle(): void {
     this.appStore.toggleDarkMode();
-    this.isExpanding.set(true);
+    this.isExpanding.set(false);
+    queueMicrotask(() => {
+      this.isExpanding.set(true);
+    });
   }
 
   protected onAnimationEnd(): void {
