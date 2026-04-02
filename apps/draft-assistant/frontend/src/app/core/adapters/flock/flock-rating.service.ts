@@ -10,6 +10,7 @@ interface FlockAssetPlayer {
   playerName?: string;
   position?: string;
   team?: string | null;
+  averageRank?: number | null;
   averageTier?: number | null;
   averagePositionalTier?: number | null;
 }
@@ -35,6 +36,7 @@ export class FlockRatingService {
           playerName: (player.playerName ?? '').trim(),
           position: player.position ?? '',
           team: player.team ?? null,
+          averageRank: player.averageRank ?? null,
           averageTier: player.averageTier ?? null,
           averagePositionalTier: player.averagePositionalTier ?? null,
         })),

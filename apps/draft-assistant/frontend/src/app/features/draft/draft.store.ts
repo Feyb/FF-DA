@@ -14,11 +14,14 @@ import {
   SleeperDraft,
   SleeperDraftPick,
 } from '../../core/models';
+import { FlockRatingService } from '../../core/adapters/flock/flock-rating.service';
+import { FlockPlayer, TierSource } from '../../core/models';
 import { mapRosterAvatarIds } from './draft-board-grid/draft-board-grid.util';
 import { AppStore } from '../../core/state/app.store';
 
 export type DraftPositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
 export type DraftSourceMode = 'league' | 'direct';
+export type DraftValueSource = 'ktcValue' | 'averageRank';
 
 interface SelectDraftOptions {
   rookieHint?: boolean;
@@ -43,6 +46,8 @@ interface DraftState {
   rookiesOnly: boolean;
   starredPlayerIds: string[];
   lastUpdatedAt: number | null;
+  tierSource: TierSource;
+  valueSource: DraftValueSource;
 }
 
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
@@ -66,10 +71,10 @@ export const DraftStore = signalStore(
     rookiesOnly: false,
     starredPlayerIds: [],
     lastUpdatedAt: null,
+    tierSource: 'ktc',
+    valueSource: 'ktcValue',
   }),
   withComputed((store) => ({
-    // Lower tier number means higher tier quality; convert it into a positive value bonus.
-    // This intentionally nudges recommendations toward premium tiers without ignoring KTC value.
     selectedDraft: computed(() => store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null),
     pickedPlayerIds: computed(() => {
       const ids = new Set<string>();
@@ -81,6 +86,7 @@ export const DraftStore = signalStore(
       return ids;
     }),
     availableRows: computed(() => {
+      const valueSrc = store.valueSource();
       const selected = new Set(store.selectedPositions());
       const picked = new Set(
         store.picks()
@@ -93,13 +99,19 @@ export const DraftStore = signalStore(
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
         .sort((a, b) => {
-          const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
-          const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
+          const aRank = valueSrc === 'ktcValue'
+            ? (a.ktcRank ?? Number.MAX_SAFE_INTEGER)
+            : (a.averageRank ?? Number.MAX_SAFE_INTEGER);
+          const bRank = valueSrc === 'ktcValue'
+            ? (b.ktcRank ?? Number.MAX_SAFE_INTEGER)
+            : (b.averageRank ?? Number.MAX_SAFE_INTEGER);
           if (aRank !== bRank) return aRank - bRank;
           return a.sleeperRank - b.sleeperRank;
         });
     }),
     recommendations: computed(() => {
+      const tierSrc = store.tierSource();
+      const valueSrc = store.valueSource();
       const selected = new Set(store.selectedPositions());
       const picked = new Set(
         store.picks()
@@ -107,17 +119,20 @@ export const DraftStore = signalStore(
           .map((pick) => pick.player_id),
       );
 
-      const tierBonus = (overallTier: number | null, positionalTier: number | null): number => {
-        const tier = overallTier ?? positionalTier;
-        if (tier === null) {
-          return 0;
-        }
-
-        return Math.max(0, 12 - tier) * 250;
+      const resolveTier = (row: DraftPlayerRow): number => {
+        const ktcTier = row.positionalTier ?? row.overallTier ?? Number.MAX_SAFE_INTEGER;
+        const flockTier = row.flockAveragePositionalTier ?? row.flockAverageTier ?? Number.MAX_SAFE_INTEGER;
+        if (tierSrc === 'ktc') return ktcTier;
+        if (tierSrc === 'flock') return flockTier;
+        if (ktcTier === Number.MAX_SAFE_INTEGER) return flockTier;
+        if (flockTier === Number.MAX_SAFE_INTEGER) return ktcTier;
+        return Math.round((ktcTier + flockTier) / 2);
       };
 
-      const normalizedTier = (overallTier: number | null, positionalTier: number | null): number =>
-        positionalTier ?? overallTier ?? Number.MAX_SAFE_INTEGER;
+      const resolveValue = (row: DraftPlayerRow): number => {
+        if (valueSrc === 'ktcValue') return row.ktcValue ?? 0;
+        return row.averageRank !== null ? -row.averageRank : -Number.MAX_SAFE_INTEGER;
+      };
 
       const positionOrder: Record<DraftPositionFilter, number> = {
         QB: 0,
@@ -131,29 +146,22 @@ export const DraftStore = signalStore(
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
         .sort((a, b) => {
-          const aTier = normalizedTier(a.overallTier, a.positionalTier);
-          const bTier = normalizedTier(b.overallTier, b.positionalTier);
+          const aTier = resolveTier(a);
+          const bTier = resolveTier(b);
           if (aTier !== bTier) return aTier - bTier;
 
           const aPosition = positionOrder[a.position];
           const bPosition = positionOrder[b.position];
           if (aPosition !== bPosition) return aPosition - bPosition;
 
-          const aBoosted = (a.ktcValue ?? 0) + tierBonus(a.overallTier, a.positionalTier);
-          const bBoosted = (b.ktcValue ?? 0) + tierBonus(b.overallTier, b.positionalTier);
-          if (aBoosted !== bBoosted) return bBoosted - aBoosted;
-
-          const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
-          const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
-          if (aRank !== bRank) return aRank - bRank;
-          return a.sleeperRank - b.sleeperRank;
+          return resolveValue(b) - resolveValue(a);
         });
 
       // Find top 3 distinct tier values
       const tierOrder: number[] = [];
       const seenTiers = new Set<number>();
       for (const row of sortedRows) {
-        const tier = normalizedTier(row.overallTier, row.positionalTier);
+        const tier = resolveTier(row);
         if (!seenTiers.has(tier)) {
           tierOrder.push(tier);
           seenTiers.add(tier);
@@ -164,31 +172,28 @@ export const DraftStore = signalStore(
       // Filter to top 3 tiers and cap at 3 players per tier
       const tierPlayerCounts = new Map<number, number>();
       const filtered = sortedRows.filter((row) => {
-        const tier = normalizedTier(row.overallTier, row.positionalTier);
-        if (!top3Tiers.has(tier)) {
-          return false;
-        }
+        const tier = resolveTier(row);
+        if (!top3Tiers.has(tier)) return false;
         const count = tierPlayerCounts.get(tier) ?? 0;
-        if (count >= 3) {
-          return false;
-        }
+        if (count >= 3) return false;
         tierPlayerCounts.set(tier, count + 1);
         return true;
       });
 
       return filtered.map<DraftRecommendation>((row) => ({
-          boostedScore:
-            (row.ktcValue ?? 0) +
-            tierBonus(row.overallTier, row.positionalTier),
-          playerId: row.playerId,
-          fullName: row.fullName,
-          position: row.position,
-          team: row.team,
-          ktcValue: row.ktcValue,
-          ktcRank: row.ktcRank,
-          overallTier: row.overallTier,
-          positionalTier: row.positionalTier,
-        }));
+        playerId: row.playerId,
+        fullName: row.fullName,
+        position: row.position,
+        team: row.team,
+        ktcValue: row.ktcValue,
+        ktcRank: row.ktcRank,
+        overallTier: row.overallTier,
+        positionalTier: row.positionalTier,
+        flockAverageTier: row.flockAverageTier,
+        flockAveragePositionalTier: row.flockAveragePositionalTier,
+        averageRank: row.averageRank,
+        boostedScore: resolveValue(row),
+      }));
     }),
     starredRows: computed(() => {
       const stars = new Set(store.starredPlayerIds());
@@ -215,7 +220,7 @@ export const DraftStore = signalStore(
     recentPicks: computed(() => [...store.picks()].sort((a, b) => b.pick_no - a.pick_no).slice(0, 10)),
     nextPickNumber: computed(() => store.picks().length + 1),
   })),
-  withMethods((store, appStore = inject(AppStore), sleeper = inject(SleeperService), ktc = inject(KtcRatingService)) => {
+  withMethods((store, appStore = inject(AppStore), sleeper = inject(SleeperService), ktc = inject(KtcRatingService), flock = inject(FlockRatingService)) => {
     let pollHandle: ReturnType<typeof setInterval> | null = null;
     let refreshInFlight = false;
 
@@ -288,6 +293,7 @@ export const DraftStore = signalStore(
     const mapRows = (
       playersById: Record<string, SleeperCatalogPlayer>,
       ktcLookup: Map<string, KtcPlayer>,
+      flockLookup: Map<string, FlockPlayer>,
       currentSeason: number,
     ): DraftPlayerRow[] => {
       const rawRows: Omit<DraftPlayerRow, 'sleeperRank'>[] = Object.entries(playersById)
@@ -298,6 +304,7 @@ export const DraftStore = signalStore(
           const fullName = source.full_name?.trim() || `${firstName} ${lastName}`.trim();
           const position = (source.position ?? '') as DraftPositionFilter;
           const ktcPlayer = ktcLookup.get(ktc.normalizeName(fullName));
+          const flockPlayer = flockLookup.get(flock.normalizeName(fullName));
 
           return {
             playerId,
@@ -310,6 +317,9 @@ export const DraftStore = signalStore(
             ktcRank: ktcPlayer?.rank ?? null,
             overallTier: ktcPlayer?.overallTier ?? null,
             positionalTier: ktcPlayer?.positionalTier ?? null,
+            flockAverageTier: flockPlayer?.averageTier ?? null,
+            flockAveragePositionalTier: flockPlayer?.averagePositionalTier ?? null,
+            averageRank: flockPlayer?.averageRank ?? null,
           };
         })
         .filter((row) => row.fullName.length > 0)
@@ -416,11 +426,10 @@ export const DraftStore = signalStore(
           ? (selectedLeague.roster_positions ?? []).includes('SUPER_FLEX')
           : false;
 
-      const [playersById, ktcPlayers] = await firstValueFrom(
-        forkJoin([sleeper.getAllPlayers(), ktc.fetchPlayers(isSuperflex)]),
+      const [playersById, ktcPlayers, flockPlayers] = await firstValueFrom(
+        forkJoin([sleeper.getAllPlayers(), ktc.fetchPlayers(isSuperflex), flock.fetchPlayers(isSuperflex)]),
       );
 
-      // Build player name map from all players
       const playerNameMap = Object.entries(playersById).reduce<Record<string, string>>((acc, [id, player]) => {
         const firstName = player.first_name ?? '';
         const lastName = player.last_name ?? '';
@@ -432,7 +441,8 @@ export const DraftStore = signalStore(
       }, {});
 
       const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-      const rows = mapRows(playersById, ktcLookup, Number(season));
+      const flockLookup = flock.buildNameLookup(flockPlayers);
+      const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season));
 
       let rosterDisplayNames: Record<string, string> = {};
       let rosterAvatarIds: Record<string, string | null> = {};
@@ -508,12 +518,13 @@ export const DraftStore = signalStore(
 
       try {
         const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes('SUPER_FLEX');
-        const [rosters, users, playersById, ktcPlayers, drafts] = await firstValueFrom(
+        const [rosters, users, playersById, ktcPlayers, flockPlayers, drafts] = await firstValueFrom(
           forkJoin([
             sleeper.getLeagueRosters(leagueId),
             sleeper.getLeagueUsers(leagueId),
             sleeper.getAllPlayers(),
             ktc.fetchPlayers(isSuperflex),
+            flock.fetchPlayers(isSuperflex),
             sleeper.getLeagueDrafts(leagueId),
           ]),
         );
@@ -521,7 +532,8 @@ export const DraftStore = signalStore(
         const rosterDisplayNames = mapRosterDisplayNames(rosters, users);
         const rosterAvatarIds = mapRosterAvatarIds(rosters, users);
         const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-        const rows = mapRows(playersById, ktcLookup, Number(season));
+        const flockLookup = flock.buildNameLookup(flockPlayers);
+        const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season));
         const selectedDraftId = chooseDraftId(leagueId, drafts);
 
         let selectedDraft: SleeperDraft | null = null;
@@ -676,6 +688,12 @@ export const DraftStore = signalStore(
           draftSource: source,
           error: null,
         });
+      },
+      setTierSource(tierSource: TierSource): void {
+        patchState(store, { tierSource });
+      },
+      setValueSource(valueSource: DraftValueSource): void {
+        patchState(store, { valueSource });
       },
       togglePosition(position: DraftPositionFilter): void {
         const current = store.selectedPositions();

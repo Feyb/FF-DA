@@ -31,7 +31,7 @@
 }
 
 .controls-grid {
-  @apply grid gap-4 md:grid-cols-2 xl:grid-cols-5;
+  @apply grid gap-2 md:grid-cols-2 xl:grid-cols-6 items-baseline auto-cols-auto;
 }
 
 .position-filters {

@@ -10,6 +10,7 @@ import { AppStore } from '../../core/state/app.store';
 export type PositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
 export type SortBy = 'default' | 'name' | 'position' | 'age' | 'ktcValue' | 'team';
 export type SortDirection = 'asc' | 'desc';
+export type ValueSource = 'ktcValue' | 'averageRank';
 
 export interface PlayerRow {
   playerId: string;
@@ -19,6 +20,7 @@ export interface PlayerRow {
   age: number | null;
   rookie: boolean;
   ktcValue: number | null;
+  averageRank: number | null;
   ktcRank: number | null;
   overallTier: number | null;
   positionalTier: number | null;
@@ -37,6 +39,7 @@ interface PlayersState {
   sortBy: SortBy;
   sortDirection: SortDirection;
   tierSource: TierSource;
+  valueSource: ValueSource;
 }
 
 const DEFAULT_POSITIONS: PositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
@@ -52,6 +55,7 @@ export const PlayersStore = signalStore(
     sortBy: 'default',
     sortDirection: 'asc',
     tierSource: 'average',
+    valueSource: 'ktcValue',
   }),
   withComputed((store) => ({
     hasRows: computed(() => store.rows().length > 0),
@@ -67,10 +71,12 @@ export const PlayersStore = signalStore(
       const sortDirection = store.sortDirection();
       const dir = sortDirection === 'asc' ? 1 : -1;
 
+      const valueSource = store.valueSource();
+
       const sort = [...filtered].sort((a, b) => {
         if (sortBy === 'default') {
-          const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
-          const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
+          const aRank = (valueSource === 'ktcValue' ? a.ktcRank : a.averageRank) ?? Number.MAX_SAFE_INTEGER;
+          const bRank = (valueSource === 'ktcValue' ? b.ktcRank : b.averageRank) ?? Number.MAX_SAFE_INTEGER;
           if (aRank !== bRank) return aRank - bRank;
           return a.sleeperRank - b.sleeperRank;
         }
@@ -90,8 +96,8 @@ export const PlayersStore = signalStore(
         }
 
         if (sortBy === 'ktcValue') {
-          const aValue = a.ktcValue ?? -1;
-          const bValue = b.ktcValue ?? -1;
+          const aValue = (valueSource === 'ktcValue' ? a.ktcValue : a.averageRank) ?? -1;
+          const bValue = (valueSource === 'ktcValue' ? b.ktcValue : b.averageRank) ?? -1;
           return (aValue - bValue) * dir;
         }
 
@@ -144,6 +150,7 @@ export const PlayersStore = signalStore(
         age: source.age ?? null,
         rookie: ktcPlayer?.rookie ?? source.rookie_year === currentSeason,
         ktcValue: ktcPlayer?.value ?? null,
+        averageRank: flockPlayer?.averageRank ?? null,
         ktcRank: ktcPlayer?.rank ?? null,
         overallTier: ktcPlayer?.overallTier ?? null,
         positionalTier: ktcPlayer?.positionalTier ?? null,
@@ -227,6 +234,9 @@ export const PlayersStore = signalStore(
       },
       setTierSource(tierSource: TierSource): void {
         patchState(store, { tierSource });
+      },
+      setValueSource(valueSource: ValueSource): void {
+        patchState(store, { valueSource });
       },
     };
   },

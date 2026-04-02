@@ -27,8 +27,8 @@
           <mat-form-field appearance="outline">
             <mat-label>Sort by</mat-label>
             <mat-select [ngModel]="store.sortBy()" (ngModelChange)="store.setSortBy($event)">
-              <mat-option value="default">KTC rank (default)</mat-option>
-              <mat-option value="ktcValue">KTC value</mat-option>
+              <mat-option value="default">Rank (default)</mat-option>
+              <mat-option value="ktcValue">Value</mat-option>
               <mat-option value="name">Name</mat-option>
               <mat-option value="position">Position</mat-option>
               <mat-option value="team">Team</mat-option>
@@ -48,6 +48,15 @@
             <mat-label>Tier source</mat-label>
             <mat-select [ngModel]="store.tierSource()" (ngModelChange)="store.setTierSource($event)">
               @for (source of tierSources; track source.value) {
+                <mat-option [value]="source.value">{{ source.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Value source</mat-label>
+            <mat-select [ngModel]="store.valueSource()" (ngModelChange)="store.setValueSource($event)">
+              @for (source of valueSources; track source.value) {
                 <mat-option [value]="source.value">{{ source.label }}</mat-option>
               }
             </mat-select>
@@ -96,7 +105,7 @@
                   <th>Team</th>
                   <th>Age</th>
                   <th>KTC Rank</th>
-                  <th>KTC Value</th>
+                  <th>{{ selectedValueLabel() }}</th>
                   <th>Tier</th>
                   <th>Pos Tier</th>
                 </tr>
@@ -136,7 +145,7 @@
                     <td>{{ player.team ?? 'FA' }}</td>
                     <td>{{ player.age ?? '-' }}</td>
                     <td>{{ player.ktcRank ?? '-' }}</td>
-                    <td>{{ player.ktcValue ?? '-' }}</td>
+                    <td>{{ selectedValue(player) ?? '-' }}</td>
                     <td>
                       <div class="tier-cell">
                         <span class="tier-primary">{{ selectedTierValue(player, false) ?? '-' }}</span>
@@ -176,8 +185,8 @@
                             <span class="detail-value">{{ player.ktcRank ?? '-' }}</span>
                           </div>
                           <div class="player-detail-item">
-                            <span class="detail-label">KTC Value</span>
-                            <span class="detail-value">{{ player.ktcValue ?? '-' }}</span>
+                            <span class="detail-label">{{ selectedValueLabel() }}</span>
+                            <span class="detail-value">{{ selectedValue(player) ?? '-' }}</span>
                           </div>
                         </div>
                       </td>

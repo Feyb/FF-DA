@@ -70,12 +70,12 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.75rem;
+  align-items: baseline;
 }
 
 @media (min-width: 1080px) {
   .controls-grid {
     grid-template-columns: 1.2fr 1.2fr 0.8fr 1fr;
-    // align-items: center;
   }
 }
 
@@ -94,8 +94,7 @@
 .mock-draft-row {
   display: flex;
   gap: 0.75rem;
-  align-items: flex-start;
-  margin-top: 0.75rem;
+  align-items: baseline;
 }
 
 .mock-draft-field {

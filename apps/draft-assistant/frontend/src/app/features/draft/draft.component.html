@@ -4,9 +4,6 @@
       <h1 class="draft-title">Draft</h1>
       <span class="draft-source-badge">{{ sourceLabel() }}</span>
     </div>
-    <p class="draft-subtitle">
-      Live draft board with available players, stars, and KTC best-available recommendations.
-    </p>
   </header>
 
   <mat-card class="controls-card" appearance="outlined">
@@ -86,8 +83,7 @@
       <div class="position-filters">
         @for (position of positions; track position) {
           <button
-            mat-stroked-button
-            [class.filter-active]="store.selectedPositions().includes(position)"
+            [matButton]="store.selectedPositions().includes(position) ? 'tonal' : 'text'"
             (click)="togglePosition(position)"
           >
             {{ position }}
@@ -102,8 +98,26 @@
         Rookies only
       </mat-slide-toggle>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Tier source</mat-label>
+        <mat-select [ngModel]="store.tierSource()" (ngModelChange)="store.setTierSource($event)">
+          @for (source of tierSources; track source.value) {
+            <mat-option [value]="source.value">{{ source.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Value source</mat-label>
+        <mat-select [ngModel]="store.valueSource()" (ngModelChange)="store.setValueSource($event)">
+          @for (source of valueSources; track source.value) {
+            <mat-option [value]="source.value">{{ source.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
       <div class="controls-actions">
-        <button mat-flat-button (click)="refreshDraft()">Refresh</button>
+        <button matButton (click)="refreshDraft()">Refresh</button>
         @if (store.lastUpdatedAt()) {
           <span class="updated-at">Updated {{ store.lastUpdatedAt()! | date:'mediumTime' }}</span>
         }
@@ -121,9 +135,9 @@
             placeholder="https://sleeper.com/draft/nfl/1338981448228569088"
           />
         </mat-form-field>
-        <button mat-flat-button (click)="loadMockDraftUrl()">Load mock draft</button>
+        <button matButton (click)="loadMockDraftUrl()">Load mock draft</button>
         @if (savedDirectUrls().length > 0) {
-          <button mat-stroked-button (click)="clearSavedUrls()">Clear saved URLs</button>
+          <button matButton (click)="clearSavedUrls()">Clear saved URLs</button>
         }
       </div>
     }
@@ -225,18 +239,18 @@
                       @for (rec of positionGroup.recommendations; track rec.playerId) {
                         <div
                           class="recommendation-item"
-                        [ngClass]="tierColorClass(rec.positionalTier ?? rec.overallTier)"
+                        [ngClass]="tierColorClass(recTier(rec))"
                         >
                           <span class="recommendation-rank">#{{ rec.ktcRank ?? '-' }}</span>
                           <div>
                             <span class="recommendation-name">{{ rec.fullName }}</span>
                             <span class="recommendation-meta">
-                              {{ rec.position }} • {{ rec.team ?? 'FA' }} • O-Tier {{ rec.overallTier ?? '-' }} • P-Tier {{ rec.positionalTier ?? '-' }}
+                              {{ rec.position }} • {{ rec.team ?? 'FA' }} • Tier {{ recTier(rec) ?? '-' }}
                             </span>
                           </div>
                           <div class="recommendation-values">
-                            <span class="recommendation-value">{{ rec.ktcValue ?? '-' }}</span>
-                            <span class="recommendation-boost">Boost {{ rec.boostedScore | number:'1.0-0' }}</span>
+                            <span class="recommendation-value">{{ selectedValue(rec) ?? '-' }}</span>
+                            <span class="recommendation-boost">Score {{ rec.boostedScore | number:'1.0-0' }}</span>
                           </div>
                         </div>
                       }
@@ -272,7 +286,7 @@
 
                       <div
                         class="player-row"
-                        [ngClass]="tierColorClass(player.positionalTier ?? player.overallTier)"
+                        [ngClass]="tierColorClass(rowTier(player))"
                       >
                         <img
                           class="player-avatar"
@@ -283,10 +297,10 @@
                         />
                         <div class="player-meta">
                           <span class="player-name">{{ player.fullName }}</span>
-                          <span class="player-sub">{{ player.position }} • {{ player.team ?? 'FA' }} • Age {{ player.age ?? '-' }}</span>
+                          <span class="player-sub"> {{ player.position }} • {{ player.team ?? 'FA' }} • Age {{ player.age ?? '-' }}</span>
                         </div>
                         <span class="player-rank">#{{ player.ktcRank ?? '-' }}</span>
-                        <span class="player-value">{{ player.ktcValue ?? '-' }}</span>
+                        <span class="player-value">{{ selectedValue(player) ?? '-' }}</span>
                         <button
                           type="button"
                           class="star-button"
@@ -323,7 +337,7 @@
               }
             </mat-card>
 
-            <mat-card class="board-card" appearance="outlined">
+            <!-- <mat-card class="board-card" appearance="outlined">
               <div class="section-header">
                 <h2>Recent Picks</h2>
                 <span class="section-hint">Latest 10</span>
@@ -341,7 +355,7 @@
                   }
                 </div>
               }
-            </mat-card>
+            </mat-card> -->
 
 						            <mat-card class="summary-card" appearance="outlined">
               <p class="summary-title">Current Draft Status</p>

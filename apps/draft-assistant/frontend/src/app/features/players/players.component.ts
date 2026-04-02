@@ -15,6 +15,7 @@ import {
   PositionFilter,
   SortBy,
   SortDirection,
+  ValueSource,
 } from './players.store';
 import { TierSource } from '../../core/models';
 
@@ -24,6 +25,7 @@ interface PlayersStoreView {
   sortBy: () => SortBy;
   sortDirection: () => SortDirection;
   tierSource: () => TierSource;
+  valueSource: () => ValueSource;
   ktcUnavailable: () => boolean;
   loading: () => boolean;
   error: () => string | null;
@@ -32,6 +34,7 @@ interface PlayersStoreView {
   setSortBy: (value: SortBy) => void;
   setSortDirection: (value: SortDirection) => void;
   setTierSource: (value: TierSource) => void;
+  setValueSource: (value: ValueSource) => void;
   togglePosition: (position: PositionFilter) => void;
   loadPlayers: () => Promise<void>;
 }
@@ -61,6 +64,10 @@ export class PlayersComponent {
     { value: 'average', label: 'Average (KTC + Flock)' },
     { value: 'flock', label: 'Flock' },
     { value: 'ktc', label: 'KTC' },
+  ];
+  protected readonly valueSources: Array<{ value: ValueSource; label: string }> = [
+    { value: 'ktcValue', label: 'KTC Value' },
+    { value: 'averageRank', label: 'Flock Average Rank' },
   ];
   protected expandedPlayerId: string | null = null;
   protected readonly playerFallbackImage =
@@ -120,6 +127,15 @@ export class PlayersComponent {
     return `Flock: ${this.formatTier(this.resolveTierValue(player, 'flock', positional))}, Avg: ${this.formatTier(this.resolveTierValue(player, 'average', positional))}`;
   }
 
+  protected selectedValue(player: PlayerRow): number | null {
+    const source = this.store.valueSource();
+    return source === 'ktcValue' ? player.ktcValue : player.averageRank;
+  }
+
+  protected selectedValueLabel(): string {
+    return this.store.valueSource() === 'ktcValue' ? 'KTC Value' : 'Flock Average Rank';
+  }
+
   private resolveTierValue(player: PlayerRow, source: TierSource, positional: boolean): number | null {
     const ktcTier = positional ? player.positionalTier : player.overallTier;
     const flockTier = positional ? player.flockAveragePositionalTier : player.flockAverageTier;
@@ -132,8 +148,12 @@ export class PlayersComponent {
       return flockTier;
     }
 
-    if (ktcTier === null || flockTier === null) {
-      return null;
+    if (flockTier === null) {
+      return ktcTier;
+    }
+
+    if (ktcTier === null) {
+      return flockTier;
     }
 
     return Math.round((ktcTier + flockTier) / 2);

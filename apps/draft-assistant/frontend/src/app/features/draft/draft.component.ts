@@ -22,9 +22,10 @@ import {
 } from '../../core/adapters/sleeper/sleeper-draft.util';
 import { DraftPlayerRow, DraftRecommendation, SleeperDraft } from '../../core/models';
 import { AppStore } from '../../core/state/app.store';
-import { DraftStore, DraftPositionFilter, DraftSourceMode } from './draft.store';
+import { DraftStore, DraftPositionFilter, DraftSourceMode, DraftValueSource } from './draft.store';
 import { TierLegendComponent } from '../../shared/components/tier-legend';
 import { DraftBoardGridComponent } from './draft-board-grid/draft-board-grid.component';
+import { TierSource } from '../../core/models';
 
 interface RecommendationPositionGroup {
   position: DraftPositionFilter;
@@ -88,6 +89,15 @@ export class DraftComponent implements OnInit {
   protected readonly directUrlStorageKey = 'draft-assistant:direct-urls';
   protected readonly sourceModes: DraftSourceMode[] = ['league', 'direct'];
   protected readonly activeSourceMode = computed<DraftSourceMode>(() => this.store.draftSource() ?? 'league');
+  protected readonly tierSources: Array<{ value: TierSource; label: string }> = [
+    { value: 'average', label: 'Average (KTC + Flock)' },
+    { value: 'flock', label: 'Flock' },
+    { value: 'ktc', label: 'KTC' },
+  ];
+  protected readonly valueSources: Array<{ value: DraftValueSource; label: string }> = [
+    { value: 'ktcValue', label: 'KTC Value' },
+    { value: 'averageRank', label: 'Flock Average Rank' },
+  ];
   protected readonly sourceLabel = computed(() =>
     this.activeSourceMode() === 'direct' ? 'Direct URL' : 'League Draft',
   );
@@ -363,8 +373,8 @@ export class DraftComponent implements OnInit {
       return true;
     }
 
-    const currentTier = rows[index]?.positionalTier ?? rows[index]?.overallTier ?? null;
-    const previousTier = rows[index - 1]?.positionalTier ?? rows[index - 1]?.overallTier ?? null;
+    const currentTier = rows[index] ? this.rowTier(rows[index]) : null;
+    const previousTier = rows[index - 1] ? this.rowTier(rows[index - 1]) : null;
     return currentTier !== previousTier;
   }
 
@@ -403,7 +413,7 @@ export class DraftComponent implements OnInit {
   }
 
   protected tierDividerLabel(row: DraftPlayerRow): string {
-    const tier = row.positionalTier ?? row.overallTier;
+    const tier = this.rowTier(row);
     if (tier === null) {
       return 'Un-tiered';
     }
@@ -411,12 +421,34 @@ export class DraftComponent implements OnInit {
     return `Tier ${tier}`;
   }
 
+  protected recTier(rec: DraftRecommendation): number | null {
+    return this.resolveTier(
+      rec.overallTier,
+      rec.positionalTier,
+      rec.flockAverageTier,
+      rec.flockAveragePositionalTier,
+    );
+  }
+
+  protected rowTier(row: DraftPlayerRow): number | null {
+    return this.resolveTier(
+      row.overallTier,
+      row.positionalTier,
+      row.flockAverageTier,
+      row.flockAveragePositionalTier,
+    );
+  }
+
+  protected selectedValue(row: DraftPlayerRow | DraftRecommendation): number | null {
+    return this.store.valueSource() === 'ktcValue' ? row.ktcValue : row.averageRank;
+  }
+
   protected recommendationTierGroups(recommendations: DraftRecommendation[]): RecommendationTierGroup[] {
     const tierMap = new Map<number, DraftRecommendation[]>();
     const untiered: DraftRecommendation[] = [];
 
     for (const recommendation of recommendations) {
-      const tier = recommendation.positionalTier ?? recommendation.overallTier;
+      const tier = this.recTier(recommendation);
       if (tier === null) {
         untiered.push(recommendation);
         continue;
@@ -451,6 +483,23 @@ export class DraftComponent implements OnInit {
     }
 
     return `Tier ${group.tier}`;
+  }
+
+  private resolveTier(
+    ktcOverall: number | null,
+    ktcPositional: number | null,
+    flockOverall: number | null,
+    flockPositional: number | null,
+  ): number | null {
+    const ktcTier = ktcPositional ?? ktcOverall;
+    const flockTier = flockPositional ?? flockOverall;
+    const source = this.store.tierSource();
+
+    if (source === 'ktc') return ktcTier;
+    if (source === 'flock') return flockTier;
+    if (flockTier === null) return ktcTier;
+    if (ktcTier === null) return flockTier;
+    return Math.round((ktcTier + flockTier) / 2);
   }
 
   private recommendationPositionGroups(recommendations: DraftRecommendation[]): RecommendationPositionGroup[] {

@@ -85,6 +85,9 @@ export interface DraftPlayerRow {
   ktcRank: number | null;
   overallTier: number | null;
   positionalTier: number | null;
+  flockAverageTier: number | null;
+  flockAveragePositionalTier: number | null;
+  averageRank: number | null;
   sleeperRank: number;
 }
 
@@ -97,6 +100,9 @@ export interface DraftRecommendation {
   ktcRank: number | null;
   overallTier: number | null;
   positionalTier: number | null;
+  flockAverageTier: number | null;
+  flockAveragePositionalTier: number | null;
+  averageRank: number | null;
   boostedScore: number;
 }
 
@@ -212,6 +218,7 @@ export interface FlockPlayer {
   playerName: string;
   position: string;
   team: string | null;
+  averageRank: number | null;
   averageTier: number | null;
   averagePositionalTier: number | null;
 }

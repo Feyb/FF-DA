@@ -8,7 +8,7 @@
     "team": "CIN",
     "rookie": false,
     "age": 26.1,
-    "value": 9998,
+    "value": 9999,
     "rank": 1,
     "positionalRank": 1,
     "overallTier": 1,
@@ -23,7 +23,7 @@
     "team": "SEA",
     "rookie": false,
     "age": 24.1,
-    "value": 9998,
+    "value": 9995,
     "rank": 2,
     "positionalRank": 2,
     "overallTier": 1,
@@ -53,7 +53,7 @@
     "team": "DET",
     "rookie": false,
     "age": 24,
-    "value": 9981,
+    "value": 9991,
     "rank": 4,
     "positionalRank": 2,
     "overallTier": 1,
@@ -68,7 +68,7 @@
     "team": "LAR",
     "rookie": false,
     "age": 24.8,
-    "value": 9549,
+    "value": 9533,
     "rank": 5,
     "positionalRank": 3,
     "overallTier": 2,
@@ -83,7 +83,7 @@
     "team": "NYG",
     "rookie": false,
     "age": 22.7,
-    "value": 8079,
+    "value": 8072,
     "rank": 6,
     "positionalRank": 4,
     "overallTier": 3,
@@ -98,7 +98,7 @@
     "team": "LVR",
     "rookie": false,
     "age": 23.3,
-    "value": 7962,
+    "value": 7969,
     "rank": 7,
     "positionalRank": 1,
     "overallTier": 3,
@@ -113,7 +113,7 @@
     "team": "DET",
     "rookie": false,
     "age": 26.4,
-    "value": 7945,
+    "value": 7942,
     "rank": 8,
     "positionalRank": 5,
     "overallTier": 3,
@@ -143,7 +143,7 @@
     "team": "LVR",
     "rookie": false,
     "age": 22.3,
-    "value": 7872,
+    "value": 7881,
     "rank": 10,
     "positionalRank": 3,
     "overallTier": 3,
@@ -158,7 +158,7 @@
     "team": "MIN",
     "rookie": false,
     "age": 26.8,
-    "value": 7863,
+    "value": 7866,
     "rank": 11,
     "positionalRank": 6,
     "overallTier": 3,
@@ -173,7 +173,7 @@
     "team": "DAL",
     "rookie": false,
     "age": 27,
-    "value": 7784,
+    "value": 7786,
     "rank": 12,
     "positionalRank": 7,
     "overallTier": 3,
@@ -188,7 +188,7 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 7734,
+    "value": 7735,
     "rank": 13,
     "positionalRank": 4,
     "overallTier": 3,
@@ -203,26 +203,11 @@
     "team": "BUF",
     "rookie": false,
     "age": 29.9,
-    "value": 7633,
+    "value": 7631,
     "rank": 14,
     "positionalRank": 1,
     "overallTier": 3,
     "positionalTier": 1
-  },
-  {
-    "playerName": "Drake London",
-    "playerID": 1268,
-    "slug": "drake-london-1268",
-    "position": "WR",
-    "positionID": 3,
-    "team": "ATL",
-    "rookie": false,
-    "age": 24.7,
-    "value": 7413,
-    "rank": 15,
-    "positionalRank": 8,
-    "overallTier": 4,
-    "positionalTier": 2
   },
   {
     "playerName": "De'Von Achane",
@@ -233,9 +218,24 @@
     "team": "MIA",
     "rookie": false,
     "age": 24.5,
-    "value": 7413,
-    "rank": 16,
+    "value": 7409,
+    "rank": 15,
     "positionalRank": 5,
+    "overallTier": 4,
+    "positionalTier": 2
+  },
+  {
+    "playerName": "Drake London",
+    "playerID": 1268,
+    "slug": "drake-london-1268",
+    "position": "WR",
+    "positionID": 3,
+    "team": "ATL",
+    "rookie": false,
+    "age": 24.7,
+    "value": 7405,
+    "rank": 16,
+    "positionalRank": 8,
     "overallTier": 4,
     "positionalTier": 2
   },
@@ -248,7 +248,7 @@
     "team": "LAC",
     "rookie": false,
     "age": 23,
-    "value": 7299,
+    "value": 7294,
     "rank": 17,
     "positionalRank": 6,
     "overallTier": 4,
@@ -263,7 +263,7 @@
     "team": "CAR",
     "rookie": false,
     "age": 23,
-    "value": 7139,
+    "value": 7140,
     "rank": 18,
     "positionalRank": 9,
     "overallTier": 5,
@@ -278,7 +278,7 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 7085,
+    "value": 7084,
     "rank": 19,
     "positionalRank": 0,
     "overallTier": 5,
@@ -293,7 +293,7 @@
     "team": "TBB",
     "rookie": false,
     "age": 23.5,
-    "value": 6834,
+    "value": 6833,
     "rank": 20,
     "positionalRank": 10,
     "overallTier": 6,
@@ -308,7 +308,7 @@
     "team": "BUF",
     "rookie": false,
     "age": 26.5,
-    "value": 6814,
+    "value": 6804,
     "rank": 21,
     "positionalRank": 7,
     "overallTier": 6,
@@ -323,7 +323,7 @@
     "team": "IND",
     "rookie": false,
     "age": 27.2,
-    "value": 6801,
+    "value": 6799,
     "rank": 22,
     "positionalRank": 8,
     "overallTier": 6,
@@ -338,7 +338,7 @@
     "team": "DAL",
     "rookie": false,
     "age": 25.1,
-    "value": 6769,
+    "value": 6756,
     "rank": 23,
     "positionalRank": 11,
     "overallTier": 6,
@@ -353,7 +353,7 @@
     "team": "CHI",
     "rookie": false,
     "age": 22,
-    "value": 6633,
+    "value": 6647,
     "rank": 24,
     "positionalRank": 3,
     "overallTier": 7,
@@ -368,7 +368,7 @@
     "team": "NEP",
     "rookie": false,
     "age": 23.6,
-    "value": 6622,
+    "value": 6623,
     "rank": 25,
     "positionalRank": 2,
     "overallTier": 7,
@@ -383,7 +383,7 @@
     "team": "NOS",
     "rookie": false,
     "age": 25.8,
-    "value": 6582,
+    "value": 6576,
     "rank": 26,
     "positionalRank": 12,
     "overallTier": 7,
@@ -398,26 +398,11 @@
     "team": "KCC",
     "rookie": false,
     "age": 25.4,
-    "value": 6537,
+    "value": 6547,
     "rank": 27,
     "positionalRank": 9,
     "overallTier": 7,
     "positionalTier": 2
-  },
-  {
-    "playerName": "2026 Early 1st",
-    "playerID": 1527,
-    "slug": "2026-early-1st-1527",
-    "position": "RDP",
-    "positionID": 5,
-    "team": "FA",
-    "rookie": false,
-    "age": 0,
-    "value": 6521,
-    "rank": 28,
-    "positionalRank": 0,
-    "overallTier": 7,
-    "positionalTier": 0
   },
   {
     "playerName": "Nico Collins",
@@ -428,11 +413,26 @@
     "team": "HOU",
     "rookie": false,
     "age": 27,
-    "value": 6519,
-    "rank": 29,
+    "value": 6530,
+    "rank": 28,
     "positionalRank": 13,
     "overallTier": 7,
     "positionalTier": 4
+  },
+  {
+    "playerName": "2026 Early 1st",
+    "playerID": 1527,
+    "slug": "2026-early-1st-1527",
+    "position": "RDP",
+    "positionID": 5,
+    "team": "FA",
+    "rookie": false,
+    "age": 0,
+    "value": 6525,
+    "rank": 29,
+    "positionalRank": 0,
+    "overallTier": 7,
+    "positionalTier": 0
   },
   {
     "playerName": "Garrett Wilson",
@@ -443,7 +443,7 @@
     "team": "NYJ",
     "rookie": false,
     "age": 25.7,
-    "value": 6447,
+    "value": 6455,
     "rank": 30,
     "positionalRank": 14,
     "overallTier": 7,
@@ -458,7 +458,7 @@
     "team": "IND",
     "rookie": false,
     "age": 23.8,
-    "value": 6447,
+    "value": 6452,
     "rank": 31,
     "positionalRank": 4,
     "overallTier": 7,
@@ -473,26 +473,11 @@
     "team": "WAS",
     "rookie": false,
     "age": 25.3,
-    "value": 6301,
+    "value": 6295,
     "rank": 32,
     "positionalRank": 3,
     "overallTier": 8,
     "positionalTier": 2
-  },
-  {
-    "playerName": "Rome Odunze",
-    "playerID": 1587,
-    "slug": "rome-odunze-1587",
-    "position": "WR",
-    "positionID": 3,
-    "team": "CHI",
-    "rookie": false,
-    "age": 23.8,
-    "value": 6296,
-    "rank": 33,
-    "positionalRank": 15,
-    "overallTier": 8,
-    "positionalTier": 4
   },
   {
     "playerName": "Quinshon Judkins",
@@ -503,11 +488,26 @@
     "team": "CLE",
     "rookie": false,
     "age": 22.4,
-    "value": 6281,
-    "rank": 34,
+    "value": 6292,
+    "rank": 33,
     "positionalRank": 10,
     "overallTier": 8,
     "positionalTier": 3
+  },
+  {
+    "playerName": "Rome Odunze",
+    "playerID": 1587,
+    "slug": "rome-odunze-1587",
+    "position": "WR",
+    "positionID": 3,
+    "team": "CHI",
+    "rookie": false,
+    "age": 23.8,
+    "value": 6287,
+    "rank": 34,
+    "positionalRank": 15,
+    "overallTier": 8,
+    "positionalTier": 5
   },
   {
     "playerName": "TreVeyon Henderson",
@@ -518,7 +518,7 @@
     "team": "NEP",
     "rookie": false,
     "age": 23.4,
-    "value": 6270,
+    "value": 6274,
     "rank": 35,
     "positionalRank": 11,
     "overallTier": 8,
@@ -533,7 +533,7 @@
     "team": "NYJ",
     "rookie": false,
     "age": 24.8,
-    "value": 6264,
+    "value": 6270,
     "rank": 36,
     "positionalRank": 12,
     "overallTier": 8,
@@ -548,7 +548,7 @@
     "team": "BAL",
     "rookie": false,
     "age": 29.2,
-    "value": 6257,
+    "value": 6256,
     "rank": 37,
     "positionalRank": 4,
     "overallTier": 8,
@@ -567,7 +567,7 @@
     "rank": 38,
     "positionalRank": 16,
     "overallTier": 8,
-    "positionalTier": 4
+    "positionalTier": 5
   },
   {
     "playerName": "Luther Burden",
@@ -578,11 +578,11 @@
     "team": "CHI",
     "rookie": false,
     "age": 22.3,
-    "value": 6195,
+    "value": 6205,
     "rank": 39,
     "positionalRank": 17,
     "overallTier": 8,
-    "positionalTier": 4
+    "positionalTier": 5
   },
   {
     "playerName": "Carnell Tate",
@@ -593,11 +593,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 6005,
+    "value": 5999,
     "rank": 40,
     "positionalRank": 18,
     "overallTier": 9,
-    "positionalTier": 5
+    "positionalTier": 6
   },
   {
     "playerName": "2027 Mid 1st",
@@ -608,7 +608,7 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 5961,
+    "value": 5964,
     "rank": 41,
     "positionalRank": 0,
     "overallTier": 9,
@@ -623,7 +623,7 @@
     "team": "SFO",
     "rookie": false,
     "age": 29.8,
-    "value": 5943,
+    "value": 5936,
     "rank": 42,
     "positionalRank": 13,
     "overallTier": 9,
@@ -638,7 +638,7 @@
     "team": "TBB",
     "rookie": false,
     "age": 23.6,
-    "value": 5893,
+    "value": 5897,
     "rank": 43,
     "positionalRank": 14,
     "overallTier": 9,
@@ -653,11 +653,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 5841,
+    "value": 5833,
     "rank": 44,
     "positionalRank": 19,
     "overallTier": 9,
-    "positionalTier": 6
+    "positionalTier": 7
   },
   {
     "playerName": "Chase Brown",
@@ -668,7 +668,7 @@
     "team": "CIN",
     "rookie": false,
     "age": 26,
-    "value": 5734,
+    "value": 5741,
     "rank": 45,
     "positionalRank": 15,
     "overallTier": 10,
@@ -683,26 +683,11 @@
     "team": "CIN",
     "rookie": false,
     "age": 27.2,
-    "value": 5731,
+    "value": 5735,
     "rank": 46,
     "positionalRank": 20,
     "overallTier": 10,
-    "positionalTier": 6
-  },
-  {
-    "playerName": "Marvin Harrison Jr.",
-    "playerID": 1585,
-    "slug": "marvin-harrison-jr-1585",
-    "position": "WR",
-    "positionID": 3,
-    "team": "ARI",
-    "rookie": false,
-    "age": 23.6,
-    "value": 5713,
-    "rank": 47,
-    "positionalRank": 21,
-    "overallTier": 10,
-    "positionalTier": 6
+    "positionalTier": 7
   },
   {
     "playerName": "DeVonta Smith",
@@ -713,11 +698,26 @@
     "team": "PHI",
     "rookie": false,
     "age": 27.4,
-    "value": 5703,
+    "value": 5711,
+    "rank": 47,
+    "positionalRank": 21,
+    "overallTier": 10,
+    "positionalTier": 7
+  },
+  {
+    "playerName": "Marvin Harrison Jr.",
+    "playerID": 1585,
+    "slug": "marvin-harrison-jr-1585",
+    "position": "WR",
+    "positionID": 3,
+    "team": "ARI",
+    "rookie": false,
+    "age": 23.6,
+    "value": 5700,
     "rank": 48,
     "positionalRank": 22,
     "overallTier": 10,
-    "positionalTier": 6
+    "positionalTier": 7
   },
   {
     "playerName": "Joe Burrow",
@@ -728,7 +728,7 @@
     "team": "CIN",
     "rookie": false,
     "age": 29.3,
-    "value": 5689,
+    "value": 5693,
     "rank": 49,
     "positionalRank": 5,
     "overallTier": 10,
@@ -743,7 +743,7 @@
     "team": "LAR",
     "rookie": false,
     "age": 25.6,
-    "value": 5652,
+    "value": 5667,
     "rank": 50,
     "positionalRank": 16,
     "overallTier": 10,
@@ -758,26 +758,11 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 5634,
+    "value": 5635,
     "rank": 51,
     "positionalRank": 0,
     "overallTier": 10,
     "positionalTier": 0
-  },
-  {
-    "playerName": "Brian Thomas Jr.",
-    "playerID": 1589,
-    "slug": "brian-thomas-jr-1589",
-    "position": "WR",
-    "positionID": 3,
-    "team": "JAC",
-    "rookie": false,
-    "age": 23.5,
-    "value": 5630,
-    "rank": 52,
-    "positionalRank": 23,
-    "overallTier": 10,
-    "positionalTier": 6
   },
   {
     "playerName": "Saquon Barkley",
@@ -788,11 +773,26 @@
     "team": "PHI",
     "rookie": false,
     "age": 29.1,
-    "value": 5627,
-    "rank": 53,
+    "value": 5634,
+    "rank": 52,
     "positionalRank": 17,
     "overallTier": 10,
     "positionalTier": 5
+  },
+  {
+    "playerName": "Brian Thomas Jr.",
+    "playerID": 1589,
+    "slug": "brian-thomas-jr-1589",
+    "position": "WR",
+    "positionID": 3,
+    "team": "JAC",
+    "rookie": false,
+    "age": 23.5,
+    "value": 5619,
+    "rank": 53,
+    "positionalRank": 23,
+    "overallTier": 10,
+    "positionalTier": 7
   },
   {
     "playerName": "Harold Fannin",
@@ -803,7 +803,7 @@
     "team": "CLE",
     "rookie": false,
     "age": 21.7,
-    "value": 5595,
+    "value": 5591,
     "rank": 54,
     "positionalRank": 5,
     "overallTier": 10,
@@ -818,11 +818,11 @@
     "team": "PHI",
     "rookie": false,
     "age": 28.8,
-    "value": 5570,
+    "value": 5560,
     "rank": 55,
     "positionalRank": 24,
     "overallTier": 10,
-    "positionalTier": 6
+    "positionalTier": 7
   },
   {
     "playerName": "Caleb Williams",
@@ -833,7 +833,7 @@
     "team": "CHI",
     "rookie": false,
     "age": 24.4,
-    "value": 5564,
+    "value": 5559,
     "rank": 56,
     "positionalRank": 6,
     "overallTier": 10,
@@ -848,26 +848,11 @@
     "team": "DEN",
     "rookie": false,
     "age": 27.4,
-    "value": 5555,
+    "value": 5552,
     "rank": 57,
     "positionalRank": 25,
     "overallTier": 10,
-    "positionalTier": 6
-  },
-  {
-    "playerName": "Jordyn Tyson",
-    "playerID": 1960,
-    "slug": "jordyn-tyson-1960",
-    "position": "WR",
-    "positionID": 3,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 5536,
-    "rank": 59,
-    "positionalRank": 26,
-    "overallTier": 10,
-    "positionalTier": 6
+    "positionalTier": 7
   },
   {
     "playerName": "Travis Etienne",
@@ -878,11 +863,26 @@
     "team": "NOS",
     "rookie": false,
     "age": 27.2,
-    "value": 5536,
+    "value": 5539,
     "rank": 58,
     "positionalRank": 18,
     "overallTier": 10,
     "positionalTier": 5
+  },
+  {
+    "playerName": "Jordyn Tyson",
+    "playerID": 1960,
+    "slug": "jordyn-tyson-1960",
+    "position": "WR",
+    "positionID": 3,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 5528,
+    "rank": 59,
+    "positionalRank": 26,
+    "overallTier": 10,
+    "positionalTier": 7
   },
   {
     "playerName": "Zay Flowers",
@@ -893,11 +893,26 @@
     "team": "BAL",
     "rookie": false,
     "age": 25.6,
-    "value": 5527,
+    "value": 5523,
     "rank": 60,
     "positionalRank": 27,
     "overallTier": 10,
-    "positionalTier": 6
+    "positionalTier": 7
+  },
+  {
+    "playerName": "Jameson Williams",
+    "playerID": 1273,
+    "slug": "jameson-williams-1273",
+    "position": "WR",
+    "positionID": 3,
+    "team": "DET",
+    "rookie": false,
+    "age": 25,
+    "value": 5518,
+    "rank": 61,
+    "positionalRank": 28,
+    "overallTier": 10,
+    "positionalTier": 7
   },
   {
     "playerName": "Tucker Kraft",
@@ -908,8 +923,8 @@
     "team": "GBP",
     "rookie": false,
     "age": 25.4,
-    "value": 5517,
-    "rank": 61,
+    "value": 5514,
+    "rank": 62,
     "positionalRank": 6,
     "overallTier": 10,
     "positionalTier": 3
@@ -923,26 +938,11 @@
     "team": "KCC",
     "rookie": false,
     "age": 25.9,
-    "value": 5516,
-    "rank": 62,
-    "positionalRank": 28,
-    "overallTier": 10,
-    "positionalTier": 6
-  },
-  {
-    "playerName": "Jameson Williams",
-    "playerID": 1273,
-    "slug": "jameson-williams-1273",
-    "position": "WR",
-    "positionID": 3,
-    "team": "DET",
-    "rookie": false,
-    "age": 25,
-    "value": 5503,
+    "value": 5513,
     "rank": 63,
     "positionalRank": 29,
     "overallTier": 10,
-    "positionalTier": 6
+    "positionalTier": 7
   },
   {
     "playerName": "2027 Late 1st",
@@ -953,26 +953,11 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 5499,
+    "value": 5508,
     "rank": 64,
     "positionalRank": 0,
     "overallTier": 10,
     "positionalTier": 0
-  },
-  {
-    "playerName": "Patrick Mahomes",
-    "playerID": 272,
-    "slug": "patrick-mahomes-272",
-    "position": "QB",
-    "positionID": 1,
-    "team": "KCC",
-    "rookie": false,
-    "age": 30.5,
-    "value": 5488,
-    "rank": 65,
-    "positionalRank": 7,
-    "overallTier": 10,
-    "positionalTier": 3
   },
   {
     "playerName": "Jaxson Dart",
@@ -984,6 +969,21 @@
     "rookie": false,
     "age": 22.9,
     "value": 5485,
+    "rank": 65,
+    "positionalRank": 7,
+    "overallTier": 10,
+    "positionalTier": 3
+  },
+  {
+    "playerName": "Patrick Mahomes",
+    "playerID": 272,
+    "slug": "patrick-mahomes-272",
+    "position": "QB",
+    "positionID": 1,
+    "team": "KCC",
+    "rookie": false,
+    "age": 30.5,
+    "value": 5482,
     "rank": 66,
     "positionalRank": 8,
     "overallTier": 10,
@@ -998,7 +998,7 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 5476,
+    "value": 5471,
     "rank": 67,
     "positionalRank": 0,
     "overallTier": 10,
@@ -1013,7 +1013,7 @@
     "team": "DAL",
     "rookie": false,
     "age": 25.9,
-    "value": 5456,
+    "value": 5461,
     "rank": 68,
     "positionalRank": 19,
     "overallTier": 10,
@@ -1043,7 +1043,7 @@
     "team": "GBP",
     "rookie": false,
     "age": 28.1,
-    "value": 5404,
+    "value": 5403,
     "rank": 70,
     "positionalRank": 20,
     "overallTier": 10,
@@ -1073,7 +1073,7 @@
     "team": "NYG",
     "rookie": false,
     "age": 24.2,
-    "value": 5376,
+    "value": 5369,
     "rank": 72,
     "positionalRank": 21,
     "overallTier": 10,
@@ -1088,11 +1088,11 @@
     "team": "IND",
     "rookie": false,
     "age": 25.9,
-    "value": 5240,
+    "value": 5232,
     "rank": 73,
     "positionalRank": 30,
     "overallTier": 11,
-    "positionalTier": 7
+    "positionalTier": 8
   },
   {
     "playerName": "Sam LaPorta",
@@ -1118,7 +1118,7 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 5171,
+    "value": 5166,
     "rank": 75,
     "positionalRank": 0,
     "overallTier": 11,
@@ -1133,7 +1133,7 @@
     "team": "ATL",
     "rookie": false,
     "age": 25.5,
-    "value": 5163,
+    "value": 5157,
     "rank": 76,
     "positionalRank": 8,
     "overallTier": 11,
@@ -1148,7 +1148,7 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 5087,
+    "value": 5099,
     "rank": 77,
     "positionalRank": 9,
     "overallTier": 11,
@@ -1178,7 +1178,7 @@
     "team": "DEN",
     "rookie": false,
     "age": 26.1,
-    "value": 5057,
+    "value": 5060,
     "rank": 79,
     "positionalRank": 11,
     "overallTier": 11,
@@ -1193,7 +1193,7 @@
     "team": "JAC",
     "rookie": false,
     "age": 23.1,
-    "value": 5043,
+    "value": 5036,
     "rank": 80,
     "positionalRank": 22,
     "overallTier": 11,
@@ -1208,11 +1208,11 @@
     "team": "BUF",
     "rookie": false,
     "age": 29,
-    "value": 4836,
+    "value": 4841,
     "rank": 81,
     "positionalRank": 31,
     "overallTier": 12,
-    "positionalTier": 8
+    "positionalTier": 9
   },
   {
     "playerName": "Jordan Addison",
@@ -1223,11 +1223,11 @@
     "team": "MIN",
     "rookie": false,
     "age": 24.2,
-    "value": 4833,
+    "value": 4834,
     "rank": 82,
     "positionalRank": 32,
     "overallTier": 12,
-    "positionalTier": 8
+    "positionalTier": 9
   },
   {
     "playerName": "Oronde Gadsden",
@@ -1238,26 +1238,11 @@
     "team": "LAC",
     "rookie": false,
     "age": 22.8,
-    "value": 4809,
+    "value": 4801,
     "rank": 83,
     "positionalRank": 10,
     "overallTier": 12,
     "positionalTier": 4
-  },
-  {
-    "playerName": "2028 Late 1st",
-    "playerID": 1884,
-    "slug": "2028-late-1st-1884",
-    "position": "RDP",
-    "positionID": 5,
-    "team": "FA",
-    "rookie": false,
-    "age": 0,
-    "value": 4789,
-    "rank": 84,
-    "positionalRank": 0,
-    "overallTier": 12,
-    "positionalTier": 0
   },
   {
     "playerName": "Derrick Henry",
@@ -1268,9 +1253,39 @@
     "team": "BAL",
     "rookie": false,
     "age": 32.2,
-    "value": 4784,
-    "rank": 85,
+    "value": 4787,
+    "rank": 84,
     "positionalRank": 23,
+    "overallTier": 12,
+    "positionalTier": 7
+  },
+  {
+    "playerName": "2028 Late 1st",
+    "playerID": 1884,
+    "slug": "2028-late-1st-1884",
+    "position": "RDP",
+    "positionID": 5,
+    "team": "FA",
+    "rookie": false,
+    "age": 0,
+    "value": 4786,
+    "rank": 85,
+    "positionalRank": 0,
+    "overallTier": 12,
+    "positionalTier": 0
+  },
+  {
+    "playerName": "RJ Harvey",
+    "playerID": 1768,
+    "slug": "rj-harvey-1768",
+    "position": "RB",
+    "positionID": 2,
+    "team": "DEN",
+    "rookie": false,
+    "age": 25.2,
+    "value": 4782,
+    "rank": 86,
+    "positionalRank": 24,
     "overallTier": 12,
     "positionalTier": 7
   },
@@ -1283,26 +1298,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 4782,
-    "rank": 86,
+    "value": 4778,
+    "rank": 87,
     "positionalRank": 12,
     "overallTier": 12,
     "positionalTier": 5
-  },
-  {
-    "playerName": "RJ Harvey",
-    "playerID": 1768,
-    "slug": "rj-harvey-1768",
-    "position": "RB",
-    "positionID": 2,
-    "team": "DEN",
-    "rookie": false,
-    "age": 25.2,
-    "value": 4774,
-    "rank": 87,
-    "positionalRank": 24,
-    "overallTier": 12,
-    "positionalTier": 7
   },
   {
     "playerName": "Trevor Lawrence",
@@ -1313,7 +1313,7 @@
     "team": "JAC",
     "rookie": false,
     "age": 26.5,
-    "value": 4722,
+    "value": 4731,
     "rank": 88,
     "positionalRank": 13,
     "overallTier": 12,
@@ -1328,7 +1328,7 @@
     "team": "SEA",
     "rookie": false,
     "age": 25.2,
-    "value": 4699,
+    "value": 4691,
     "rank": 89,
     "positionalRank": 25,
     "overallTier": 12,
@@ -1343,11 +1343,11 @@
     "team": "TEN",
     "rookie": false,
     "age": 25.2,
-    "value": 4674,
+    "value": 4672,
     "rank": 90,
     "positionalRank": 33,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 10
   },
   {
     "playerName": "KC Concepcion",
@@ -1358,11 +1358,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 4663,
+    "value": 4670,
     "rank": 91,
     "positionalRank": 34,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 10
   },
   {
     "playerName": "Brock Purdy",
@@ -1373,7 +1373,7 @@
     "team": "SFO",
     "rookie": false,
     "age": 26.3,
-    "value": 4657,
+    "value": 4655,
     "rank": 92,
     "positionalRank": 14,
     "overallTier": 12,
@@ -1388,26 +1388,11 @@
     "team": "NEP",
     "rookie": false,
     "age": 26,
-    "value": 4602,
+    "value": 4599,
     "rank": 93,
     "positionalRank": 35,
     "overallTier": 12,
-    "positionalTier": 9
-  },
-  {
-    "playerName": "2027 Early 2nd",
-    "playerID": 1705,
-    "slug": "2027-early-2nd-1705",
-    "position": "RDP",
-    "positionID": 5,
-    "team": "FA",
-    "rookie": false,
-    "age": 0,
-    "value": 4587,
-    "rank": 94,
-    "positionalRank": 0,
-    "overallTier": 12,
-    "positionalTier": 0
+    "positionalTier": 10
   },
   {
     "playerName": "Michael Wilson",
@@ -1418,11 +1403,26 @@
     "team": "ARI",
     "rookie": false,
     "age": 26.1,
-    "value": 4579,
-    "rank": 95,
+    "value": 4589,
+    "rank": 94,
     "positionalRank": 36,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 10
+  },
+  {
+    "playerName": "2027 Early 2nd",
+    "playerID": 1705,
+    "slug": "2027-early-2nd-1705",
+    "position": "RDP",
+    "positionID": 5,
+    "team": "FA",
+    "rookie": false,
+    "age": 0,
+    "value": 4581,
+    "rank": 95,
+    "positionalRank": 0,
+    "overallTier": 12,
+    "positionalTier": 0
   },
   {
     "playerName": "Jordan Love",
@@ -1433,7 +1433,7 @@
     "team": "GBP",
     "rookie": false,
     "age": 27.4,
-    "value": 4542,
+    "value": 4545,
     "rank": 96,
     "positionalRank": 15,
     "overallTier": 12,
@@ -1448,11 +1448,11 @@
     "team": "PIT",
     "rookie": false,
     "age": 28.3,
-    "value": 4540,
+    "value": 4531,
     "rank": 97,
     "positionalRank": 37,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 10
   },
   {
     "playerName": "Travis Hunter",
@@ -1463,11 +1463,11 @@
     "team": "JAC",
     "rookie": false,
     "age": 22.9,
-    "value": 4508,
-    "rank": 99,
-    "positionalRank": 39,
+    "value": 4516,
+    "rank": 98,
+    "positionalRank": 38,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 10
   },
   {
     "playerName": "Christian Watson",
@@ -1478,11 +1478,11 @@
     "team": "GBP",
     "rookie": false,
     "age": 26.9,
-    "value": 4508,
-    "rank": 98,
-    "positionalRank": 38,
+    "value": 4494,
+    "rank": 99,
+    "positionalRank": 39,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 10
   },
   {
     "playerName": "Ricky Pearsall",
@@ -1493,11 +1493,11 @@
     "team": "SFO",
     "rookie": false,
     "age": 25.6,
-    "value": 4478,
+    "value": 4487,
     "rank": 100,
     "positionalRank": 40,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 10
   },
   {
     "playerName": "Parker Washington",
@@ -1508,11 +1508,11 @@
     "team": "JAC",
     "rookie": false,
     "age": 24,
-    "value": 4471,
+    "value": 4486,
     "rank": 101,
     "positionalRank": 41,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 10
   },
   {
     "playerName": "Jayden Higgins",
@@ -1523,11 +1523,11 @@
     "team": "HOU",
     "rookie": false,
     "age": 23.3,
-    "value": 4470,
+    "value": 4473,
     "rank": 102,
     "positionalRank": 42,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 10
   },
   {
     "playerName": "Dak Prescott",
@@ -1553,9 +1553,24 @@
     "team": "CHI",
     "rookie": false,
     "age": 23.8,
-    "value": 4444,
+    "value": 4446,
     "rank": 104,
     "positionalRank": 26,
+    "overallTier": 12,
+    "positionalTier": 8
+  },
+  {
+    "playerName": "D'Andre Swift",
+    "playerID": 639,
+    "slug": "d-andre-swift-639",
+    "position": "RB",
+    "positionID": 2,
+    "team": "CHI",
+    "rookie": false,
+    "age": 27.2,
+    "value": 4395,
+    "rank": 105,
+    "positionalRank": 27,
     "overallTier": 12,
     "positionalTier": 8
   },
@@ -1568,24 +1583,24 @@
     "team": "GBP",
     "rookie": false,
     "age": 22.7,
-    "value": 4402,
-    "rank": 105,
+    "value": 4384,
+    "rank": 106,
     "positionalRank": 43,
     "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 11
   },
   {
-    "playerName": "D'Andre Swift",
-    "playerID": 639,
-    "slug": "d-andre-swift-639",
+    "playerName": "David Montgomery",
+    "playerID": 288,
+    "slug": "david-montgomery-288",
     "position": "RB",
     "positionID": 2,
-    "team": "CHI",
+    "team": "HOU",
     "rookie": false,
-    "age": 27.2,
-    "value": 4395,
-    "rank": 106,
-    "positionalRank": 27,
+    "age": 28.8,
+    "value": 4366,
+    "rank": 107,
+    "positionalRank": 28,
     "overallTier": 12,
     "positionalTier": 8
   },
@@ -1598,9 +1613,9 @@
     "team": "ARI",
     "rookie": false,
     "age": 26,
-    "value": 4379,
-    "rank": 107,
-    "positionalRank": 28,
+    "value": 4362,
+    "rank": 108,
+    "positionalRank": 29,
     "overallTier": 12,
     "positionalTier": 8
   },
@@ -1614,25 +1629,10 @@
     "rookie": false,
     "age": 33.3,
     "value": 4357,
-    "rank": 108,
+    "rank": 109,
     "positionalRank": 44,
     "overallTier": 12,
-    "positionalTier": 10
-  },
-  {
-    "playerName": "David Montgomery",
-    "playerID": 288,
-    "slug": "david-montgomery-288",
-    "position": "RB",
-    "positionID": 2,
-    "team": "HOU",
-    "rookie": false,
-    "age": 28.8,
-    "value": 4354,
-    "rank": 109,
-    "positionalRank": 29,
-    "overallTier": 12,
-    "positionalTier": 8
+    "positionalTier": 11
   },
   {
     "playerName": "Michael Pittman",
@@ -1643,11 +1643,11 @@
     "team": "PIT",
     "rookie": false,
     "age": 28.5,
-    "value": 4338,
+    "value": 4323,
     "rank": 110,
     "positionalRank": 45,
     "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 11
   },
   {
     "playerName": "Terry McLaurin",
@@ -1658,11 +1658,11 @@
     "team": "WAS",
     "rookie": false,
     "age": 30.5,
-    "value": 4283,
+    "value": 4286,
     "rank": 111,
     "positionalRank": 46,
     "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 11
   },
   {
     "playerName": "Isaiah Likely",
@@ -1673,7 +1673,7 @@
     "team": "NYG",
     "rookie": false,
     "age": 26,
-    "value": 4277,
+    "value": 4283,
     "rank": 112,
     "positionalRank": 11,
     "overallTier": 12,
@@ -1688,7 +1688,7 @@
     "team": "TBB",
     "rookie": false,
     "age": 31,
-    "value": 4238,
+    "value": 4232,
     "rank": 113,
     "positionalRank": 17,
     "overallTier": 12,
@@ -1703,26 +1703,11 @@
     "team": "KCC",
     "rookie": false,
     "age": 22.9,
-    "value": 4221,
+    "value": 4224,
     "rank": 114,
     "positionalRank": 47,
     "overallTier": 12,
-    "positionalTier": 10
-  },
-  {
-    "playerName": "Jakobi Meyers",
-    "playerID": 13,
-    "slug": "jakobi-meyers-13",
-    "position": "WR",
-    "positionID": 3,
-    "team": "JAC",
-    "rookie": false,
-    "age": 29.4,
-    "value": 4216,
-    "rank": 115,
-    "positionalRank": 48,
-    "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 11
   },
   {
     "playerName": "2026 Early 2nd",
@@ -1733,11 +1718,41 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 4211,
-    "rank": 116,
+    "value": 4214,
+    "rank": 115,
     "positionalRank": 0,
     "overallTier": 12,
     "positionalTier": 0
+  },
+  {
+    "playerName": "Jakobi Meyers",
+    "playerID": 13,
+    "slug": "jakobi-meyers-13",
+    "position": "WR",
+    "positionID": 3,
+    "team": "JAC",
+    "rookie": false,
+    "age": 29.4,
+    "value": 4200,
+    "rank": 116,
+    "positionalRank": 48,
+    "overallTier": 12,
+    "positionalTier": 11
+  },
+  {
+    "playerName": "Omar Cooper Jr.",
+    "playerID": 1964,
+    "slug": "omar-cooper-jr-1964",
+    "position": "WR",
+    "positionID": 3,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 4167,
+    "rank": 117,
+    "positionalRank": 49,
+    "overallTier": 12,
+    "positionalTier": 11
   },
   {
     "playerName": "Denzel Boston",
@@ -1749,40 +1764,10 @@
     "rookie": true,
     "age": -1,
     "value": 4160,
-    "rank": 117,
-    "positionalRank": 49,
-    "overallTier": 12,
-    "positionalTier": 10
-  },
-  {
-    "playerName": "Omar Cooper Jr.",
-    "playerID": 1964,
-    "slug": "omar-cooper-jr-1964",
-    "position": "WR",
-    "positionID": 3,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 4145,
     "rank": 118,
     "positionalRank": 50,
     "overallTier": 12,
-    "positionalTier": 10
-  },
-  {
-    "playerName": "Chuba Hubbard",
-    "playerID": 1014,
-    "slug": "chuba-hubbard-1014",
-    "position": "RB",
-    "positionID": 2,
-    "team": "CAR",
-    "rookie": false,
-    "age": 26.8,
-    "value": 4133,
-    "rank": 119,
-    "positionalRank": 30,
-    "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 11
   },
   {
     "playerName": "Kyler Murray",
@@ -1793,11 +1778,26 @@
     "team": "MIN",
     "rookie": false,
     "age": 28.6,
-    "value": 4132,
-    "rank": 120,
+    "value": 4135,
+    "rank": 119,
     "positionalRank": 18,
     "overallTier": 12,
     "positionalTier": 6
+  },
+  {
+    "playerName": "Chuba Hubbard",
+    "playerID": 1014,
+    "slug": "chuba-hubbard-1014",
+    "position": "RB",
+    "positionID": 2,
+    "team": "CAR",
+    "rookie": false,
+    "age": 26.8,
+    "value": 4131,
+    "rank": 120,
+    "positionalRank": 30,
+    "overallTier": 12,
+    "positionalTier": 9
   },
   {
     "playerName": "Josh Downs",
@@ -1808,11 +1808,11 @@
     "team": "IND",
     "rookie": false,
     "age": 24.6,
-    "value": 4128,
+    "value": 4117,
     "rank": 121,
     "positionalRank": 51,
     "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 11
   },
   {
     "playerName": "Mike Evans",
@@ -1823,11 +1823,11 @@
     "team": "SFO",
     "rookie": false,
     "age": 32.6,
-    "value": 4112,
+    "value": 4115,
     "rank": 122,
     "positionalRank": 52,
     "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 11
   },
   {
     "playerName": "2027 Mid 2nd",
@@ -1838,7 +1838,7 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 4098,
+    "value": 4095,
     "rank": 123,
     "positionalRank": 0,
     "overallTier": 12,
@@ -1853,7 +1853,7 @@
     "team": "PIT",
     "rookie": false,
     "age": 27.8,
-    "value": 4073,
+    "value": 4069,
     "rank": 124,
     "positionalRank": 31,
     "overallTier": 12,
@@ -1868,11 +1868,11 @@
     "team": "LAC",
     "rookie": false,
     "age": 24.6,
-    "value": 4070,
+    "value": 4067,
     "rank": 125,
     "positionalRank": 53,
     "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 11
   },
   {
     "playerName": "Dalton Kincaid",
@@ -1883,24 +1883,9 @@
     "team": "BUF",
     "rookie": false,
     "age": 26.4,
-    "value": 4062,
+    "value": 4065,
     "rank": 126,
     "positionalRank": 12,
-    "overallTier": 12,
-    "positionalTier": 5
-  },
-  {
-    "playerName": "Jake Ferguson",
-    "playerID": 1258,
-    "slug": "jake-ferguson-1258",
-    "position": "TE",
-    "positionID": 4,
-    "team": "DAL",
-    "rookie": false,
-    "age": 27.2,
-    "value": 4057,
-    "rank": 127,
-    "positionalRank": 13,
     "overallTier": 12,
     "positionalTier": 5
   },
@@ -1914,10 +1899,25 @@
     "rookie": false,
     "age": 25.4,
     "value": 4056,
-    "rank": 128,
+    "rank": 127,
     "positionalRank": 32,
     "overallTier": 12,
     "positionalTier": 9
+  },
+  {
+    "playerName": "Jake Ferguson",
+    "playerID": 1258,
+    "slug": "jake-ferguson-1258",
+    "position": "TE",
+    "positionID": 4,
+    "team": "DAL",
+    "rookie": false,
+    "age": 27.2,
+    "value": 4046,
+    "rank": 128,
+    "positionalRank": 13,
+    "overallTier": 12,
+    "positionalTier": 5
   },
   {
     "playerName": "Jaylen Warren",
@@ -1928,7 +1928,7 @@
     "team": "PIT",
     "rookie": false,
     "age": 27.4,
-    "value": 4036,
+    "value": 4045,
     "rank": 129,
     "positionalRank": 33,
     "overallTier": 12,
@@ -1943,11 +1943,11 @@
     "team": "GBP",
     "rookie": false,
     "age": 25.9,
-    "value": 4021,
+    "value": 4019,
     "rank": 130,
     "positionalRank": 54,
     "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 11
   },
   {
     "playerName": "Cam Ward",
@@ -1958,7 +1958,7 @@
     "team": "TEN",
     "rookie": false,
     "age": 23.8,
-    "value": 4009,
+    "value": 4012,
     "rank": 131,
     "positionalRank": 19,
     "overallTier": 12,
@@ -1973,7 +1973,7 @@
     "team": "SFO",
     "rookie": false,
     "age": 32.5,
-    "value": 3964,
+    "value": 3955,
     "rank": 132,
     "positionalRank": 14,
     "overallTier": 12,
@@ -1988,7 +1988,7 @@
     "team": "HOU",
     "rookie": false,
     "age": 24.5,
-    "value": 3942,
+    "value": 3948,
     "rank": 133,
     "positionalRank": 20,
     "overallTier": 12,
@@ -2003,7 +2003,7 @@
     "team": "MIA",
     "rookie": false,
     "age": 26.8,
-    "value": 3897,
+    "value": 3900,
     "rank": 134,
     "positionalRank": 21,
     "overallTier": 12,
@@ -2033,26 +2033,11 @@
     "team": "DEN",
     "rookie": false,
     "age": 30.5,
-    "value": 3878,
+    "value": 3881,
     "rank": 136,
     "positionalRank": 55,
     "overallTier": 12,
-    "positionalTier": 11
-  },
-  {
-    "playerName": "Jadarian Price",
-    "playerID": 1935,
-    "slug": "jadarian-price-1935",
-    "position": "RB",
-    "positionID": 2,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 3830,
-    "rank": 137,
-    "positionalRank": 34,
-    "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 12
   },
   {
     "playerName": "Jalen Coker",
@@ -2064,25 +2049,25 @@
     "rookie": false,
     "age": 24.4,
     "value": 3828,
-    "rank": 138,
+    "rank": 137,
     "positionalRank": 56,
     "overallTier": 12,
-    "positionalTier": 11
+    "positionalTier": 12
   },
   {
-    "playerName": "2028 Early 2nd",
-    "playerID": 1885,
-    "slug": "2028-early-2nd-1885",
-    "position": "RDP",
-    "positionID": 5,
+    "playerName": "Jadarian Price",
+    "playerID": 1935,
+    "slug": "jadarian-price-1935",
+    "position": "RB",
+    "positionID": 2,
     "team": "FA",
-    "rookie": false,
-    "age": 0,
-    "value": 3773,
-    "rank": 139,
-    "positionalRank": 0,
+    "rookie": true,
+    "age": -1,
+    "value": 3823,
+    "rank": 138,
+    "positionalRank": 34,
     "overallTier": 12,
-    "positionalTier": 0
+    "positionalTier": 10
   },
   {
     "playerName": "Jalen McMillan",
@@ -2093,11 +2078,26 @@
     "team": "TBB",
     "rookie": false,
     "age": 24.3,
-    "value": 3770,
-    "rank": 140,
+    "value": 3779,
+    "rank": 139,
     "positionalRank": 57,
     "overallTier": 12,
-    "positionalTier": 11
+    "positionalTier": 12
+  },
+  {
+    "playerName": "2028 Early 2nd",
+    "playerID": 1885,
+    "slug": "2028-early-2nd-1885",
+    "position": "RDP",
+    "positionID": 5,
+    "team": "FA",
+    "rookie": false,
+    "age": 0,
+    "value": 3764,
+    "rank": 140,
+    "positionalRank": 0,
+    "overallTier": 12,
+    "positionalTier": 0
   },
   {
     "playerName": "Jared Goff",
@@ -2130,21 +2130,6 @@
     "positionalTier": 0
   },
   {
-    "playerName": "Khalil Shakir",
-    "playerID": 1278,
-    "slug": "khalil-shakir-1278",
-    "position": "WR",
-    "positionID": 3,
-    "team": "BUF",
-    "rookie": false,
-    "age": 26.2,
-    "value": 3751,
-    "rank": 143,
-    "positionalRank": 58,
-    "overallTier": 12,
-    "positionalTier": 11
-  },
-  {
     "playerName": "2026 Mid 2nd",
     "playerID": 1531,
     "slug": "2026-mid-2nd-1531",
@@ -2153,11 +2138,26 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 3747,
-    "rank": 144,
+    "value": 3750,
+    "rank": 143,
     "positionalRank": 0,
     "overallTier": 12,
     "positionalTier": 0
+  },
+  {
+    "playerName": "Khalil Shakir",
+    "playerID": 1278,
+    "slug": "khalil-shakir-1278",
+    "position": "WR",
+    "positionID": 3,
+    "team": "BUF",
+    "rookie": false,
+    "age": 26.2,
+    "value": 3748,
+    "rank": 144,
+    "positionalRank": 58,
+    "overallTier": 12,
+    "positionalTier": 12
   },
   {
     "playerName": "Brenton Strange",
@@ -2168,26 +2168,11 @@
     "team": "JAC",
     "rookie": false,
     "age": 25.3,
-    "value": 3731,
+    "value": 3744,
     "rank": 145,
     "positionalRank": 15,
     "overallTier": 12,
-    "positionalTier": 6
-  },
-  {
-    "playerName": "Kayshon Boutte",
-    "playerID": 1446,
-    "slug": "kayshon-boutte-1446",
-    "position": "WR",
-    "positionID": 3,
-    "team": "NEP",
-    "rookie": false,
-    "age": 23.9,
-    "value": 3704,
-    "rank": 146,
-    "positionalRank": 59,
-    "overallTier": 12,
-    "positionalTier": 11
+    "positionalTier": 5
   },
   {
     "playerName": "Rashid Shaheed",
@@ -2198,11 +2183,26 @@
     "team": "SEA",
     "rookie": false,
     "age": 27.6,
-    "value": 3703,
+    "value": 3707,
+    "rank": 146,
+    "positionalRank": 59,
+    "overallTier": 12,
+    "positionalTier": 12
+  },
+  {
+    "playerName": "Kayshon Boutte",
+    "playerID": 1446,
+    "slug": "kayshon-boutte-1446",
+    "position": "WR",
+    "positionID": 3,
+    "team": "NEP",
+    "rookie": false,
+    "age": 23.9,
+    "value": 3707,
     "rank": 147,
     "positionalRank": 60,
     "overallTier": 12,
-    "positionalTier": 11
+    "positionalTier": 12
   },
   {
     "playerName": "Rhamondre Stevenson",
@@ -2213,7 +2213,7 @@
     "team": "NEP",
     "rookie": false,
     "age": 28.1,
-    "value": 3690,
+    "value": 3687,
     "rank": 148,
     "positionalRank": 35,
     "overallTier": 12,
@@ -2228,7 +2228,7 @@
     "team": "DEN",
     "rookie": false,
     "age": 27.3,
-    "value": 3689,
+    "value": 3681,
     "rank": 149,
     "positionalRank": 36,
     "overallTier": 12,
@@ -2243,9 +2243,24 @@
     "team": "CAR",
     "rookie": false,
     "age": 22.7,
-    "value": 3657,
+    "value": 3660,
     "rank": 150,
     "positionalRank": 37,
+    "overallTier": 12,
+    "positionalTier": 11
+  },
+  {
+    "playerName": "Jonah Coleman",
+    "playerID": 1939,
+    "slug": "jonah-coleman-1939",
+    "position": "RB",
+    "positionID": 2,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 3608,
+    "rank": 151,
+    "positionalRank": 38,
     "overallTier": 12,
     "positionalTier": 11
   },
@@ -2258,26 +2273,11 @@
     "team": "DEN",
     "rookie": false,
     "age": 23.2,
-    "value": 3611,
-    "rank": 151,
+    "value": 3605,
+    "rank": 152,
     "positionalRank": 61,
     "overallTier": 12,
-    "positionalTier": 12
-  },
-  {
-    "playerName": "Jonah Coleman",
-    "playerID": 1939,
-    "slug": "jonah-coleman-1939",
-    "position": "RB",
-    "positionID": 2,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 3608,
-    "rank": 152,
-    "positionalRank": 38,
-    "overallTier": 12,
-    "positionalTier": 11
+    "positionalTier": 13
   },
   {
     "playerName": "Kenneth Gainwell",
@@ -2288,7 +2288,7 @@
     "team": "TBB",
     "rookie": false,
     "age": 27,
-    "value": 3605,
+    "value": 3596,
     "rank": 153,
     "positionalRank": 39,
     "overallTier": 12,
@@ -2307,22 +2307,7 @@
     "rank": 154,
     "positionalRank": 16,
     "overallTier": 12,
-    "positionalTier": 7
-  },
-  {
-    "playerName": "2028 Mid 2nd",
-    "playerID": 1886,
-    "slug": "2028-mid-2nd-1886",
-    "position": "RDP",
-    "positionID": 5,
-    "team": "FA",
-    "rookie": false,
-    "age": 0,
-    "value": 3579,
-    "rank": 155,
-    "positionalRank": 0,
-    "overallTier": 12,
-    "positionalTier": 0
+    "positionalTier": 6
   },
   {
     "playerName": "Isaac TeSlaa",
@@ -2333,23 +2318,23 @@
     "team": "DET",
     "rookie": false,
     "age": 24.1,
-    "value": 3562,
-    "rank": 156,
+    "value": 3577,
+    "rank": 155,
     "positionalRank": 62,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 13
   },
   {
-    "playerName": "2026 Late 2nd",
-    "playerID": 1532,
-    "slug": "2026-late-2nd-1532",
+    "playerName": "2028 Mid 2nd",
+    "playerID": 1886,
+    "slug": "2028-mid-2nd-1886",
     "position": "RDP",
     "positionID": 5,
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 3553,
-    "rank": 157,
+    "value": 3575,
+    "rank": 156,
     "positionalRank": 0,
     "overallTier": 12,
     "positionalTier": 0
@@ -2363,11 +2348,26 @@
     "team": "ARI",
     "rookie": false,
     "age": 23.7,
-    "value": 3540,
-    "rank": 158,
+    "value": 3558,
+    "rank": 157,
     "positionalRank": 40,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 11
+  },
+  {
+    "playerName": "2026 Late 2nd",
+    "playerID": 1532,
+    "slug": "2026-late-2nd-1532",
+    "position": "RDP",
+    "positionID": 5,
+    "team": "FA",
+    "rookie": false,
+    "age": 0,
+    "value": 3555,
+    "rank": 158,
+    "positionalRank": 0,
+    "overallTier": 12,
+    "positionalTier": 0
   },
   {
     "playerName": "Bryce Young",
@@ -2378,56 +2378,11 @@
     "team": "CAR",
     "rookie": false,
     "age": 24.7,
-    "value": 3539,
+    "value": 3542,
     "rank": 159,
     "positionalRank": 24,
     "overallTier": 12,
     "positionalTier": 7
-  },
-  {
-    "playerName": "Woody Marks",
-    "playerID": 1753,
-    "slug": "woody-marks-1753",
-    "position": "RB",
-    "positionID": 2,
-    "team": "HOU",
-    "rookie": false,
-    "age": 25.2,
-    "value": 3532,
-    "rank": 160,
-    "positionalRank": 41,
-    "overallTier": 12,
-    "positionalTier": 12
-  },
-  {
-    "playerName": "Jauan Jennings",
-    "playerID": 576,
-    "slug": "jauan-jennings-576",
-    "position": "WR",
-    "positionID": 3,
-    "team": "SFO",
-    "rookie": false,
-    "age": 28.7,
-    "value": 3526,
-    "rank": 161,
-    "positionalRank": 63,
-    "overallTier": 12,
-    "positionalTier": 12
-  },
-  {
-    "playerName": "Elic Ayomanor",
-    "playerID": 1773,
-    "slug": "elic-ayomanor-1773",
-    "position": "WR",
-    "positionID": 3,
-    "team": "TEN",
-    "rookie": false,
-    "age": 22.8,
-    "value": 3526,
-    "rank": 162,
-    "positionalRank": 64,
-    "overallTier": 12,
-    "positionalTier": 12
   },
   {
     "playerName": "Chris Godwin",
@@ -2438,11 +2393,41 @@
     "team": "TBB",
     "rookie": false,
     "age": 30.1,
-    "value": 3522,
-    "rank": 163,
-    "positionalRank": 65,
+    "value": 3532,
+    "rank": 160,
+    "positionalRank": 63,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 13
+  },
+  {
+    "playerName": "Woody Marks",
+    "playerID": 1753,
+    "slug": "woody-marks-1753",
+    "position": "RB",
+    "positionID": 2,
+    "team": "HOU",
+    "rookie": false,
+    "age": 25.2,
+    "value": 3529,
+    "rank": 161,
+    "positionalRank": 41,
+    "overallTier": 12,
+    "positionalTier": 11
+  },
+  {
+    "playerName": "Elic Ayomanor",
+    "playerID": 1773,
+    "slug": "elic-ayomanor-1773",
+    "position": "WR",
+    "positionID": 3,
+    "team": "TEN",
+    "rookie": false,
+    "age": 22.8,
+    "value": 3523,
+    "rank": 162,
+    "positionalRank": 64,
+    "overallTier": 12,
+    "positionalTier": 13
   },
   {
     "playerName": "Jacory Croskey-Merritt",
@@ -2453,11 +2438,26 @@
     "team": "WAS",
     "rookie": false,
     "age": 25,
-    "value": 3515,
-    "rank": 164,
+    "value": 3521,
+    "rank": 163,
     "positionalRank": 42,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 11
+  },
+  {
+    "playerName": "Jauan Jennings",
+    "playerID": 576,
+    "slug": "jauan-jennings-576",
+    "position": "WR",
+    "positionID": 3,
+    "team": "SFO",
+    "rookie": false,
+    "age": 28.7,
+    "value": 3520,
+    "rank": 164,
+    "positionalRank": 65,
+    "overallTier": 12,
+    "positionalTier": 13
   },
   {
     "playerName": "Terrance Ferguson",
@@ -2468,26 +2468,11 @@
     "team": "LAR",
     "rookie": false,
     "age": 23.1,
-    "value": 3514,
+    "value": 3517,
     "rank": 165,
     "positionalRank": 17,
     "overallTier": 12,
-    "positionalTier": 7
-  },
-  {
-    "playerName": "AJ Barner",
-    "playerID": 1629,
-    "slug": "aj-barner-1629",
-    "position": "TE",
-    "positionID": 4,
-    "team": "SEA",
-    "rookie": false,
-    "age": 23.9,
-    "value": 3510,
-    "rank": 166,
-    "positionalRank": 18,
-    "overallTier": 12,
-    "positionalTier": 7
+    "positionalTier": 6
   },
   {
     "playerName": "Jaylin Noel",
@@ -2498,11 +2483,26 @@
     "team": "HOU",
     "rookie": false,
     "age": 23.6,
-    "value": 3509,
-    "rank": 167,
+    "value": 3514,
+    "rank": 166,
     "positionalRank": 66,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 13
+  },
+  {
+    "playerName": "AJ Barner",
+    "playerID": 1629,
+    "slug": "aj-barner-1629",
+    "position": "TE",
+    "positionID": 4,
+    "team": "SEA",
+    "rookie": false,
+    "age": 23.9,
+    "value": 3511,
+    "rank": 167,
+    "positionalRank": 18,
+    "overallTier": 12,
+    "positionalTier": 6
   },
   {
     "playerName": "Daniel Jones",
@@ -2520,21 +2520,6 @@
     "positionalTier": 7
   },
   {
-    "playerName": "Tre Harris",
-    "playerID": 1772,
-    "slug": "tre-harris-1772",
-    "position": "WR",
-    "positionID": 3,
-    "team": "LAC",
-    "rookie": false,
-    "age": 24.1,
-    "value": 3496,
-    "rank": 169,
-    "positionalRank": 67,
-    "overallTier": 12,
-    "positionalTier": 12
-  },
-  {
     "playerName": "Pat Bryant",
     "playerID": 1782,
     "slug": "pat-bryant-1782",
@@ -2543,11 +2528,26 @@
     "team": "DEN",
     "rookie": false,
     "age": 23.3,
-    "value": 3485,
+    "value": 3494,
+    "rank": 169,
+    "positionalRank": 67,
+    "overallTier": 12,
+    "positionalTier": 13
+  },
+  {
+    "playerName": "Tre Harris",
+    "playerID": 1772,
+    "slug": "tre-harris-1772",
+    "position": "WR",
+    "positionID": 3,
+    "team": "LAC",
+    "rookie": false,
+    "age": 24.1,
+    "value": 3490,
     "rank": 170,
     "positionalRank": 68,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 13
   },
   {
     "playerName": "Chimere Dike",
@@ -2558,11 +2558,11 @@
     "team": "TEN",
     "rookie": false,
     "age": 24.3,
-    "value": 3473,
+    "value": 3467,
     "rank": 171,
     "positionalRank": 69,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 13
   },
   {
     "playerName": "Braelon Allen",
@@ -2573,26 +2573,11 @@
     "team": "NYJ",
     "rookie": false,
     "age": 22.2,
-    "value": 3464,
+    "value": 3461,
     "rank": 172,
     "positionalRank": 43,
     "overallTier": 12,
     "positionalTier": 12
-  },
-  {
-    "playerName": "Matthew Stafford",
-    "playerID": 356,
-    "slug": "matthew-stafford-356",
-    "position": "QB",
-    "positionID": 1,
-    "team": "LAR",
-    "rookie": false,
-    "age": 38.1,
-    "value": 3433,
-    "rank": 173,
-    "positionalRank": 26,
-    "overallTier": 12,
-    "positionalTier": 7
   },
   {
     "playerName": "Tory Horton",
@@ -2603,11 +2588,26 @@
     "team": "SEA",
     "rookie": false,
     "age": 23.3,
-    "value": 3430,
-    "rank": 174,
+    "value": 3436,
+    "rank": 173,
     "positionalRank": 70,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 13
+  },
+  {
+    "playerName": "Matthew Stafford",
+    "playerID": 356,
+    "slug": "matthew-stafford-356",
+    "position": "QB",
+    "positionID": 1,
+    "team": "LAR",
+    "rookie": false,
+    "age": 38.2,
+    "value": 3430,
+    "rank": 174,
+    "positionalRank": 26,
+    "overallTier": 12,
+    "positionalTier": 7
   },
   {
     "playerName": "Dylan Sampson",
@@ -2617,12 +2617,12 @@
     "positionID": 2,
     "team": "CLE",
     "rookie": false,
-    "age": 21.5,
+    "age": 21.6,
     "value": 3410,
     "rank": 175,
     "positionalRank": 44,
     "overallTier": 12,
-    "positionalTier": 13
+    "positionalTier": 12
   },
   {
     "playerName": "Kyle Williams",
@@ -2633,11 +2633,11 @@
     "team": "NEP",
     "rookie": false,
     "age": 23.4,
-    "value": 3400,
+    "value": 3397,
     "rank": 176,
     "positionalRank": 71,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 13
   },
   {
     "playerName": "Rachaad White",
@@ -2648,11 +2648,11 @@
     "team": "WAS",
     "rookie": false,
     "age": 27.2,
-    "value": 3386,
+    "value": 3383,
     "rank": 177,
     "positionalRank": 45,
     "overallTier": 12,
-    "positionalTier": 13
+    "positionalTier": 12
   },
   {
     "playerName": "Jordan Mason",
@@ -2663,11 +2663,11 @@
     "team": "MIN",
     "rookie": false,
     "age": 26.8,
-    "value": 3380,
+    "value": 3374,
     "rank": 178,
     "positionalRank": 46,
     "overallTier": 12,
-    "positionalTier": 13
+    "positionalTier": 12
   },
   {
     "playerName": "2028 Late 2nd",
@@ -2678,26 +2678,11 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 3376,
+    "value": 3373,
     "rank": 179,
     "positionalRank": 0,
     "overallTier": 12,
     "positionalTier": 0
-  },
-  {
-    "playerName": "T.J. Hockenson",
-    "playerID": 247,
-    "slug": "tj-hockenson-247",
-    "position": "TE",
-    "positionID": 4,
-    "team": "MIN",
-    "rookie": false,
-    "age": 28.7,
-    "value": 3363,
-    "rank": 180,
-    "positionalRank": 19,
-    "overallTier": 12,
-    "positionalTier": 8
   },
   {
     "playerName": "Tyjae Spears",
@@ -2708,11 +2693,26 @@
     "team": "TEN",
     "rookie": false,
     "age": 24.8,
-    "value": 3362,
-    "rank": 181,
+    "value": 3370,
+    "rank": 180,
     "positionalRank": 47,
     "overallTier": 12,
-    "positionalTier": 13
+    "positionalTier": 12
+  },
+  {
+    "playerName": "T.J. Hockenson",
+    "playerID": 247,
+    "slug": "tj-hockenson-247",
+    "position": "TE",
+    "positionID": 4,
+    "team": "MIN",
+    "rookie": false,
+    "age": 28.8,
+    "value": 3363,
+    "rank": 181,
+    "positionalRank": 19,
+    "overallTier": 12,
+    "positionalTier": 7
   },
   {
     "playerName": "Adonai Mitchell",
@@ -2723,11 +2723,11 @@
     "team": "NYJ",
     "rookie": false,
     "age": 23.5,
-    "value": 3348,
+    "value": 3354,
     "rank": 182,
     "positionalRank": 72,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 13
   },
   {
     "playerName": "Tony Pollard",
@@ -2738,26 +2738,11 @@
     "team": "TEN",
     "rookie": false,
     "age": 28.9,
-    "value": 3343,
+    "value": 3349,
     "rank": 183,
     "positionalRank": 48,
     "overallTier": 12,
-    "positionalTier": 13
-  },
-  {
-    "playerName": "Chigoziem Okonkwo",
-    "playerID": 1320,
-    "slug": "chigoziem-okonkwo-1320",
-    "position": "TE",
-    "positionID": 4,
-    "team": "WAS",
-    "rookie": false,
-    "age": 26.6,
-    "value": 3334,
-    "rank": 184,
-    "positionalRank": 20,
-    "overallTier": 12,
-    "positionalTier": 8
+    "positionalTier": 12
   },
   {
     "playerName": "David Njoku",
@@ -2768,11 +2753,26 @@
     "team": "FA",
     "rookie": false,
     "age": 29.7,
-    "value": 3332,
+    "value": 3335,
+    "rank": 184,
+    "positionalRank": 20,
+    "overallTier": 12,
+    "positionalTier": 7
+  },
+  {
+    "playerName": "Chigoziem Okonkwo",
+    "playerID": 1320,
+    "slug": "chigoziem-okonkwo-1320",
+    "position": "TE",
+    "positionID": 4,
+    "team": "WAS",
+    "rookie": false,
+    "age": 26.6,
+    "value": 3323,
     "rank": 185,
     "positionalRank": 21,
     "overallTier": 12,
-    "positionalTier": 8
+    "positionalTier": 7
   },
   {
     "playerName": "Jerry Jeudy",
@@ -2783,11 +2783,11 @@
     "team": "CLE",
     "rookie": false,
     "age": 26.9,
-    "value": 3308,
+    "value": 3317,
     "rank": 186,
     "positionalRank": 73,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 13
   },
   {
     "playerName": "Eli Stowers",
@@ -2798,26 +2798,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 3291,
+    "value": 3279,
     "rank": 187,
     "positionalRank": 22,
     "overallTier": 12,
-    "positionalTier": 8
-  },
-  {
-    "playerName": "Mark Andrews",
-    "playerID": 366,
-    "slug": "mark-andrews-366",
-    "position": "TE",
-    "positionID": 4,
-    "team": "BAL",
-    "rookie": false,
-    "age": 30.6,
-    "value": 3274,
-    "rank": 188,
-    "positionalRank": 23,
-    "overallTier": 12,
-    "positionalTier": 8
+    "positionalTier": 7
   },
   {
     "playerName": "Tyrone Tracy",
@@ -2828,11 +2813,26 @@
     "team": "NYG",
     "rookie": false,
     "age": 26.4,
-    "value": 3259,
-    "rank": 189,
+    "value": 3264,
+    "rank": 188,
     "positionalRank": 49,
     "overallTier": 12,
-    "positionalTier": 14
+    "positionalTier": 13
+  },
+  {
+    "playerName": "Mark Andrews",
+    "playerID": 366,
+    "slug": "mark-andrews-366",
+    "position": "TE",
+    "positionID": 4,
+    "team": "BAL",
+    "rookie": false,
+    "age": 30.6,
+    "value": 3260,
+    "rank": 189,
+    "positionalRank": 23,
+    "overallTier": 12,
+    "positionalTier": 7
   },
   {
     "playerName": "Brandon Aiyuk",
@@ -2843,11 +2843,11 @@
     "team": "SFO",
     "rookie": false,
     "age": 28,
-    "value": 3246,
+    "value": 3228,
     "rank": 190,
     "positionalRank": 74,
     "overallTier": 12,
-    "positionalTier": 12
+    "positionalTier": 14
   },
   {
     "playerName": "Ollie Gordon",
@@ -2858,11 +2858,11 @@
     "team": "MIA",
     "rookie": false,
     "age": 22.2,
-    "value": 3218,
+    "value": 3220,
     "rank": 191,
     "positionalRank": 50,
     "overallTier": 12,
-    "positionalTier": 14
+    "positionalTier": 13
   },
   {
     "playerName": "Dallas Goedert",
@@ -2873,11 +2873,11 @@
     "team": "PHI",
     "rookie": false,
     "age": 31.2,
-    "value": 3209,
+    "value": 3212,
     "rank": 192,
     "positionalRank": 24,
     "overallTier": 12,
-    "positionalTier": 8
+    "positionalTier": 7
   },
   {
     "playerName": "Elijah Arroyo",
@@ -2888,11 +2888,11 @@
     "team": "SEA",
     "rookie": false,
     "age": 23,
-    "value": 3182,
+    "value": 3185,
     "rank": 193,
     "positionalRank": 25,
     "overallTier": 12,
-    "positionalTier": 8
+    "positionalTier": 7
   },
   {
     "playerName": "Sean Tucker",
@@ -2903,11 +2903,11 @@
     "team": "TBB",
     "rookie": false,
     "age": 24.4,
-    "value": 3154,
+    "value": 3159,
     "rank": 194,
     "positionalRank": 51,
     "overallTier": 12,
-    "positionalTier": 15
+    "positionalTier": 14
   },
   {
     "playerName": "Nicholas Singleton",
@@ -2918,9 +2918,54 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 3145,
+    "value": 3141,
     "rank": 195,
     "positionalRank": 52,
+    "overallTier": 12,
+    "positionalTier": 14
+  },
+  {
+    "playerName": "Michael Penix Jr.",
+    "playerID": 1554,
+    "slug": "michael-penix-jr-1554",
+    "position": "QB",
+    "positionID": 1,
+    "team": "ATL",
+    "rookie": false,
+    "age": 25.9,
+    "value": 3096,
+    "rank": 196,
+    "positionalRank": 27,
+    "overallTier": 12,
+    "positionalTier": 8
+  },
+  {
+    "playerName": "Tre Tucker",
+    "playerID": 1460,
+    "slug": "tre-tucker-1460",
+    "position": "WR",
+    "positionID": 3,
+    "team": "LVR",
+    "rookie": false,
+    "age": 25.1,
+    "value": 3095,
+    "rank": 197,
+    "positionalRank": 75,
+    "overallTier": 12,
+    "positionalTier": 15
+  },
+  {
+    "playerName": "Keon Coleman",
+    "playerID": 1588,
+    "slug": "keon-coleman-1588",
+    "position": "WR",
+    "positionID": 3,
+    "team": "BUF",
+    "rookie": false,
+    "age": 22.9,
+    "value": 3094,
+    "rank": 199,
+    "positionalRank": 77,
     "overallTier": 12,
     "positionalTier": 15
   },
@@ -2933,56 +2978,11 @@
     "team": "DEN",
     "rookie": false,
     "age": 24,
-    "value": 3097,
-    "rank": 196,
-    "positionalRank": 75,
-    "overallTier": 12,
-    "positionalTier": 13
-  },
-  {
-    "playerName": "Michael Penix Jr.",
-    "playerID": 1554,
-    "slug": "michael-penix-jr-1554",
-    "position": "QB",
-    "positionID": 1,
-    "team": "ATL",
-    "rookie": false,
-    "age": 25.9,
-    "value": 3096,
-    "rank": 197,
-    "positionalRank": 27,
-    "overallTier": 12,
-    "positionalTier": 8
-  },
-  {
-    "playerName": "Keon Coleman",
-    "playerID": 1588,
-    "slug": "keon-coleman-1588",
-    "position": "WR",
-    "positionID": 3,
-    "team": "BUF",
-    "rookie": false,
-    "age": 22.9,
-    "value": 3096,
+    "value": 3094,
     "rank": 198,
     "positionalRank": 76,
     "overallTier": 12,
-    "positionalTier": 13
-  },
-  {
-    "playerName": "Tre Tucker",
-    "playerID": 1460,
-    "slug": "tre-tucker-1460",
-    "position": "WR",
-    "positionID": 3,
-    "team": "LVR",
-    "rookie": false,
-    "age": 25.1,
-    "value": 3089,
-    "rank": 199,
-    "positionalRank": 77,
-    "overallTier": 12,
-    "positionalTier": 13
+    "positionalTier": 15
   },
   {
     "playerName": "Kimani Vidal",
@@ -2993,9 +2993,24 @@
     "team": "LAC",
     "rookie": false,
     "age": 24.6,
-    "value": 3083,
+    "value": 3081,
     "rank": 200,
     "positionalRank": 53,
+    "overallTier": 12,
+    "positionalTier": 14
+  },
+  {
+    "playerName": "Tank Dell",
+    "playerID": 1438,
+    "slug": "tank-dell-1438",
+    "position": "WR",
+    "positionID": 3,
+    "team": "HOU",
+    "rookie": false,
+    "age": 26.4,
+    "value": 3073,
+    "rank": 201,
+    "positionalRank": 78,
     "overallTier": 12,
     "positionalTier": 15
   },
@@ -3008,41 +3023,11 @@
     "team": "LAC",
     "rookie": false,
     "age": 24.2,
-    "value": 3064,
-    "rank": 201,
+    "value": 3065,
+    "rank": 202,
     "positionalRank": 54,
     "overallTier": 12,
-    "positionalTier": 15
-  },
-  {
-    "playerName": "Tank Dell",
-    "playerID": 1438,
-    "slug": "tank-dell-1438",
-    "position": "WR",
-    "positionID": 3,
-    "team": "HOU",
-    "rookie": false,
-    "age": 26.4,
-    "value": 3061,
-    "rank": 202,
-    "positionalRank": 78,
-    "overallTier": 12,
-    "positionalTier": 13
-  },
-  {
-    "playerName": "Kaleb Johnson",
-    "playerID": 1748,
-    "slug": "kaleb-johnson-1748",
-    "position": "RB",
-    "positionID": 2,
-    "team": "PIT",
-    "rookie": false,
-    "age": 22.6,
-    "value": 3059,
-    "rank": 203,
-    "positionalRank": 55,
-    "overallTier": 12,
-    "positionalTier": 15
+    "positionalTier": 14
   },
   {
     "playerName": "Ty Simpson",
@@ -3053,11 +3038,26 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 3056,
-    "rank": 204,
+    "value": 3059,
+    "rank": 203,
     "positionalRank": 28,
     "overallTier": 12,
     "positionalTier": 8
+  },
+  {
+    "playerName": "Kaleb Johnson",
+    "playerID": 1748,
+    "slug": "kaleb-johnson-1748",
+    "position": "RB",
+    "positionID": 2,
+    "team": "PIT",
+    "rookie": false,
+    "age": 22.6,
+    "value": 3053,
+    "rank": 204,
+    "positionalRank": 55,
+    "overallTier": 12,
+    "positionalTier": 14
   },
   {
     "playerName": "Tank Bigsby",
@@ -3068,11 +3068,11 @@
     "team": "PHI",
     "rookie": false,
     "age": 24.6,
-    "value": 3044,
+    "value": 3042,
     "rank": 205,
     "positionalRank": 56,
     "overallTier": 12,
-    "positionalTier": 15
+    "positionalTier": 14
   },
   {
     "playerName": "Tyler Shough",
@@ -3083,7 +3083,7 @@
     "team": "NOS",
     "rookie": false,
     "age": 26.5,
-    "value": 3038,
+    "value": 3041,
     "rank": 206,
     "positionalRank": 29,
     "overallTier": 12,
@@ -3098,11 +3098,11 @@
     "team": "LVR",
     "rookie": false,
     "age": 23.3,
-    "value": 3028,
+    "value": 3034,
     "rank": 207,
     "positionalRank": 79,
     "overallTier": 12,
-    "positionalTier": 13
+    "positionalTier": 15
   },
   {
     "playerName": "Gunnar Helm",
@@ -3113,11 +3113,26 @@
     "team": "TEN",
     "rookie": false,
     "age": 23.6,
-    "value": 3021,
+    "value": 3012,
     "rank": 208,
     "positionalRank": 26,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 8
+  },
+  {
+    "playerName": "Theo Johnson",
+    "playerID": 1620,
+    "slug": "theo-johnson-1620",
+    "position": "TE",
+    "positionID": 4,
+    "team": "NYG",
+    "rookie": false,
+    "age": 25.1,
+    "value": 3006,
+    "rank": 209,
+    "positionalRank": 27,
+    "overallTier": 12,
+    "positionalTier": 8
   },
   {
     "playerName": "Deebo Samuel",
@@ -3129,40 +3144,10 @@
     "rookie": false,
     "age": 30.2,
     "value": 3004,
-    "rank": 209,
+    "rank": 210,
     "positionalRank": 80,
     "overallTier": 12,
-    "positionalTier": 13
-  },
-  {
-    "playerName": "Theo Johnson",
-    "playerID": 1620,
-    "slug": "theo-johnson-1620",
-    "position": "TE",
-    "positionID": 4,
-    "team": "NYG",
-    "rookie": false,
-    "age": 25.1,
-    "value": 2997,
-    "rank": 210,
-    "positionalRank": 27,
-    "overallTier": 12,
-    "positionalTier": 9
-  },
-  {
-    "playerName": "J.J. McCarthy",
-    "playerID": 1555,
-    "slug": "jj-mccarthy-1555",
-    "position": "QB",
-    "positionID": 1,
-    "team": "MIN",
-    "rookie": false,
-    "age": 23.2,
-    "value": 2978,
-    "rank": 211,
-    "positionalRank": 30,
-    "overallTier": 12,
-    "positionalTier": 8
+    "positionalTier": 15
   },
   {
     "playerName": "Elijah Sarratt",
@@ -3173,11 +3158,26 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 2977,
-    "rank": 213,
-    "positionalRank": 82,
+    "value": 2986,
+    "rank": 211,
+    "positionalRank": 81,
     "overallTier": 12,
-    "positionalTier": 13
+    "positionalTier": 15
+  },
+  {
+    "playerName": "J.J. McCarthy",
+    "playerID": 1555,
+    "slug": "jj-mccarthy-1555",
+    "position": "QB",
+    "positionID": 1,
+    "team": "MIN",
+    "rookie": false,
+    "age": 23.2,
+    "value": 2975,
+    "rank": 212,
+    "positionalRank": 30,
+    "overallTier": 12,
+    "positionalTier": 8
   },
   {
     "playerName": "Tez Johnson",
@@ -3188,11 +3188,11 @@
     "team": "TBB",
     "rookie": false,
     "age": 23.9,
-    "value": 2977,
-    "rank": 212,
-    "positionalRank": 81,
+    "value": 2975,
+    "rank": 213,
+    "positionalRank": 82,
     "overallTier": 12,
-    "positionalTier": 13
+    "positionalTier": 15
   },
   {
     "playerName": "2027 Early 3rd",
@@ -3203,7 +3203,7 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 2952,
+    "value": 2955,
     "rank": 214,
     "positionalRank": 0,
     "overallTier": 12,
@@ -3218,11 +3218,11 @@
     "team": "NOS",
     "rookie": false,
     "age": 29.6,
-    "value": 2944,
+    "value": 2938,
     "rank": 215,
     "positionalRank": 28,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 8
   },
   {
     "playerName": "Cade Otton",
@@ -3233,11 +3233,11 @@
     "team": "TBB",
     "rookie": false,
     "age": 27,
-    "value": 2942,
+    "value": 2937,
     "rank": 216,
     "positionalRank": 29,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 8
   },
   {
     "playerName": "Devin Neal",
@@ -3252,7 +3252,7 @@
     "rank": 217,
     "positionalRank": 57,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 15
   },
   {
     "playerName": "Travis Kelce",
@@ -3267,7 +3267,7 @@
     "rank": 218,
     "positionalRank": 30,
     "overallTier": 12,
-    "positionalTier": 9
+    "positionalTier": 8
   },
   {
     "playerName": "Malik Washington",
@@ -3278,11 +3278,11 @@
     "team": "MIA",
     "rookie": false,
     "age": 25.2,
-    "value": 2909,
+    "value": 2915,
     "rank": 219,
     "positionalRank": 83,
     "overallTier": 12,
-    "positionalTier": 14
+    "positionalTier": 16
   },
   {
     "playerName": "Jaylen Wright",
@@ -3293,11 +3293,26 @@
     "team": "MIA",
     "rookie": false,
     "age": 23,
-    "value": 2906,
+    "value": 2912,
     "rank": 220,
     "positionalRank": 58,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 15
+  },
+  {
+    "playerName": "Mike Washington Jr.",
+    "playerID": 1944,
+    "slug": "mike-washington-jr-1944",
+    "position": "RB",
+    "positionID": 2,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 2891,
+    "rank": 221,
+    "positionalRank": 59,
+    "overallTier": 12,
+    "positionalTier": 15
   },
   {
     "playerName": "Dontayvion Wicks",
@@ -3309,23 +3324,8 @@
     "rookie": false,
     "age": 24.8,
     "value": 2890,
-    "rank": 221,
-    "positionalRank": 84,
-    "overallTier": 12,
-    "positionalTier": 14
-  },
-  {
-    "playerName": "Mike Washington Jr.",
-    "playerID": 1944,
-    "slug": "mike-washington-jr-1944",
-    "position": "RB",
-    "positionID": 2,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 2885,
     "rank": 222,
-    "positionalRank": 59,
+    "positionalRank": 84,
     "overallTier": 12,
     "positionalTier": 16
   },
@@ -3338,11 +3338,11 @@
     "team": "DET",
     "rookie": false,
     "age": 27.1,
-    "value": 2869,
+    "value": 2864,
     "rank": 223,
     "positionalRank": 60,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 15
   },
   {
     "playerName": "2026 Early 3rd",
@@ -3353,7 +3353,7 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 2855,
+    "value": 2852,
     "rank": 224,
     "positionalRank": 0,
     "overallTier": 12,
@@ -3368,11 +3368,11 @@
     "team": "FA",
     "rookie": false,
     "age": 32.3,
-    "value": 2853,
+    "value": 2850,
     "rank": 225,
     "positionalRank": 85,
     "overallTier": 12,
-    "positionalTier": 14
+    "positionalTier": 16
   },
   {
     "playerName": "Emmett Johnson",
@@ -3383,11 +3383,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 2851,
+    "value": 2844,
     "rank": 226,
     "positionalRank": 61,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 15
   },
   {
     "playerName": "Isaiah Bond",
@@ -3398,11 +3398,11 @@
     "team": "CLE",
     "rookie": false,
     "age": 22,
-    "value": 2839,
+    "value": 2827,
     "rank": 227,
     "positionalRank": 86,
     "overallTier": 12,
-    "positionalTier": 14
+    "positionalTier": 16
   },
   {
     "playerName": "Jake Tonges",
@@ -3417,7 +3417,7 @@
     "rank": 228,
     "positionalRank": 31,
     "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 9
   },
   {
     "playerName": "Brian Robinson",
@@ -3428,26 +3428,11 @@
     "team": "ATL",
     "rookie": false,
     "age": 27,
-    "value": 2813,
+    "value": 2818,
     "rank": 229,
     "positionalRank": 62,
     "overallTier": 12,
-    "positionalTier": 16
-  },
-  {
-    "playerName": "Chris Brazzell II",
-    "playerID": 1971,
-    "slug": "chris-brazzell-ii-1971",
-    "position": "WR",
-    "positionID": 3,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 2812,
-    "rank": 230,
-    "positionalRank": 87,
-    "overallTier": 12,
-    "positionalTier": 14
+    "positionalTier": 15
   },
   {
     "playerName": "Chris Rodriguez",
@@ -3458,26 +3443,26 @@
     "team": "JAC",
     "rookie": false,
     "age": 25.5,
-    "value": 2797,
-    "rank": 231,
+    "value": 2806,
+    "rank": 230,
     "positionalRank": 63,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 15
   },
   {
-    "playerName": "Michael Mayer",
-    "playerID": 1427,
-    "slug": "michael-mayer-1427",
-    "position": "TE",
-    "positionID": 4,
-    "team": "LVR",
-    "rookie": false,
-    "age": 24.7,
-    "value": 2762,
-    "rank": 232,
-    "positionalRank": 32,
+    "playerName": "Chris Brazzell II",
+    "playerID": 1971,
+    "slug": "chris-brazzell-ii-1971",
+    "position": "WR",
+    "positionID": 3,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 2805,
+    "rank": 231,
+    "positionalRank": 87,
     "overallTier": 12,
-    "positionalTier": 10
+    "positionalTier": 16
   },
   {
     "playerName": "Brashard Smith",
@@ -3488,11 +3473,26 @@
     "team": "KCC",
     "rookie": false,
     "age": 23,
-    "value": 2756,
-    "rank": 233,
+    "value": 2762,
+    "rank": 232,
     "positionalRank": 64,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 15
+  },
+  {
+    "playerName": "Michael Mayer",
+    "playerID": 1427,
+    "slug": "michael-mayer-1427",
+    "position": "TE",
+    "positionID": 4,
+    "team": "LVR",
+    "rookie": false,
+    "age": 24.7,
+    "value": 2753,
+    "rank": 233,
+    "positionalRank": 32,
+    "overallTier": 12,
+    "positionalTier": 10
   },
   {
     "playerName": "Hunter Henry",
@@ -3503,7 +3503,7 @@
     "team": "NEP",
     "rookie": false,
     "age": 31.3,
-    "value": 2747,
+    "value": 2744,
     "rank": 234,
     "positionalRank": 33,
     "overallTier": 12,
@@ -3518,11 +3518,11 @@
     "team": "FA",
     "rookie": false,
     "age": 32.1,
-    "value": 2740,
+    "value": 2731,
     "rank": 235,
     "positionalRank": 88,
     "overallTier": 12,
-    "positionalTier": 15
+    "positionalTier": 17
   },
   {
     "playerName": "Zachariah Branch",
@@ -3533,11 +3533,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 2739,
+    "value": 2728,
     "rank": 236,
     "positionalRank": 89,
     "overallTier": 12,
-    "positionalTier": 15
+    "positionalTier": 17
   },
   {
     "playerName": "2027 Mid 3rd",
@@ -3548,7 +3548,7 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 2713,
+    "value": 2711,
     "rank": 237,
     "positionalRank": 0,
     "overallTier": 12,
@@ -3563,26 +3563,11 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 2703,
+    "value": 2706,
     "rank": 238,
     "positionalRank": 0,
     "overallTier": 12,
     "positionalTier": 0
-  },
-  {
-    "playerName": "Jalen Nailor",
-    "playerID": 1245,
-    "slug": "jalen-nailor-1245",
-    "position": "WR",
-    "positionID": 3,
-    "team": "LVR",
-    "rookie": false,
-    "age": 27.1,
-    "value": 2673,
-    "rank": 239,
-    "positionalRank": 90,
-    "overallTier": 12,
-    "positionalTier": 16
   },
   {
     "playerName": "Dalton Schultz",
@@ -3593,11 +3578,26 @@
     "team": "HOU",
     "rookie": false,
     "age": 29.7,
-    "value": 2671,
-    "rank": 240,
+    "value": 2675,
+    "rank": 239,
     "positionalRank": 34,
     "overallTier": 12,
-    "positionalTier": 11
+    "positionalTier": 10
+  },
+  {
+    "playerName": "Jalen Nailor",
+    "playerID": 1245,
+    "slug": "jalen-nailor-1245",
+    "position": "WR",
+    "positionID": 3,
+    "team": "LVR",
+    "rookie": false,
+    "age": 27.1,
+    "value": 2674,
+    "rank": 240,
+    "positionalRank": 90,
+    "overallTier": 12,
+    "positionalTier": 18
   },
   {
     "playerName": "Cedric Tillman",
@@ -3608,11 +3608,11 @@
     "team": "CLE",
     "rookie": false,
     "age": 26,
-    "value": 2656,
+    "value": 2653,
     "rank": 241,
     "positionalRank": 91,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 18
   },
   {
     "playerName": "Emanuel Wilson",
@@ -3627,7 +3627,7 @@
     "rank": 242,
     "positionalRank": 65,
     "overallTier": 12,
-    "positionalTier": 17
+    "positionalTier": 16
   },
   {
     "playerName": "Alvin Kamara",
@@ -3638,11 +3638,11 @@
     "team": "NOS",
     "rookie": false,
     "age": 30.7,
-    "value": 2648,
+    "value": 2643,
     "rank": 243,
     "positionalRank": 66,
     "overallTier": 12,
-    "positionalTier": 17
+    "positionalTier": 16
   },
   {
     "playerName": "Demario Douglas",
@@ -3653,11 +3653,11 @@
     "team": "NEP",
     "rookie": false,
     "age": 25.3,
-    "value": 2648,
+    "value": 2640,
     "rank": 244,
     "positionalRank": 92,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 18
   },
   {
     "playerName": "Kendre Miller",
@@ -3668,11 +3668,11 @@
     "team": "NOS",
     "rookie": false,
     "age": 23.8,
-    "value": 2645,
+    "value": 2635,
     "rank": 245,
     "positionalRank": 67,
     "overallTier": 12,
-    "positionalTier": 17
+    "positionalTier": 16
   },
   {
     "playerName": "Xavier Legette",
@@ -3683,9 +3683,24 @@
     "team": "CAR",
     "rookie": false,
     "age": 25.2,
-    "value": 2620,
+    "value": 2630,
     "rank": 246,
     "positionalRank": 93,
+    "overallTier": 12,
+    "positionalTier": 18
+  },
+  {
+    "playerName": "Trevor Etienne",
+    "playerID": 1756,
+    "slug": "trevor-etienne-1756",
+    "position": "RB",
+    "positionID": 2,
+    "team": "CAR",
+    "rookie": false,
+    "age": 21.7,
+    "value": 2616,
+    "rank": 247,
+    "positionalRank": 68,
     "overallTier": 12,
     "positionalTier": 16
   },
@@ -3698,41 +3713,11 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 2608,
-    "rank": 247,
+    "value": 2602,
+    "rank": 248,
     "positionalRank": 0,
     "overallTier": 12,
     "positionalTier": 0
-  },
-  {
-    "playerName": "Trevor Etienne",
-    "playerID": 1756,
-    "slug": "trevor-etienne-1756",
-    "position": "RB",
-    "positionID": 2,
-    "team": "CAR",
-    "rookie": false,
-    "age": 21.7,
-    "value": 2607,
-    "rank": 248,
-    "positionalRank": 68,
-    "overallTier": 12,
-    "positionalTier": 17
-  },
-  {
-    "playerName": "Pat Freiermuth",
-    "playerID": 1053,
-    "slug": "pat-freiermuth-1053",
-    "position": "TE",
-    "positionID": 4,
-    "team": "PIT",
-    "rookie": false,
-    "age": 27.4,
-    "value": 2600,
-    "rank": 249,
-    "positionalRank": 35,
-    "overallTier": 12,
-    "positionalTier": 11
   },
   {
     "playerName": "2027 Late 3rd",
@@ -3743,26 +3728,26 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 2596,
-    "rank": 250,
+    "value": 2599,
+    "rank": 249,
     "positionalRank": 0,
     "overallTier": 12,
     "positionalTier": 0
   },
   {
-    "playerName": "Chris Bell",
-    "playerID": 1968,
-    "slug": "chris-bell-1968",
-    "position": "WR",
-    "positionID": 3,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 2582,
-    "rank": 251,
-    "positionalRank": 94,
+    "playerName": "Pat Freiermuth",
+    "playerID": 1053,
+    "slug": "pat-freiermuth-1053",
+    "position": "TE",
+    "positionID": 4,
+    "team": "PIT",
+    "rookie": false,
+    "age": 27.4,
+    "value": 2594,
+    "rank": 250,
+    "positionalRank": 35,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 10
   },
   {
     "playerName": "Rashod Bateman",
@@ -3773,41 +3758,41 @@
     "team": "BAL",
     "rookie": false,
     "age": 26.3,
-    "value": 2580,
+    "value": 2592,
+    "rank": 251,
+    "positionalRank": 94,
+    "overallTier": 12,
+    "positionalTier": 18
+  },
+  {
+    "playerName": "Chris Bell",
+    "playerID": 1968,
+    "slug": "chris-bell-1968",
+    "position": "WR",
+    "positionID": 3,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 2578,
     "rank": 252,
     "positionalRank": 95,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 18
   },
   {
-    "playerName": "LeQuint Allen",
-    "playerID": 1761,
-    "slug": "lequint-allen-1761",
-    "position": "RB",
-    "positionID": 2,
-    "team": "JAC",
+    "playerName": "Dont'e Thornton",
+    "playerID": 1787,
+    "slug": "dont-e-thornton-1787",
+    "position": "WR",
+    "positionID": 3,
+    "team": "LVR",
     "rookie": false,
-    "age": 21.6,
-    "value": 2578,
-    "rank": 253,
-    "positionalRank": 69,
-    "overallTier": 12,
-    "positionalTier": 17
-  },
-  {
-    "playerName": "Colby Parkinson",
-    "playerID": 565,
-    "slug": "colby-parkinson-565",
-    "position": "TE",
-    "positionID": 4,
-    "team": "LAR",
-    "rookie": false,
-    "age": 27.2,
-    "value": 2577,
+    "age": 23.3,
+    "value": 2576,
     "rank": 254,
-    "positionalRank": 36,
+    "positionalRank": 96,
     "overallTier": 12,
-    "positionalTier": 11
+    "positionalTier": 18
   },
   {
     "playerName": "Ja'Tavion Sanders",
@@ -3819,25 +3804,40 @@
     "rookie": false,
     "age": 23,
     "value": 2576,
-    "rank": 255,
-    "positionalRank": 37,
+    "rank": 253,
+    "positionalRank": 36,
     "overallTier": 12,
-    "positionalTier": 11
+    "positionalTier": 10
   },
   {
-    "playerName": "Dont'e Thornton",
-    "playerID": 1787,
-    "slug": "dont-e-thornton-1787",
-    "position": "WR",
-    "positionID": 3,
-    "team": "LVR",
+    "playerName": "LeQuint Allen",
+    "playerID": 1761,
+    "slug": "lequint-allen-1761",
+    "position": "RB",
+    "positionID": 2,
+    "team": "JAC",
     "rookie": false,
-    "age": 23.3,
-    "value": 2573,
-    "rank": 256,
-    "positionalRank": 96,
+    "age": 21.6,
+    "value": 2575,
+    "rank": 255,
+    "positionalRank": 69,
     "overallTier": 12,
     "positionalTier": 16
+  },
+  {
+    "playerName": "Colby Parkinson",
+    "playerID": 565,
+    "slug": "colby-parkinson-565",
+    "position": "TE",
+    "positionID": 4,
+    "team": "LAR",
+    "rookie": false,
+    "age": 27.2,
+    "value": 2572,
+    "rank": 256,
+    "positionalRank": 37,
+    "overallTier": 12,
+    "positionalTier": 10
   },
   {
     "playerName": "Darnell Mooney",
@@ -3848,11 +3848,11 @@
     "team": "NYG",
     "rookie": false,
     "age": 28.4,
-    "value": 2556,
+    "value": 2562,
     "rank": 257,
     "positionalRank": 97,
     "overallTier": 12,
-    "positionalTier": 16
+    "positionalTier": 18
   },
   {
     "playerName": "James Conner",
@@ -3863,11 +3863,11 @@
     "team": "ARI",
     "rookie": false,
     "age": 30.9,
-    "value": 2555,
+    "value": 2558,
     "rank": 258,
     "positionalRank": 70,
     "overallTier": 12,
-    "positionalTier": 17
+    "positionalTier": 16
   },
   {
     "playerName": "Kaytron Allen",
@@ -3878,11 +3878,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 2547,
+    "value": 2549,
     "rank": 259,
     "positionalRank": 71,
     "overallTier": 12,
-    "positionalTier": 17
+    "positionalTier": 16
   },
   {
     "playerName": "2026 Late 3rd",
@@ -3908,11 +3908,11 @@
     "team": "IND",
     "rookie": false,
     "age": 22.6,
-    "value": 2520,
+    "value": 2518,
     "rank": 261,
     "positionalRank": 72,
     "overallTier": 12,
-    "positionalTier": 17
+    "positionalTier": 16
   },
   {
     "playerName": "Jaydon Blue",
@@ -3923,11 +3923,11 @@
     "team": "DAL",
     "rookie": false,
     "age": 22.2,
-    "value": 2513,
+    "value": 2516,
     "rank": 262,
     "positionalRank": 73,
     "overallTier": 12,
-    "positionalTier": 17
+    "positionalTier": 16
   },
   {
     "playerName": "Aaron Jones",
@@ -3938,11 +3938,11 @@
     "team": "MIN",
     "rookie": false,
     "age": 31.3,
-    "value": 2502,
+    "value": 2496,
     "rank": 263,
     "positionalRank": 74,
     "overallTier": 12,
-    "positionalTier": 17
+    "positionalTier": 16
   },
   {
     "playerName": "Malachi Fields",
@@ -3953,11 +3953,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 2493,
+    "value": 2490,
     "rank": 264,
     "positionalRank": 98,
     "overallTier": 12,
-    "positionalTier": 17
+    "positionalTier": 19
   },
   {
     "playerName": "Cole Kmet",
@@ -3968,11 +3968,11 @@
     "team": "CHI",
     "rookie": false,
     "age": 27.1,
-    "value": 2489,
+    "value": 2483,
     "rank": 265,
     "positionalRank": 38,
     "overallTier": 12,
-    "positionalTier": 11
+    "positionalTier": 10
   },
   {
     "playerName": "Christian Kirk",
@@ -3983,11 +3983,11 @@
     "team": "SFO",
     "rookie": false,
     "age": 29.4,
-    "value": 2483,
+    "value": 2474,
     "rank": 266,
     "positionalRank": 99,
     "overallTier": 12,
-    "positionalTier": 17
+    "positionalTier": 19
   },
   {
     "playerName": "Ray Davis",
@@ -3998,11 +3998,11 @@
     "team": "BUF",
     "rookie": false,
     "age": 26.4,
-    "value": 2428,
+    "value": 2437,
     "rank": 267,
     "positionalRank": 75,
-    "overallTier": 13,
-    "positionalTier": 18
+    "overallTier": 12,
+    "positionalTier": 16
   },
   {
     "playerName": "Marquise Brown",
@@ -4013,11 +4013,11 @@
     "team": "PHI",
     "rookie": false,
     "age": 28.8,
-    "value": 2422,
+    "value": 2418,
     "rank": 268,
     "positionalRank": 100,
-    "overallTier": 13,
-    "positionalTier": 18
+    "overallTier": 12,
+    "positionalTier": 20
   },
   {
     "playerName": "2028 Mid 3rd",
@@ -4031,8 +4031,23 @@
     "value": 2415,
     "rank": 269,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 0
+  },
+  {
+    "playerName": "Isaiah Davis",
+    "playerID": 1635,
+    "slug": "isaiah-davis-1635",
+    "position": "RB",
+    "positionID": 2,
+    "team": "NYJ",
+    "rookie": false,
+    "age": 24.1,
+    "value": 2406,
+    "rank": 270,
+    "positionalRank": 76,
+    "overallTier": 12,
+    "positionalTier": 16
   },
   {
     "playerName": "Jalen Milroe",
@@ -4046,38 +4061,8 @@
     "value": 2403,
     "rank": 271,
     "positionalRank": 31,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 9
-  },
-  {
-    "playerName": "Isaiah Davis",
-    "playerID": 1635,
-    "slug": "isaiah-davis-1635",
-    "position": "RB",
-    "positionID": 2,
-    "team": "NYJ",
-    "rookie": false,
-    "age": 24.1,
-    "value": 2403,
-    "rank": 270,
-    "positionalRank": 76,
-    "overallTier": 13,
-    "positionalTier": 18
-  },
-  {
-    "playerName": "Ryan Flournoy",
-    "playerID": 1642,
-    "slug": "ryan-flournoy-1642",
-    "position": "WR",
-    "positionID": 3,
-    "team": "DAL",
-    "rookie": false,
-    "age": 26.4,
-    "value": 2366,
-    "rank": 272,
-    "positionalRank": 101,
-    "overallTier": 13,
-    "positionalTier": 19
   },
   {
     "playerName": "Jaylin Lane",
@@ -4088,11 +4073,26 @@
     "team": "WAS",
     "rookie": false,
     "age": 23.9,
-    "value": 2365,
+    "value": 2374,
+    "rank": 272,
+    "positionalRank": 101,
+    "overallTier": 12,
+    "positionalTier": 20
+  },
+  {
+    "playerName": "Ryan Flournoy",
+    "playerID": 1642,
+    "slug": "ryan-flournoy-1642",
+    "position": "WR",
+    "positionID": 3,
+    "team": "DAL",
+    "rookie": false,
+    "age": 26.4,
+    "value": 2369,
     "rank": 273,
     "positionalRank": 102,
-    "overallTier": 13,
-    "positionalTier": 19
+    "overallTier": 12,
+    "positionalTier": 20
   },
   {
     "playerName": "Ja'Kobi Lane",
@@ -4103,11 +4103,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 2353,
+    "value": 2345,
     "rank": 274,
     "positionalRank": 103,
-    "overallTier": 13,
-    "positionalTier": 19
+    "overallTier": 12,
+    "positionalTier": 20
   },
   {
     "playerName": "Germie Bernard",
@@ -4118,11 +4118,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 2339,
+    "value": 2332,
     "rank": 275,
     "positionalRank": 104,
-    "overallTier": 13,
-    "positionalTier": 19
+    "overallTier": 12,
+    "positionalTier": 20
   },
   {
     "playerName": "Jordan James",
@@ -4133,11 +4133,11 @@
     "team": "SFO",
     "rookie": false,
     "age": 22,
-    "value": 2318,
+    "value": 2322,
     "rank": 276,
     "positionalRank": 77,
-    "overallTier": 13,
-    "positionalTier": 19
+    "overallTier": 12,
+    "positionalTier": 17
   },
   {
     "playerName": "Tua Tagovailoa",
@@ -4151,7 +4151,7 @@
     "value": 2291,
     "rank": 277,
     "positionalRank": 32,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 9
   },
   {
@@ -4163,40 +4163,10 @@
     "team": "SFO",
     "rookie": false,
     "age": 27.6,
-    "value": 2279,
+    "value": 2285,
     "rank": 278,
     "positionalRank": 33,
-    "overallTier": 13,
-    "positionalTier": 9
-  },
-  {
-    "playerName": "Darnell Washington",
-    "playerID": 1431,
-    "slug": "darnell-washington-1431",
-    "position": "TE",
-    "positionID": 4,
-    "team": "PIT",
-    "rookie": false,
-    "age": 24.6,
-    "value": 2275,
-    "rank": 279,
-    "positionalRank": 39,
-    "overallTier": 13,
-    "positionalTier": 12
-  },
-  {
-    "playerName": "Trinidad Chambliss",
-    "playerID": 1926,
-    "slug": "trinidad-chambliss-1926",
-    "position": "QB",
-    "positionID": 1,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 2274,
-    "rank": 280,
-    "positionalRank": 34,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 9
   },
   {
@@ -4208,11 +4178,41 @@
     "team": "WAS",
     "rookie": false,
     "age": 23.8,
-    "value": 2270,
-    "rank": 281,
+    "value": 2276,
+    "rank": 279,
+    "positionalRank": 39,
+    "overallTier": 12,
+    "positionalTier": 11
+  },
+  {
+    "playerName": "Darnell Washington",
+    "playerID": 1431,
+    "slug": "darnell-washington-1431",
+    "position": "TE",
+    "positionID": 4,
+    "team": "PIT",
+    "rookie": false,
+    "age": 24.6,
+    "value": 2275,
+    "rank": 280,
     "positionalRank": 40,
-    "overallTier": 13,
-    "positionalTier": 12
+    "overallTier": 12,
+    "positionalTier": 11
+  },
+  {
+    "playerName": "Trinidad Chambliss",
+    "playerID": 1926,
+    "slug": "trinidad-chambliss-1926",
+    "position": "QB",
+    "positionID": 1,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 2271,
+    "rank": 281,
+    "positionalRank": 34,
+    "overallTier": 12,
+    "positionalTier": 9
   },
   {
     "playerName": "2028 Late 3rd",
@@ -4226,7 +4226,7 @@
     "value": 2269,
     "rank": 282,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 0
   },
   {
@@ -4237,11 +4237,11 @@
     "positionID": 1,
     "team": "CLE",
     "rookie": false,
-    "age": 24.1,
-    "value": 2259,
+    "age": 24.2,
+    "value": 2262,
     "rank": 283,
     "positionalRank": 35,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 9
   },
   {
@@ -4253,11 +4253,11 @@
     "team": "GBP",
     "rookie": false,
     "age": 25.6,
-    "value": 2244,
+    "value": 2256,
     "rank": 284,
     "positionalRank": 41,
-    "overallTier": 13,
-    "positionalTier": 12
+    "overallTier": 12,
+    "positionalTier": 11
   },
   {
     "playerName": "Najee Harris",
@@ -4271,8 +4271,8 @@
     "value": 2242,
     "rank": 285,
     "positionalRank": 78,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 18
   },
   {
     "playerName": "Tyquan Thornton",
@@ -4286,8 +4286,8 @@
     "value": 2240,
     "rank": 286,
     "positionalRank": 105,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 21
   },
   {
     "playerName": "Justin Fields",
@@ -4298,10 +4298,10 @@
     "team": "KCC",
     "rookie": false,
     "age": 27.1,
-    "value": 2228,
+    "value": 2231,
     "rank": 287,
     "positionalRank": 36,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 9
   },
   {
@@ -4313,26 +4313,11 @@
     "team": "IND",
     "rookie": false,
     "age": 23.9,
-    "value": 2221,
+    "value": 2222,
     "rank": 288,
     "positionalRank": 37,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 9
-  },
-  {
-    "playerName": "Xavier Hutchinson",
-    "playerID": 1454,
-    "slug": "xavier-hutchinson-1454",
-    "position": "WR",
-    "positionID": 3,
-    "team": "HOU",
-    "rookie": false,
-    "age": 25.8,
-    "value": 2205,
-    "rank": 289,
-    "positionalRank": 106,
-    "overallTier": 13,
-    "positionalTier": 20
   },
   {
     "playerName": "Jalen Royals",
@@ -4343,11 +4328,26 @@
     "team": "KCC",
     "rookie": false,
     "age": 23.1,
-    "value": 2202,
+    "value": 2199,
     "rank": 290,
     "positionalRank": 107,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 21
+  },
+  {
+    "playerName": "Xavier Hutchinson",
+    "playerID": 1454,
+    "slug": "xavier-hutchinson-1454",
+    "position": "WR",
+    "positionID": 3,
+    "team": "HOU",
+    "rookie": false,
+    "age": 25.8,
+    "value": 2199,
+    "rank": 289,
+    "positionalRank": 106,
+    "overallTier": 12,
+    "positionalTier": 21
   },
   {
     "playerName": "Luke McCaffrey",
@@ -4358,11 +4358,11 @@
     "team": "WAS",
     "rookie": false,
     "age": 25,
-    "value": 2187,
+    "value": 2184,
     "rank": 291,
     "positionalRank": 108,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 21
   },
   {
     "playerName": "Calvin Ridley",
@@ -4373,11 +4373,11 @@
     "team": "TEN",
     "rookie": false,
     "age": 31.3,
-    "value": 2148,
+    "value": 2152,
     "rank": 292,
     "positionalRank": 109,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 21
   },
   {
     "playerName": "MarShawn Lloyd",
@@ -4388,11 +4388,11 @@
     "team": "GBP",
     "rookie": false,
     "age": 25.2,
-    "value": 2141,
+    "value": 2138,
     "rank": 293,
     "positionalRank": 79,
-    "overallTier": 13,
-    "positionalTier": 21
+    "overallTier": 12,
+    "positionalTier": 19
   },
   {
     "playerName": "John Metchie",
@@ -4403,11 +4403,11 @@
     "team": "CAR",
     "rookie": false,
     "age": 25.7,
-    "value": 2130,
+    "value": 2133,
     "rank": 294,
     "positionalRank": 110,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 21
   },
   {
     "playerName": "Tahj Brooks",
@@ -4421,8 +4421,8 @@
     "value": 2128,
     "rank": 295,
     "positionalRank": 80,
-    "overallTier": 13,
-    "positionalTier": 21
+    "overallTier": 12,
+    "positionalTier": 19
   },
   {
     "playerName": "Jarquez Hunter",
@@ -4436,8 +4436,8 @@
     "value": 2125,
     "rank": 296,
     "positionalRank": 81,
-    "overallTier": 13,
-    "positionalTier": 21
+    "overallTier": 12,
+    "positionalTier": 19
   },
   {
     "playerName": "Dawson Knox",
@@ -4448,11 +4448,11 @@
     "team": "BUF",
     "rookie": false,
     "age": 29.4,
-    "value": 2109,
+    "value": 2101,
     "rank": 297,
     "positionalRank": 42,
-    "overallTier": 13,
-    "positionalTier": 13
+    "overallTier": 12,
+    "positionalTier": 12
   },
   {
     "playerName": "Evan Engram",
@@ -4463,11 +4463,11 @@
     "team": "DEN",
     "rookie": false,
     "age": 31.6,
-    "value": 2099,
+    "value": 2096,
     "rank": 298,
     "positionalRank": 43,
-    "overallTier": 13,
-    "positionalTier": 13
+    "overallTier": 12,
+    "positionalTier": 12
   },
   {
     "playerName": "Jahan Dotson",
@@ -4478,11 +4478,41 @@
     "team": "ATL",
     "rookie": false,
     "age": 26,
-    "value": 2085,
+    "value": 2079,
     "rank": 299,
     "positionalRank": 111,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 22
+  },
+  {
+    "playerName": "Devaughn Vele",
+    "playerID": 1643,
+    "slug": "devaughn-vele-1643",
+    "position": "WR",
+    "positionID": 3,
+    "team": "NOS",
+    "rookie": false,
+    "age": 28.3,
+    "value": 2074,
+    "rank": 300,
+    "positionalRank": 112,
+    "overallTier": 12,
+    "positionalTier": 22
+  },
+  {
+    "playerName": "Cooper Kupp",
+    "playerID": 310,
+    "slug": "cooper-kupp-310",
+    "position": "WR",
+    "positionID": 3,
+    "team": "SEA",
+    "rookie": false,
+    "age": 32.8,
+    "value": 2071,
+    "rank": 301,
+    "positionalRank": 113,
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "2026 Early 4th",
@@ -4494,40 +4524,10 @@
     "rookie": false,
     "age": 0,
     "value": 2068,
-    "rank": 300,
-    "positionalRank": 0,
-    "overallTier": 13,
-    "positionalTier": 0
-  },
-  {
-    "playerName": "Devaughn Vele",
-    "playerID": 1643,
-    "slug": "devaughn-vele-1643",
-    "position": "WR",
-    "positionID": 3,
-    "team": "NOS",
-    "rookie": false,
-    "age": 28.3,
-    "value": 2068,
-    "rank": 301,
-    "positionalRank": 112,
-    "overallTier": 13,
-    "positionalTier": 20
-  },
-  {
-    "playerName": "Cooper Kupp",
-    "playerID": 310,
-    "slug": "cooper-kupp-310",
-    "position": "WR",
-    "positionID": 3,
-    "team": "SEA",
-    "rookie": false,
-    "age": 32.8,
-    "value": 2064,
     "rank": 302,
-    "positionalRank": 113,
-    "overallTier": 13,
-    "positionalTier": 20
+    "positionalRank": 0,
+    "overallTier": 12,
+    "positionalTier": 0
   },
   {
     "playerName": "2027 Early 4th",
@@ -4541,7 +4541,7 @@
     "value": 2052,
     "rank": 303,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 0
   },
   {
@@ -4553,11 +4553,11 @@
     "team": "CIN",
     "rookie": false,
     "age": 26.5,
-    "value": 2043,
+    "value": 2044,
     "rank": 304,
     "positionalRank": 114,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "Calvin Austin III",
@@ -4571,8 +4571,8 @@
     "value": 2042,
     "rank": 305,
     "positionalRank": 115,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "Audric Estime",
@@ -4586,7 +4586,22 @@
     "value": 2040,
     "rank": 306,
     "positionalRank": 82,
-    "overallTier": 13,
+    "overallTier": 12,
+    "positionalTier": 20
+  },
+  {
+    "playerName": "KeAndre Lambert-Smith",
+    "playerID": 1818,
+    "slug": "keandre-lambert-smith-1818",
+    "position": "WR",
+    "positionID": 3,
+    "team": "LAC",
+    "rookie": false,
+    "age": 24.5,
+    "value": 2035,
+    "rank": 307,
+    "positionalRank": 116,
+    "overallTier": 12,
     "positionalTier": 22
   },
   {
@@ -4599,25 +4614,10 @@
     "rookie": false,
     "age": 24.8,
     "value": 2032,
-    "rank": 307,
-    "positionalRank": 116,
-    "overallTier": 13,
-    "positionalTier": 20
-  },
-  {
-    "playerName": "KeAndre Lambert-Smith",
-    "playerID": 1818,
-    "slug": "keandre-lambert-smith-1818",
-    "position": "WR",
-    "positionID": 3,
-    "team": "LAC",
-    "rookie": false,
-    "age": 24.4,
-    "value": 2032,
     "rank": 308,
     "positionalRank": 117,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "Keenan Allen",
@@ -4628,11 +4628,11 @@
     "team": "LAC",
     "rookie": false,
     "age": 33.9,
-    "value": 2023,
+    "value": 2026,
     "rank": 309,
     "positionalRank": 118,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "Savion Williams",
@@ -4646,8 +4646,8 @@
     "value": 2008,
     "rank": 310,
     "positionalRank": 119,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "Will Shipley",
@@ -4658,11 +4658,11 @@
     "team": "PHI",
     "rookie": false,
     "age": 23.6,
-    "value": 2007,
+    "value": 2004,
     "rank": 311,
     "positionalRank": 83,
-    "overallTier": 13,
-    "positionalTier": 22
+    "overallTier": 12,
+    "positionalTier": 20
   },
   {
     "playerName": "Jimmy Horn",
@@ -4673,11 +4673,11 @@
     "team": "CAR",
     "rookie": false,
     "age": 23.6,
-    "value": 1997,
+    "value": 2003,
     "rank": 312,
     "positionalRank": 120,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "2027 Mid 4th",
@@ -4688,10 +4688,10 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 1995,
+    "value": 2000,
     "rank": 313,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 0
   },
   {
@@ -4703,11 +4703,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1987,
+    "value": 1985,
     "rank": 314,
     "positionalRank": 121,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "Jalen Tolbert",
@@ -4718,25 +4718,25 @@
     "team": "MIA",
     "rookie": false,
     "age": 27.1,
-    "value": 1960,
+    "value": 1963,
     "rank": 315,
     "positionalRank": 122,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
-    "playerName": "Darius Slayton",
-    "playerID": 77,
-    "slug": "darius-slayton-77",
-    "position": "WR",
-    "positionID": 3,
-    "team": "NYG",
+    "playerName": "Isaac Guerendo",
+    "playerID": 1626,
+    "slug": "isaac-guerendo-1626",
+    "position": "RB",
+    "positionID": 2,
+    "team": "SFO",
     "rookie": false,
-    "age": 29.2,
-    "value": 1959,
+    "age": 25.8,
+    "value": 1961,
     "rank": 316,
-    "positionalRank": 123,
-    "overallTier": 13,
+    "positionalRank": 84,
+    "overallTier": 12,
     "positionalTier": 20
   },
   {
@@ -4750,9 +4750,24 @@
     "age": 25.5,
     "value": 1957,
     "rank": 317,
+    "positionalRank": 123,
+    "overallTier": 12,
+    "positionalTier": 22
+  },
+  {
+    "playerName": "Darius Slayton",
+    "playerID": 77,
+    "slug": "darius-slayton-77",
+    "position": "WR",
+    "positionID": 3,
+    "team": "NYG",
+    "rookie": false,
+    "age": 29.2,
+    "value": 1956,
+    "rank": 318,
     "positionalRank": 124,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "Noah Gray",
@@ -4763,11 +4778,11 @@
     "team": "KCC",
     "rookie": false,
     "age": 26.9,
-    "value": 1956,
-    "rank": 318,
+    "value": 1951,
+    "rank": 319,
     "positionalRank": 44,
-    "overallTier": 13,
-    "positionalTier": 14
+    "overallTier": 12,
+    "positionalTier": 13
   },
   {
     "playerName": "2026 Mid 4th",
@@ -4778,26 +4793,11 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 1955,
-    "rank": 319,
-    "positionalRank": 0,
-    "overallTier": 13,
-    "positionalTier": 0
-  },
-  {
-    "playerName": "Isaac Guerendo",
-    "playerID": 1626,
-    "slug": "isaac-guerendo-1626",
-    "position": "RB",
-    "positionID": 2,
-    "team": "SFO",
-    "rookie": false,
-    "age": 25.8,
-    "value": 1954,
+    "value": 1949,
     "rank": 320,
-    "positionalRank": 84,
-    "overallTier": 13,
-    "positionalTier": 22
+    "positionalRank": 0,
+    "overallTier": 12,
+    "positionalTier": 0
   },
   {
     "playerName": "Jerome Ford",
@@ -4811,22 +4811,7 @@
     "value": 1936,
     "rank": 321,
     "positionalRank": 85,
-    "overallTier": 13,
-    "positionalTier": 22
-  },
-  {
-    "playerName": "Tutu Atwell",
-    "playerID": 1078,
-    "slug": "tutu-atwell-1078",
-    "position": "WR",
-    "positionID": 3,
-    "team": "MIA",
-    "rookie": false,
-    "age": 26.5,
-    "value": 1909,
-    "rank": 322,
-    "positionalRank": 125,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 20
   },
   {
@@ -4839,10 +4824,25 @@
     "rookie": false,
     "age": 25.6,
     "value": 1902,
-    "rank": 323,
+    "rank": 322,
     "positionalRank": 86,
-    "overallTier": 13,
-    "positionalTier": 22
+    "overallTier": 12,
+    "positionalTier": 20
+  },
+  {
+    "playerName": "Tutu Atwell",
+    "playerID": 1078,
+    "slug": "tutu-atwell-1078",
+    "position": "WR",
+    "positionID": 3,
+    "team": "MIA",
+    "rookie": false,
+    "age": 26.5,
+    "value": 1897,
+    "rank": 323,
+    "positionalRank": 125,
+    "overallTier": 12,
+    "positionalTier": 23
   },
   {
     "playerName": "2028 Early 4th",
@@ -4853,10 +4853,10 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 1893,
+    "value": 1896,
     "rank": 324,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 0
   },
   {
@@ -4868,10 +4868,10 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 1873,
+    "value": 1870,
     "rank": 325,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 0
   },
   {
@@ -4886,8 +4886,8 @@
     "value": 1869,
     "rank": 326,
     "positionalRank": 126,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 23
   },
   {
     "playerName": "Daniel Bellinger",
@@ -4898,41 +4898,11 @@
     "team": "TEN",
     "rookie": false,
     "age": 25.5,
-    "value": 1854,
+    "value": 1860,
     "rank": 327,
     "positionalRank": 45,
-    "overallTier": 13,
-    "positionalTier": 15
-  },
-  {
-    "playerName": "Max Klare",
-    "playerID": 2009,
-    "slug": "max-klare-2009",
-    "position": "TE",
-    "positionID": 4,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 1841,
-    "rank": 328,
-    "positionalRank": 46,
-    "overallTier": 13,
-    "positionalTier": 15
-  },
-  {
-    "playerName": "Bam Knight",
-    "playerID": 1186,
-    "slug": "bam-knight-1186",
-    "position": "RB",
-    "positionID": 2,
-    "team": "ARI",
-    "rookie": false,
-    "age": 25,
-    "value": 1837,
-    "rank": 329,
-    "positionalRank": 87,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 14
   },
   {
     "playerName": "Greg Dulcich",
@@ -4943,11 +4913,41 @@
     "team": "MIA",
     "rookie": false,
     "age": 26,
-    "value": 1831,
+    "value": 1844,
+    "rank": 328,
+    "positionalRank": 46,
+    "overallTier": 12,
+    "positionalTier": 14
+  },
+  {
+    "playerName": "Bam Knight",
+    "playerID": 1186,
+    "slug": "bam-knight-1186",
+    "position": "RB",
+    "positionID": 2,
+    "team": "ARI",
+    "rookie": false,
+    "age": 25,
+    "value": 1843,
+    "rank": 329,
+    "positionalRank": 87,
+    "overallTier": 12,
+    "positionalTier": 21
+  },
+  {
+    "playerName": "Max Klare",
+    "playerID": 2009,
+    "slug": "max-klare-2009",
+    "position": "TE",
+    "positionID": 4,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 1843,
     "rank": 330,
     "positionalRank": 47,
-    "overallTier": 13,
-    "positionalTier": 15
+    "overallTier": 12,
+    "positionalTier": 14
   },
   {
     "playerName": "Ja'Lynn Polk",
@@ -4961,8 +4961,8 @@
     "value": 1829,
     "rank": 332,
     "positionalRank": 128,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 23
   },
   {
     "playerName": "Treylon Burks",
@@ -4976,8 +4976,8 @@
     "value": 1829,
     "rank": 331,
     "positionalRank": 127,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 23
   },
   {
     "playerName": "2026 Late 4th",
@@ -4988,26 +4988,11 @@
     "team": "FA",
     "rookie": false,
     "age": 0,
-    "value": 1821,
+    "value": 1824,
     "rank": 333,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 0
-  },
-  {
-    "playerName": "Kendrick Bourne",
-    "playerID": 153,
-    "slug": "kendrick-bourne-153",
-    "position": "WR",
-    "positionID": 3,
-    "team": "ARI",
-    "rookie": false,
-    "age": 30.6,
-    "value": 1806,
-    "rank": 334,
-    "positionalRank": 129,
-    "overallTier": 13,
-    "positionalTier": 20
   },
   {
     "playerName": "Konata Mumpfield",
@@ -5019,10 +5004,10 @@
     "rookie": false,
     "age": 23.4,
     "value": 1806,
-    "rank": 335,
-    "positionalRank": 130,
-    "overallTier": 13,
-    "positionalTier": 20
+    "rank": 334,
+    "positionalRank": 129,
+    "overallTier": 12,
+    "positionalTier": 23
   },
   {
     "playerName": "Tommy Tremble",
@@ -5033,26 +5018,11 @@
     "team": "CAR",
     "rookie": false,
     "age": 25.8,
-    "value": 1803,
-    "rank": 336,
-    "positionalRank": 48,
-    "overallTier": 13,
-    "positionalTier": 15
-  },
-  {
-    "playerName": "Efton Chism",
-    "playerID": 1838,
-    "slug": "efton-chism-1838",
-    "position": "WR",
-    "positionID": 3,
-    "team": "NEP",
-    "rookie": false,
-    "age": 24.4,
     "value": 1800,
-    "rank": 337,
-    "positionalRank": 131,
-    "overallTier": 13,
-    "positionalTier": 20
+    "rank": 335,
+    "positionalRank": 48,
+    "overallTier": 12,
+    "positionalTier": 14
   },
   {
     "playerName": "Dyami Brown",
@@ -5063,11 +5033,41 @@
     "team": "WAS",
     "rookie": false,
     "age": 26.4,
-    "value": 1795,
+    "value": 1798,
+    "rank": 336,
+    "positionalRank": 130,
+    "overallTier": 12,
+    "positionalTier": 23
+  },
+  {
+    "playerName": "Kendrick Bourne",
+    "playerID": 153,
+    "slug": "kendrick-bourne-153",
+    "position": "WR",
+    "positionID": 3,
+    "team": "ARI",
+    "rookie": false,
+    "age": 30.7,
+    "value": 1797,
+    "rank": 337,
+    "positionalRank": 131,
+    "overallTier": 12,
+    "positionalTier": 23
+  },
+  {
+    "playerName": "Efton Chism",
+    "playerID": 1838,
+    "slug": "efton-chism-1838",
+    "position": "WR",
+    "positionID": 3,
+    "team": "NEP",
+    "rookie": false,
+    "age": 24.4,
+    "value": 1797,
     "rank": 338,
     "positionalRank": 132,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 23
   },
   {
     "playerName": "Xavier Restrepo",
@@ -5081,8 +5081,8 @@
     "value": 1794,
     "rank": 339,
     "positionalRank": 133,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 23
   },
   {
     "playerName": "Antonio Williams",
@@ -5093,11 +5093,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1788,
+    "value": 1791,
     "rank": 340,
     "positionalRank": 134,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 23
   },
   {
     "playerName": "Noah Fant",
@@ -5108,11 +5108,11 @@
     "team": "NOS",
     "rookie": false,
     "age": 28.4,
-    "value": 1787,
+    "value": 1778,
     "rank": 341,
     "positionalRank": 49,
-    "overallTier": 13,
-    "positionalTier": 15
+    "overallTier": 12,
+    "positionalTier": 14
   },
   {
     "playerName": "Devin Singletary",
@@ -5123,11 +5123,11 @@
     "team": "NYG",
     "rookie": false,
     "age": 28.6,
-    "value": 1772,
+    "value": 1775,
     "rank": 342,
     "positionalRank": 88,
-    "overallTier": 13,
-    "positionalTier": 24
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "Roschon Johnson",
@@ -5138,11 +5138,11 @@
     "team": "CHI",
     "rookie": false,
     "age": 25.2,
-    "value": 1762,
+    "value": 1768,
     "rank": 343,
     "positionalRank": 89,
-    "overallTier": 13,
-    "positionalTier": 24
+    "overallTier": 12,
+    "positionalTier": 22
   },
   {
     "playerName": "Raheim Sanders",
@@ -5153,10 +5153,25 @@
     "team": "CLE",
     "rookie": false,
     "age": 23.8,
-    "value": 1756,
+    "value": 1753,
     "rank": 344,
     "positionalRank": 90,
-    "overallTier": 13,
+    "overallTier": 12,
+    "positionalTier": 22
+  },
+  {
+    "playerName": "Devontez Walker",
+    "playerID": 1592,
+    "slug": "devontez-walker-1592",
+    "position": "WR",
+    "positionID": 3,
+    "team": "BAL",
+    "rookie": false,
+    "age": 24.8,
+    "value": 1738,
+    "rank": 345,
+    "positionalRank": 135,
+    "overallTier": 12,
     "positionalTier": 24
   },
   {
@@ -5168,56 +5183,11 @@
     "team": "ATL",
     "rookie": false,
     "age": 28.7,
-    "value": 1730,
-    "rank": 345,
-    "positionalRank": 135,
-    "overallTier": 13,
-    "positionalTier": 21
-  },
-  {
-    "playerName": "Jonnu Smith",
-    "playerID": 84,
-    "slug": "jonnu-smith-84",
-    "position": "TE",
-    "positionID": 4,
-    "team": "FA",
-    "rookie": false,
-    "age": 30.6,
     "value": 1727,
     "rank": 346,
-    "positionalRank": 50,
-    "overallTier": 13,
-    "positionalTier": 16
-  },
-  {
-    "playerName": "Cade Stover",
-    "playerID": 1613,
-    "slug": "cade-stover-1613",
-    "position": "TE",
-    "positionID": 4,
-    "team": "HOU",
-    "rookie": false,
-    "age": 25.8,
-    "value": 1722,
-    "rank": 348,
-    "positionalRank": 51,
-    "overallTier": 13,
-    "positionalTier": 16
-  },
-  {
-    "playerName": "Devontez Walker",
-    "playerID": 1592,
-    "slug": "devontez-walker-1592",
-    "position": "WR",
-    "positionID": 3,
-    "team": "BAL",
-    "rookie": false,
-    "age": 24.8,
-    "value": 1722,
-    "rank": 347,
     "positionalRank": 136,
-    "overallTier": 13,
-    "positionalTier": 21
+    "overallTier": 12,
+    "positionalTier": 24
   },
   {
     "playerName": "2028 Mid 4th",
@@ -5229,10 +5199,40 @@
     "rookie": false,
     "age": 0,
     "value": 1721,
-    "rank": 349,
+    "rank": 347,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 0
+  },
+  {
+    "playerName": "Cade Stover",
+    "playerID": 1613,
+    "slug": "cade-stover-1613",
+    "position": "TE",
+    "positionID": 4,
+    "team": "HOU",
+    "rookie": false,
+    "age": 25.8,
+    "value": 1719,
+    "rank": 348,
+    "positionalRank": 50,
+    "overallTier": 12,
+    "positionalTier": 15
+  },
+  {
+    "playerName": "Jonnu Smith",
+    "playerID": 84,
+    "slug": "jonnu-smith-84",
+    "position": "TE",
+    "positionID": 4,
+    "team": "FA",
+    "rookie": false,
+    "age": 30.6,
+    "value": 1718,
+    "rank": 349,
+    "positionalRank": 51,
+    "overallTier": 12,
+    "positionalTier": 15
   },
   {
     "playerName": "Michael Trigg",
@@ -5243,11 +5243,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1711,
+    "value": 1695,
     "rank": 350,
     "positionalRank": 52,
-    "overallTier": 13,
-    "positionalTier": 16
+    "overallTier": 12,
+    "positionalTier": 15
   },
   {
     "playerName": "Mike Gesicki",
@@ -5258,11 +5258,26 @@
     "team": "CIN",
     "rookie": false,
     "age": 30.5,
-    "value": 1687,
+    "value": 1684,
     "rank": 351,
     "positionalRank": 53,
-    "overallTier": 13,
-    "positionalTier": 16
+    "overallTier": 12,
+    "positionalTier": 15
+  },
+  {
+    "playerName": "Jacoby Brissett",
+    "playerID": 20,
+    "slug": "jacoby-brissett-20",
+    "position": "QB",
+    "positionID": 1,
+    "team": "ARI",
+    "rookie": false,
+    "age": 33.3,
+    "value": 1681,
+    "rank": 352,
+    "positionalRank": 38,
+    "overallTier": 12,
+    "positionalTier": 10
   },
   {
     "playerName": "Garrett Nussmeier",
@@ -5274,25 +5289,25 @@
     "rookie": true,
     "age": -1,
     "value": 1681,
-    "rank": 352,
-    "positionalRank": 38,
-    "overallTier": 13,
+    "rank": 353,
+    "positionalRank": 39,
+    "overallTier": 12,
     "positionalTier": 10
   },
   {
-    "playerName": "Jacoby Brissett",
-    "playerID": 20,
-    "slug": "jacoby-brissett-20",
-    "position": "QB",
-    "positionID": 1,
-    "team": "ARI",
+    "playerName": "Malik Davis",
+    "playerID": 1197,
+    "slug": "malik-davis-1197",
+    "position": "RB",
+    "positionID": 2,
+    "team": "DAL",
     "rookie": false,
-    "age": 33.3,
-    "value": 1678,
-    "rank": 353,
-    "positionalRank": 39,
-    "overallTier": 13,
-    "positionalTier": 10
+    "age": 27.4,
+    "value": 1675,
+    "rank": 354,
+    "positionalRank": 91,
+    "overallTier": 12,
+    "positionalTier": 23
   },
   {
     "playerName": "Kevin Coleman",
@@ -5303,25 +5318,10 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1673,
-    "rank": 354,
-    "positionalRank": 137,
-    "overallTier": 13,
-    "positionalTier": 21
-  },
-  {
-    "playerName": "Malik Davis",
-    "playerID": 1197,
-    "slug": "malik-davis-1197",
-    "position": "RB",
-    "positionID": 2,
-    "team": "DAL",
-    "rookie": false,
-    "age": 27.3,
     "value": 1672,
     "rank": 355,
-    "positionalRank": 91,
-    "overallTier": 13,
+    "positionalRank": 137,
+    "overallTier": 12,
     "positionalTier": 25
   },
   {
@@ -5333,11 +5333,11 @@
     "team": "ARI",
     "rookie": false,
     "age": 26.9,
-    "value": 1671,
+    "value": 1662,
     "rank": 356,
     "positionalRank": 92,
-    "overallTier": 13,
-    "positionalTier": 25
+    "overallTier": 12,
+    "positionalTier": 23
   },
   {
     "playerName": "Jalin Hyatt",
@@ -5348,11 +5348,11 @@
     "team": "NYG",
     "rookie": false,
     "age": 24.5,
-    "value": 1655,
+    "value": 1652,
     "rank": 357,
     "positionalRank": 138,
-    "overallTier": 13,
-    "positionalTier": 21
+    "overallTier": 12,
+    "positionalTier": 25
   },
   {
     "playerName": "Joe Mixon",
@@ -5363,11 +5363,11 @@
     "team": "FA",
     "rookie": false,
     "age": 29.7,
-    "value": 1618,
+    "value": 1609,
     "rank": 358,
     "positionalRank": 93,
-    "overallTier": 13,
-    "positionalTier": 26
+    "overallTier": 12,
+    "positionalTier": 24
   },
   {
     "playerName": "Justice Hill",
@@ -5378,10 +5378,25 @@
     "team": "BAL",
     "rookie": false,
     "age": 28.4,
-    "value": 1588,
+    "value": 1592,
     "rank": 359,
     "positionalRank": 94,
-    "overallTier": 13,
+    "overallTier": 12,
+    "positionalTier": 24
+  },
+  {
+    "playerName": "Tai Felton",
+    "playerID": 1797,
+    "slug": "tai-felton-1797",
+    "position": "WR",
+    "positionID": 3,
+    "team": "MIN",
+    "rookie": false,
+    "age": 23,
+    "value": 1590,
+    "rank": 360,
+    "positionalRank": 139,
+    "overallTier": 12,
     "positionalTier": 26
   },
   {
@@ -5394,25 +5409,10 @@
     "rookie": false,
     "age": 27.2,
     "value": 1587,
-    "rank": 360,
-    "positionalRank": 95,
-    "overallTier": 13,
-    "positionalTier": 26
-  },
-  {
-    "playerName": "Tai Felton",
-    "playerID": 1797,
-    "slug": "tai-felton-1797",
-    "position": "WR",
-    "positionID": 3,
-    "team": "MIN",
-    "rookie": false,
-    "age": 23,
-    "value": 1583,
     "rank": 361,
-    "positionalRank": 139,
-    "overallTier": 13,
-    "positionalTier": 22
+    "positionalRank": 95,
+    "overallTier": 12,
+    "positionalTier": 24
   },
   {
     "playerName": "Dillon Gabriel",
@@ -5422,11 +5422,11 @@
     "positionID": 1,
     "team": "CLE",
     "rookie": false,
-    "age": 25.2,
-    "value": 1582,
+    "age": 25.3,
+    "value": 1585,
     "rank": 362,
     "positionalRank": 40,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 10
   },
   {
@@ -5438,11 +5438,11 @@
     "team": "BUF",
     "rookie": false,
     "age": 28.5,
-    "value": 1562,
+    "value": 1565,
     "rank": 363,
     "positionalRank": 96,
-    "overallTier": 13,
-    "positionalTier": 26
+    "overallTier": 12,
+    "positionalTier": 24
   },
   {
     "playerName": "Trey Palmer",
@@ -5453,11 +5453,11 @@
     "team": "NOS",
     "rookie": false,
     "age": 25,
-    "value": 1552,
+    "value": 1555,
     "rank": 364,
     "positionalRank": 140,
-    "overallTier": 13,
-    "positionalTier": 22
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "Demond Claiborne",
@@ -5471,8 +5471,8 @@
     "value": 1550,
     "rank": 365,
     "positionalRank": 97,
-    "overallTier": 13,
-    "positionalTier": 26
+    "overallTier": 12,
+    "positionalTier": 24
   },
   {
     "playerName": "Quinn Ewers",
@@ -5486,7 +5486,7 @@
     "value": 1540,
     "rank": 366,
     "positionalRank": 41,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 10
   },
   {
@@ -5501,8 +5501,8 @@
     "value": 1533,
     "rank": 367,
     "positionalRank": 98,
-    "overallTier": 13,
-    "positionalTier": 26
+    "overallTier": 12,
+    "positionalTier": 24
   },
   {
     "playerName": "Tyler Higbee",
@@ -5513,11 +5513,11 @@
     "team": "LAR",
     "rookie": false,
     "age": 33.2,
-    "value": 1530,
+    "value": 1528,
     "rank": 368,
     "positionalRank": 54,
-    "overallTier": 13,
-    "positionalTier": 17
+    "overallTier": 12,
+    "positionalTier": 16
   },
   {
     "playerName": "Tahj Washington",
@@ -5528,11 +5528,11 @@
     "team": "MIA",
     "rookie": false,
     "age": 24.9,
-    "value": 1510,
+    "value": 1513,
     "rank": 369,
     "positionalRank": 141,
-    "overallTier": 13,
-    "positionalTier": 22
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "Rasheen Ali",
@@ -5543,11 +5543,11 @@
     "team": "BAL",
     "rookie": false,
     "age": 25.1,
-    "value": 1509,
+    "value": 1506,
     "rank": 370,
     "positionalRank": 99,
-    "overallTier": 13,
-    "positionalTier": 26
+    "overallTier": 12,
+    "positionalTier": 24
   },
   {
     "playerName": "2028 Late 4th",
@@ -5559,9 +5559,9 @@
     "rookie": false,
     "age": 0,
     "value": 1501,
-    "rank": 371,
+    "rank": 372,
     "positionalRank": 0,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 0
   },
   {
@@ -5573,11 +5573,26 @@
     "team": "DAL",
     "rookie": false,
     "age": 29.7,
-    "value": 1500,
-    "rank": 372,
+    "value": 1501,
+    "rank": 371,
     "positionalRank": 142,
-    "overallTier": 13,
-    "positionalTier": 22
+    "overallTier": 12,
+    "positionalTier": 26
+  },
+  {
+    "playerName": "Tyrell Shavers",
+    "playerID": 1524,
+    "slug": "tyrell-shavers-1524",
+    "position": "WR",
+    "positionID": 3,
+    "team": "BUF",
+    "rookie": false,
+    "age": 26.6,
+    "value": 1490,
+    "rank": 373,
+    "positionalRank": 143,
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "Joe Milton",
@@ -5589,25 +5604,10 @@
     "rookie": false,
     "age": 26.1,
     "value": 1483,
-    "rank": 373,
-    "positionalRank": 42,
-    "overallTier": 13,
-    "positionalTier": 10
-  },
-  {
-    "playerName": "Tyrell Shavers",
-    "playerID": 1524,
-    "slug": "tyrell-shavers-1524",
-    "position": "WR",
-    "positionID": 3,
-    "team": "BUF",
-    "rookie": false,
-    "age": 26.6,
-    "value": 1482,
     "rank": 374,
-    "positionalRank": 143,
-    "overallTier": 13,
-    "positionalTier": 22
+    "positionalRank": 42,
+    "overallTier": 12,
+    "positionalTier": 10
   },
   {
     "playerName": "Will Howard",
@@ -5618,10 +5618,10 @@
     "team": "PIT",
     "rookie": false,
     "age": 24.5,
-    "value": 1479,
+    "value": 1482,
     "rank": 375,
     "positionalRank": 43,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 10
   },
   {
@@ -5636,8 +5636,8 @@
     "value": 1476,
     "rank": 376,
     "positionalRank": 100,
-    "overallTier": 13,
-    "positionalTier": 26
+    "overallTier": 12,
+    "positionalTier": 24
   },
   {
     "playerName": "Greg Dortch",
@@ -5651,8 +5651,8 @@
     "value": 1473,
     "rank": 377,
     "positionalRank": 144,
-    "overallTier": 13,
-    "positionalTier": 22
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "Malachi Corley",
@@ -5666,8 +5666,8 @@
     "value": 1472,
     "rank": 378,
     "positionalRank": 145,
-    "overallTier": 13,
-    "positionalTier": 22
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "George Holani",
@@ -5681,8 +5681,8 @@
     "value": 1471,
     "rank": 379,
     "positionalRank": 101,
-    "overallTier": 13,
-    "positionalTier": 26
+    "overallTier": 12,
+    "positionalTier": 24
   },
   {
     "playerName": "Erick All",
@@ -5693,11 +5693,11 @@
     "team": "CIN",
     "rookie": false,
     "age": 25.6,
-    "value": 1470,
+    "value": 1471,
     "rank": 380,
     "positionalRank": 55,
-    "overallTier": 13,
-    "positionalTier": 17
+    "overallTier": 12,
+    "positionalTier": 16
   },
   {
     "playerName": "Ted Hurst",
@@ -5708,11 +5708,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1468,
+    "value": 1471,
     "rank": 381,
     "positionalRank": 146,
-    "overallTier": 13,
-    "positionalTier": 22
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "Kameron Johnson",
@@ -5723,11 +5723,11 @@
     "team": "TBB",
     "rookie": false,
     "age": 24,
-    "value": 1460,
+    "value": 1465,
     "rank": 382,
     "positionalRank": 147,
-    "overallTier": 13,
-    "positionalTier": 22
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "Aaron Rodgers",
@@ -5741,7 +5741,7 @@
     "value": 1450,
     "rank": 383,
     "positionalRank": 44,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 10
   },
   {
@@ -5756,8 +5756,8 @@
     "value": 1449,
     "rank": 384,
     "positionalRank": 148,
-    "overallTier": 13,
-    "positionalTier": 22
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "Mack Hollins",
@@ -5771,22 +5771,7 @@
     "value": 1443,
     "rank": 385,
     "positionalRank": 149,
-    "overallTier": 13,
-    "positionalTier": 22
-  },
-  {
-    "playerName": "Le'Veon Moss",
-    "playerID": 1941,
-    "slug": "le-veon-moss-1941",
-    "position": "RB",
-    "positionID": 2,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 1425,
-    "rank": 386,
-    "positionalRank": 102,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 26
   },
   {
@@ -5798,11 +5783,11 @@
     "team": "GBP",
     "rookie": false,
     "age": 22.2,
-    "value": 1421,
-    "rank": 387,
-    "positionalRank": 103,
-    "overallTier": 13,
-    "positionalTier": 26
+    "value": 1418,
+    "rank": 386,
+    "positionalRank": 102,
+    "overallTier": 12,
+    "positionalTier": 25
   },
   {
     "playerName": "Tyler Goodson",
@@ -5813,26 +5798,11 @@
     "team": "ATL",
     "rookie": false,
     "age": 25.4,
-    "value": 1416,
-    "rank": 388,
-    "positionalRank": 104,
-    "overallTier": 13,
-    "positionalTier": 26
-  },
-  {
-    "playerName": "Kareem Hunt",
-    "playerID": 214,
-    "slug": "kareem-hunt-214",
-    "position": "RB",
-    "positionID": 2,
-    "team": "KCC",
-    "rookie": false,
-    "age": 30.6,
-    "value": 1415,
-    "rank": 389,
-    "positionalRank": 105,
-    "overallTier": 13,
-    "positionalTier": 26
+    "value": 1417,
+    "rank": 387,
+    "positionalRank": 103,
+    "overallTier": 12,
+    "positionalTier": 25
   },
   {
     "playerName": "Elijah Higgins",
@@ -5843,11 +5813,41 @@
     "team": "ARI",
     "rookie": false,
     "age": 25.4,
-    "value": 1411,
-    "rank": 390,
+    "value": 1414,
+    "rank": 388,
     "positionalRank": 56,
-    "overallTier": 13,
-    "positionalTier": 17
+    "overallTier": 12,
+    "positionalTier": 16
+  },
+  {
+    "playerName": "Le'Veon Moss",
+    "playerID": 1941,
+    "slug": "le-veon-moss-1941",
+    "position": "RB",
+    "positionID": 2,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 1413,
+    "rank": 389,
+    "positionalRank": 104,
+    "overallTier": 12,
+    "positionalTier": 25
+  },
+  {
+    "playerName": "Kareem Hunt",
+    "playerID": 214,
+    "slug": "kareem-hunt-214",
+    "position": "RB",
+    "positionID": 2,
+    "team": "KCC",
+    "rookie": false,
+    "age": 30.6,
+    "value": 1412,
+    "rank": 390,
+    "positionalRank": 105,
+    "overallTier": 12,
+    "positionalTier": 25
   },
   {
     "playerName": "Geno Smith",
@@ -5861,7 +5861,7 @@
     "value": 1404,
     "rank": 391,
     "positionalRank": 45,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 10
   },
   {
@@ -5873,11 +5873,11 @@
     "team": "MIA",
     "rookie": false,
     "age": 33.6,
-    "value": 1402,
+    "value": 1393,
     "rank": 392,
     "positionalRank": 57,
-    "overallTier": 13,
-    "positionalTier": 17
+    "overallTier": 12,
+    "positionalTier": 16
   },
   {
     "playerName": "Luke Schoonmaker",
@@ -5888,11 +5888,26 @@
     "team": "DAL",
     "rookie": false,
     "age": 27.5,
-    "value": 1386,
+    "value": 1392,
     "rank": 393,
     "positionalRank": 58,
-    "overallTier": 13,
-    "positionalTier": 17
+    "overallTier": 12,
+    "positionalTier": 16
+  },
+  {
+    "playerName": "Jake Bobo",
+    "playerID": 1488,
+    "slug": "jake-bobo-1488",
+    "position": "WR",
+    "positionID": 3,
+    "team": "SEA",
+    "rookie": false,
+    "age": 27.7,
+    "value": 1379,
+    "rank": 394,
+    "positionalRank": 150,
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Gabriel Davis",
@@ -5903,26 +5918,11 @@
     "team": "BUF",
     "rookie": false,
     "age": 27,
-    "value": 1374,
-    "rank": 394,
-    "positionalRank": 150,
-    "overallTier": 13,
-    "positionalTier": 23
-  },
-  {
-    "playerName": "Jake Bobo",
-    "playerID": 1488,
-    "slug": "jake-bobo-1488",
-    "position": "WR",
-    "positionID": 3,
-    "team": "SEA",
-    "rookie": false,
-    "age": 27.6,
-    "value": 1373,
+    "value": 1368,
     "rank": 395,
     "positionalRank": 151,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Jordan Watkins",
@@ -5933,40 +5933,10 @@
     "team": "SFO",
     "rookie": false,
     "age": 24.1,
-    "value": 1350,
+    "value": 1353,
     "rank": 396,
     "positionalRank": 152,
-    "overallTier": 13,
-    "positionalTier": 23
-  },
-  {
-    "playerName": "Chris Brooks",
-    "playerID": 1490,
-    "slug": "chris-brooks-1490",
-    "position": "RB",
-    "positionID": 2,
-    "team": "GBP",
-    "rookie": false,
-    "age": 26.2,
-    "value": 1343,
-    "rank": 397,
-    "positionalRank": 106,
-    "overallTier": 13,
-    "positionalTier": 27
-  },
-  {
-    "playerName": "Seth McGowan",
-    "playerID": 1937,
-    "slug": "seth-mcgowan-1937",
-    "position": "RB",
-    "positionID": 2,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 1340,
-    "rank": 398,
-    "positionalRank": 107,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -5978,11 +5948,41 @@
     "team": "PHI",
     "rookie": false,
     "age": 26.1,
-    "value": 1337,
+    "value": 1340,
+    "rank": 397,
+    "positionalRank": 106,
+    "overallTier": 12,
+    "positionalTier": 26
+  },
+  {
+    "playerName": "Chris Brooks",
+    "playerID": 1490,
+    "slug": "chris-brooks-1490",
+    "position": "RB",
+    "positionID": 2,
+    "team": "GBP",
+    "rookie": false,
+    "age": 26.2,
+    "value": 1340,
+    "rank": 398,
+    "positionalRank": 107,
+    "overallTier": 12,
+    "positionalTier": 26
+  },
+  {
+    "playerName": "Seth McGowan",
+    "playerID": 1937,
+    "slug": "seth-mcgowan-1937",
+    "position": "RB",
+    "positionID": 2,
+    "team": "FA",
+    "rookie": true,
+    "age": -1,
+    "value": 1330,
     "rank": 399,
     "positionalRank": 108,
-    "overallTier": 13,
-    "positionalTier": 27
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "Tyler Badie",
@@ -5992,12 +5992,12 @@
     "positionID": 2,
     "team": "DEN",
     "rookie": false,
-    "age": 26.1,
-    "value": 1318,
+    "age": 26.2,
+    "value": 1321,
     "rank": 400,
     "positionalRank": 109,
-    "overallTier": 13,
-    "positionalTier": 27
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "Spencer Rattler",
@@ -6008,10 +6008,10 @@
     "team": "NOS",
     "rookie": false,
     "age": 25.5,
-    "value": 1317,
+    "value": 1311,
     "rank": 401,
     "positionalRank": 46,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 11
   },
   {
@@ -6023,11 +6023,11 @@
     "team": "SFO",
     "rookie": false,
     "age": 24.1,
-    "value": 1313,
+    "value": 1310,
     "rank": 402,
     "positionalRank": 153,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Davis Allen",
@@ -6041,23 +6041,8 @@
     "value": 1308,
     "rank": 403,
     "positionalRank": 59,
-    "overallTier": 13,
-    "positionalTier": 18
-  },
-  {
-    "playerName": "Jonathan Mingo",
-    "playerID": 1450,
-    "slug": "jonathan-mingo-1450",
-    "position": "WR",
-    "positionID": 3,
-    "team": "DAL",
-    "rookie": false,
-    "age": 25,
-    "value": 1299,
-    "rank": 404,
-    "positionalRank": 154,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 17
   },
   {
     "playerName": "Lil'Jordan Humphrey",
@@ -6068,11 +6053,26 @@
     "team": "DEN",
     "rookie": false,
     "age": 28,
-    "value": 1296,
+    "value": 1305,
+    "rank": 404,
+    "positionalRank": 154,
+    "overallTier": 12,
+    "positionalTier": 27
+  },
+  {
+    "playerName": "Jonathan Mingo",
+    "playerID": 1450,
+    "slug": "jonathan-mingo-1450",
+    "position": "WR",
+    "positionID": 3,
+    "team": "DAL",
+    "rookie": false,
+    "age": 25,
+    "value": 1302,
     "rank": 405,
     "positionalRank": 155,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Jack Endries",
@@ -6083,11 +6083,26 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1291,
+    "value": 1287,
     "rank": 406,
     "positionalRank": 60,
-    "overallTier": 13,
-    "positionalTier": 18
+    "overallTier": 12,
+    "positionalTier": 17
+  },
+  {
+    "playerName": "Donovan Edwards",
+    "playerID": 1757,
+    "slug": "donovan-edwards-1757",
+    "position": "RB",
+    "positionID": 2,
+    "team": "MIA",
+    "rookie": false,
+    "age": 23.1,
+    "value": 1282,
+    "rank": 407,
+    "positionalRank": 110,
+    "overallTier": 12,
+    "positionalTier": 26
   },
   {
     "playerName": "Jacob Cowing",
@@ -6099,24 +6114,9 @@
     "rookie": false,
     "age": 25.2,
     "value": 1281,
-    "rank": 407,
+    "rank": 408,
     "positionalRank": 156,
-    "overallTier": 13,
-    "positionalTier": 23
-  },
-  {
-    "playerName": "Donovan Edwards",
-    "playerID": 1757,
-    "slug": "donovan-edwards-1757",
-    "position": "RB",
-    "positionID": 2,
-    "team": "MIA",
-    "rookie": false,
-    "age": 23.1,
-    "value": 1276,
-    "rank": 409,
-    "positionalRank": 110,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6128,11 +6128,11 @@
     "team": "WAS",
     "rookie": false,
     "age": 35.4,
-    "value": 1276,
-    "rank": 408,
+    "value": 1267,
+    "rank": 409,
     "positionalRank": 61,
-    "overallTier": 13,
-    "positionalTier": 18
+    "overallTier": 12,
+    "positionalTier": 17
   },
   {
     "playerName": "Mitchell Evans",
@@ -6143,11 +6143,11 @@
     "team": "CAR",
     "rookie": false,
     "age": 23,
-    "value": 1257,
+    "value": 1260,
     "rank": 410,
     "positionalRank": 62,
-    "overallTier": 13,
-    "positionalTier": 18
+    "overallTier": 12,
+    "positionalTier": 17
   },
   {
     "playerName": "CJ Daniels",
@@ -6158,11 +6158,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1256,
+    "value": 1253,
     "rank": 411,
     "positionalRank": 157,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Brevin Jordan",
@@ -6173,11 +6173,11 @@
     "team": "HOU",
     "rookie": false,
     "age": 25.7,
-    "value": 1234,
+    "value": 1231,
     "rank": 412,
     "positionalRank": 63,
-    "overallTier": 13,
-    "positionalTier": 18
+    "overallTier": 12,
+    "positionalTier": 17
   },
   {
     "playerName": "Arian Smith",
@@ -6188,11 +6188,11 @@
     "team": "NYJ",
     "rookie": false,
     "age": 24.5,
-    "value": 1233,
+    "value": 1230,
     "rank": 413,
     "positionalRank": 158,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Jam Miller",
@@ -6203,10 +6203,25 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1227,
+    "value": 1224,
     "rank": 414,
     "positionalRank": 111,
-    "overallTier": 13,
+    "overallTier": 12,
+    "positionalTier": 27
+  },
+  {
+    "playerName": "Bo Melton",
+    "playerID": 1244,
+    "slug": "bo-melton-1244",
+    "position": "WR",
+    "positionID": 3,
+    "team": "GBP",
+    "rookie": false,
+    "age": 26.2,
+    "value": 1223,
+    "rank": 415,
+    "positionalRank": 159,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6219,25 +6234,10 @@
     "rookie": true,
     "age": -1,
     "value": 1222,
-    "rank": 415,
-    "positionalRank": 112,
-    "overallTier": 13,
-    "positionalTier": 27
-  },
-  {
-    "playerName": "Bo Melton",
-    "playerID": 1244,
-    "slug": "bo-melton-1244",
-    "position": "WR",
-    "positionID": 3,
-    "team": "GBP",
-    "rookie": false,
-    "age": 26.2,
-    "value": 1211,
     "rank": 416,
-    "positionalRank": 159,
-    "overallTier": 13,
-    "positionalTier": 23
+    "positionalRank": 112,
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Cam Akers",
@@ -6248,10 +6248,10 @@
     "team": "SEA",
     "rookie": false,
     "age": 26.8,
-    "value": 1204,
+    "value": 1210,
     "rank": 417,
     "positionalRank": 113,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6263,11 +6263,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1204,
+    "value": 1207,
     "rank": 418,
     "positionalRank": 160,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Hassan Haskins",
@@ -6277,11 +6277,11 @@
     "positionID": 2,
     "team": "LAC",
     "rookie": false,
-    "age": 26.3,
+    "age": 26.4,
     "value": 1183,
     "rank": 419,
     "positionalRank": 114,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6296,22 +6296,22 @@
     "value": 1181,
     "rank": 420,
     "positionalRank": 161,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
-    "playerName": "Israel Abanikanda",
-    "playerID": 1383,
-    "slug": "israel-abanikanda-1383",
-    "position": "RB",
-    "positionID": 2,
-    "team": "DAL",
+    "playerName": "Mason Tipton",
+    "playerID": 1686,
+    "slug": "mason-tipton-1686",
+    "position": "WR",
+    "positionID": 3,
+    "team": "NOS",
     "rookie": false,
-    "age": 23.5,
-    "value": 1174,
+    "age": 25.5,
+    "value": 1176,
     "rank": 421,
-    "positionalRank": 115,
-    "overallTier": 13,
+    "positionalRank": 162,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6323,10 +6323,25 @@
     "team": "DET",
     "rookie": false,
     "age": 24.7,
-    "value": 1173,
-    "rank": 422,
+    "value": 1171,
+    "rank": 423,
     "positionalRank": 116,
-    "overallTier": 13,
+    "overallTier": 12,
+    "positionalTier": 27
+  },
+  {
+    "playerName": "Israel Abanikanda",
+    "playerID": 1383,
+    "slug": "israel-abanikanda-1383",
+    "position": "RB",
+    "positionID": 2,
+    "team": "DAL",
+    "rookie": false,
+    "age": 23.5,
+    "value": 1171,
+    "rank": 422,
+    "positionalRank": 115,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6339,25 +6354,10 @@
     "rookie": false,
     "age": 27.4,
     "value": 1170,
-    "rank": 423,
-    "positionalRank": 162,
-    "overallTier": 13,
-    "positionalTier": 23
-  },
-  {
-    "playerName": "Mason Tipton",
-    "playerID": 1686,
-    "slug": "mason-tipton-1686",
-    "position": "WR",
-    "positionID": 3,
-    "team": "NOS",
-    "rookie": false,
-    "age": 25.5,
-    "value": 1170,
     "rank": 424,
     "positionalRank": 163,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Jared Wiley",
@@ -6371,8 +6371,8 @@
     "value": 1166,
     "rank": 425,
     "positionalRank": 64,
-    "overallTier": 13,
-    "positionalTier": 19
+    "overallTier": 12,
+    "positionalTier": 18
   },
   {
     "playerName": "Cade Klubnik",
@@ -6386,7 +6386,7 @@
     "value": 1158,
     "rank": 427,
     "positionalRank": 47,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 12
   },
   {
@@ -6401,8 +6401,8 @@
     "value": 1158,
     "rank": 426,
     "positionalRank": 164,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Jameis Winston",
@@ -6416,7 +6416,7 @@
     "value": 1125,
     "rank": 429,
     "positionalRank": 48,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 12
   },
   {
@@ -6428,11 +6428,11 @@
     "team": "LAC",
     "rookie": false,
     "age": 27.1,
-    "value": 1116,
+    "value": 1119,
     "rank": 430,
     "positionalRank": 65,
-    "overallTier": 13,
-    "positionalTier": 19
+    "overallTier": 12,
+    "positionalTier": 18
   },
   {
     "playerName": "Deuce Vaughn",
@@ -6446,23 +6446,23 @@
     "value": 1116,
     "rank": 431,
     "positionalRank": 118,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
-    "playerName": "Nick Westbrook-Ikhine",
-    "playerID": 950,
-    "slug": "nick-westbrook-ikhine-950",
-    "position": "WR",
-    "positionID": 3,
-    "team": "IND",
+    "playerName": "Frank Gore Jr.",
+    "playerID": 1570,
+    "slug": "frank-gore-jr-1570",
+    "position": "RB",
+    "positionID": 2,
+    "team": "BUF",
     "rookie": false,
-    "age": 29,
-    "value": 1115,
+    "age": 24,
+    "value": 1112,
     "rank": 432,
-    "positionalRank": 165,
-    "overallTier": 13,
-    "positionalTier": 23
+    "positionalRank": 119,
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Brock Wright",
@@ -6474,25 +6474,25 @@
     "rookie": false,
     "age": 27.3,
     "value": 1106,
-    "rank": 433,
+    "rank": 434,
     "positionalRank": 66,
-    "overallTier": 13,
-    "positionalTier": 19
+    "overallTier": 12,
+    "positionalTier": 18
   },
   {
-    "playerName": "Frank Gore Jr.",
-    "playerID": 1570,
-    "slug": "frank-gore-jr-1570",
-    "position": "RB",
-    "positionID": 2,
-    "team": "BUF",
+    "playerName": "Nick Westbrook-Ikhine",
+    "playerID": 950,
+    "slug": "nick-westbrook-ikhine-950",
+    "position": "WR",
+    "positionID": 3,
+    "team": "IND",
     "rookie": false,
-    "age": 24,
+    "age": 29,
     "value": 1106,
-    "rank": 434,
-    "positionalRank": 119,
-    "overallTier": 13,
-    "positionalTier": 27
+    "rank": 433,
+    "positionalRank": 165,
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Terrell Jennings",
@@ -6503,10 +6503,10 @@
     "team": "NEP",
     "rookie": false,
     "age": 25.1,
-    "value": 1083,
+    "value": 1086,
     "rank": 435,
     "positionalRank": 120,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6521,8 +6521,23 @@
     "value": 1082,
     "rank": 436,
     "positionalRank": 49,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 12
+  },
+  {
+    "playerName": "Demarcus Robinson",
+    "playerID": 52,
+    "slug": "demarcus-robinson-52",
+    "position": "WR",
+    "positionID": 3,
+    "team": "SFO",
+    "rookie": false,
+    "age": 31.5,
+    "value": 1078,
+    "rank": 437,
+    "positionalRank": 166,
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Elijah Mitchell",
@@ -6533,26 +6548,11 @@
     "team": "NEP",
     "rookie": false,
     "age": 27.9,
-    "value": 1076,
-    "rank": 437,
-    "positionalRank": 121,
-    "overallTier": 13,
-    "positionalTier": 27
-  },
-  {
-    "playerName": "Jamari Thrash",
-    "playerID": 1595,
-    "slug": "jamari-thrash-1595",
-    "position": "WR",
-    "positionID": 3,
-    "team": "CLE",
-    "rookie": false,
-    "age": 25.3,
-    "value": 1075,
+    "value": 1073,
     "rank": 438,
-    "positionalRank": 166,
-    "overallTier": 13,
-    "positionalTier": 23
+    "positionalRank": 121,
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Joe Flacco",
@@ -6566,8 +6566,23 @@
     "value": 1072,
     "rank": 439,
     "positionalRank": 50,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 12
+  },
+  {
+    "playerName": "Jamari Thrash",
+    "playerID": 1595,
+    "slug": "jamari-thrash-1595",
+    "position": "WR",
+    "positionID": 3,
+    "team": "CLE",
+    "rookie": false,
+    "age": 25.3,
+    "value": 1072,
+    "rank": 441,
+    "positionalRank": 168,
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Tyler Scott",
@@ -6581,8 +6596,8 @@
     "value": 1072,
     "rank": 440,
     "positionalRank": 167,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Nick Chubb",
@@ -6596,23 +6611,8 @@
     "value": 1069,
     "rank": 442,
     "positionalRank": 122,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
-  },
-  {
-    "playerName": "Demarcus Robinson",
-    "playerID": 52,
-    "slug": "demarcus-robinson-52",
-    "position": "WR",
-    "positionID": 3,
-    "team": "SFO",
-    "rookie": false,
-    "age": 31.5,
-    "value": 1069,
-    "rank": 441,
-    "positionalRank": 168,
-    "overallTier": 13,
-    "positionalTier": 23
   },
   {
     "playerName": "Samaje Perine",
@@ -6623,26 +6623,11 @@
     "team": "CIN",
     "rookie": false,
     "age": 30.5,
-    "value": 1054,
+    "value": 1057,
     "rank": 443,
     "positionalRank": 123,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
-  },
-  {
-    "playerName": "Luke Altmyer",
-    "playerID": 1932,
-    "slug": "luke-altmyer-1932",
-    "position": "QB",
-    "positionID": 1,
-    "team": "FA",
-    "rookie": true,
-    "age": -1,
-    "value": 1047,
-    "rank": 444,
-    "positionalRank": 51,
-    "overallTier": 13,
-    "positionalTier": 12
   },
   {
     "playerName": "Xavier Gipson",
@@ -6654,10 +6639,10 @@
     "rookie": false,
     "age": 25.1,
     "value": 1046,
-    "rank": 445,
+    "rank": 444,
     "positionalRank": 169,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Bub Means",
@@ -6668,11 +6653,26 @@
     "team": "NOS",
     "rookie": false,
     "age": 25.2,
-    "value": 1046,
-    "rank": 446,
+    "value": 1043,
+    "rank": 445,
     "positionalRank": 170,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
+  },
+  {
+    "playerName": "Jawhar Jordan",
+    "playerID": 1641,
+    "slug": "jawhar-jordan-1641",
+    "position": "RB",
+    "positionID": 2,
+    "team": "HOU",
+    "rookie": false,
+    "age": 26.6,
+    "value": 1031,
+    "rank": 447,
+    "positionalRank": 124,
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Marcus Mariota",
@@ -6684,9 +6684,9 @@
     "rookie": false,
     "age": 32.4,
     "value": 1026,
-    "rank": 447,
+    "rank": 448,
     "positionalRank": 52,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 12
   },
   {
@@ -6698,25 +6698,10 @@
     "team": "NOS",
     "rookie": false,
     "age": 27.9,
-    "value": 1026,
-    "rank": 448,
-    "positionalRank": 124,
-    "overallTier": 13,
-    "positionalTier": 27
-  },
-  {
-    "playerName": "Jawhar Jordan",
-    "playerID": 1641,
-    "slug": "jawhar-jordan-1641",
-    "position": "RB",
-    "positionID": 2,
-    "team": "HOU",
-    "rookie": false,
-    "age": 26.6,
-    "value": 1025,
+    "value": 1023,
     "rank": 449,
     "positionalRank": 125,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6728,11 +6713,11 @@
     "team": "FA",
     "rookie": true,
     "age": -1,
-    "value": 1024,
+    "value": 1017,
     "rank": 450,
     "positionalRank": 171,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Jeremy McNichols",
@@ -6746,37 +6731,7 @@
     "value": 1015,
     "rank": 451,
     "positionalRank": 126,
-    "overallTier": 13,
-    "positionalTier": 27
-  },
-  {
-    "playerName": "Curtis Samuel",
-    "playerID": 244,
-    "slug": "curtis-samuel-244",
-    "position": "WR",
-    "positionID": 3,
-    "team": "FA",
-    "rookie": false,
-    "age": 29.6,
-    "value": 1014,
-    "rank": 452,
-    "positionalRank": 172,
-    "overallTier": 13,
-    "positionalTier": 23
-  },
-  {
-    "playerName": "Khalil Herbert",
-    "playerID": 994,
-    "slug": "khalil-herbert-994",
-    "position": "RB",
-    "positionID": 2,
-    "team": "NYJ",
-    "rookie": false,
-    "age": 27.9,
-    "value": 1008,
-    "rank": 454,
-    "positionalRank": 127,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6788,11 +6743,41 @@
     "team": "KCC",
     "rookie": false,
     "age": 29.4,
-    "value": 1008,
+    "value": 1011,
     "rank": 453,
     "positionalRank": 173,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
+  },
+  {
+    "playerName": "Curtis Samuel",
+    "playerID": 244,
+    "slug": "curtis-samuel-244",
+    "position": "WR",
+    "positionID": 3,
+    "team": "FA",
+    "rookie": false,
+    "age": 29.6,
+    "value": 1011,
+    "rank": 452,
+    "positionalRank": 172,
+    "overallTier": 12,
+    "positionalTier": 28
+  },
+  {
+    "playerName": "Khalil Herbert",
+    "playerID": 994,
+    "slug": "khalil-herbert-994",
+    "position": "RB",
+    "positionID": 2,
+    "team": "NYJ",
+    "rookie": false,
+    "age": 28,
+    "value": 1008,
+    "rank": 454,
+    "positionalRank": 127,
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Jeremy Ruckert",
@@ -6803,11 +6788,11 @@
     "team": "NYJ",
     "rookie": false,
     "age": 25.6,
-    "value": 1002,
+    "value": 999,
     "rank": 455,
     "positionalRank": 67,
-    "overallTier": 13,
-    "positionalTier": 20
+    "overallTier": 12,
+    "positionalTier": 19
   },
   {
     "playerName": "DeAndre Hopkins",
@@ -6818,11 +6803,11 @@
     "team": "BAL",
     "rookie": false,
     "age": 33.8,
-    "value": 995,
+    "value": 998,
     "rank": 456,
     "positionalRank": 174,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Brenden Rice",
@@ -6836,8 +6821,8 @@
     "value": 993,
     "rank": 457,
     "positionalRank": 175,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Miles Sanders",
@@ -6851,22 +6836,7 @@
     "value": 989,
     "rank": 458,
     "positionalRank": 128,
-    "overallTier": 13,
-    "positionalTier": 27
-  },
-  {
-    "playerName": "Alexander Mattison",
-    "playerID": 326,
-    "slug": "alexander-mattison-326",
-    "position": "RB",
-    "positionID": 2,
-    "team": "MIA",
-    "rookie": false,
-    "age": 27.8,
-    "value": 979,
-    "rank": 459,
-    "positionalRank": 129,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6879,10 +6849,25 @@
     "rookie": false,
     "age": 24.8,
     "value": 979,
-    "rank": 460,
+    "rank": 459,
     "positionalRank": 176,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
+  },
+  {
+    "playerName": "Alexander Mattison",
+    "playerID": 326,
+    "slug": "alexander-mattison-326",
+    "position": "RB",
+    "positionID": 2,
+    "team": "MIA",
+    "rookie": false,
+    "age": 27.8,
+    "value": 976,
+    "rank": 460,
+    "positionalRank": 129,
+    "overallTier": 12,
+    "positionalTier": 27
   },
   {
     "playerName": "Kirk Cousins",
@@ -6896,8 +6881,23 @@
     "value": 971,
     "rank": 461,
     "positionalRank": 53,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 12
+  },
+  {
+    "playerName": "Grant Calcaterra",
+    "playerID": 1263,
+    "slug": "grant-calcaterra-1263",
+    "position": "TE",
+    "positionID": 4,
+    "team": "PHI",
+    "rookie": false,
+    "age": 27.3,
+    "value": 963,
+    "rank": 462,
+    "positionalRank": 68,
+    "overallTier": 12,
+    "positionalTier": 19
   },
   {
     "playerName": "Zavier Scott",
@@ -6909,39 +6909,9 @@
     "rookie": false,
     "age": 26.7,
     "value": 962,
-    "rank": 462,
-    "positionalRank": 130,
-    "overallTier": 13,
-    "positionalTier": 27
-  },
-  {
-    "playerName": "Grant Calcaterra",
-    "playerID": 1263,
-    "slug": "grant-calcaterra-1263",
-    "position": "TE",
-    "positionID": 4,
-    "team": "PHI",
-    "rookie": false,
-    "age": 27.3,
-    "value": 961,
     "rank": 463,
-    "positionalRank": 68,
-    "overallTier": 13,
-    "positionalTier": 20
-  },
-  {
-    "playerName": "Kendall Milton",
-    "playerID": 1577,
-    "slug": "kendall-milton-1577",
-    "position": "RB",
-    "positionID": 2,
-    "team": "CIN",
-    "rookie": false,
-    "age": 24.1,
-    "value": 953,
-    "rank": 464,
-    "positionalRank": 131,
-    "overallTier": 13,
+    "positionalRank": 130,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6953,10 +6923,25 @@
     "team": "SEA",
     "rookie": false,
     "age": 26.1,
-    "value": 951,
-    "rank": 465,
-    "positionalRank": 132,
-    "overallTier": 13,
+    "value": 954,
+    "rank": 464,
+    "positionalRank": 131,
+    "overallTier": 12,
+    "positionalTier": 27
+  },
+  {
+    "playerName": "Kendall Milton",
+    "playerID": 1577,
+    "slug": "kendall-milton-1577",
+    "position": "RB",
+    "positionID": 2,
+    "team": "CIN",
+    "rookie": false,
+    "age": 24.1,
+    "value": 950,
+    "rank": 466,
+    "positionalRank": 133,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6968,10 +6953,10 @@
     "team": "CAR",
     "rookie": false,
     "age": 27.9,
-    "value": 947,
-    "rank": 466,
-    "positionalRank": 133,
-    "overallTier": 13,
+    "value": 950,
+    "rank": 465,
+    "positionalRank": 132,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -6983,11 +6968,11 @@
     "team": "PHI",
     "rookie": false,
     "age": 25,
-    "value": 942,
+    "value": 936,
     "rank": 467,
     "positionalRank": 177,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Antonio Gibson",
@@ -6998,10 +6983,10 @@
     "team": "FA",
     "rookie": false,
     "age": 27.8,
-    "value": 913,
+    "value": 922,
     "rank": 468,
     "positionalRank": 134,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -7016,23 +7001,23 @@
     "value": 911,
     "rank": 469,
     "positionalRank": 178,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
-    "playerName": "Tylan Wallace",
-    "playerID": 1008,
-    "slug": "tylan-wallace-1008",
+    "playerName": "Derius Davis",
+    "playerID": 1473,
+    "slug": "derius-davis-1473",
     "position": "WR",
     "positionID": 3,
-    "team": "CLE",
+    "team": "LAC",
     "rookie": false,
-    "age": 26.9,
-    "value": 898,
-    "rank": 471,
-    "positionalRank": 180,
-    "overallTier": 13,
-    "positionalTier": 23
+    "age": 25.6,
+    "value": 910,
+    "rank": 470,
+    "positionalRank": 179,
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Zamir White",
@@ -7044,10 +7029,25 @@
     "rookie": false,
     "age": 26.5,
     "value": 898,
-    "rank": 472,
+    "rank": 471,
     "positionalRank": 135,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
+  },
+  {
+    "playerName": "Tylan Wallace",
+    "playerID": 1008,
+    "slug": "tylan-wallace-1008",
+    "position": "WR",
+    "positionID": 3,
+    "team": "CLE",
+    "rookie": false,
+    "age": 26.9,
+    "value": 895,
+    "rank": 472,
+    "positionalRank": 180,
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Julius Chestnut",
@@ -7058,10 +7058,10 @@
     "team": "TEN",
     "rookie": false,
     "age": 25.4,
-    "value": 890,
+    "value": 893,
     "rank": 473,
     "positionalRank": 136,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 27
   },
   {
@@ -7073,11 +7073,11 @@
     "team": "WAS",
     "rookie": false,
     "age": 29.7,
-    "value": 884,
+    "value": 887,
     "rank": 474,
     "positionalRank": 181,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "LaJohntay Wester",
@@ -7088,26 +7088,11 @@
     "team": "BAL",
     "rookie": false,
     "age": 24,
-    "value": 878,
+    "value": 881,
     "rank": 476,
     "positionalRank": 183,
-    "overallTier": 13,
-    "positionalTier": 23
-  },
-  {
-    "playerName": "Sterling Shepard",
-    "playerID": 255,
-    "slug": "sterling-shepard-255",
-    "position": "WR",
-    "positionID": 3,
-    "team": "TBB",
-    "rookie": false,
-    "age": 33.1,
-    "value": 850,
-    "rank": 477,
-    "positionalRank": 184,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Malik Heath",
@@ -7119,10 +7104,10 @@
     "rookie": false,
     "age": 26.1,
     "value": 844,
-    "rank": 478,
-    "positionalRank": 185,
-    "overallTier": 13,
-    "positionalTier": 23
+    "rank": 477,
+    "positionalRank": 184,
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Adam Trautman",
@@ -7133,11 +7118,26 @@
     "team": "DEN",
     "rookie": false,
     "age": 29.2,
-    "value": 839,
-    "rank": 479,
+    "value": 843,
+    "rank": 478,
     "positionalRank": 69,
-    "overallTier": 13,
-    "positionalTier": 21
+    "overallTier": 12,
+    "positionalTier": 20
+  },
+  {
+    "playerName": "Sterling Shepard",
+    "playerID": 255,
+    "slug": "sterling-shepard-255",
+    "position": "WR",
+    "positionID": 3,
+    "team": "TBB",
+    "rookie": false,
+    "age": 33.1,
+    "value": 832,
+    "rank": 479,
+    "positionalRank": 185,
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Trey Lance",
@@ -7148,26 +7148,11 @@
     "team": "LAC",
     "rookie": false,
     "age": 25.9,
-    "value": 829,
-    "rank": 480,
+    "value": 823,
+    "rank": 481,
     "positionalRank": 54,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 13
-  },
-  {
-    "playerName": "Jermaine Burton",
-    "playerID": 1603,
-    "slug": "jermaine-burton-1603",
-    "position": "WR",
-    "positionID": 3,
-    "team": "FA",
-    "rookie": false,
-    "age": 24.8,
-    "value": 809,
-    "rank": 482,
-    "positionalRank": 187,
-    "overallTier": 13,
-    "positionalTier": 23
   },
   {
     "playerName": "Zay Jones",
@@ -7178,11 +7163,26 @@
     "team": "ARI",
     "rookie": false,
     "age": 31,
-    "value": 806,
+    "value": 818,
+    "rank": 482,
+    "positionalRank": 187,
+    "overallTier": 12,
+    "positionalTier": 28
+  },
+  {
+    "playerName": "Jermaine Burton",
+    "playerID": 1603,
+    "slug": "jermaine-burton-1603",
+    "position": "WR",
+    "positionID": 3,
+    "team": "FA",
+    "rookie": false,
+    "age": 24.8,
+    "value": 812,
     "rank": 483,
     "positionalRank": 188,
-    "overallTier": 13,
-    "positionalTier": 23
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Noah Brown",
@@ -7193,11 +7193,11 @@
     "team": "WAS",
     "rookie": false,
     "age": 30.2,
-    "value": 801,
-    "rank": 485,
-    "positionalRank": 189,
-    "overallTier": 13,
-    "positionalTier": 23
+    "value": 798,
+    "rank": 486,
+    "positionalRank": 190,
+    "overallTier": 12,
+    "positionalTier": 28
   },
   {
     "playerName": "Tyler Conklin",
@@ -7208,11 +7208,26 @@
     "team": "DET",
     "rookie": false,
     "age": 30.7,
-    "value": 797,
-    "rank": 486,
+    "value": 794,
+    "rank": 487,
     "positionalRank": 70,
-    "overallTier": 13,
-    "positionalTier": 21
+    "overallTier": 12,
+    "positionalTier": 20
+  },
+  {
+    "playerName": "Hunter Long",
+    "playerID": 1056,
+    "slug": "hunter-long-1056",
+    "position": "TE",
+    "positionID": 4,
+    "team": "JAC",
+    "rookie": false,
+    "age": 27.6,
+    "value": 781,
+    "rank": 490,
+    "positionalRank": 73,
+    "overallTier": 12,
+    "positionalTier": 20
   },
   {
     "playerName": "Josh Oliver",
@@ -7226,8 +7241,8 @@
     "value": 775,
     "rank": 491,
     "positionalRank": 74,
-    "overallTier": 13,
-    "positionalTier": 21
+    "overallTier": 12,
+    "positionalTier": 20
   },
   {
     "playerName": "Jake Browning",
@@ -7238,26 +7253,11 @@
     "team": "TBB",
     "rookie": false,
     "age": 30,
-    "value": 755,
+    "value": 752,
     "rank": 492,
     "positionalRank": 55,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 14
-  },
-  {
-    "playerName": "Tim Patrick",
-    "playerID": 206,
-    "slug": "tim-patrick-206",
-    "position": "WR",
-    "positionID": 3,
-    "team": "JAC",
-    "rookie": false,
-    "age": 32.4,
-    "value": 726,
-    "rank": 493,
-    "positionalRank": 191,
-    "overallTier": 13,
-    "positionalTier": 24
   },
   {
     "playerName": "Kenny Pickett",
@@ -7271,7 +7271,7 @@
     "value": 676,
     "rank": 500,
     "positionalRank": 56,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 15
   },
   {
@@ -7286,7 +7286,7 @@
     "value": 675,
     "rank": 501,
     "positionalRank": 57,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 15
   },
   {
@@ -7301,7 +7301,7 @@
     "value": 649,
     "rank": 502,
     "positionalRank": 58,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 15
   },
   {
@@ -7316,7 +7316,7 @@
     "value": 641,
     "rank": 503,
     "positionalRank": 59,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 15
   },
   {
@@ -7331,7 +7331,7 @@
     "value": 614,
     "rank": 505,
     "positionalRank": 60,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 15
   },
   {
@@ -7346,7 +7346,7 @@
     "value": 535,
     "rank": 513,
     "positionalRank": 61,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 16
   },
   {
@@ -7361,7 +7361,7 @@
     "value": 523,
     "rank": 514,
     "positionalRank": 62,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 16
   },
   {
@@ -7372,11 +7372,11 @@
     "positionID": 1,
     "team": "CLE",
     "rookie": false,
-    "age": 30.5,
+    "age": 30.6,
     "value": 515,
     "rank": 517,
     "positionalRank": 63,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 16
   },
   {
@@ -7391,7 +7391,7 @@
     "value": 464,
     "rank": 525,
     "positionalRank": 64,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 17
   },
   {
@@ -7406,7 +7406,7 @@
     "value": 404,
     "rank": 539,
     "positionalRank": 65,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 18
   },
   {
@@ -7421,7 +7421,7 @@
     "value": 400,
     "rank": 541,
     "positionalRank": 66,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 18
   },
   {
@@ -7436,7 +7436,7 @@
     "value": 381,
     "rank": 545,
     "positionalRank": 67,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 18
   },
   {
@@ -7451,7 +7451,7 @@
     "value": 271,
     "rank": 624,
     "positionalRank": 76,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 19
   },
   {
@@ -7466,7 +7466,7 @@
     "value": 259,
     "rank": 627,
     "positionalRank": 79,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 19
   },
   {
@@ -7481,7 +7481,7 @@
     "value": 254,
     "rank": 628,
     "positionalRank": 80,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 19
   },
   {
@@ -7496,7 +7496,7 @@
     "value": 234,
     "rank": 636,
     "positionalRank": 82,
-    "overallTier": 13,
+    "overallTier": 12,
     "positionalTier": 19
   }
 ]
