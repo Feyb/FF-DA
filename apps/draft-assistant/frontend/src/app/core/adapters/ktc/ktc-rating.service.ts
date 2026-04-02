@@ -4,8 +4,8 @@ import { Observable, catchError, map, of, shareReplay } from 'rxjs';
 import { KtcPlayer, TeamViewPlayer, TeamViewRating } from '../../models';
 
 const KTC_RANKINGS_URL = '/ktc/dynasty-rankings';
-const KTC_ASSET_1QB_URL = '/assets/ktc/players-1qb.json';
-const KTC_ASSET_SUPERFLEX_URL = '/assets/ktc/players-superflex.json';
+const KTC_ASSET_1QB_URL = 'assets/ktc/players-1qb.json';
+const KTC_ASSET_SUPERFLEX_URL = 'assets/ktc/players-superflex.json';
 
 interface KtcRawValueBlock {
   value: number;
