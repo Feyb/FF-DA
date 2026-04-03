@@ -1,4 +1,4 @@
-<div class="player-row" [class]="tierClass()">
+<div [class]="'player-row' + (tierClass() ? ' ' + tierClass() : '')">
   <img
     class="player-avatar"
     [src]="playerHeadshotUrl(player().playerId)"
