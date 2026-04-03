@@ -128,3 +128,59 @@
 }
 
 // empty-copy is defined globally in shared/styles/_states.scss
+
+// ── Dark-mode overrides ────────────────────────────────────────────────────────
+html.dark {
+  .players-subtitle {
+    color: rgb(148 163 184);
+  }
+
+  .tier-legend-label {
+    color: rgb(148 163 184);
+  }
+
+  .players-table {
+    th,
+    td {
+      border-color: rgb(51 65 85);
+    }
+
+    thead th {
+      background: var(--surface-container-high, #2b2930);
+      color: rgb(203 213 225);
+    }
+  }
+
+  .row-expanded {
+    background: var(--surface-container-high, #2b2930);
+  }
+
+  .player-details-row td {
+    background: var(--surface-container-highest, #36343b);
+    border-color: rgb(51 65 85);
+  }
+
+  .tier-primary {
+    color: rgb(226 232 240);
+  }
+
+  .detail-label {
+    color: rgb(148 163 184);
+  }
+
+  .detail-value {
+    color: rgb(226 232 240);
+  }
+
+  .detail-subtext {
+    color: rgb(100 116 139);
+  }
+
+  .tier-secondary {
+    color: rgb(100 116 139);
+  }
+
+  .player-avatar {
+    background: rgb(51 65 85);
+  }
+}
