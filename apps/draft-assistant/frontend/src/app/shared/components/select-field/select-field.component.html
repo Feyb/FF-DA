@@ -1,6 +1,6 @@
 <mat-form-field appearance="outline">
   <mat-label>{{ label() }}</mat-label>
-  <mat-select [(ngModel)]="value">
+  <mat-select [ngModel]="value()" (ngModelChange)="value.set($event)">
     @for (opt of options(); track opt.value) {
       <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
     }
