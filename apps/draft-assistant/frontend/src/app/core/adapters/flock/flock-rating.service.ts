@@ -33,16 +33,7 @@ export class FlockRatingService {
 
     const assetUrl = superflex ? FLOCK_ASSET_SUPERFLEX_URL : FLOCK_ASSET_1QB_URL;
     const obs$ = this.http.get<FlockAssetResponse>(assetUrl).pipe(
-      map((response) =>
-        (response.data ?? []).map((player) => ({
-          playerName: (player.playerName ?? '').trim(),
-          position: player.position ?? '',
-          team: player.team ?? null,
-          averageRank: player.averageRank ?? null,
-          averageTier: player.averageTier ?? null,
-          averagePositionalTier: player.averagePositionalTier ?? null,
-        })),
-      ),
+      map((response) => this.mapFlockAssetResponse(response)),
       catchError(() => of([])),
       shareReplay({ bufferSize: 1, refCount: false }),
     );
@@ -58,22 +49,24 @@ export class FlockRatingService {
 
     const assetUrl = superflex ? FLOCK_ASSET_ROOKIES_SF_URL : FLOCK_ASSET_ROOKIES_1QB_URL;
     const obs$ = this.http.get<FlockAssetResponse>(assetUrl).pipe(
-      map((response) =>
-        (response.data ?? []).map((player) => ({
-          playerName: (player.playerName ?? '').trim(),
-          position: player.position ?? '',
-          team: player.team ?? null,
-          averageRank: player.averageRank ?? null,
-          averageTier: player.averageTier ?? null,
-          averagePositionalTier: player.averagePositionalTier ?? null,
-        })),
-      ),
+      map((response) => this.mapFlockAssetResponse(response)),
       catchError(() => of([])),
       shareReplay({ bufferSize: 1, refCount: false }),
     );
 
     this.cache.set(cacheKey, obs$);
     return obs$;
+  }
+
+  private mapFlockAssetResponse(response: FlockAssetResponse): FlockPlayer[] {
+    return (response.data ?? []).map((player) => ({
+      playerName: (player.playerName ?? '').trim(),
+      position: player.position ?? '',
+      team: player.team ?? null,
+      averageRank: player.averageRank ?? null,
+      averageTier: player.averageTier ?? null,
+      averagePositionalTier: player.averagePositionalTier ?? null,
+    }));
   }
 
   buildNameLookup(players: FlockPlayer[]): Map<string, FlockPlayer> {
