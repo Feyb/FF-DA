@@ -111,26 +111,39 @@ async function run() {
     formats: {},
   };
 
+  const errors = [];
+
   for (const formatConfig of FORMATS) {
     const url = `${KTC_RANKINGS_URL}?filters=QB|WR|RB|TE&format=${formatConfig.format}`;
-    const html = await fetchWithRetry(url);
-    const rawPlayers = extractPlayersArray(html);
-    const players = mapPlayers(rawPlayers, formatConfig.key === 'superflex');
-    const outputPath = resolve(OUTPUT_DIR, formatConfig.output);
-    await writeJsonFile(outputPath, players);
+    try {
+      const html = await fetchWithRetry(url);
+      const rawPlayers = extractPlayersArray(html);
+      const players = mapPlayers(rawPlayers, formatConfig.key === 'superflex');
+      const outputPath = resolve(OUTPUT_DIR, formatConfig.output);
+      await writeJsonFile(outputPath, players);
 
-    metadata.formats[formatConfig.key] = {
-      count: players.length,
-      output: formatConfig.output,
-      url,
-    };
+      metadata.formats[formatConfig.key] = {
+        count: players.length,
+        output: formatConfig.output,
+        url,
+      };
 
-    console.log(`[ktc-sync] wrote ${players.length} players to ${outputPath}`);
+      console.log(`[ktc-sync] wrote ${players.length} players to ${outputPath}`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`[ktc-sync] failed to fetch format "${formatConfig.key}": ${message}`);
+      errors.push({ key: formatConfig.key, error: message });
+    }
   }
 
   const metadataPath = resolve(OUTPUT_DIR, 'metadata.json');
   await writeJsonFile(metadataPath, metadata);
   console.log(`[ktc-sync] wrote metadata to ${metadataPath}`);
+
+  if (errors.length > 0) {
+    console.error(`[ktc-sync] ${errors.length} format(s) failed: ${errors.map((e) => `${e.key}: ${e.error}`).join(', ')}`);
+    process.exitCode = 1;
+  }
 }
 
 run().catch((error) => {
