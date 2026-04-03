@@ -158,3 +158,97 @@ h3, h2 {
   margin: 0;
 }
 
+// ── Dark-mode overrides ────────────────────────────────────────────────────────
+html.dark {
+  .info-panel {
+    background: var(--surface-container-high, #2b2930);
+    border-color: rgb(51 65 85);
+  }
+
+  .info-panel-copy {
+    color: rgb(148 163 184);
+  }
+
+  .selection-panel {
+    background: var(--surface-container-low, #1d1b20);
+    border-color: rgb(51 65 85);
+  }
+
+  .selection-copy {
+    color: rgb(148 163 184);
+  }
+
+  .tier-legend-title,
+  .position-heading {
+    color: rgb(148 163 184);
+  }
+
+  .player-row {
+    background: var(--surface-container-high, #2b2930);
+    border-color: rgb(51 65 85);
+  }
+
+  .meta-pill {
+    background: rgb(30 41 59);
+    border-color: rgb(51 65 85);
+    color: rgb(148 163 184);
+  }
+
+  .player-meta-line {
+    color: rgb(100 116 139);
+  }
+
+  .player-avatar {
+    background: rgb(51 65 85);
+    border-color: rgb(51 65 85);
+  }
+
+  .pick-row {
+    background: var(--surface-container-high, #2b2930);
+    border-color: rgb(51 65 85);
+  }
+
+  .pick-meta-pill {
+    background: rgb(30 41 59);
+    border-color: rgb(51 65 85);
+    color: rgb(148 163 184);
+  }
+
+  .standings-my-rank {
+    color: rgb(100 116 139);
+  }
+
+  .standings-entry {
+    background: var(--surface-container-high, #2b2930);
+    border-color: rgb(51 65 85);
+  }
+
+  .standings-entry--mine {
+    background: rgb(23 37 84);
+    border-color: rgb(59 130 246);
+    color: rgb(147 197 253);
+  }
+
+  .standings-rank {
+    color: rgb(100 116 139);
+  }
+
+  .standings-name {
+    color: rgb(226 232 240);
+  }
+
+  .standings-score {
+    color: rgb(148 163 184);
+  }
+
+  .pos-chip {
+    background: rgb(30 41 59);
+    color: rgb(148 163 184);
+  }
+
+  .standings-entry--mine .pos-chip {
+    background: rgb(30 58 138);
+    color: rgb(147 197 253);
+  }
+}
+
