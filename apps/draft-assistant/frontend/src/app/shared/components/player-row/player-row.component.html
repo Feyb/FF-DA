@@ -1,0 +1,36 @@
+<div class="player-row" [class]="tierClass()">
+  <img
+    class="player-avatar"
+    [src]="playerHeadshotUrl(player().playerId)"
+    [alt]="player().fullName"
+    loading="lazy"
+    (error)="onImageError($event)"
+  />
+
+  <div class="player-meta">
+    <span class="player-name">{{ player().fullName }}</span>
+    <span class="player-sub">
+      {{ player().position }} · {{ player().team ?? 'FA' }} · Age {{ player().age ?? '–' }}
+    </span>
+  </div>
+
+  @if (rank() !== null) {
+    <span class="player-rank">#{{ rank() }}</span>
+  }
+
+  @if (primaryValue() !== null) {
+    <span class="player-value">{{ primaryValue() }}</span>
+  }
+
+  @if (showStar()) {
+    <button
+      type="button"
+      class="star-button"
+      [class.star-active]="starred()"
+      (click)="onStarClick()"
+      [attr.aria-label]="starred() ? 'Unstar player' : 'Star player'"
+    >
+      <mat-icon>{{ starred() ? 'star' : 'star_border' }}</mat-icon>
+    </button>
+  }
+</div>

@@ -18,6 +18,9 @@ import {
   ValueSource,
 } from './players.store';
 import { TierSource } from '../../core/models';
+import { PageHeaderComponent } from '../../shared/components/page-header';
+import { LoadingStateComponent } from '../../shared/components/loading-state';
+import { ErrorStateComponent } from '../../shared/components/error-state';
 
 interface PlayersStoreView {
   selectedPositions: () => PositionFilter[];
@@ -56,6 +59,9 @@ interface PlayersStoreView {
     MatSelectModule,
     MatSlideToggleModule,
     TierLegendComponent,
+    PageHeaderComponent,
+    LoadingStateComponent,
+    ErrorStateComponent,
   ],
 })
 export class PlayersComponent {

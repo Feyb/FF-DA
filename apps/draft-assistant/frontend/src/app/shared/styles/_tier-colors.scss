@@ -1,0 +1,78 @@
+// ── Tier color tokens ──────────────────────────────────────────────────────────
+// Shared by draft, players, team-view, tier-legend components.
+// Import in styles.scss to make these global utility classes.
+//
+// Tier N classes apply background + border coloring.
+// Dark-mode overrides are handled via `html.dark` context.
+// ──────────────────────────────────────────────────────────────────────────────
+
+// SCSS data: (tier, light-bg, light-border, dark-bg, dark-border)
+$_tiers: (
+  (1,  rgb(242 217 217), #f87171, rgb(60 20 20),  #ef4444),
+  (2,  rgb(242 230 217), #fb923c, rgb(60 35 15),  #f97316),
+  (3,  rgb(240 242 217), #facc15, rgb(50 50 15),  #eab308),
+  (4,  rgb(230 242 217), #a3e635, rgb(30 55 15),  #84cc16),
+  (5,  rgb(217 242 217), #4ade80, rgb(15 55 15),  #22c55e),
+  (6,  rgb(217 242 230), #22d3ee, rgb(15 55 35),  #06b6d4),
+  (7,  rgb(217 242 240), #60a5fa, rgb(15 40 65),  #3b82f6),
+  (8,  rgb(217 236 242), #818cf8, rgb(20 30 75),  #6366f1),
+  (9,  rgb(217 225 242), #c084fc, rgb(35 20 75),  #a855f7),
+  (10, rgb(217 217 242), #a78bfa, rgb(30 15 80),  #8b5cf6),
+);
+
+// ── Light-mode tier classes ────────────────────────────────────────────────────
+@each $tier, $bg, $border, $bg-dark, $border-dark in $_tiers {
+  .tier-#{$tier} {
+    border-width: 2px;
+    border-style: solid;
+    border-color: $border;
+    background: $bg;
+  }
+}
+
+.tier-unranked {
+  background: rgb(241 245 249);
+  border: 2px solid rgb(203 213 225);
+}
+
+// ── Players-table row variants (prefixed with row-) ────────────────────────────
+@each $tier, $bg, $border, $bg-dark, $border-dark in $_tiers {
+  .row-tier-#{$tier} {
+    border-width: 2px;
+    border-style: solid;
+    border-color: $border;
+    background: $bg;
+  }
+}
+
+.row-tier-unranked {
+  background: rgb(241 245 249);
+  border: 2px solid rgb(203 213 225);
+}
+
+// ── Dark-mode overrides ────────────────────────────────────────────────────────
+html.dark {
+  @each $tier, $bg, $border, $bg-dark, $border-dark in $_tiers {
+    .tier-#{$tier} {
+      border-color: $border-dark;
+      background: $bg-dark;
+    }
+  }
+
+  .tier-unranked {
+    background: rgb(30 30 35);
+    border-color: rgb(75 85 99);
+  }
+
+  @each $tier, $bg, $border, $bg-dark, $border-dark in $_tiers {
+    .row-tier-#{$tier} {
+      border-color: $border-dark;
+      background: $bg-dark;
+    }
+  }
+
+  .row-tier-unranked {
+    background: rgb(30 30 35);
+    border-color: rgb(75 85 99);
+  }
+}

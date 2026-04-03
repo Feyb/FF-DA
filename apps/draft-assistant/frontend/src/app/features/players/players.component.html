@@ -1,8 +1,8 @@
 <section class="players-page">
-      <header class="players-header">
-        <h1 class="players-title">Players</h1>
-        <p class="players-subtitle">All available players with KTC-first ordering and Sleeper fallback.</p>
-      </header>
+  <app-page-header
+    title="Players"
+    subtitle="All available players with KTC-first ordering and Sleeper fallback."
+  />
 
       <mat-card class="controls-card">
         <div class="controls-grid">
@@ -79,17 +79,11 @@
       }
 
       @if (store.loading()) {
-        <div class="loading-row">
-          <mat-spinner diameter="36" />
-          <span>Loading players...</span>
-        </div>
+        <app-loading-state message="Loading players…" />
       }
 
       @if (store.error()) {
-        <mat-card class="error-card">
-          <p>{{ store.error() }}</p>
-          <button mat-flat-button type="button" (click)="retryLoad()">Retry</button>
-        </mat-card>
+        <app-error-state [message]="store.error()!" (retry)="retryLoad()" />
       }
 
       @if (!store.loading()) {

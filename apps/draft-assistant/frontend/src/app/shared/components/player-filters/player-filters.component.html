@@ -1,0 +1,33 @@
+<div class="player-filters">
+  <div class="position-filters">
+    @for (position of positions(); track position) {
+      <button
+        [matButton]="isPositionSelected(position) ? 'tonal' : 'text'"
+        (click)="onPositionClick(position)"
+      >
+        {{ position }}
+      </button>
+    }
+  </div>
+
+  <mat-slide-toggle
+    [ngModel]="rookiesOnly()"
+    (ngModelChange)="onRookiesOnlyChange($event)"
+  >
+    Rookies only
+  </mat-slide-toggle>
+
+  <app-select-field
+    label="Tier source"
+    [options]="tierSources()"
+    [value]="tierSource()"
+    (valueChange)="onTierSourceChange($event)"
+  />
+
+  <app-select-field
+    label="Value source"
+    [options]="valueSources()"
+    [value]="valueSource()"
+    (valueChange)="onValueSourceChange($event)"
+  />
+</div>

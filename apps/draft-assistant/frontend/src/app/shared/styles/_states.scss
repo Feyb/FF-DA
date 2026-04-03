@@ -1,0 +1,53 @@
+// ── Shared state utility classes ───────────────────────────────────────────────
+// Loading, error, empty, and warning patterns reused across all feature pages.
+// ──────────────────────────────────────────────────────────────────────────────
+
+// ── Loading ───────────────────────────────────────────────────────────────────
+.loading-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+// ── Error ─────────────────────────────────────────────────────────────────────
+.error-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+// ── Empty / no-data ───────────────────────────────────────────────────────────
+.empty-copy {
+  font-size: 0.875rem;
+  color: rgb(71 85 105);
+  padding: 0.25rem 0;
+}
+
+// ── Warning banner ────────────────────────────────────────────────────────────
+.warning-banner {
+  border-radius: 0.5rem;
+  border: 1px solid rgb(252 211 77);
+  background: rgb(255 251 235);
+  color: rgb(120 53 15);
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+// ── Dark-mode overrides ────────────────────────────────────────────────────────
+html.dark {
+  .empty-copy {
+    color: rgb(148 163 184);
+  }
+
+  .warning-banner {
+    border-color: rgb(180 130 20);
+    background: rgb(40 30 5);
+    color: rgb(253 211 77);
+  }
+}

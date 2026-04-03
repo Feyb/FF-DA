@@ -1,0 +1,16 @@
+:host {
+  display: contents;
+}
+
+.player-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.position-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}

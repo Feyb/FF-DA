@@ -26,6 +26,10 @@ import { DraftStore, DraftPositionFilter, DraftSourceMode, DraftValueSource } fr
 import { TierLegendComponent } from '../../shared/components/tier-legend';
 import { DraftBoardGridComponent } from './draft-board-grid/draft-board-grid.component';
 import { TierSource } from '../../core/models';
+import { PageHeaderComponent } from '../../shared/components/page-header';
+import { LoadingStateComponent } from '../../shared/components/loading-state';
+import { ErrorStateComponent } from '../../shared/components/error-state';
+import { PlayerRowComponent } from '../../shared/components/player-row';
 
 interface RecommendationPositionGroup {
   position: DraftPositionFilter;
@@ -74,6 +78,10 @@ interface SavedDirectUrlView {
     MatSlideToggleModule,
     TierLegendComponent,
     DraftBoardGridComponent,
+    PageHeaderComponent,
+    LoadingStateComponent,
+    ErrorStateComponent,
+    PlayerRowComponent,
   ],
 })
 export class DraftComponent implements OnInit {

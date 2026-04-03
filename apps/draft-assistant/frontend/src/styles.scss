@@ -1,4 +1,8 @@
 @use '@angular/material' as mat;
+@use 'app/shared/styles/tier-colors';
+@use 'app/shared/styles/position-colors';
+@use 'app/shared/styles/typography';
+@use 'app/shared/styles/states';
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&family=Inter:wght@400;600;700&display=swap');
 
 // ── TailwindCSS ────────────────────────────────────────────────────────────────

@@ -1,11 +1,8 @@
 <section class="team-view-page">
-  <header class="team-view-header">
-    <h1 class="team-view-title">Team View</h1>
-    <p class="team-view-subtitle">
-      Review your roster strength, starters, bench depth, IR stashes, and future
-      draft capital.
-    </p>
-  </header>
+  <app-page-header
+    title="Team View"
+    subtitle="Review your roster strength, starters, bench depth, IR stashes, and future draft capital."
+  />
 
   @if (!appStore.selectedLeague()) {
     <section class="info-panel" role="status">
@@ -19,17 +16,11 @@
     </section>
   } @else {
     @if (store.loading()) {
-      <div class="loading-row">
-        <mat-spinner diameter="36" />
-        <span>Loading team data…</span>
-      </div>
+      <app-loading-state message="Loading team data…" />
     }
 
     @if (store.error()) {
-      <section class="error-panel" role="alert">
-        <p class="error-text">{{ store.error() }}</p>
-        <button mat-flat-button (click)="retryLoad()">Retry</button>
-      </section>
+      <app-error-state [message]="store.error()!" (retry)="retryLoad()" />
     }
 
     @if (store.availableRosters().length > 0 && !store.selectedRosterId()) {

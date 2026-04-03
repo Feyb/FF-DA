@@ -15,60 +15,10 @@
   font-size: 0.625rem;
   font-weight: 700;
   color: rgb(51 65 85);
-  border: 2px solid rgba(0, 0, 0, 0.1);
 }
 
-.tier-1 {
-  @apply border-2 border-red-400;
-  background: rgb(242 217 217);
+html.dark .tier-legend-item {
+  color: rgb(226 232 240);
 }
 
-.tier-2 {
-  @apply border-2 border-orange-400;
-  background: rgb(242 230 217);
-}
-
-.tier-3 {
-  @apply border-2 border-yellow-400;
-  background: rgb(240 242 217);
-}
-
-.tier-4 {
-  @apply border-2 border-lime-400;
-  background: rgb(230 242 217);
-}
-
-.tier-5 {
-  @apply border-2 border-green-400;
-  background: rgb(217 242 217);
-}
-
-.tier-6 {
-  @apply border-2 border-cyan-400;
-  background: rgb(217 242 230);
-}
-
-.tier-7 {
-  @apply border-2 border-blue-400;
-  background: rgb(217 242 240);
-}
-
-.tier-8 {
-  @apply border-2 border-indigo-400;
-  background: rgb(217 236 242);
-}
-
-.tier-9 {
-  @apply border-2 border-purple-400;
-  background: rgb(217 225 242);
-}
-
-.tier-10 {
-  @apply border-2 border-violet-400;
-  background: rgb(217 217 242);
-}
-
-.tier-unranked {
-  @apply bg-gray-100 border-2 border-gray-300;
-}
 
