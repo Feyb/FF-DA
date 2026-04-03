@@ -38,17 +38,7 @@
   @apply flex flex-wrap gap-2;
 }
 
-.warning-banner {
-  @apply rounded-lg border border-amber-300 bg-amber-50 text-amber-900 px-3 py-2 flex items-center gap-2 text-sm;
-}
-
-.loading-row {
-  @apply flex items-center gap-3;
-}
-
-.error-card {
-  @apply flex items-center justify-between gap-3 p-4;
-}
+// warning-banner, loading-row, error-card are defined globally in shared/styles/_states.scss
 
 .table-card {
   @apply p-0 overflow-hidden;
@@ -87,59 +77,7 @@
   @apply bg-slate-50;
 }
 
-.row-tier-1 {
-  @apply border-2 border-red-400;
-  background: rgb(242 217 217);
-}
-
-.row-tier-2 {
-  @apply border-2 border-orange-400;
-  background: rgb(242 230 217);
-}
-
-.row-tier-3 {
-  @apply border-2 border-yellow-400;
-  background: rgb(240 242 217);
-}
-
-.row-tier-4 {
-  @apply border-2 border-lime-400;
-  background: rgb(230 242 217);
-}
-
-.row-tier-5 {
-  @apply border-2 border-green-400;
-  background: rgb(217 242 217);
-}
-
-.row-tier-6 {
-  @apply border-2 border-cyan-400;
-  background: rgb(217 242 230);
-}
-
-.row-tier-7 {
-  @apply border-2 border-blue-400;
-  background: rgb(217 242 240);
-}
-
-.row-tier-8 {
-  @apply border-2 border-indigo-400;
-  background: rgb(217 236 242);
-}
-
-.row-tier-9 {
-  @apply border-2 border-purple-400;
-  background: rgb(217 225 242);
-}
-
-.row-tier-10 {
-  @apply border-2 border-violet-400;
-  background: rgb(217 217 242);
-}
-
-.row-tier-unranked {
-  @apply bg-slate-100 border-2 border-slate-300;
-}
+// row-tier-N classes are defined globally in shared/styles/_tier-colors.scss
 
 .player-details-row td {
   @apply bg-slate-100 border-b border-slate-300;
@@ -189,6 +127,4 @@
   @apply whitespace-nowrap;
 }
 
-.empty-copy {
-  @apply text-sm text-slate-600 px-4 py-3;
-}
+// empty-copy is defined globally in shared/styles/_states.scss

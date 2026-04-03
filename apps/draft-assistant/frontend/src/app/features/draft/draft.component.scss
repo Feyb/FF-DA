@@ -189,12 +189,7 @@
   color: rgb(100 116 139);
 }
 
-.loading-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0;
-}
+// loading-row, error-card, empty-copy are defined globally in shared/styles/_states.scss
 
 .error-card,
 .warning-card,
@@ -332,49 +327,7 @@
   padding: 0.5rem 0.75rem;
 }
 
-.tier-1 {
-  background: rgb(242 217 217);
-}
-
-.tier-2 {
-  background: rgb(242 230 217);
-}
-
-.tier-3 {
-  background: rgb(240 242 217);
-}
-
-.tier-4 {
-  background: rgb(230 242 217);
-}
-
-.tier-5 {
-  background: rgb(217 242 217);
-}
-
-.tier-6 {
-  background: rgb(217 242 230);
-}
-
-.tier-7 {
-  background: rgb(217 242 240);
-}
-
-.tier-8 {
-  background: rgb(217 236 242);
-}
-
-.tier-9 {
-  background: rgb(217 225 242);
-}
-
-.tier-10 {
-  background: rgb(217 217 242);
-}
-
-.tier-unranked {
-  @apply bg-slate-100;
-}
+// Tier color styles are defined globally in shared/styles/_tier-colors.scss
 
 .recommendation-rank {
   font-size: 0.8125rem;
@@ -522,10 +475,7 @@
   gap: 0.5rem;
 }
 
-.empty-copy {
-  font-size: 0.875rem;
-  color: rgb(71 85 105);
-}
+// empty-copy is defined globally in shared/styles/_states.scss
 
 @media (max-width: 720px) {
   .mock-draft-row {

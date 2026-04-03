@@ -12,6 +12,9 @@ import { TeamViewRating } from '../../core/models';
 import { AppStore } from '../../core/state/app.store';
 import { TeamViewStore } from './team-view.store';
 import { TierLegendComponent } from '../../shared/components/tier-legend';
+import { PageHeaderComponent } from '../../shared/components/page-header';
+import { LoadingStateComponent } from '../../shared/components/loading-state';
+import { ErrorStateComponent } from '../../shared/components/error-state';
 
 @Component({
   selector: 'app-team-view',
@@ -31,6 +34,9 @@ import { TierLegendComponent } from '../../shared/components/tier-legend';
     MatChipsModule,
     MatIconModule,
     TierLegendComponent,
+    PageHeaderComponent,
+    LoadingStateComponent,
+    ErrorStateComponent,
   ],
 })
 export class TeamViewComponent {
