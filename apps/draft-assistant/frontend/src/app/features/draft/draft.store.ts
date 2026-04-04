@@ -434,8 +434,8 @@ export const DraftStore = signalStore(
           ? (selectedLeague.roster_positions ?? []).includes('SUPER_FLEX')
           : false;
 
-      const [playersById, ktcPlayers, flockPlayers] = await firstValueFrom(
-        forkJoin([sleeper.getAllPlayers(), ktc.fetchPlayers(isSuperflex), flock.fetchPlayers(isSuperflex)]),
+      const [playersById, ktcPlayers, flockPlayers, flockRookies] = await firstValueFrom(
+        forkJoin([sleeper.getAllPlayers(), ktc.fetchPlayers(isSuperflex), flock.fetchPlayers(isSuperflex), flock.fetchRookies(isSuperflex)]),
       );
 
       const playerNameMap = Object.entries(playersById).reduce<Record<string, string>>((acc, [id, player]) => {
@@ -449,7 +449,7 @@ export const DraftStore = signalStore(
       }, {});
 
       const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-      const flockLookup = flock.buildNameLookup(flockPlayers);
+      const flockLookup = new Map([...flock.buildNameLookup(flockRookies), ...flock.buildNameLookup(flockPlayers)]);
       const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season));
 
       let rosterDisplayNames: Record<string, string> = {};
@@ -526,13 +526,14 @@ export const DraftStore = signalStore(
 
       try {
         const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes('SUPER_FLEX');
-        const [rosters, users, playersById, ktcPlayers, flockPlayers, drafts] = await firstValueFrom(
+        const [rosters, users, playersById, ktcPlayers, flockPlayers, flockRookies, drafts] = await firstValueFrom(
           forkJoin([
             sleeper.getLeagueRosters(leagueId),
             sleeper.getLeagueUsers(leagueId),
             sleeper.getAllPlayers(),
             ktc.fetchPlayers(isSuperflex),
             flock.fetchPlayers(isSuperflex),
+            flock.fetchRookies(isSuperflex),
             sleeper.getLeagueDrafts(leagueId),
           ]),
         );
@@ -540,7 +541,7 @@ export const DraftStore = signalStore(
         const rosterDisplayNames = mapRosterDisplayNames(rosters, users);
         const rosterAvatarIds = mapRosterAvatarIds(rosters, users);
         const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-        const flockLookup = flock.buildNameLookup(flockPlayers);
+        const flockLookup = new Map([...flock.buildNameLookup(flockRookies), ...flock.buildNameLookup(flockPlayers)]);
         const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season));
         const selectedDraftId = chooseDraftId(leagueId, drafts);
 
