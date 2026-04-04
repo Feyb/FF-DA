@@ -151,7 +151,7 @@ export class PlayersComponent {
     }
 
     if (source === 'flock') {
-      return flockTier;
+      return flockTier ?? ktcTier;
     }
 
     if (flockTier === null) {
