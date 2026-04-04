@@ -11,6 +11,13 @@ const ENV_FILE = resolve(__dirname, '../.env.local');
 const YEAR = process.env.FLOCK_YEAR ?? '2025';
 const STRICT = (process.env.FLOCK_SYNC_STRICT ?? 'false').toLowerCase() === 'true';
 
+// Prospect rankings are scoped to the current draft class year.
+// Each calendar year maps to one draft class (e.g. 2026 → 2026 prospects).
+// The value is intentionally derived at script-invocation time so CI builds
+// automatically pick up the right year without manual updates.
+// Override via FLOCK_PROSPECT_YEAR env var when testing or backfilling data.
+const PROSPECT_YEAR = process.env.FLOCK_PROSPECT_YEAR ?? String(new Date().getFullYear());
+
 const FORMATS = [
   {
     key: '1qb',
@@ -33,16 +40,14 @@ const FORMATS = [
     output: 'players-rookies-1qb.json',
     url:
       'https://api.flockfantasy.com/rankings?format=PROSPECTS&pickType=hybrid&year=' +
-      encodeURIComponent(YEAR) +
-      '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=1QB',
+      encodeURIComponent(PROSPECT_YEAR),
   },
   {
     key: 'rookies-sf',
     output: 'players-rookies-sf.json',
     url:
       'https://api.flockfantasy.com/rankings?format=PROSPECTS_SF&pickType=hybrid&year=' +
-      encodeURIComponent(YEAR) +
-      '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=SUPERFLEX',
+      encodeURIComponent(PROSPECT_YEAR),
   },
 ];
 
