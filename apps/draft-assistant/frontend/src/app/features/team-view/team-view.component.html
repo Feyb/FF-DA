@@ -1,11 +1,8 @@
 <section class="team-view-page">
-  <header class="team-view-header">
-    <h1 class="team-view-title">Team View</h1>
-    <p class="team-view-subtitle">
-      Review your roster strength, starters, bench depth, IR stashes, and future
-      draft capital.
-    </p>
-  </header>
+  <app-page-header
+    title="Team View"
+    subtitle="Review your roster strength, starters, bench depth, IR stashes, and future draft capital."
+  />
 
   @if (!appStore.selectedLeague()) {
     <section class="info-panel" role="status">

@@ -1,5 +1,5 @@
 <div class="home-container">
-  <h1 class="home-title">Draft Assistant</h1>
+  <app-page-header title="Draft Assistant" />
 
   <mat-tab-group>
     <mat-tab label="Find by Username">
@@ -48,10 +48,7 @@
   </mat-tab-group>
 
   @if (store.loading()) {
-    <div class="loading-state">
-      <mat-spinner diameter="40" />
-      <span>Loading leagues…</span>
-    </div>
+    <app-loading-state message="Loading leagues…" [diameter]="40" />
   }
 
   @if (store.error()) {

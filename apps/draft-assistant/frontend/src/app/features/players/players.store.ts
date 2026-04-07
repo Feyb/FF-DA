@@ -130,16 +130,23 @@ export const PlayersStore = signalStore(
           const isSuperflex = (selectedLeague?.roster_positions ?? []).includes('SUPER_FLEX');
           const currentSeason = Number(selectedLeague?.season ?? new Date().getFullYear());
 
-          const [allPlayers, ktcPlayers, flockPlayers] = await firstValueFrom(
+          const [allPlayers, ktcPlayers, flockPlayers, flockRookies] = await firstValueFrom(
             forkJoin([
               sleeperService.getAllPlayers(),
               ktcService.fetchPlayers(isSuperflex),
               flockService.fetchPlayers(isSuperflex),
+              flockService.fetchRookies(isSuperflex),
             ]),
           );
 
           const ktcLookup = ktcService.buildNameLookup(ktcPlayers);
-          const flockLookup = flockService.buildNameLookup(flockPlayers);
+          // Merge dynasty and rookie prospect lookups; dynasty data takes priority
+          // for players who already appear in the dynasty rankings, while rookie
+          // prospect data fills in pre-draft players not yet present there.
+          const flockLookup = new Map([
+            ...flockService.buildNameLookup(flockRookies),
+            ...flockService.buildNameLookup(flockPlayers),
+          ]);
 
           const rows: PlayerRow[] = playerNorm.buildPlayerRows(allPlayers, ktcLookup, flockLookup, currentSeason);
 

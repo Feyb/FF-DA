@@ -1,0 +1,53 @@
+// ── Typography utilities ───────────────────────────────────────────────────────
+// Shared title, subtitle, and heading patterns used across feature pages.
+// ──────────────────────────────────────────────────────────────────────────────
+
+.page-title {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+
+.page-subtitle {
+  font-size: 0.875rem;
+  color: rgb(71 85 105);
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1rem;
+    flex: 0 0 auto;
+  }
+}
+
+.section-hint {
+  font-size: 0.75rem;
+  color: rgb(100 116 139);
+  flex: 1 0 auto;
+  text-align: right;
+}
+
+// ── Dark-mode overrides ────────────────────────────────────────────────────────
+html.dark {
+  .page-subtitle {
+    color: rgb(148 163 184);
+  }
+
+  .section-hint {
+    color: rgb(100 116 139);
+  }
+}

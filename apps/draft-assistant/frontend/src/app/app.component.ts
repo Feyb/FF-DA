@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { AppStore } from './core/state/app.store';
+import { DarkModeToggleComponent } from './shared/components/dark-mode-toggle';
 
 interface NavLink {
   path: string;
@@ -27,6 +28,7 @@ interface NavLink {
     MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
+    DarkModeToggleComponent,
   ],
 })
 export class AppComponent {
@@ -47,6 +49,15 @@ export class AppComponent {
         root.classList.remove(this.densityClass(option));
       }
       root.classList.add(this.densityClass(this.appStore.densityScale()));
+    });
+
+    effect(() => {
+      const root = this.document.documentElement;
+      if (this.appStore.darkMode()) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
     });
   }
 

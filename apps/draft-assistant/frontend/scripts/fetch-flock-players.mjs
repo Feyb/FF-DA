@@ -11,6 +11,13 @@ const ENV_FILE = resolve(__dirname, '../.env.local');
 const YEAR = process.env.FLOCK_YEAR ?? '2025';
 const STRICT = (process.env.FLOCK_SYNC_STRICT ?? 'false').toLowerCase() === 'true';
 
+// Prospect rankings are scoped to the current draft class year.
+// Each calendar year maps to one draft class (e.g. 2026 → 2026 prospects).
+// The value is intentionally derived at script-invocation time so CI builds
+// automatically pick up the right year without manual updates.
+// Override via FLOCK_PROSPECT_YEAR env var when testing or backfilling data.
+const PROSPECT_YEAR = process.env.FLOCK_PROSPECT_YEAR ?? String(new Date().getFullYear());
+
 const FORMATS = [
   {
     key: '1qb',
@@ -33,16 +40,14 @@ const FORMATS = [
     output: 'players-rookies-1qb.json',
     url:
       'https://api.flockfantasy.com/rankings?format=PROSPECTS&pickType=hybrid&year=' +
-      encodeURIComponent(YEAR) +
-      '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=1QB',
+      encodeURIComponent(PROSPECT_YEAR),
   },
   {
     key: 'rookies-sf',
     output: 'players-rookies-sf.json',
     url:
       'https://api.flockfantasy.com/rankings?format=PROSPECTS_SF&pickType=hybrid&year=' +
-      encodeURIComponent(YEAR) +
-      '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=SUPERFLEX',
+      encodeURIComponent(PROSPECT_YEAR),
   },
 ];
 
@@ -207,24 +212,40 @@ async function run() {
       formats: {},
     };
 
+    const errors = [];
+
     for (const formatConfig of FORMATS) {
-      const data = await fetchRankings(formatConfig.url, cookieHeader);
-      const playersPath = resolve(OUTPUT_DIR, formatConfig.output);
-      await writeJsonFile(playersPath, data);
+      try {
+        const data = await fetchRankings(formatConfig.url, cookieHeader);
+        const playersPath = resolve(OUTPUT_DIR, formatConfig.output);
+        await writeJsonFile(playersPath, data);
 
-      metadata.formats[formatConfig.key] = {
-        output: formatConfig.output,
-        count: Array.isArray(data?.data) ? data.data.length : null,
-        url: formatConfig.url,
-      };
+        metadata.formats[formatConfig.key] = {
+          output: formatConfig.output,
+          count: Array.isArray(data?.data) ? data.data.length : null,
+          url: formatConfig.url,
+        };
 
-      const count = Array.isArray(data?.data) ? data.data.length : 'unknown';
-      console.log(`[flock-sync] wrote ${count} players to ${playersPath}`);
+        const count = Array.isArray(data?.data) ? data.data.length : 'unknown';
+        console.log(`[flock-sync] wrote ${count} players to ${playersPath}`);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`[flock-sync] failed to fetch format "${formatConfig.key}": ${message}`);
+        errors.push({ key: formatConfig.key, error: message });
+        if (STRICT) {
+          throw error;
+        }
+      }
     }
 
     await writeJsonFile(metadataPath, {
       ...metadata,
     });
+
+    if (errors.length > 0) {
+      console.error(`[flock-sync] ${errors.length} format(s) failed: ${errors.map((e) => `${e.key}: ${e.error}`).join(', ')}`);
+      process.exitCode = 1;
+    }
   } catch (error) {
     if (STRICT) {
       throw error;

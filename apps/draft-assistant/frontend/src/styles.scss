@@ -1,5 +1,8 @@
 @use '@angular/material' as mat;
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&family=Inter:wght@400;600;700&display=swap');
+@use 'app/shared/styles/tier-colors';
+@use 'app/shared/styles/position-colors';
+@use 'app/shared/styles/typography';
+@use 'app/shared/styles/states';
 
 // ── TailwindCSS ────────────────────────────────────────────────────────────────
 @tailwind base;
@@ -50,6 +53,27 @@ html.app-density--4 {
 
 html.app-density--5 {
   @include apply-theme(-5);
+}
+
+// ── Dark-mode: override only the color tokens (density stays from above) ──────
+html.dark {
+  $dark-theme: mat.define-theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: mat.$violet-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: (
+        plain-family: 'Inter',
+        brand-family: 'Plus Jakarta Sans',
+      ),
+      density: (
+        scale: 0,
+      ),
+    )
+  );
+  @include mat.all-component-colors($dark-theme);
 }
 
 

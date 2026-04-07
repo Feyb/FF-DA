@@ -189,12 +189,7 @@
   color: rgb(100 116 139);
 }
 
-.loading-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0;
-}
+// loading-row, error-card, empty-copy are defined globally in shared/styles/_states.scss
 
 .error-card,
 .warning-card,
@@ -331,7 +326,6 @@
   border-radius: 0.5rem;
   padding: 0.5rem 0.75rem;
 }
-
 
 .recommendation-rank {
   font-size: 0.8125rem;
@@ -479,9 +473,147 @@
   gap: 0.5rem;
 }
 
-.empty-copy {
-  font-size: 0.875rem;
-  color: rgb(71 85 105);
+// empty-copy is defined globally in shared/styles/_states.scss
+
+// ── Dark-mode overrides ────────────────────────────────────────────────────────
+html.dark {
+  .draft-source-badge {
+    background: var(--surface-container-high, #2b2930);
+    border-color: rgb(71 85 105);
+    color: rgb(203 213 225);
+  }
+
+  .draft-subtitle {
+    color: rgb(148 163 184);
+  }
+
+  .source-switch-label {
+    color: rgb(148 163 184);
+  }
+
+  .updated-at {
+    color: rgb(148 163 184);
+  }
+
+  .draft-option-title {
+    color: rgb(226 232 240);
+  }
+
+  .draft-option-status {
+    background: rgb(51 65 85);
+    color: rgb(203 213 225);
+  }
+
+  .draft-option-status-drafting {
+    background: rgb(6 78 59);
+    color: rgb(110 231 183);
+  }
+
+  .draft-option-status-pre-draft,
+  .draft-option-status-scheduled {
+    background: rgb(66 32 6);
+    color: rgb(253 211 77);
+  }
+
+  .draft-option-status-complete {
+    background: rgb(30 41 59);
+    color: rgb(148 163 184);
+  }
+
+  .draft-option-status-direct {
+    background: rgb(23 37 84);
+    color: rgb(147 197 253);
+  }
+
+  .draft-option-meta-pill {
+    background: rgb(30 41 59);
+    color: rgb(148 163 184);
+  }
+
+  .draft-option-subtitle {
+    color: rgb(100 116 139);
+  }
+
+  .info-card-copy {
+    color: rgb(148 163 184);
+  }
+
+  .summary-label {
+    color: rgb(100 116 139);
+  }
+
+  .recommendation-tier-header {
+    color: rgb(203 213 225);
+  }
+
+  .recommendation-position-header {
+    color: rgb(148 163 184);
+  }
+
+  .recommendation-item,
+  .pick-item {
+    border-color: rgb(51 65 85);
+  }
+
+  .recommendation-rank {
+    color: rgb(148 163 184);
+  }
+
+  .recommendation-meta {
+    color: rgb(100 116 139);
+  }
+
+  .recommendation-boost {
+    color: rgb(148 163 184);
+  }
+
+  .next-pick-divider-row {
+    background: rgb(23 37 84);
+    border-top-color: #3b82f6;
+    border-bottom-color: rgba(59, 130, 246, 0.3);
+    color: rgb(147 197 253);
+  }
+
+  .tier-divider-label {
+    color: rgb(148 163 184);
+  }
+
+  .section-header h2 {
+    color: rgb(226 232 240);
+  }
+
+  .player-row {
+    border-color: rgb(51 65 85);
+  }
+
+  .player-avatar {
+    background: rgb(51 65 85);
+  }
+
+  .player-sub {
+    color: rgb(100 116 139);
+  }
+
+  .player-rank,
+  .player-value {
+    color: rgb(148 163 184);
+  }
+
+  .pick-number {
+    color: rgb(148 163 184);
+  }
+
+  .pick-owner {
+    color: rgb(100 116 139);
+  }
+
+  .star-button:hover {
+    background: rgb(30 41 59);
+  }
+
+  .mock-draft-error {
+    color: rgb(252 165 165);
+  }
 }
 
 @media (max-width: 720px) {

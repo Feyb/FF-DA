@@ -29,6 +29,10 @@ import { TierSource } from '../../core/models';
 import { PLAYER_FALLBACK_IMAGE } from '../../core/constants/images.constants';
 import { resolveTier } from '../../core/utils/tier-resolution.util';
 import { StorageService } from '../../core/services/storage.service';
+import { PageHeaderComponent } from '../../shared/components/page-header';
+import { LoadingStateComponent } from '../../shared/components/loading-state';
+import { ErrorStateComponent } from '../../shared/components/error-state';
+import { PlayerRowComponent } from '../../shared/components/player-row';
 
 interface RecommendationPositionGroup {
   position: DraftPositionFilter;
@@ -77,6 +81,10 @@ interface SavedDirectUrlView {
     MatSlideToggleModule,
     TierLegendComponent,
     DraftBoardGridComponent,
+    PageHeaderComponent,
+    LoadingStateComponent,
+    ErrorStateComponent,
+    PlayerRowComponent,
   ],
 })
 export class DraftComponent implements OnInit {

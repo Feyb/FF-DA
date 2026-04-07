@@ -12,6 +12,8 @@ import { HomeStore } from './home.store';
 import { AppStore } from '../../core/state/app.store';
 import { StorageService } from '../../core/services/storage.service';
 import { League } from '../../core/models';
+import { PageHeaderComponent } from '../../shared/components/page-header';
+import { LoadingStateComponent } from '../../shared/components/loading-state';
 
 const HOME_USERNAME_STORAGE_KEY = 'draftAssistant.sleeperUsername';
 
@@ -31,6 +33,8 @@ const HOME_USERNAME_STORAGE_KEY = 'draftAssistant.sleeperUsername';
     MatProgressSpinnerModule,
     MatTabsModule,
     MatIconModule,
+    PageHeaderComponent,
+    LoadingStateComponent,
   ],
 })
 export class HomeComponent {

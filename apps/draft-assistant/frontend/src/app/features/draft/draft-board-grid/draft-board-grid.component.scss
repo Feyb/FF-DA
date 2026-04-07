@@ -200,34 +200,7 @@
 }
 
 // ── Position-based background colors ────────────────────────────────── //
-
-.pos-qb {
-  background: rgba(239, 68, 68, 0.16) !important;
-  border-color: rgba(239, 68, 68, 0.28) !important;
-
-  .cell-label { color: rgba(185, 28, 28, 0.55); }
-}
-
-.pos-rb {
-  background: rgba(34, 197, 94, 0.16) !important;
-  border-color: rgba(34, 197, 94, 0.28) !important;
-
-  .cell-label { color: rgba(21, 128, 61, 0.55); }
-}
-
-.pos-wr {
-  background: rgba(59, 130, 246, 0.16) !important;
-  border-color: rgba(59, 130, 246, 0.28) !important;
-
-  .cell-label { color: rgba(29, 78, 216, 0.55); }
-}
-
-.pos-te {
-  background: rgba(249, 115, 22, 0.16) !important;
-  border-color: rgba(249, 115, 22, 0.28) !important;
-
-  .cell-label { color: rgba(194, 65, 12, 0.55); }
-}
+// Defined globally in shared/styles/_position-colors.scss
 
 // ── Skeleton loading state ───────────────────────────────────────────── //
 
@@ -258,6 +231,65 @@
   0%,
   100% { opacity: 1; }
   50%   { opacity: 0.45; }
+}
+
+// ── Dark-mode overrides ──────────────────────────────────────────────── //
+
+html.dark {
+  .board-headers {
+    background: var(--surface, #141218);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .header-avatar {
+    background: rgb(51 65 85);
+  }
+
+  .legend-current {
+    background: rgba(37, 99, 235, 0.2);
+    border-color: #3b82f6;
+    color: #93c5fd;
+  }
+
+  .legend-mine {
+    background: rgba(76, 34, 189, 0.15);
+    color: #c4b5fd;
+  }
+
+  .board-cell {
+    background: var(--surface-container-high, #2b2930);
+    border-color: rgba(255, 255, 255, 0.08);
+
+    &.cell-current {
+      background: rgba(59, 130, 246, 0.15) !important;
+      box-shadow: 0 0 0 2px #3b82f6;
+      border-color: #3b82f6;
+    }
+
+    &.cell-mine-empty {
+      background: rgba(76, 34, 189, 0.12);
+    }
+  }
+
+  .cell-label {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .cell-arrow {
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  .cell-thumb {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .skeleton-header {
+    background: rgb(30 41 59);
+  }
+
+  .skeleton-cell {
+    background: rgb(22 32 48);
+  }
 }
 
 // ── Responsive ──────────────────────────────────────────────────────── //
