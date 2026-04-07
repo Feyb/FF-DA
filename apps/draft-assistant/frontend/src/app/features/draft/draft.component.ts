@@ -26,6 +26,9 @@ import { DraftStore, DraftPositionFilter, DraftSourceMode, DraftValueSource } fr
 import { TierLegendComponent } from '../../shared/components/tier-legend';
 import { DraftBoardGridComponent } from './draft-board-grid/draft-board-grid.component';
 import { TierSource } from '../../core/models';
+import { PLAYER_FALLBACK_IMAGE } from '../../core/constants/images.constants';
+import { resolveTier } from '../../core/utils/tier-resolution.util';
+import { StorageService } from '../../core/services/storage.service';
 import { PageHeaderComponent } from '../../shared/components/page-header';
 import { LoadingStateComponent } from '../../shared/components/loading-state';
 import { ErrorStateComponent } from '../../shared/components/error-state';
@@ -87,11 +90,11 @@ interface SavedDirectUrlView {
 export class DraftComponent implements OnInit {
   protected readonly store = inject(DraftStore);
   protected readonly appStore = inject(AppStore);
+  private readonly storage = inject(StorageService);
   protected readonly positions: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
   protected mockDraftUrl = '';
   protected mockDraftUrlError: string | null = null;
-  protected readonly playerFallbackImage =
-    'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22 viewBox=%220 0 80 80%22%3E%3Crect width=%2280%22 height=%2280%22 rx=%2240%22 fill=%22%23e2e8f0%22/%3E%3Ccircle cx=%2240%22 cy=%2230%22 r=%2214%22 fill=%22%2394a3b8%22/%3E%3Cpath d=%22M18 66c3-12 13-19 22-19s19 7 22 19%22 fill=%22%2394a3b8%22/%3E%3C/svg%3E';
+  protected readonly playerFallbackImage = PLAYER_FALLBACK_IMAGE;
   protected readonly recommendationPositionOrder: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
   protected readonly savedDirectUrls = signal<Array<{ url: string; draftId: string }>>([]);
   protected readonly directUrlStorageKey = 'draft-assistant:direct-urls';
@@ -218,40 +221,23 @@ export class DraftComponent implements OnInit {
   }
 
   protected loadSavedDirectUrls(): void {
-    try {
-      const raw = localStorage.getItem(this.directUrlStorageKey);
-      if (!raw) {
-        this.savedDirectUrls.set([]);
-        return;
-      }
-      const parsed = JSON.parse(raw) as Array<{ url: string; draftId: string }>;
-      this.savedDirectUrls.set(Array.isArray(parsed) ? parsed : []);
-    } catch {
-      this.savedDirectUrls.set([]);
-    }
+    const parsed = this.storage.getItem<Array<{ url: string; draftId: string }>>(this.directUrlStorageKey);
+    this.savedDirectUrls.set(Array.isArray(parsed) ? parsed : []);
   }
 
   protected saveDirectUrl(url: string, draftId: string): void {
-    try {
-      const current = this.savedDirectUrls();
-      const exists = current.some((item) => item.draftId === draftId);
-      if (!exists) {
-        const updated = [{ url, draftId }, ...current];
-        this.savedDirectUrls.set(updated);
-        localStorage.setItem(this.directUrlStorageKey, JSON.stringify(updated));
-      }
-    } catch {
-      // Silently fail if localStorage is unavailable
+    const current = this.savedDirectUrls();
+    const exists = current.some((item) => item.draftId === draftId);
+    if (!exists) {
+      const updated = [{ url, draftId }, ...current];
+      this.savedDirectUrls.set(updated);
+      this.storage.setItem(this.directUrlStorageKey, updated);
     }
   }
 
   protected clearSavedUrls(): void {
-    try {
-      this.savedDirectUrls.set([]);
-      localStorage.removeItem(this.directUrlStorageKey);
-    } catch {
-      // Silently fail if localStorage is unavailable
-    }
+    this.savedDirectUrls.set([]);
+    this.storage.removeItem(this.directUrlStorageKey);
   }
 
   protected toggleStar(playerId: string): void {
@@ -499,15 +485,7 @@ export class DraftComponent implements OnInit {
     flockOverall: number | null,
     flockPositional: number | null,
   ): number | null {
-    const ktcTier = ktcPositional ?? ktcOverall;
-    const flockTier = flockPositional ?? flockOverall;
-    const source = this.store.tierSource();
-
-    if (source === 'ktc') return ktcTier;
-    if (source === 'flock') return flockTier;
-    if (flockTier === null) return ktcTier;
-    if (ktcTier === null) return flockTier;
-    return Math.round((ktcTier + flockTier) / 2);
+    return resolveTier(ktcPositional ?? ktcOverall, flockPositional ?? flockOverall, this.store.tierSource());
   }
 
   private recommendationPositionGroups(recommendations: DraftRecommendation[]): RecommendationPositionGroup[] {

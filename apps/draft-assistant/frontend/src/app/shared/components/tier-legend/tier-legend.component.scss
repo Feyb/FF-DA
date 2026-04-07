@@ -14,11 +14,9 @@
   border-radius: 0.25rem;
   font-size: 0.625rem;
   font-weight: 700;
-  color: rgb(51 65 85);
+  color: var(--on-surface, rgb(51 65 85));
 }
 
-html.dark .tier-legend-item {
-  color: rgb(226 232 240);
-}
+// Tier color classes (.tier-1 through .tier-unranked) are defined globally in styles.scss
 
 

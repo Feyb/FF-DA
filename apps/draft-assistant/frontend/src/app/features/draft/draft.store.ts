@@ -18,6 +18,12 @@ import { FlockRatingService } from '../../core/adapters/flock/flock-rating.servi
 import { FlockPlayer, TierSource } from '../../core/models';
 import { mapRosterAvatarIds } from './draft-board-grid/draft-board-grid.util';
 import { AppStore } from '../../core/state/app.store';
+import { StorageService } from '../../core/services/storage.service';
+import { PlayerNormalizationService } from '../../core/services/player-normalization.service';
+import { resolveTier as resolveTierUtil } from '../../core/utils/tier-resolution.util';
+import { toErrorMessage } from '../../core/utils/error.util';
+import { togglePositionFilter } from '../../core/utils/position-filter.util';
+import { toMapById } from '../../core/utils/array-mapping.util';
 
 export type DraftPositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
 export type DraftSourceMode = 'league' | 'direct';
@@ -53,13 +59,14 @@ interface DraftState {
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
 
 function resolveTier(row: DraftPlayerRow, tierSrc: TierSource): number {
-  const ktcTier = row.positionalTier ?? row.overallTier ?? Number.MAX_SAFE_INTEGER;
-  const flockTier = row.flockAveragePositionalTier ?? row.flockAverageTier ?? Number.MAX_SAFE_INTEGER;
-  if (tierSrc === 'ktc') return ktcTier;
-  if (tierSrc === 'flock') return flockTier !== Number.MAX_SAFE_INTEGER ? flockTier : ktcTier;
-  if (ktcTier === Number.MAX_SAFE_INTEGER) return flockTier;
-  if (flockTier === Number.MAX_SAFE_INTEGER) return ktcTier;
-  return Math.round((ktcTier + flockTier) / 2);
+  const ktcTier = row.positionalTier ?? row.overallTier ?? null;
+  const flockTier = row.flockAveragePositionalTier ?? row.flockAverageTier ?? null;
+
+  if (tierSrc === 'flock' && flockTier === null) {
+    return ktcTier ?? Number.MAX_SAFE_INTEGER;
+  }
+
+  return resolveTierUtil(ktcTier, flockTier, tierSrc) ?? Number.MAX_SAFE_INTEGER;
 }
 
 function resolveValue(row: DraftPlayerRow, valueSrc: DraftValueSource): number {
@@ -228,7 +235,7 @@ export const DraftStore = signalStore(
     recentPicks: computed(() => [...store.picks()].sort((a, b) => b.pick_no - a.pick_no).slice(0, 10)),
     nextPickNumber: computed(() => store.picks().length + 1),
   })),
-  withMethods((store, appStore = inject(AppStore), sleeper = inject(SleeperService), ktc = inject(KtcRatingService), flock = inject(FlockRatingService)) => {
+  withMethods((store, appStore = inject(AppStore), sleeper = inject(SleeperService), ktc = inject(KtcRatingService), flock = inject(FlockRatingService), storage = inject(StorageService), playerNorm = inject(PlayerNormalizationService)) => {
     let pollHandle: ReturnType<typeof setInterval> | null = null;
     let refreshInFlight = false;
 
@@ -278,10 +285,7 @@ export const DraftStore = signalStore(
     };
 
     const mapRosterDisplayNames = (rosters: LeagueRoster[], users: LeagueUser[]): Record<string, string> => {
-      const usersById = users.reduce<Record<string, LeagueUser>>((acc, user) => {
-        acc[user.user_id] = user;
-        return acc;
-      }, {});
+      const usersById = toMapById(users, 'user_id');
 
       return rosters.reduce<Record<string, string>>((acc, roster) => {
         const ownerId = roster.owner_id ?? '';
@@ -291,65 +295,12 @@ export const DraftStore = signalStore(
       }, {});
     };
 
-    const isActiveSleeperPlayer = (source: SleeperCatalogPlayer): boolean => {
-      if (source.active === false) return false;
-      const status = source.status?.toLowerCase().trim();
-      if (!status) return true;
-      return status === 'active';
-    };
-
     const mapRows = (
       playersById: Record<string, SleeperCatalogPlayer>,
       ktcLookup: Map<string, KtcPlayer>,
       flockLookup: Map<string, FlockPlayer>,
       currentSeason: number,
-    ): DraftPlayerRow[] => {
-      const rawRows: Omit<DraftPlayerRow, 'sleeperRank'>[] = Object.entries(playersById)
-        .filter(([, source]) => isActiveSleeperPlayer(source))
-        .map(([playerId, source]) => {
-          const firstName = source.first_name ?? '';
-          const lastName = source.last_name ?? '';
-          const fullName = source.full_name?.trim() || `${firstName} ${lastName}`.trim();
-          const position = (source.position ?? '') as DraftPositionFilter;
-          const ktcPlayer = ktcLookup.get(ktc.normalizeName(fullName));
-          const flockPlayer = flockLookup.get(flock.normalizeName(fullName));
-
-          return {
-            playerId,
-            fullName,
-            position,
-            team: source.team ?? null,
-            age: source.age ?? null,
-            rookie: ktcPlayer?.rookie ?? source.rookie_year === currentSeason,
-            ktcValue: ktcPlayer?.value ?? null,
-            ktcRank: ktcPlayer?.rank ?? null,
-            overallTier: ktcPlayer?.overallTier ?? null,
-            positionalTier: ktcPlayer?.positionalTier ?? null,
-            flockAverageTier: flockPlayer?.averageTier ?? null,
-            flockAveragePositionalTier: flockPlayer?.averagePositionalTier ?? null,
-            averageRank: flockPlayer?.averageRank ?? null,
-          };
-        })
-        .filter((row) => row.fullName.length > 0)
-        .filter((row) => DEFAULT_POSITIONS.includes(row.position))
-        .filter((row) => row.team !== null || row.rookie);
-
-      const sleeperSorted = [...rawRows].sort((a, b) => {
-        const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
-        const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
-        return aRank - bRank;
-      });
-
-      const sleeperRankMap = new Map<string, number>();
-      for (let i = 0; i < sleeperSorted.length; i++) {
-        sleeperRankMap.set(sleeperSorted[i].playerId, i + 1);
-      }
-
-      return rawRows.map((row) => ({
-        ...row,
-        sleeperRank: sleeperRankMap.get(row.playerId) ?? Number.MAX_SAFE_INTEGER,
-      }));
-    };
+    ): DraftPlayerRow[] => playerNorm.buildPlayerRows(playersById, ktcLookup, flockLookup, currentSeason);
 
     const normalizePicks = (draft: SleeperDraft, picks: SleeperDraftPick[]): SleeperDraftPick[] => {
       const slotMap = draft.slot_to_roster_id ?? {};
@@ -369,12 +320,7 @@ export const DraftStore = signalStore(
     };
 
     const chooseDraftId = (leagueId: string, drafts: SleeperDraft[]): string | null => {
-      let savedDraftId: string | null = null;
-      try {
-        savedDraftId = localStorage.getItem(selectedDraftStorageKey(leagueId));
-      } catch {
-        savedDraftId = null;
-      }
+      const savedDraftId = storage.getRawItem(selectedDraftStorageKey(leagueId));
 
       if (savedDraftId && drafts.some((draft) => draft.draft_id === savedDraftId)) {
         return savedDraftId;
@@ -405,14 +351,8 @@ export const DraftStore = signalStore(
         return [];
       }
 
-      try {
-        const raw = localStorage.getItem(starStorageKey(leagueId));
-        if (!raw) return [];
-        const parsed = JSON.parse(raw) as string[];
-        return Array.isArray(parsed) ? parsed : [];
-      } catch {
-        return [];
-      }
+      const parsed = storage.getItem<string[]>(starStorageKey(leagueId));
+      return Array.isArray(parsed) ? parsed : [];
     };
 
     const loadDraftContext = async (
@@ -558,14 +498,8 @@ export const DraftStore = signalStore(
         }
 
         const starredPlayerIds = (() => {
-          try {
-            const raw = localStorage.getItem(starStorageKey(leagueId));
-            if (!raw) return [];
-            const parsed = JSON.parse(raw) as string[];
-            return Array.isArray(parsed) ? parsed : [];
-          } catch {
-            return [];
-          }
+          const parsed = storage.getItem<string[]>(starStorageKey(leagueId));
+          return Array.isArray(parsed) ? parsed : [];
         })();
 
         patchState(store, {
@@ -585,16 +519,12 @@ export const DraftStore = signalStore(
         });
 
         if (selectedDraftId) {
-          try {
-            localStorage.setItem(selectedDraftStorageKey(leagueId), selectedDraftId);
-          } catch {
-            // ignore localStorage errors
-          }
+          storage.setRawItem(selectedDraftStorageKey(leagueId), selectedDraftId);
         }
       } catch (error: unknown) {
         patchState(store, {
           loading: false,
-          error: error instanceof Error ? error.message : 'Failed to load draft data.',
+          error: toErrorMessage(error, 'Failed to load draft data.'),
         });
       } finally {
         maybeStartPolling();
@@ -666,16 +596,12 @@ export const DraftStore = signalStore(
           });
 
           if (context.selectedLeagueId) {
-            try {
-              localStorage.setItem(selectedDraftStorageKey(context.selectedLeagueId), draftId);
-            } catch {
-              // ignore localStorage errors
-            }
+            storage.setRawItem(selectedDraftStorageKey(context.selectedLeagueId), draftId);
           }
         } catch (error: unknown) {
           patchState(store, {
             loading: false,
-            error: error instanceof Error ? error.message : 'Failed to load draft details.',
+            error: toErrorMessage(error, 'Failed to load draft details.'),
           });
         } finally {
           maybeStartPolling();
@@ -705,16 +631,8 @@ export const DraftStore = signalStore(
         patchState(store, { valueSource });
       },
       togglePosition(position: DraftPositionFilter): void {
-        const current = store.selectedPositions();
-        const hasPosition = current.includes(position);
-        if (hasPosition && current.length === 1) {
-          return;
-        }
-
         patchState(store, {
-          selectedPositions: hasPosition
-            ? current.filter((currentPosition) => currentPosition !== position)
-            : [...current, position],
+          selectedPositions: togglePositionFilter(store.selectedPositions(), position),
         });
       },
       setRookiesOnly(value: boolean): void {
@@ -733,11 +651,7 @@ export const DraftStore = signalStore(
           return;
         }
 
-        try {
-          localStorage.setItem(starStorageKey(leagueId), JSON.stringify(next));
-        } catch {
-          // ignore localStorage errors
-        }
+        storage.setItem(starStorageKey(leagueId), next);
       },
       stopPolling(): void {
         stopPolling();

@@ -1,5 +1,7 @@
+import { inject } from '@angular/core';
 import { signalStore, withState, withMethods, withHooks, patchState } from '@ngrx/signals';
 import { League, SleeperUser } from '../models';
+import { StorageService } from '../services/storage.service';
 
 const STORAGE_KEY_USER = 'draftAssistant.sleeperUser';
 const STORAGE_KEY_LEAGUE = 'draftAssistant.selectedLeague';
@@ -22,71 +24,60 @@ export const AppStore = signalStore(
     densityScale: 0,
     darkMode: false,
   }),
-  withMethods((store) => ({
+  withMethods((store, storage = inject(StorageService)) => ({
     setUser(user: SleeperUser): void {
       patchState(store, { user });
-      try { localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(user)); } catch { /* ignore */ }
+      storage.setItem(STORAGE_KEY_USER, user);
     },
     setSelectedLeague(league: League): void {
       patchState(store, { selectedLeague: league });
-      try { localStorage.setItem(STORAGE_KEY_LEAGUE, JSON.stringify(league)); } catch { /* ignore */ }
+      storage.setItem(STORAGE_KEY_LEAGUE, league);
     },
     clearUser(): void {
       patchState(store, { user: null, selectedLeague: null });
-      try {
-        localStorage.removeItem(STORAGE_KEY_USER);
-        localStorage.removeItem(STORAGE_KEY_LEAGUE);
-      } catch { /* ignore */ }
+      storage.removeItem(STORAGE_KEY_USER);
+      storage.removeItem(STORAGE_KEY_LEAGUE);
     },
     setDensityScale(densityScale: number): void {
       if (!ALLOWED_DENSITY_SCALES.has(densityScale)) {
         return;
       }
-
       patchState(store, { densityScale });
-      try {
-        localStorage.setItem(STORAGE_KEY_DENSITY, String(densityScale));
-      } catch {
-        // ignore localStorage errors
-      }
+      storage.setRawItem(STORAGE_KEY_DENSITY, String(densityScale));
     },
     toggleDarkMode(): void {
       const next = !store.darkMode();
       patchState(store, { darkMode: next });
-      try {
-        localStorage.setItem(STORAGE_KEY_DARK_MODE, String(next));
-      } catch { /* ignore */ }
+      storage.setRawItem(STORAGE_KEY_DARK_MODE, String(next));
     },
     setDarkMode(darkMode: boolean): void {
       patchState(store, { darkMode });
-      try {
-        localStorage.setItem(STORAGE_KEY_DARK_MODE, String(darkMode));
-      } catch { /* ignore */ }
+      storage.setRawItem(STORAGE_KEY_DARK_MODE, String(darkMode));
     },
   })),
-  withHooks((store) => ({
+  withHooks((store, storage = inject(StorageService)) => ({
     onInit(): void {
-      try {
-        const rawUser = localStorage.getItem(STORAGE_KEY_USER);
-        const rawLeague = localStorage.getItem(STORAGE_KEY_LEAGUE);
-        const rawDensity = localStorage.getItem(STORAGE_KEY_DENSITY);
-        if (rawUser) patchState(store, { user: JSON.parse(rawUser) as SleeperUser });
-        if (rawLeague) patchState(store, { selectedLeague: JSON.parse(rawLeague) as League });
+      const savedUser = storage.getItem<SleeperUser>(STORAGE_KEY_USER);
+      const savedLeague = storage.getItem<League>(STORAGE_KEY_LEAGUE);
+      const rawDensity = storage.getRawItem(STORAGE_KEY_DENSITY);
 
-        const parsedDensity = Number(rawDensity);
-        if (ALLOWED_DENSITY_SCALES.has(parsedDensity)) {
-          patchState(store, { densityScale: parsedDensity });
-        }
+      if (savedUser) patchState(store, { user: savedUser });
+      if (savedLeague) patchState(store, { selectedLeague: savedLeague });
 
-        const rawDarkMode = localStorage.getItem(STORAGE_KEY_DARK_MODE);
-        if (rawDarkMode !== null) {
-          patchState(store, { darkMode: rawDarkMode === 'true' });
-        } else {
-          // Fall back to OS preference
-          const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
-          patchState(store, { darkMode: prefersDark });
-        }
-      } catch { /* ignore corrupt storage */ }
+      const parsedDensity = Number(rawDensity);
+      if (ALLOWED_DENSITY_SCALES.has(parsedDensity)) {
+        patchState(store, { densityScale: parsedDensity });
+      }
+      
+      const rawDarkMode = storage.getRawItem(STORAGE_KEY_DARK_MODE);
+      if (rawDarkMode !== null) {
+        patchState(store, { darkMode: rawDarkMode === 'true' });
+      } else {
+        // Fall back to OS preference
+        const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
+        patchState(store, { darkMode: prefersDark });
+      }
     },
   })),
 );
+

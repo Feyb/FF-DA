@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, catchError, map, of, shareReplay } from 'rxjs';
 import { FlockPlayer } from '../../models';
+import { normalizeName as normalizeNameUtil } from '../../utils/name-normalization.util';
 
 const FLOCK_ASSET_1QB_URL = 'assets/flock/players-1qb.json';
 const FLOCK_ASSET_SUPERFLEX_URL = 'assets/flock/players-superflex.json';
@@ -74,10 +75,6 @@ export class FlockRatingService {
   }
 
   normalizeName(name: string): string {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
+    return normalizeNameUtil(name);
   }
 }

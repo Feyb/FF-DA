@@ -1,13 +1,11 @@
-:host {
-  display: contents;
+.error-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
 }
 
 .error-message {
   margin: 0;
-  color: rgb(185 28 28);
-  font-size: 0.875rem;
-}
-
-html.dark .error-message {
-  color: rgb(252 165 165);
+  color: var(--mat-sys-error, #b3261e);
 }

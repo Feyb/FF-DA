@@ -16,6 +16,9 @@ import {
   TeamViewRosterSections,
 } from '../../core/models';
 import { AppStore } from '../../core/state/app.store';
+import { toErrorMessage } from '../../core/utils/error.util';
+import { toMapById } from '../../core/utils/array-mapping.util';
+import { buildFullName } from '../../core/utils/player-name.util';
 
 interface TeamViewState {
   loading: boolean;
@@ -116,7 +119,7 @@ export const TeamViewStore = signalStore(
         const firstName = sleeperPlayer?.first_name ?? '';
         const lastName = sleeperPlayer?.last_name ?? '';
         const fullName =
-          sleeperPlayer?.full_name?.trim() || `${firstName} ${lastName}`.trim() || playerId;
+          sleeperPlayer?.full_name?.trim() || buildFullName(firstName, lastName) || playerId;
         const position = sleeperPlayer?.position ?? 'UNKNOWN';
         const age = sleeperPlayer?.age ?? null;
         const yearsExp = sleeperPlayer?.years_exp ?? null;
@@ -271,10 +274,7 @@ export const TeamViewStore = signalStore(
           );
 
           rostersCache = rosters;
-          usersByIdCache = users.reduce<Record<string, LeagueUser>>((acc, user) => {
-            acc[user.user_id] = user;
-            return acc;
-          }, {});
+          usersByIdCache = toMapById(users, 'user_id');
           playersByIdCache = playersById;
           ktcLookupCache = ratingService.buildNameLookup(ktcPlayers);
           seasonCache = season;
@@ -306,10 +306,7 @@ export const TeamViewStore = signalStore(
         } catch (error: unknown) {
           patchState(store, {
             loading: false,
-            error:
-              error instanceof Error
-                ? error.message
-                : 'Failed to load team view data from Sleeper.',
+            error: toErrorMessage(error, 'Failed to load team view data from Sleeper.'),
           });
         }
       };

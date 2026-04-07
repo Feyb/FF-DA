@@ -10,6 +10,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeStore } from './home.store';
 import { AppStore } from '../../core/state/app.store';
+import { StorageService } from '../../core/services/storage.service';
 import { League } from '../../core/models';
 import { PageHeaderComponent } from '../../shared/components/page-header';
 import { LoadingStateComponent } from '../../shared/components/loading-state';
@@ -39,12 +40,13 @@ const HOME_USERNAME_STORAGE_KEY = 'draftAssistant.sleeperUsername';
 export class HomeComponent {
   protected readonly store = inject(HomeStore);
   protected readonly appStore = inject(AppStore);
+  private readonly storage = inject(StorageService);
 
   protected readonly usernameControl = new FormControl('');
   protected readonly leagueIdControl = new FormControl('');
 
   constructor() {
-    const savedUsername = this.getSavedUsername();
+    const savedUsername = this.storage.getRawItem(HOME_USERNAME_STORAGE_KEY) ?? '';
     if (savedUsername) {
       this.usernameControl.setValue(savedUsername);
       this.store.loadByUsername(savedUsername);
@@ -55,7 +57,7 @@ export class HomeComponent {
     const val = this.usernameControl.value?.trim();
     if (!val) return;
 
-    this.saveUsername(val);
+    this.storage.setRawItem(HOME_USERNAME_STORAGE_KEY, val);
     this.store.loadByUsername(val);
   }
 
@@ -67,20 +69,5 @@ export class HomeComponent {
   protected selectLeague(league: League): void {
     this.store.selectLeague(league);
   }
-
-  private saveUsername(username: string): void {
-    try {
-      localStorage.setItem(HOME_USERNAME_STORAGE_KEY, username);
-    } catch {
-      // Ignore storage failures (private mode or blocked storage).
-    }
-  }
-
-  private getSavedUsername(): string {
-    try {
-      return localStorage.getItem(HOME_USERNAME_STORAGE_KEY) ?? '';
-    } catch {
-      return '';
-    }
-  }
 }
+

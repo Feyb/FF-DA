@@ -1,6 +1,8 @@
-<mat-card class="error-card" appearance="outlined" role="alert">
-  <p class="error-message">{{ message() }}</p>
-  <button mat-flat-button type="button" (click)="onRetry()">
-    {{ retryLabel() }}
-  </button>
-</mat-card>
+@if (message()) {
+  <mat-card class="error-card" appearance="outlined" role="alert">
+    <p class="error-message">{{ message() }}</p>
+    <button mat-flat-button type="button" (click)="retry.emit()">
+      {{ retryLabel() }}
+    </button>
+  </mat-card>
+}

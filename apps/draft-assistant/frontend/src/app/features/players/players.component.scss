@@ -38,8 +38,6 @@
   @apply flex flex-wrap gap-2;
 }
 
-// warning-banner, loading-row, error-card are defined globally in shared/styles/_states.scss
-
 .table-card {
   @apply p-0 overflow-hidden;
 }

@@ -15,11 +15,7 @@ import { MatCardModule } from '@angular/material/card';
   imports: [MatButtonModule, MatCardModule],
 })
 export class ErrorStateComponent {
-  readonly message = input.required<string>();
-  readonly retryLabel = input<string>('Retry');
+  readonly message = input<string | null>(null);
+  readonly retryLabel = input('Retry');
   readonly retry = output<void>();
-
-  protected onRetry(): void {
-    this.retry.emit();
-  }
 }

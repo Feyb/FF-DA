@@ -20,7 +20,7 @@
     }
 
     @if (store.error()) {
-      <app-error-state [message]="store.error()!" (retry)="retryLoad()" />
+      <app-error-state [message]="store.error()" (retry)="retryLoad()" />
     }
 
     @if (store.availableRosters().length > 0 && !store.selectedRosterId()) {

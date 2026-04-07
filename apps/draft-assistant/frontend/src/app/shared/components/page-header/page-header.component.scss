@@ -7,3 +7,15 @@
   flex-direction: column;
   gap: 0.25rem;
 }
+
+.page-header-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.page-header-subtitle {
+  color: var(--mat-sys-on-surface-variant, #49454f);
+  font-size: 0.9375rem;
+  margin: 0;
+}
