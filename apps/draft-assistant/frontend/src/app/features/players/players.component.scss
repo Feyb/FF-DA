@@ -42,14 +42,6 @@
   @apply rounded-lg border border-amber-300 bg-amber-50 text-amber-900 px-3 py-2 flex items-center gap-2 text-sm;
 }
 
-.loading-row {
-  @apply flex items-center gap-3;
-}
-
-.error-card {
-  @apply flex items-center justify-between gap-3 p-4;
-}
-
 .table-card {
   @apply p-0 overflow-hidden;
 }

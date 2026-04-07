@@ -19,17 +19,11 @@
     </section>
   } @else {
     @if (store.loading()) {
-      <div class="loading-row">
-        <mat-spinner diameter="36" />
-        <span>Loading team data…</span>
-      </div>
+      <app-loading-state message="Loading team data…" />
     }
 
     @if (store.error()) {
-      <section class="error-panel" role="alert">
-        <p class="error-text">{{ store.error() }}</p>
-        <button mat-flat-button (click)="retryLoad()">Retry</button>
-      </section>
+      <app-error-state [message]="store.error()" (retry)="retryLoad()" />
     }
 
     @if (store.availableRosters().length > 0 && !store.selectedRosterId()) {

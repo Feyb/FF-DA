@@ -12,6 +12,8 @@ import { TeamViewRating } from '../../core/models';
 import { AppStore } from '../../core/state/app.store';
 import { TeamViewStore } from './team-view.store';
 import { TierLegendComponent } from '../../shared/components/tier-legend';
+import { LoadingStateComponent } from '../../shared/components/loading-state';
+import { ErrorStateComponent } from '../../shared/components/error-state';
 import { PLAYER_FALLBACK_IMAGE } from '../../core/constants/images.constants';
 
 @Component({
@@ -32,6 +34,8 @@ import { PLAYER_FALLBACK_IMAGE } from '../../core/constants/images.constants';
     MatChipsModule,
     MatIconModule,
     TierLegendComponent,
+    LoadingStateComponent,
+    ErrorStateComponent,
   ],
 })
 export class TeamViewComponent {

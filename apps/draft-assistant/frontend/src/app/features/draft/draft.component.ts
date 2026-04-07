@@ -28,6 +28,7 @@ import { DraftBoardGridComponent } from './draft-board-grid/draft-board-grid.com
 import { TierSource } from '../../core/models';
 import { PLAYER_FALLBACK_IMAGE } from '../../core/constants/images.constants';
 import { resolveTier } from '../../core/utils/tier-resolution.util';
+import { StorageService } from '../../core/services/storage.service';
 
 interface RecommendationPositionGroup {
   position: DraftPositionFilter;
@@ -81,6 +82,7 @@ interface SavedDirectUrlView {
 export class DraftComponent implements OnInit {
   protected readonly store = inject(DraftStore);
   protected readonly appStore = inject(AppStore);
+  private readonly storage = inject(StorageService);
   protected readonly positions: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
   protected mockDraftUrl = '';
   protected mockDraftUrlError: string | null = null;
@@ -211,40 +213,23 @@ export class DraftComponent implements OnInit {
   }
 
   protected loadSavedDirectUrls(): void {
-    try {
-      const raw = localStorage.getItem(this.directUrlStorageKey);
-      if (!raw) {
-        this.savedDirectUrls.set([]);
-        return;
-      }
-      const parsed = JSON.parse(raw) as Array<{ url: string; draftId: string }>;
-      this.savedDirectUrls.set(Array.isArray(parsed) ? parsed : []);
-    } catch {
-      this.savedDirectUrls.set([]);
-    }
+    const parsed = this.storage.getItem<Array<{ url: string; draftId: string }>>(this.directUrlStorageKey);
+    this.savedDirectUrls.set(Array.isArray(parsed) ? parsed : []);
   }
 
   protected saveDirectUrl(url: string, draftId: string): void {
-    try {
-      const current = this.savedDirectUrls();
-      const exists = current.some((item) => item.draftId === draftId);
-      if (!exists) {
-        const updated = [{ url, draftId }, ...current];
-        this.savedDirectUrls.set(updated);
-        localStorage.setItem(this.directUrlStorageKey, JSON.stringify(updated));
-      }
-    } catch {
-      // Silently fail if localStorage is unavailable
+    const current = this.savedDirectUrls();
+    const exists = current.some((item) => item.draftId === draftId);
+    if (!exists) {
+      const updated = [{ url, draftId }, ...current];
+      this.savedDirectUrls.set(updated);
+      this.storage.setItem(this.directUrlStorageKey, updated);
     }
   }
 
   protected clearSavedUrls(): void {
-    try {
-      this.savedDirectUrls.set([]);
-      localStorage.removeItem(this.directUrlStorageKey);
-    } catch {
-      // Silently fail if localStorage is unavailable
-    }
+    this.savedDirectUrls.set([]);
+    this.storage.removeItem(this.directUrlStorageKey);
   }
 
   protected toggleStar(playerId: string): void {

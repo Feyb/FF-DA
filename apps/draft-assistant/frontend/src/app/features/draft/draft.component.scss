@@ -332,49 +332,6 @@
   padding: 0.5rem 0.75rem;
 }
 
-.tier-1 {
-  background: rgb(242 217 217);
-}
-
-.tier-2 {
-  background: rgb(242 230 217);
-}
-
-.tier-3 {
-  background: rgb(240 242 217);
-}
-
-.tier-4 {
-  background: rgb(230 242 217);
-}
-
-.tier-5 {
-  background: rgb(217 242 217);
-}
-
-.tier-6 {
-  background: rgb(217 242 230);
-}
-
-.tier-7 {
-  background: rgb(217 242 240);
-}
-
-.tier-8 {
-  background: rgb(217 236 242);
-}
-
-.tier-9 {
-  background: rgb(217 225 242);
-}
-
-.tier-10 {
-  background: rgb(217 217 242);
-}
-
-.tier-unranked {
-  @apply bg-slate-100;
-}
 
 .recommendation-rank {
   font-size: 0.8125rem;

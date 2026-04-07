@@ -9,6 +9,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TierLegendComponent } from '../../shared/components/tier-legend';
+import { LoadingStateComponent } from '../../shared/components/loading-state';
+import { ErrorStateComponent } from '../../shared/components/error-state';
 import {
   PlayerRow,
   PlayersStore,
@@ -58,6 +60,8 @@ interface PlayersStoreView {
     MatSelectModule,
     MatSlideToggleModule,
     TierLegendComponent,
+    LoadingStateComponent,
+    ErrorStateComponent,
   ],
 })
 export class PlayersComponent {

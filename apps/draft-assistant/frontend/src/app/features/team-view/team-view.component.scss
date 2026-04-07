@@ -22,18 +22,6 @@
   @apply text-sm text-slate-600;
 }
 
-.loading-row {
-  @apply flex items-center gap-3;
-}
-
-.error-panel {
-  @apply rounded-xl border border-red-300 bg-red-50 px-4 py-3 flex flex-col gap-3;
-}
-
-.error-text {
-  @apply text-red-700;
-}
-
 .selection-panel {
   @apply rounded-xl border border-slate-200 bg-white px-4 py-4 flex flex-col gap-2;
 }
@@ -179,60 +167,6 @@
 
 .standings-entry--mine .pos-chip {
   @apply bg-blue-200 text-blue-800;
-}
-
-.tier-1 {
-  @apply border-2 border-red-400;
-  background: rgb(242 217 217);
-}
-
-.tier-2 {
-  @apply border-2 border-orange-400;
-  background: rgb(242 230 217);
-}
-
-.tier-3 {
-  @apply border-2 border-yellow-400;
-  background: rgb(240 242 217);
-}
-
-.tier-4 {
-  @apply border-2 border-lime-400;
-  background: rgb(230 242 217);
-}
-
-.tier-5 {
-  @apply border-2 border-green-400;
-  background: rgb(217 242 217);
-}
-
-.tier-6 {
-  @apply border-2 border-cyan-400;
-  background: rgb(217 242 230);
-}
-
-.tier-7 {
-  @apply border-2 border-blue-400;
-  background: rgb(217 242 240);
-}
-
-.tier-8 {
-  @apply border-2 border-indigo-400;
-  background: rgb(217 236 242);
-}
-
-.tier-9 {
-  @apply border-2 border-purple-400;
-  background: rgb(217 225 242);
-}
-
-.tier-10 {
-  @apply border-2 border-violet-400;
-  background: rgb(217 217 242);
-}
-
-.tier-unranked {
-  @apply bg-gray-100 border-2 border-gray-300;
 }
 
 h3, h2 {
