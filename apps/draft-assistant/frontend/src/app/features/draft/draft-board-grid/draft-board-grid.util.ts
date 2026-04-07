@@ -1,4 +1,5 @@
 import { LeagueRoster, LeagueUser, SleeperDraft, SleeperDraftPick } from '../../../core/models';
+import { extractLastName } from '../../../core/utils/player-name.util';
 
 export interface GridTeamHeader {
   slot: number;
@@ -207,9 +208,3 @@ export const mapRosterAvatarIds = (
   }, {});
 };
 
-const extractLastName = (fullName: string): string | null => {
-  const trimmed = fullName.trim();
-  if (!trimmed) return null;
-  const parts = trimmed.split(/\s+/);
-  return parts.length > 1 ? parts[parts.length - 1] : trimmed;
-};

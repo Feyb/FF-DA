@@ -12,6 +12,7 @@ import { pipe, switchMap, tap } from 'rxjs';
 import { SleeperService } from '../../core/adapters/sleeper/sleeper.service';
 import { AppStore } from '../../core/state/app.store';
 import { League } from '../../core/models';
+import { toErrorMessage } from '../../core/utils/error.util';
 
 interface HomeState {
   leagues: League[];
@@ -53,10 +54,7 @@ export const HomeStore = signalStore(
                 error: (err: unknown) =>
                   patchState(store, {
                     loading: false,
-                    error:
-                      err instanceof Error
-                        ? err.message
-                        : 'Failed to load leagues',
+                    error: toErrorMessage(err, 'Failed to load leagues'),
                   }),
               }),
             ),
@@ -74,10 +72,7 @@ export const HomeStore = signalStore(
                 error: (err: unknown) =>
                   patchState(store, {
                     loading: false,
-                    error:
-                      err instanceof Error
-                        ? err.message
-                        : 'Failed to load league',
+                    error: toErrorMessage(err, 'Failed to load league'),
                   }),
               }),
             ),

@@ -18,6 +18,11 @@ import { FlockRatingService } from '../../core/adapters/flock/flock-rating.servi
 import { FlockPlayer, TierSource } from '../../core/models';
 import { mapRosterAvatarIds } from './draft-board-grid/draft-board-grid.util';
 import { AppStore } from '../../core/state/app.store';
+import { resolveTier as resolveTierUtil } from '../../core/utils/tier-resolution.util';
+import { toErrorMessage } from '../../core/utils/error.util';
+import { togglePositionFilter } from '../../core/utils/position-filter.util';
+import { toMapById } from '../../core/utils/array-mapping.util';
+import { buildFullName } from '../../core/utils/player-name.util';
 
 export type DraftPositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
 export type DraftSourceMode = 'league' | 'direct';
@@ -53,13 +58,9 @@ interface DraftState {
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
 
 function resolveTier(row: DraftPlayerRow, tierSrc: TierSource): number {
-  const ktcTier = row.positionalTier ?? row.overallTier ?? Number.MAX_SAFE_INTEGER;
-  const flockTier = row.flockAveragePositionalTier ?? row.flockAverageTier ?? Number.MAX_SAFE_INTEGER;
-  if (tierSrc === 'ktc') return ktcTier;
-  if (tierSrc === 'flock') return flockTier !== Number.MAX_SAFE_INTEGER ? flockTier : ktcTier;
-  if (ktcTier === Number.MAX_SAFE_INTEGER) return flockTier;
-  if (flockTier === Number.MAX_SAFE_INTEGER) return ktcTier;
-  return Math.round((ktcTier + flockTier) / 2);
+  const ktcTier = row.positionalTier ?? row.overallTier ?? null;
+  const flockTier = row.flockAveragePositionalTier ?? row.flockAverageTier ?? null;
+  return resolveTierUtil(ktcTier, flockTier, tierSrc) ?? Number.MAX_SAFE_INTEGER;
 }
 
 function resolveValue(row: DraftPlayerRow, valueSrc: DraftValueSource): number {
@@ -278,10 +279,7 @@ export const DraftStore = signalStore(
     };
 
     const mapRosterDisplayNames = (rosters: LeagueRoster[], users: LeagueUser[]): Record<string, string> => {
-      const usersById = users.reduce<Record<string, LeagueUser>>((acc, user) => {
-        acc[user.user_id] = user;
-        return acc;
-      }, {});
+      const usersById = toMapById(users, 'user_id');
 
       return rosters.reduce<Record<string, string>>((acc, roster) => {
         const ownerId = roster.owner_id ?? '';
@@ -309,7 +307,7 @@ export const DraftStore = signalStore(
         .map(([playerId, source]) => {
           const firstName = source.first_name ?? '';
           const lastName = source.last_name ?? '';
-          const fullName = source.full_name?.trim() || `${firstName} ${lastName}`.trim();
+          const fullName = source.full_name?.trim() || buildFullName(firstName, lastName);
           const position = (source.position ?? '') as DraftPositionFilter;
           const ktcPlayer = ktcLookup.get(ktc.normalizeName(fullName));
           const flockPlayer = flockLookup.get(flock.normalizeName(fullName));
@@ -593,7 +591,7 @@ export const DraftStore = signalStore(
       } catch (error: unknown) {
         patchState(store, {
           loading: false,
-          error: error instanceof Error ? error.message : 'Failed to load draft data.',
+          error: toErrorMessage(error, 'Failed to load draft data.'),
         });
       } finally {
         maybeStartPolling();
@@ -674,7 +672,7 @@ export const DraftStore = signalStore(
         } catch (error: unknown) {
           patchState(store, {
             loading: false,
-            error: error instanceof Error ? error.message : 'Failed to load draft details.',
+            error: toErrorMessage(error, 'Failed to load draft details.'),
           });
         } finally {
           maybeStartPolling();
@@ -704,16 +702,8 @@ export const DraftStore = signalStore(
         patchState(store, { valueSource });
       },
       togglePosition(position: DraftPositionFilter): void {
-        const current = store.selectedPositions();
-        const hasPosition = current.includes(position);
-        if (hasPosition && current.length === 1) {
-          return;
-        }
-
         patchState(store, {
-          selectedPositions: hasPosition
-            ? current.filter((currentPosition) => currentPosition !== position)
-            : [...current, position],
+          selectedPositions: togglePositionFilter(store.selectedPositions(), position),
         });
       },
       setRookiesOnly(value: boolean): void {

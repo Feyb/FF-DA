@@ -6,6 +6,9 @@ import { KtcRatingService } from '../../core/adapters/ktc/ktc-rating.service';
 import { SleeperService } from '../../core/adapters/sleeper/sleeper.service';
 import { FlockPlayer, KtcPlayer, SleeperCatalogPlayer, TierSource } from '../../core/models';
 import { AppStore } from '../../core/state/app.store';
+import { toErrorMessage } from '../../core/utils/error.util';
+import { togglePositionFilter } from '../../core/utils/position-filter.util';
+import { buildFullName } from '../../core/utils/player-name.util';
 
 export type PositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
 export type SortBy = 'default' | 'name' | 'position' | 'age' | 'ktcValue' | 'team';
@@ -135,7 +138,7 @@ export const PlayersStore = signalStore(
     ): Omit<PlayerRow, 'sleeperRank'> => {
       const firstName = source.first_name ?? '';
       const lastName = source.last_name ?? '';
-      const fullName = source.full_name?.trim() || `${firstName} ${lastName}`.trim();
+      const fullName = source.full_name?.trim() || buildFullName(firstName, lastName);
       const positionRaw = source.position ?? '';
       const position = positionRaw as PositionFilter;
 
@@ -209,18 +212,13 @@ export const PlayersStore = signalStore(
         } catch (error: unknown) {
           patchState(store, {
             loading: false,
-            error: error instanceof Error ? error.message : 'Failed to load players.',
+            error: toErrorMessage(error, 'Failed to load players.'),
           });
         }
       },
       togglePosition(position: PositionFilter): void {
-        const current = store.selectedPositions();
-        const has = current.includes(position);
-
-        if (has && current.length === 1) return;
-
         patchState(store, {
-          selectedPositions: has ? current.filter((p) => p !== position) : [...current, position],
+          selectedPositions: togglePositionFilter(store.selectedPositions(), position),
         });
       },
       setRookiesOnly(rookiesOnly: boolean): void {
