@@ -19,6 +19,7 @@ import {
   getSleeperDraftStatusLabel,
   getSleeperDraftTypeLabel,
   getSleeperUserDraftPosition,
+  SleeperUserDraftPosition,
 } from '../../core/adapters/sleeper/sleeper-draft.util';
 import { DraftPlayerRow, DraftRecommendation, SleeperDraft } from '../../core/models';
 import { AppStore } from '../../core/state/app.store';
@@ -124,6 +125,8 @@ export class DraftComponent implements OnInit {
     { value: 'sleeperRank', label: 'Sleeper Rank' },
     { value: 'combinedPositionalTier', label: 'Combined Pos. Tier' },
   ];
+  /** Memoized slice of the player list to avoid repeated slicing in template. */
+  protected readonly visiblePlayerRows = computed(() => this.store.allPlayerRows().slice(0, 120));
   protected readonly sourceLabel = computed(() =>
     this.activeSourceMode() === 'direct' ? 'Direct URL' : 'League Draft',
   );
@@ -618,7 +621,7 @@ export class DraftComponent implements OnInit {
     return null;
   }
 
-  private userDraftPosition(draft: SleeperDraft) {
+  private userDraftPosition(draft: SleeperDraft): SleeperUserDraftPosition | null {
     return getSleeperUserDraftPosition(draft, this.appStore.user()?.user_id);
   }
 }

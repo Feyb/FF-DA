@@ -263,15 +263,14 @@
                 <p class="empty-copy">No players match your current filters.</p>
               } @else {
                 <div class="players-list">
-                  @if (store.allPlayerRows().slice(0, 120); as visibleRows) {
-                    @for (player of visibleRows; track player.playerId; let i = $index) {
-                      @if (!player.isDrafted && shouldShowNextPickDivider(visibleRows, i)) {
+                  @for (player of visiblePlayerRows(); track player.playerId; let i = $index) {
+                      @if (!player.isDrafted && shouldShowNextPickDivider(visiblePlayerRows(), i)) {
                         <div class="next-pick-divider-row">
                           <span class="next-pick-divider-label">{{ nextPickDividerLabel() }}</span>
                         </div>
                       }
 
-                      @if (!player.isDrafted && shouldShowTierDivider(visibleRows, i)) {
+                      @if (!player.isDrafted && shouldShowTierDivider(visiblePlayerRows(), i)) {
                         <div class="tier-divider-row">
                           <span class="tier-divider-label">{{ tierDividerLabel(player) }}</span>
                         </div>
@@ -294,11 +293,11 @@
                           <span class="player-sub">{{ player.position }} · {{ player.team ?? 'FA' }}</span>
                         </div>
                         <span class="player-tier-badge">
-                          <span title="Combined Tier">CT:{{ player.combinedTier ?? 'N/A' }}</span>
-                          <span class="player-tier-sep"> · </span>
-                          <span title="KTC Tier">KTC:{{ player.overallTier ?? 'N/A' }}</span>
-                          <span class="player-tier-sep"> · </span>
-                          <span title="Flock Tier">F:{{ player.flockAverageTier ?? 'N/A' }}</span>
+                          <span [attr.aria-label]="'Combined Tier: ' + (player.combinedTier ?? 'N/A')" title="Combined Tier">CT:{{ player.combinedTier ?? 'N/A' }}</span>
+                          <span class="player-tier-sep" aria-hidden="true"> · </span>
+                          <span [attr.aria-label]="'KTC Tier: ' + (player.overallTier ?? 'N/A')" title="KTC Tier">KTC:{{ player.overallTier ?? 'N/A' }}</span>
+                          <span class="player-tier-sep" aria-hidden="true"> · </span>
+                          <span [attr.aria-label]="'Flock Tier: ' + (player.flockAverageTier ?? 'N/A')" title="Flock Tier">F:{{ player.flockAverageTier ?? 'N/A' }}</span>
                         </span>
                         <span class="player-rank">
                           @if (rowRank(player) !== null) { #{{ rowRank(player) }} }
@@ -316,9 +315,8 @@
                         }
                       </div>
                     }
-                  }
-                </div>
-              }
+                  </div>
+                }
             </mat-card>
           </div>
 
