@@ -73,15 +73,14 @@ export const AppStore = signalStore(
         patchState(store, { densityScale: parsedDensity });
       }
       
-        const rawDarkMode = localStorage.getItem(STORAGE_KEY_DARK_MODE);
-        if (rawDarkMode !== null) {
-          patchState(store, { darkMode: rawDarkMode === 'true' });
-        } else {
-          // Fall back to OS preference
-          const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
-          patchState(store, { darkMode: prefersDark });
-        }
-      } catch { /* ignore corrupt storage */ }
+      const rawDarkMode = storage.getRawItem(STORAGE_KEY_DARK_MODE);
+      if (rawDarkMode !== null) {
+        patchState(store, { darkMode: rawDarkMode === 'true' });
+      } else {
+        // Fall back to OS preference
+        const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
+        patchState(store, { darkMode: prefersDark });
+      }
     },
   })),
 );
