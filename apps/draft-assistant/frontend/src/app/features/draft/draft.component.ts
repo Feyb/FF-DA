@@ -22,7 +22,17 @@ import {
 } from '../../core/adapters/sleeper/sleeper-draft.util';
 import { DraftPlayerRow, DraftRecommendation, SleeperDraft } from '../../core/models';
 import { AppStore } from '../../core/state/app.store';
-import { DraftStore, DraftPositionFilter, DraftSourceMode, DraftValueSource } from './draft.store';
+import {
+  BestAvailableEntry,
+  DraftPlayerDisplayRow,
+  DraftPositionFilter,
+  DraftSortSource,
+  DraftSourceMode,
+  DraftValueSource,
+  DraftStore,
+  rankForSortSource,
+  positionalRankForSortSource,
+} from './draft.store';
 import { TierLegendComponent } from '../../shared/components/tier-legend';
 import { DraftBoardGridComponent } from './draft-board-grid/draft-board-grid.component';
 import { TierSource } from '../../core/models';
@@ -32,7 +42,6 @@ import { StorageService } from '../../core/services/storage.service';
 import { PageHeaderComponent } from '../../shared/components/page-header';
 import { LoadingStateComponent } from '../../shared/components/loading-state';
 import { ErrorStateComponent } from '../../shared/components/error-state';
-import { PlayerRowComponent } from '../../shared/components/player-row';
 
 interface RecommendationPositionGroup {
   position: DraftPositionFilter;
@@ -84,7 +93,6 @@ interface SavedDirectUrlView {
     PageHeaderComponent,
     LoadingStateComponent,
     ErrorStateComponent,
-    PlayerRowComponent,
   ],
 })
 export class DraftComponent implements OnInit {
@@ -108,6 +116,13 @@ export class DraftComponent implements OnInit {
   protected readonly valueSources: Array<{ value: DraftValueSource; label: string }> = [
     { value: 'ktcValue', label: 'KTC Value' },
     { value: 'averageRank', label: 'Flock Average Rank' },
+  ];
+  protected readonly sortSources: Array<{ value: DraftSortSource; label: string }> = [
+    { value: 'combinedTier', label: 'Combined Tier' },
+    { value: 'ktcRank', label: 'KTC Rank' },
+    { value: 'flockRank', label: 'Flock Rank' },
+    { value: 'sleeperRank', label: 'Sleeper Rank' },
+    { value: 'combinedPositionalTier', label: 'Combined Pos. Tier' },
   ];
   protected readonly sourceLabel = computed(() =>
     this.activeSourceMode() === 'direct' ? 'Direct URL' : 'League Draft',
@@ -218,6 +233,10 @@ export class DraftComponent implements OnInit {
 
   protected retryLoad(): void {
     this.store.retry();
+  }
+
+  protected resetSession(): void {
+    this.store.resetSession();
   }
 
   protected loadSavedDirectUrls(): void {
@@ -362,17 +381,17 @@ export class DraftComponent implements OnInit {
     return `tier-${cycledTier}`;
   }
 
-  protected shouldShowTierDivider(rows: DraftPlayerRow[], index: number): boolean {
+  protected shouldShowTierDivider(rows: DraftPlayerDisplayRow[], index: number): boolean {
     if (index === 0) {
       return true;
     }
 
-    const currentTier = rows[index] ? this.rowTier(rows[index]) : null;
-    const previousTier = rows[index - 1] ? this.rowTier(rows[index - 1]) : null;
+    const currentTier = rows[index] ? this.rowCombinedTier(rows[index]) : null;
+    const previousTier = rows[index - 1] ? this.rowCombinedTier(rows[index - 1]) : null;
     return currentTier !== previousTier;
   }
 
-  protected shouldShowNextPickDivider(rows: DraftPlayerRow[], index: number): boolean {
+  protected shouldShowNextPickDivider(rows: DraftPlayerDisplayRow[], index: number): boolean {
     const userNextPick = this.userNextPickNumber();
     if (!userNextPick || index === 0) {
       return false;
@@ -407,7 +426,7 @@ export class DraftComponent implements OnInit {
   }
 
   protected tierDividerLabel(row: DraftPlayerRow): string {
-    const tier = this.rowTier(row);
+    const tier = this.rowCombinedTier(row);
     if (tier === null) {
       return 'Un-tiered';
     }
@@ -431,6 +450,37 @@ export class DraftComponent implements OnInit {
       row.flockAverageTier,
       row.flockAveragePositionalTier,
     );
+  }
+
+  /** Combined tier for display in the player list (used for tier dividers). */
+  protected rowCombinedTier(row: DraftPlayerRow): number | null {
+    return row.combinedTier;
+  }
+
+  /** Rank value for the active sort source (REQ-PL-06). */
+  protected rowRank(row: DraftPlayerRow): number | null {
+    return rankForSortSource(row, this.store.sortSource());
+  }
+
+  /** Positional rank/tier for the active sort source (REQ-PL-06). */
+  protected rowPositionalRank(row: DraftPlayerRow): number | null {
+    return positionalRankForSortSource(row, this.store.sortSource());
+  }
+
+  /** Label for the active sort source rank column. */
+  protected sortSourceRankLabel(): string {
+    switch (this.store.sortSource()) {
+      case 'combinedTier': return 'Comb. Tier';
+      case 'sleeperRank': return 'Sleeper Rank';
+      case 'ktcRank': return 'KTC Rank';
+      case 'flockRank': return 'Flock Rank';
+      case 'combinedPositionalTier': return 'Comb. Pos. Tier';
+    }
+  }
+
+  /** Rank value for a best-available entry based on the active sort source. */
+  protected bestAvailableRank(entry: BestAvailableEntry): number | null {
+    return entry.player ? rankForSortSource(entry.player, this.store.sortSource()) : null;
   }
 
   protected selectedValue(row: DraftPlayerRow | DraftRecommendation): number | null {
@@ -566,10 +616,6 @@ export class DraftComponent implements OnInit {
     }
 
     return null;
-  }
-
-  private userDraftSlot(draft: SleeperDraft): number | null {
-    return this.userDraftPosition(draft)?.slot ?? null;
   }
 
   private userDraftPosition(draft: SleeperDraft) {

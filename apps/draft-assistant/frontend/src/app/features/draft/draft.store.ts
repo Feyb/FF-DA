@@ -28,6 +28,18 @@ import { toMapById } from '../../core/utils/array-mapping.util';
 export type DraftPositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
 export type DraftSourceMode = 'league' | 'direct';
 export type DraftValueSource = 'ktcValue' | 'averageRank';
+export type DraftSortSource = 'combinedTier' | 'sleeperRank' | 'ktcRank' | 'flockRank' | 'combinedPositionalTier';
+
+/** A DraftPlayerRow enriched with the drafted flag for UI display. */
+export interface DraftPlayerDisplayRow extends DraftPlayerRow {
+  isDrafted: boolean;
+}
+
+/** Best-available entry for one position. */
+export interface BestAvailableEntry {
+  position: DraftPositionFilter;
+  player: DraftPlayerRow | null;
+}
 
 interface SelectDraftOptions {
   rookieHint?: boolean;
@@ -54,9 +66,11 @@ interface DraftState {
   lastUpdatedAt: number | null;
   tierSource: TierSource;
   valueSource: DraftValueSource;
+  sortSource: DraftSortSource;
 }
 
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
+const BEST_AVAILABLE_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
 
 function resolveTier(row: DraftPlayerRow, tierSrc: TierSource): number {
   const ktcTier = row.positionalTier ?? row.overallTier ?? null;
@@ -75,6 +89,63 @@ function resolveValue(row: DraftPlayerRow, valueSrc: DraftValueSource): number {
   // Fall back to ktcValue when averageRank is unavailable.
   if (row.averageRank !== null) return -row.averageRank;
   return row.ktcValue ?? 0;
+}
+
+/** Sort comparator keyed on DraftSortSource. Lower return = higher priority. */
+function sortBySortSource(a: DraftPlayerRow, b: DraftPlayerRow, src: DraftSortSource): number {
+  switch (src) {
+    case 'combinedTier': {
+      const aTier = a.combinedTier ?? Number.MAX_SAFE_INTEGER;
+      const bTier = b.combinedTier ?? Number.MAX_SAFE_INTEGER;
+      if (aTier !== bTier) return aTier - bTier;
+      break;
+    }
+    case 'sleeperRank':
+      if (a.sleeperRank !== b.sleeperRank) return a.sleeperRank - b.sleeperRank;
+      break;
+    case 'ktcRank': {
+      const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
+      const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
+      if (aRank !== bRank) return aRank - bRank;
+      break;
+    }
+    case 'flockRank': {
+      const aRank = a.averageRank ?? Number.MAX_SAFE_INTEGER;
+      const bRank = b.averageRank ?? Number.MAX_SAFE_INTEGER;
+      if (aRank !== bRank) return aRank - bRank;
+      break;
+    }
+    case 'combinedPositionalTier': {
+      const aTier = a.combinedPositionalTier ?? Number.MAX_SAFE_INTEGER;
+      const bTier = b.combinedPositionalTier ?? Number.MAX_SAFE_INTEGER;
+      if (aTier !== bTier) return aTier - bTier;
+      break;
+    }
+  }
+  // Tiebreak: sleeperRank
+  return a.sleeperRank - b.sleeperRank;
+}
+
+/** Return the numeric rank value for a row based on the active sort source. */
+export function rankForSortSource(row: DraftPlayerRow, src: DraftSortSource): number | null {
+  switch (src) {
+    case 'combinedTier': return row.combinedTier;
+    case 'sleeperRank': return row.sleeperRank;
+    case 'ktcRank': return row.ktcRank;
+    case 'flockRank': return row.averageRank;
+    case 'combinedPositionalTier': return row.combinedPositionalTier;
+  }
+}
+
+/** Return the positional-rank/tier value for a row based on the active sort source. */
+export function positionalRankForSortSource(row: DraftPlayerRow, src: DraftSortSource): number | null {
+  switch (src) {
+    case 'combinedTier': return row.combinedPositionalTier;
+    case 'sleeperRank': return row.sleeperRank; // no separate positional sleeper rank
+    case 'ktcRank': return row.ktcRank ? (row.positionalTier ?? null) : null;
+    case 'flockRank': return row.flockAveragePositionalTier;
+    case 'combinedPositionalTier': return row.combinedPositionalTier;
+  }
 }
 
 export const DraftStore = signalStore(
@@ -98,6 +169,7 @@ export const DraftStore = signalStore(
     lastUpdatedAt: null,
     tierSource: 'ktc',
     valueSource: 'ktcValue',
+    sortSource: 'combinedTier' as DraftSortSource,
   }),
   withComputed((store) => ({
     selectedDraft: computed(() => store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null),
@@ -109,6 +181,26 @@ export const DraftStore = signalStore(
         }
       }
       return ids;
+    }),
+    /**
+     * All player rows (including drafted) sorted by the active sortSource.
+     * Drafted players carry isDrafted=true for visual differentiation.
+     * This satisfies REQ-PL-01, REQ-PL-02, REQ-PL-05, REQ-PL-06.
+     */
+    allPlayerRows: computed((): DraftPlayerDisplayRow[] => {
+      const sortSrc = store.sortSource();
+      const selected = new Set(store.selectedPositions());
+      const picked = new Set(
+        store.picks()
+          .filter((pick) => !!pick.player_id)
+          .map((pick) => pick.player_id),
+      );
+
+      return [...store.rows()]
+        .filter((row) => selected.has(row.position))
+        .filter((row) => !store.rookiesOnly() || row.rookie)
+        .sort((a, b) => sortBySortSource(a, b, sortSrc))
+        .map((row) => ({ ...row, isDrafted: picked.has(row.playerId) }));
     }),
     availableRows: computed(() => {
       const tierSrc = store.tierSource();
@@ -234,6 +326,47 @@ export const DraftStore = signalStore(
     pickBoard: computed(() => [...store.picks()].sort((a, b) => a.pick_no - b.pick_no)),
     recentPicks: computed(() => [...store.picks()].sort((a, b) => b.pick_no - a.pick_no).slice(0, 10)),
     nextPickNumber: computed(() => store.picks().length + 1),
+    /**
+     * Best available player per position group (QB, RB, WR, TE).
+     * "Best available" = lowest combinedTier among undrafted players.
+     * When a position filter is active, only the filtered positions are shown.
+     * Satisfies REQ-BA-02, REQ-BA-03, REQ-BA-04.
+     */
+    bestAvailableByPosition: computed((): BestAvailableEntry[] => {
+      const picked = new Set(
+        store.picks()
+          .filter((pick) => !!pick.player_id)
+          .map((pick) => pick.player_id),
+      );
+      const selected = store.selectedPositions();
+      const positionsToShow: DraftPositionFilter[] =
+        selected.length === DEFAULT_POSITIONS.length
+          ? BEST_AVAILABLE_POSITIONS
+          : selected.filter((p): p is DraftPositionFilter =>
+              BEST_AVAILABLE_POSITIONS.includes(p as DraftPositionFilter),
+            );
+
+      const undrafted = store.rows()
+        .filter((row) => !picked.has(row.playerId))
+        .filter((row) => (positionsToShow as string[]).includes(row.position))
+        .sort((a, b) => {
+          const aTier = a.combinedTier ?? Number.MAX_SAFE_INTEGER;
+          const bTier = b.combinedTier ?? Number.MAX_SAFE_INTEGER;
+          if (aTier !== bTier) return aTier - bTier;
+          return a.sleeperRank - b.sleeperRank;
+        });
+
+      const bestByPos = new Map<DraftPositionFilter, DraftPlayerRow>();
+      for (const row of undrafted) {
+        const pos = row.position as DraftPositionFilter;
+        if (!bestByPos.has(pos)) {
+          bestByPos.set(pos, row);
+        }
+        if (bestByPos.size === positionsToShow.length) break;
+      }
+
+      return positionsToShow.map((pos) => ({ position: pos, player: bestByPos.get(pos) ?? null }));
+    }),
   })),
   withMethods((store, appStore = inject(AppStore), sleeper = inject(SleeperService), ktc = inject(KtcRatingService), flock = inject(FlockRatingService), storage = inject(StorageService), playerNorm = inject(PlayerNormalizationService)) => {
     let pollHandle: ReturnType<typeof setInterval> | null = null;
@@ -241,6 +374,8 @@ export const DraftStore = signalStore(
 
     const selectedDraftStorageKey = (leagueId: string): string => `draftAssistant.selectedDraft.${leagueId}`;
     const starStorageKey = (leagueId: string): string => `draftAssistant.draftStars.${leagueId}`;
+    const sortSourceStorageKey = (leagueId: string): string => `draftAssistant.sortSource.${leagueId}`;
+    const positionsStorageKey = (leagueId: string): string => `draftAssistant.positions.${leagueId}`;
 
     const stopPolling = (): void => {
       if (pollHandle !== null) {
@@ -353,6 +488,22 @@ export const DraftStore = signalStore(
 
       const parsed = storage.getItem<string[]>(starStorageKey(leagueId));
       return Array.isArray(parsed) ? parsed : [];
+    };
+
+    const loadSortSource = (leagueId: string | null): DraftSortSource => {
+      if (!leagueId) return 'combinedTier';
+      const saved = storage.getRawItem(sortSourceStorageKey(leagueId));
+      const valid: DraftSortSource[] = ['combinedTier', 'sleeperRank', 'ktcRank', 'flockRank', 'combinedPositionalTier'];
+      return valid.includes(saved as DraftSortSource) ? (saved as DraftSortSource) : 'combinedTier';
+    };
+
+    const loadSavedPositions = (leagueId: string | null): DraftPositionFilter[] => {
+      if (!leagueId) return DEFAULT_POSITIONS;
+      const parsed = storage.getItem<DraftPositionFilter[]>(positionsStorageKey(leagueId));
+      if (!Array.isArray(parsed) || parsed.length === 0) return DEFAULT_POSITIONS;
+      const valid = new Set<string>(DEFAULT_POSITIONS);
+      const filtered = parsed.filter((p) => valid.has(p));
+      return filtered.length > 0 ? filtered : DEFAULT_POSITIONS;
     };
 
     const loadDraftContext = async (
@@ -522,6 +673,8 @@ export const DraftStore = signalStore(
           picks,
           rookiesOnly: isRookieDraft,
           starredPlayerIds,
+          sortSource: loadSortSource(leagueId),
+          selectedPositions: loadSavedPositions(leagueId),
           lastUpdatedAt: Date.now(),
         });
 
@@ -638,12 +791,18 @@ export const DraftStore = signalStore(
         patchState(store, { valueSource });
       },
       togglePosition(position: DraftPositionFilter): void {
-        patchState(store, {
-          selectedPositions: togglePositionFilter(store.selectedPositions(), position),
-        });
+        const next = togglePositionFilter(store.selectedPositions(), position);
+        patchState(store, { selectedPositions: next });
+        const leagueId = store.selectedLeagueId();
+        if (leagueId) storage.setItem(positionsStorageKey(leagueId), next);
       },
       setRookiesOnly(value: boolean): void {
         patchState(store, { rookiesOnly: value });
+      },
+      setSortSource(sortSource: DraftSortSource): void {
+        patchState(store, { sortSource });
+        const leagueId = store.selectedLeagueId();
+        if (leagueId) storage.setRawItem(sortSourceStorageKey(leagueId), sortSource);
       },
       toggleStar(playerId: string): void {
         const current = store.starredPlayerIds();
@@ -659,6 +818,33 @@ export const DraftStore = signalStore(
         }
 
         storage.setItem(starStorageKey(leagueId), next);
+      },
+      /**
+       * Clears all session-specific storage keys and resets the draft state.
+       * Returns the app to the draft-source selection screen (REQ-SM-08).
+       */
+      resetSession(): void {
+        stopPolling();
+        const leagueId = store.selectedLeagueId();
+        if (leagueId) {
+          storage.removeItem(selectedDraftStorageKey(leagueId));
+          storage.removeItem(starStorageKey(leagueId));
+          storage.removeItem(sortSourceStorageKey(leagueId));
+          storage.removeItem(positionsStorageKey(leagueId));
+        }
+        patchState(store, {
+          loading: false,
+          error: null,
+          staleData: false,
+          selectedDraftId: null,
+          draftStatus: null,
+          picks: [],
+          rows: [],
+          starredPlayerIds: [],
+          sortSource: 'combinedTier',
+          selectedPositions: DEFAULT_POSITIONS,
+          lastUpdatedAt: null,
+        });
       },
       stopPolling(): void {
         stopPolling();

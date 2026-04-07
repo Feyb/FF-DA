@@ -75,7 +75,7 @@
 
 @media (min-width: 1080px) {
   .controls-grid {
-    grid-template-columns: 1.2fr 1.2fr 0.8fr 1fr;
+    grid-template-columns: 1.2fr 1.2fr 0.8fr 0.8fr 1fr;
   }
 }
 
@@ -475,6 +475,94 @@
 
 // empty-copy is defined globally in shared/styles/_states.scss
 
+// ─── Best Available Panel ──────────────────────────────────────────────────────
+
+.best-available-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.best-available-entry {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid rgb(226 232 240);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.best-available-pos {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgb(71 85 105);
+}
+
+.best-available-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.best-available-name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.best-available-meta {
+  font-size: 0.75rem;
+  color: rgb(100 116 139);
+}
+
+.best-available-empty {
+  font-size: 0.8125rem;
+  color: rgb(148 163 184);
+}
+
+// ─── All-Player Row ────────────────────────────────────────────────────────────
+
+.all-player-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgb(226 232 240);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.player-drafted {
+  opacity: 0.45;
+  background: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 4px,
+    rgba(0 0 0 / 0.03) 4px,
+    rgba(0 0 0 / 0.03) 8px
+  );
+}
+
+.player-name-drafted {
+  text-decoration: line-through;
+  color: rgb(148 163 184);
+}
+
+.player-tier-badge {
+  font-size: 0.7rem;
+  color: rgb(71 85 105);
+  white-space: nowrap;
+}
+
+.player-tier-sep {
+  color: rgb(203 213 225);
+}
+
 // ── Dark-mode overrides ────────────────────────────────────────────────────────
 html.dark {
   .draft-source-badge {
@@ -582,7 +670,8 @@ html.dark {
     color: rgb(226 232 240);
   }
 
-  .player-row {
+  .player-row,
+  .all-player-row {
     border-color: rgb(51 65 85);
   }
 
@@ -599,6 +688,18 @@ html.dark {
     color: rgb(148 163 184);
   }
 
+  .player-tier-badge {
+    color: rgb(100 116 139);
+  }
+
+  .player-tier-sep {
+    color: rgb(51 65 85);
+  }
+
+  .player-name-drafted {
+    color: rgb(71 85 105);
+  }
+
   .pick-number {
     color: rgb(148 163 184);
   }
@@ -613,6 +714,22 @@ html.dark {
 
   .mock-draft-error {
     color: rgb(252 165 165);
+  }
+
+  .best-available-entry {
+    border-color: rgb(51 65 85);
+  }
+
+  .best-available-pos {
+    color: rgb(148 163 184);
+  }
+
+  .best-available-meta {
+    color: rgb(100 116 139);
+  }
+
+  .best-available-empty {
+    color: rgb(71 85 105);
   }
 }
 

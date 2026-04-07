@@ -111,8 +111,18 @@
         </mat-select>
       </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Sort by</mat-label>
+        <mat-select [ngModel]="store.sortSource()" (ngModelChange)="store.setSortSource($event)">
+          @for (source of sortSources; track source.value) {
+            <mat-option [value]="source.value">{{ source.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
       <div class="controls-actions">
         <button matButton (click)="refreshDraft()">Refresh</button>
+        <button matButton color="warn" (click)="resetSession()" title="Clear draft session data">Reset Session</button>
         @if (store.lastUpdatedAt()) {
           <span class="updated-at">Updated {{ store.lastUpdatedAt()! | date:'mediumTime' }}</span>
         }
@@ -213,37 +223,31 @@
           <div class="draft-main">
             <mat-card class="recommendations-card" appearance="outlined">
               <div class="section-header">
-                <h2>Recommendations</h2>
+                <h2>Best Available</h2>
                 <app-tier-legend/>
-                <span class="section-hint">Mode: KTC best available</span>
+                <span class="section-hint">Top undrafted per position (combined tier)</span>
               </div>
-              @if (store.recommendations().length === 0) {
+              @if (store.bestAvailableByPosition().length === 0) {
                 <p class="empty-copy">No recommendation candidates right now.</p>
               } @else {
-                <div class="recommendation-list">
-                  @for (tierGroup of recommendationTierGroups(store.recommendations()); track tierGroupLabel(tierGroup)) {
-                    <div class="recommendation-tier-header">{{ tierGroupLabel(tierGroup) }}</div>
-                    @for (positionGroup of tierGroup.positions; track positionGroup.position) {
-                      <div class="recommendation-position-header">{{ positionGroup.position }}</div>
-                      @for (rec of positionGroup.recommendations; track rec.playerId) {
-                        <div
-                          class="recommendation-item"
-                        [ngClass]="tierColorClass(recTier(rec))"
-                        >
-                          <span class="recommendation-rank">#{{ rec.ktcRank ?? '-' }}</span>
-                          <div>
-                            <span class="recommendation-name">{{ rec.fullName }}</span>
-                            <span class="recommendation-meta">
-                              {{ rec.position }} • {{ rec.team ?? 'FA' }} • Tier {{ recTier(rec) ?? '-' }}
-                            </span>
-                          </div>
-                          <div class="recommendation-values">
-                            <span class="recommendation-value">{{ selectedValue(rec) ?? '-' }}</span>
-                            <span class="recommendation-boost">Score {{ rec.boostedScore | number:'1.0-0' }}</span>
-                          </div>
+                <div class="best-available-list">
+                  @for (entry of store.bestAvailableByPosition(); track entry.position) {
+                    <div class="best-available-entry" [ngClass]="tierColorClass(entry.player?.combinedTier ?? null)">
+                      <span class="best-available-pos">{{ entry.position }}</span>
+                      @if (entry.player) {
+                        <div class="best-available-info">
+                          <span class="best-available-name">{{ entry.player.fullName }}</span>
+                          <span class="best-available-meta">
+                            Tier {{ entry.player.combinedTier ?? 'N/A' }}
+                            @if (bestAvailableRank(entry) !== null) {
+                              · #{{ bestAvailableRank(entry) }} ({{ sortSourceRankLabel() }})
+                            }
+                          </span>
                         </div>
+                      } @else {
+                        <span class="best-available-empty">None available</span>
                       }
-                    }
+                    </div>
                   }
                 </div>
               }
@@ -251,37 +255,66 @@
 
             <mat-card class="players-card" appearance="outlined">
               <div class="section-header">
-                <h2>Available Players</h2>
-                <span class="section-hint">{{ store.availableRows().length }} players</span>
+                <h2>All Players</h2>
+                <span class="section-hint">{{ store.allPlayerRows().length }} players · {{ sortSourceRankLabel() }}</span>
               </div>
 
-              @if (store.availableRows().length === 0) {
+              @if (store.allPlayerRows().length === 0) {
                 <p class="empty-copy">No players match your current filters.</p>
               } @else {
                 <div class="players-list">
-                  @if (store.availableRows().slice(0, 80); as visibleRows) {
+                  @if (store.allPlayerRows().slice(0, 120); as visibleRows) {
                     @for (player of visibleRows; track player.playerId; let i = $index) {
-                      @if (shouldShowNextPickDivider(visibleRows, i)) {
+                      @if (!player.isDrafted && shouldShowNextPickDivider(visibleRows, i)) {
                         <div class="next-pick-divider-row">
                           <span class="next-pick-divider-label">{{ nextPickDividerLabel() }}</span>
                         </div>
                       }
 
-                      @if (shouldShowTierDivider(visibleRows, i)) {
+                      @if (!player.isDrafted && shouldShowTierDivider(visibleRows, i)) {
                         <div class="tier-divider-row">
                           <span class="tier-divider-label">{{ tierDividerLabel(player) }}</span>
                         </div>
                       }
 
-                      <app-player-row
-                        [player]="player"
-                        [tierClass]="tierColorClass(rowTier(player))"
-                        [rank]="player.ktcRank"
-                        [primaryValue]="selectedValue(player)"
-                        [showStar]="true"
-                        [starred]="isStarred(player.playerId)"
-                        (starToggle)="toggleStar($event)"
-                      />
+                      <div
+                        class="all-player-row"
+                        [class.player-drafted]="player.isDrafted"
+                        [ngClass]="player.isDrafted ? '' : tierColorClass(rowCombinedTier(player))"
+                      >
+                        <img
+                          class="player-avatar"
+                          [src]="playerHeadshotUrl(player.playerId)"
+                          [alt]="player.fullName"
+                          loading="lazy"
+                          (error)="onPlayerImageError($event)"
+                        />
+                        <div class="player-meta">
+                          <span class="player-name" [class.player-name-drafted]="player.isDrafted">{{ player.fullName }}</span>
+                          <span class="player-sub">{{ player.position }} · {{ player.team ?? 'FA' }}</span>
+                        </div>
+                        <span class="player-tier-badge">
+                          <span title="Combined Tier">CT:{{ player.combinedTier ?? 'N/A' }}</span>
+                          <span class="player-tier-sep"> · </span>
+                          <span title="KTC Tier">KTC:{{ player.overallTier ?? 'N/A' }}</span>
+                          <span class="player-tier-sep"> · </span>
+                          <span title="Flock Tier">F:{{ player.flockAverageTier ?? 'N/A' }}</span>
+                        </span>
+                        <span class="player-rank">
+                          @if (rowRank(player) !== null) { #{{ rowRank(player) }} }
+                        </span>
+                        @if (!player.isDrafted) {
+                          <button
+                            type="button"
+                            class="star-button"
+                            [class.star-active]="isStarred(player.playerId)"
+                            (click)="toggleStar(player.playerId)"
+                            [attr.aria-label]="isStarred(player.playerId) ? 'Unstar player' : 'Star player'"
+                          >
+                            <mat-icon>{{ isStarred(player.playerId) ? 'star' : 'star_border' }}</mat-icon>
+                          </button>
+                        }
+                      </div>
                     }
                   }
                 </div>

@@ -89,6 +89,10 @@ export interface DraftPlayerRow {
   flockAveragePositionalTier: number | null;
   averageRank: number | null;
   sleeperRank: number;
+  /** Sum of KTC overall tier + Flock average tier (lower = better). */
+  combinedTier: number | null;
+  /** Sum of KTC positional tier + Flock average positional tier (lower = better). */
+  combinedPositionalTier: number | null;
 }
 
 export interface DraftRecommendation {
