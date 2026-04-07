@@ -48,15 +48,11 @@ export const AppStore = signalStore(
     toggleDarkMode(): void {
       const next = !store.darkMode();
       patchState(store, { darkMode: next });
-      try {
-        localStorage.setItem(STORAGE_KEY_DARK_MODE, String(next));
-      } catch { /* ignore */ }
+      storage.setRawItem(STORAGE_KEY_DARK_MODE, String(next));
     },
     setDarkMode(darkMode: boolean): void {
       patchState(store, { darkMode });
-      try {
-        localStorage.setItem(STORAGE_KEY_DARK_MODE, String(darkMode));
-      } catch { /* ignore */ }
+      storage.setRawItem(STORAGE_KEY_DARK_MODE, String(darkMode));
     },
   })),
   withHooks((store, storage = inject(StorageService)) => ({
