@@ -61,6 +61,11 @@ const DEFAULT_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
 function resolveTier(row: DraftPlayerRow, tierSrc: TierSource): number {
   const ktcTier = row.positionalTier ?? row.overallTier ?? null;
   const flockTier = row.flockAveragePositionalTier ?? row.flockAverageTier ?? null;
+
+  if (tierSrc === 'flock' && flockTier === null) {
+    return ktcTier ?? Number.MAX_SAFE_INTEGER;
+  }
+
   return resolveTierUtil(ktcTier, flockTier, tierSrc) ?? Number.MAX_SAFE_INTEGER;
 }
 
@@ -346,12 +351,8 @@ export const DraftStore = signalStore(
         return [];
       }
 
-      try {
-        const parsed = storage.getItem<string[]>(starStorageKey(leagueId));
-        return Array.isArray(parsed) ? parsed : [];
-      } catch {
-        return [];
-      }
+      const parsed = storage.getItem<string[]>(starStorageKey(leagueId));
+      return Array.isArray(parsed) ? parsed : [];
     };
 
     const loadDraftContext = async (
