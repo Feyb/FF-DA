@@ -13,6 +13,7 @@ import { TeamViewStore } from './team-view.store';
 import { TierLegendComponent } from '../../shared/components/tier-legend';
 import { LoadingStateComponent } from '../../shared/components/loading-state';
 import { ErrorStateComponent } from '../../shared/components/error-state';
+import { PageHeaderComponent } from '../../shared/components/page-header';
 import { PLAYER_FALLBACK_IMAGE } from '../../core/constants/images.constants';
 
 @Component({
@@ -34,6 +35,7 @@ import { PLAYER_FALLBACK_IMAGE } from '../../core/constants/images.constants';
     TierLegendComponent,
     LoadingStateComponent,
     ErrorStateComponent,
+    PageHeaderComponent,
   ],
 })
 export class TeamViewComponent {
