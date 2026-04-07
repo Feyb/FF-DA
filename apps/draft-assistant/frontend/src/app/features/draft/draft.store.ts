@@ -389,7 +389,10 @@ export const DraftStore = signalStore(
       }, {});
 
       const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-      const flockLookup = new Map([...flock.buildNameLookup(flockRookies), ...flock.buildNameLookup(flockPlayers)]);
+      const isRookieDraft = isSleeperRookieDraft(draft);
+      const flockLookup = isRookieDraft
+        ? new Map([...flock.buildNameLookup(flockRookies), ...flock.buildNameLookup(flockPlayers)])
+        : flock.buildNameLookup(flockPlayers);
       const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season));
 
       let rosterDisplayNames: Record<string, string> = {};
@@ -481,8 +484,6 @@ export const DraftStore = signalStore(
         const rosterDisplayNames = mapRosterDisplayNames(rosters, users);
         const rosterAvatarIds = mapRosterAvatarIds(rosters, users);
         const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-        const flockLookup = new Map([...flock.buildNameLookup(flockRookies), ...flock.buildNameLookup(flockPlayers)]);
-        const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season));
         const selectedDraftId = chooseDraftId(leagueId, drafts);
 
         let selectedDraft: SleeperDraft | null = null;
@@ -496,6 +497,12 @@ export const DraftStore = signalStore(
           nextDrafts = upsertDraft(drafts, draftDetail);
           picks = normalizePicks(draftDetail, draftPicks);
         }
+
+        const isRookieDraft = selectedDraft ? isSleeperRookieDraft(selectedDraft) : false;
+        const flockLookup = isRookieDraft
+          ? new Map([...flock.buildNameLookup(flockRookies), ...flock.buildNameLookup(flockPlayers)])
+          : flock.buildNameLookup(flockPlayers);
+        const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season));
 
         const starredPlayerIds = (() => {
           const parsed = storage.getItem<string[]>(starStorageKey(leagueId));
@@ -513,7 +520,7 @@ export const DraftStore = signalStore(
           rosterAvatarIds,
           rows,
           picks,
-          rookiesOnly: selectedDraft ? isSleeperRookieDraft(selectedDraft) : false,
+          rookiesOnly: isRookieDraft,
           starredPlayerIds,
           lastUpdatedAt: Date.now(),
         });
