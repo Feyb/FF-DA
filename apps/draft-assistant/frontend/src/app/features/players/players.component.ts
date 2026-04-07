@@ -22,8 +22,6 @@ import { TierSource } from '../../core/models';
 import { PLAYER_FALLBACK_IMAGE } from '../../core/constants/images.constants';
 import { resolveTier } from '../../core/utils/tier-resolution.util';
 import { PageHeaderComponent } from '../../shared/components/page-header';
-import { LoadingStateComponent } from '../../shared/components/loading-state';
-import { ErrorStateComponent } from '../../shared/components/error-state';
 
 interface PlayersStoreView {
   selectedPositions: () => PositionFilter[];
