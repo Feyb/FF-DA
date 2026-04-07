@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, catchError, map, of, shareReplay } from 'rxjs';
 import { FlockPlayer } from '../../models';
-import { normalizeName } from '../../utils/name-normalization.util';
+import { normalizeName as normalizeNameUtil } from '../../utils/name-normalization.util';
 
 const FLOCK_ASSET_1QB_URL = 'assets/flock/players-1qb.json';
 const FLOCK_ASSET_SUPERFLEX_URL = 'assets/flock/players-superflex.json';
@@ -82,6 +82,6 @@ export class FlockRatingService {
   }
 
   normalizeName(name: string): string {
-    return normalizeName(name);
+    return normalizeNameUtil(name);
   }
 }

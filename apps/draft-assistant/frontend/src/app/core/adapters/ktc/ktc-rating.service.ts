@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, catchError, map, of, shareReplay } from 'rxjs';
 import { KtcPlayer, TeamViewPlayer, TeamViewRating } from '../../models';
-import { normalizeName } from '../../utils/name-normalization.util';
+import { normalizeName as normalizeNameUtil } from '../../utils/name-normalization.util';
 
 const KTC_RANKINGS_URL = '/ktc/dynasty-rankings';
 const KTC_ASSET_1QB_URL = 'assets/ktc/players-1qb.json';
@@ -116,7 +116,7 @@ export class KtcRatingService {
   }
 
   normalizeName(name: string): string {
-    return normalizeName(name);
+    return normalizeNameUtil(name);
   }
 
   computeTeamRating(
