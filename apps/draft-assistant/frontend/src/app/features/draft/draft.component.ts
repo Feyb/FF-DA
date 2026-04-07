@@ -125,8 +125,11 @@ export class DraftComponent implements OnInit {
     { value: 'sleeperRank', label: 'Sleeper Rank' },
     { value: 'combinedPositionalTier', label: 'Combined Pos. Tier' },
   ];
+  private static readonly MAX_VISIBLE_PLAYERS = 120;
   /** Memoized slice of the player list to avoid repeated slicing in template. */
-  protected readonly visiblePlayerRows = computed(() => this.store.allPlayerRows().slice(0, 120));
+  protected readonly visiblePlayerRows = computed(() =>
+    this.store.allPlayerRows().slice(0, DraftComponent.MAX_VISIBLE_PLAYERS),
+  );
   protected readonly sourceLabel = computed(() =>
     this.activeSourceMode() === 'direct' ? 'Direct URL' : 'League Draft',
   );

@@ -141,7 +141,7 @@ export function rankForSortSource(row: DraftPlayerRow, src: DraftSortSource): nu
 export function positionalRankForSortSource(row: DraftPlayerRow, src: DraftSortSource): number | null {
   switch (src) {
     case 'combinedTier': return row.combinedPositionalTier;
-    case 'sleeperRank': return row.sleeperRank; // no separate positional sleeper rank
+    case 'sleeperRank': return null; // Sleeper does not expose a separate positional rank
     case 'ktcRank': return row.positionalTier;
     case 'flockRank': return row.flockAveragePositionalTier;
     case 'combinedPositionalTier': return row.combinedPositionalTier;
