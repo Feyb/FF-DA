@@ -235,12 +235,13 @@
                     <div class="best-available-entry" [ngClass]="tierColorClass(entry.player?.combinedTier ?? null)">
                       <span class="best-available-pos">{{ entry.position }}</span>
                       @if (entry.player) {
+                        @let rank = bestAvailableRank(entry);
                         <div class="best-available-info">
                           <span class="best-available-name">{{ entry.player.fullName }}</span>
                           <span class="best-available-meta">
                             Tier {{ entry.player.combinedTier ?? 'N/A' }}
-                            @if (bestAvailableRank(entry) !== null) {
-                              · #{{ bestAvailableRank(entry) }} ({{ sortSourceRankLabel() }})
+                            @if (rank !== null) {
+                              · #{{ rank }} ({{ sortSourceRankLabel() }})
                             }
                           </span>
                         </div>
