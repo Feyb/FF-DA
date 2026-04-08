@@ -300,8 +300,9 @@
                           <span class="player-tier-sep" aria-hidden="true"> · </span>
                           <span [attr.aria-label]="'Flock Tier: ' + (player.flockAverageTier ?? 'N/A')" title="Flock Tier">F:{{ player.flockAverageTier ?? 'N/A' }}</span>
                         </span>
+                        @let rank = rowRank(player);
                         <span class="player-rank">
-                          @if (rowRank(player) !== null) { #{{ rowRank(player) }} }
+                          @if (rank !== null) { #{{ rank }} }
                         </span>
                         @if (!player.isDrafted) {
                           <button
