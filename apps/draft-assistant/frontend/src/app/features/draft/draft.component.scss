@@ -7,44 +7,6 @@
   gap: 1rem;
 }
 
-.draft-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.draft-title-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.draft-title {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  font-weight: 700;
-}
-
-.draft-source-badge {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 9999px;
-  border: 1px solid rgb(203 213 225);
-  background: rgb(248 250 252);
-  padding: 0.25rem 0.625rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: rgb(51 65 85);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.draft-subtitle {
-  font-size: 0.875rem;
-  color: rgb(71 85 105);
-}
-
 .controls-card {
   padding: 1rem;
 }
@@ -237,7 +199,6 @@
 .recommendations-card,
 .players-card,
 .stars-card,
-.board-card,
 .board-grid-card {
   padding: 1rem;
 }
@@ -265,7 +226,7 @@
 }
 
 .summary-value-mono {
-  font-family: ui-monospace, SFMono-Regular, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
   font-size: 0.875rem;
   word-break: break-all;
 }
@@ -292,7 +253,6 @@
   text-align: right;
 }
 
-.recommendation-list,
 .players-list,
 .pick-list {
   display: flex;
@@ -300,23 +260,6 @@
   gap: 0.5rem;
 }
 
-.recommendation-tier-header {
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: rgb(30 41 59);
-}
-
-.recommendation-position-header {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: rgb(71 85 105);
-  margin-top: 0.125rem;
-}
-
-.recommendation-item,
 .pick-item {
   display: grid;
   gap: 0.75rem;
@@ -325,36 +268,6 @@
   border: 1px solid rgb(226 232 240);
   border-radius: 0.5rem;
   padding: 0.5rem 0.75rem;
-}
-
-.recommendation-rank {
-  font-size: 0.8125rem;
-  color: rgb(71 85 105);
-}
-
-.recommendation-name {
-  font-weight: 600;
-}
-
-.recommendation-meta {
-  font-size: 0.8125rem;
-  color: rgb(100 116 139);
-}
-
-.recommendation-value {
-  font-weight: 700;
-}
-
-.recommendation-values {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.125rem;
-}
-
-.recommendation-boost {
-  font-size: 0.75rem;
-  color: rgb(71 85 105);
 }
 
 .players-list {
@@ -396,16 +309,6 @@
   letter-spacing: 0.04em;
 }
 
-.player-row {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
-  align-items: center;
-  gap: 0.5rem;
-  border: 1px solid rgb(226 232 240);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-}
-
 .player-avatar {
   width: 2rem;
   height: 2rem;
@@ -430,8 +333,7 @@
   color: rgb(100 116 139);
 }
 
-.player-rank,
-.player-value {
+.player-rank {
   font-size: 0.8125rem;
   color: rgb(51 65 85);
 }
@@ -565,16 +467,6 @@
 
 // ── Dark-mode overrides ────────────────────────────────────────────────────────
 html.dark {
-  .draft-source-badge {
-    background: var(--surface-container-high, #2b2930);
-    border-color: rgb(71 85 105);
-    color: rgb(203 213 225);
-  }
-
-  .draft-subtitle {
-    color: rgb(148 163 184);
-  }
-
   .source-switch-label {
     color: rgb(148 163 184);
   }
@@ -618,40 +510,7 @@ html.dark {
     color: rgb(148 163 184);
   }
 
-  .draft-option-subtitle {
-    color: rgb(100 116 139);
-  }
-
   .info-card-copy {
-    color: rgb(148 163 184);
-  }
-
-  .summary-label {
-    color: rgb(100 116 139);
-  }
-
-  .recommendation-tier-header {
-    color: rgb(203 213 225);
-  }
-
-  .recommendation-position-header {
-    color: rgb(148 163 184);
-  }
-
-  .recommendation-item,
-  .pick-item {
-    border-color: rgb(51 65 85);
-  }
-
-  .recommendation-rank {
-    color: rgb(148 163 184);
-  }
-
-  .recommendation-meta {
-    color: rgb(100 116 139);
-  }
-
-  .recommendation-boost {
     color: rgb(148 163 184);
   }
 
@@ -670,7 +529,6 @@ html.dark {
     color: rgb(226 232 240);
   }
 
-  .player-row,
   .all-player-row {
     border-color: rgb(51 65 85);
   }
@@ -679,12 +537,7 @@ html.dark {
     background: rgb(51 65 85);
   }
 
-  .player-sub {
-    color: rgb(100 116 139);
-  }
-
-  .player-rank,
-  .player-value {
+  .player-rank {
     color: rgb(148 163 184);
   }
 
@@ -724,10 +577,6 @@ html.dark {
     color: rgb(148 163 184);
   }
 
-  .best-available-meta {
-    color: rgb(100 116 139);
-  }
-
   .best-available-empty {
     color: rgb(71 85 105);
   }
@@ -740,13 +589,5 @@ html.dark {
 
   .mock-draft-field {
     width: 100%;
-  }
-
-  .player-row {
-    grid-template-columns: auto minmax(0, 1fr) auto;
-  }
-
-  .player-value {
-    display: none;
   }
 }
