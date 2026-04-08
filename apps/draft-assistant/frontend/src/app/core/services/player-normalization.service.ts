@@ -42,6 +42,26 @@ export class PlayerNormalizationService {
     const ktcPlayer = ktcLookup.get(this.ktcService.normalizeName(fullName));
     const flockPlayer = flockLookup.get(this.flockService.normalizeName(fullName));
 
+    const ktcOverallTier = ktcPlayer?.overallTier ?? null;
+    const ktcPositionalTier = ktcPlayer?.positionalTier ?? null;
+    const flockTier = flockPlayer?.averageTier ?? null;
+    const flockPositionalTier = flockPlayer?.averagePositionalTier ?? null;
+
+    // SRS §3.1: combinedTier = sum of all available source tiers (lower = better).
+    // When only one source has data the missing source contributes 0 to the sum, so
+    // single-source players will sort ahead of dual-source players with the same
+    // individual tier.  This is intentional: a player recognised by at least one
+    // high-quality source is still considered preferable to an unranked player.
+    const combinedTier =
+      ktcOverallTier !== null || flockTier !== null
+        ? (ktcOverallTier ?? 0) + (flockTier ?? 0)
+        : null;
+
+    const combinedPositionalTier =
+      ktcPositionalTier !== null || flockPositionalTier !== null
+        ? (ktcPositionalTier ?? 0) + (flockPositionalTier ?? 0)
+        : null;
+
     return {
       playerId,
       fullName,
@@ -51,11 +71,13 @@ export class PlayerNormalizationService {
       rookie: ktcPlayer?.rookie ?? source.rookie_year === currentSeason,
       ktcValue: ktcPlayer?.value ?? null,
       ktcRank: ktcPlayer?.rank ?? null,
-      overallTier: ktcPlayer?.overallTier ?? null,
-      positionalTier: ktcPlayer?.positionalTier ?? null,
-      flockAverageTier: flockPlayer?.averageTier ?? null,
-      flockAveragePositionalTier: flockPlayer?.averagePositionalTier ?? null,
+      overallTier: ktcOverallTier,
+      positionalTier: ktcPositionalTier,
+      flockAverageTier: flockTier,
+      flockAveragePositionalTier: flockPositionalTier,
       averageRank: flockPlayer?.averageRank ?? null,
+      combinedTier,
+      combinedPositionalTier,
     };
   }
 
