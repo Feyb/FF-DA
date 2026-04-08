@@ -347,23 +347,27 @@ export const DraftStore = signalStore(
             );
 
       const undrafted = store.rows()
-        .filter((row) => !picked.has(row.playerId))
-        .filter((row) => !store.rookiesOnly() || row.rookie)
-        .filter((row) => (positionsToShow as string[]).includes(row.position))
-        .sort((a, b) => {
-          const aTier = a.combinedTier ?? Number.MAX_SAFE_INTEGER;
-          const bTier = b.combinedTier ?? Number.MAX_SAFE_INTEGER;
-          if (aTier !== bTier) return aTier - bTier;
-          return a.sleeperRank - b.sleeperRank;
-        });
-
+      const positionsToShowSet = new Set<string>(positionsToShow);
       const bestByPos = new Map<DraftPositionFilter, DraftPlayerRow>();
-      for (const row of undrafted) {
+      const isBetterCandidate = (candidate: DraftPlayerRow, current: DraftPlayerRow): boolean => {
+        const candidateTier = candidate.combinedTier ?? Number.MAX_SAFE_INTEGER;
+        const currentTier = current.combinedTier ?? Number.MAX_SAFE_INTEGER;
+        if (candidateTier !== currentTier) {
+          return candidateTier < currentTier;
+        }
+        return candidate.sleeperRank < current.sleeperRank;
+      };
+
+      for (const row of store.rows()) {
+        if (picked.has(row.playerId) || !positionsToShowSet.has(row.position)) {
+          continue;
+        }
+
         const pos = row.position as DraftPositionFilter;
-        if (!bestByPos.has(pos)) {
+        const currentBest = bestByPos.get(pos);
+        if (!currentBest || isBetterCandidate(row, currentBest)) {
           bestByPos.set(pos, row);
         }
-        if (bestByPos.size === positionsToShow.length) break;
       }
 
       return positionsToShow.map((pos) => ({ position: pos, player: bestByPos.get(pos) ?? null }));
