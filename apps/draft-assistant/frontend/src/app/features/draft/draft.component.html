@@ -264,19 +264,22 @@
                 <p class="empty-copy">No players match your current filters.</p>
               } @else {
                 <div class="players-list">
-                  @for (player of visiblePlayerRows(); track player.playerId; let i = $index) {
-                      @if (!player.isDrafted && shouldShowNextPickDivider(visiblePlayerRows(), i)) {
+                  @for (player of visiblePlayerRows(); track player.playerId) {
+                      @let undraftedIdx = undraftedIndexMap().get(player.playerId) ?? -1;
+
+                      @if (!player.isDrafted && shouldShowNextPickDivider(visibleUndraftedRows(), undraftedIdx)) {
                         <div class="next-pick-divider-row">
                           <span class="next-pick-divider-label">{{ nextPickDividerLabel() }}</span>
                         </div>
                       }
 
-                      @if (!player.isDrafted && shouldShowTierDivider(visiblePlayerRows(), i)) {
+                      @if (!player.isDrafted && undraftedIdx >= 0 && shouldShowTierDivider(visibleUndraftedRows(), undraftedIdx)) {
                         <div class="tier-divider-row">
                           <span class="tier-divider-label">{{ tierDividerLabel(player) }}</span>
                         </div>
                       }
 
+                      @let rank = rowRank(player);
                       <div
                         class="all-player-row"
                         [class.player-drafted]="player.isDrafted"

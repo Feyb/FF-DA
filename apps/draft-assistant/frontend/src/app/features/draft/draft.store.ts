@@ -346,9 +346,9 @@ export const DraftStore = signalStore(
               BEST_AVAILABLE_POSITIONS.includes(p as DraftPositionFilter),
             );
 
-      const undrafted = store.rows()
       const positionsToShowSet = new Set<string>(positionsToShow);
       const bestByPos = new Map<DraftPositionFilter, DraftPlayerRow>();
+      const rookiesOnly = store.rookiesOnly();
       const isBetterCandidate = (candidate: DraftPlayerRow, current: DraftPlayerRow): boolean => {
         const candidateTier = candidate.combinedTier ?? Number.MAX_SAFE_INTEGER;
         const currentTier = current.combinedTier ?? Number.MAX_SAFE_INTEGER;
@@ -359,7 +359,7 @@ export const DraftStore = signalStore(
       };
 
       for (const row of store.rows()) {
-        if (picked.has(row.playerId) || !positionsToShowSet.has(row.position)) {
+        if (picked.has(row.playerId) || !positionsToShowSet.has(row.position) || (rookiesOnly && !row.rookie)) {
           continue;
         }
 

@@ -130,6 +130,22 @@ export class DraftComponent implements OnInit {
   protected readonly visiblePlayerRows = computed(() =>
     this.store.allPlayerRows().slice(0, DraftComponent.MAX_VISIBLE_PLAYERS),
   );
+  /**
+   * Undrafted-only subset of `visiblePlayerRows`.
+   * Used for divider logic so drafted rows don't shift tier/pick boundary indices.
+   */
+  protected readonly visibleUndraftedRows = computed(() =>
+    this.visiblePlayerRows().filter((r) => !r.isDrafted),
+  );
+  /**
+   * Maps each undrafted player's playerId to its index within `visibleUndraftedRows`.
+   * Allows the template to look up the undrafted-list index in O(1).
+   */
+  protected readonly undraftedIndexMap = computed(() => {
+    const map = new Map<string, number>();
+    this.visibleUndraftedRows().forEach((r, i) => map.set(r.playerId, i));
+    return map;
+  });
   protected readonly sourceLabel = computed(() =>
     this.activeSourceMode() === 'direct' ? 'Direct URL' : 'League Draft',
   );
@@ -387,30 +403,26 @@ export class DraftComponent implements OnInit {
     return `tier-${cycledTier}`;
   }
 
-  protected shouldShowTierDivider(rows: DraftPlayerDisplayRow[], index: number): boolean {
-    if (index === 0) {
+  protected shouldShowTierDivider(undraftedRows: DraftPlayerDisplayRow[], undraftedIndex: number): boolean {
+    if (undraftedIndex === 0) {
       return true;
     }
 
-    const currentTier = rows[index] ? this.rowCombinedTier(rows[index]) : null;
-    const previousTier = rows[index - 1] ? this.rowCombinedTier(rows[index - 1]) : null;
+    const currentTier = undraftedRows[undraftedIndex] ? this.rowCombinedTier(undraftedRows[undraftedIndex]) : null;
+    const previousTier = undraftedRows[undraftedIndex - 1] ? this.rowCombinedTier(undraftedRows[undraftedIndex - 1]) : null;
     return currentTier !== previousTier;
   }
 
-  protected shouldShowNextPickDivider(rows: DraftPlayerDisplayRow[], index: number): boolean {
+  protected shouldShowNextPickDivider(undraftedRows: DraftPlayerDisplayRow[], undraftedIndex: number): boolean {
     const userNextPick = this.userNextPickNumber();
-    if (!userNextPick || index === 0) {
+    if (!userNextPick || undraftedIndex === 0) {
       return false;
     }
 
     const pickedCount = this.store.picks().length;
     const picksBetweenNowAndUserPick = userNextPick - pickedCount - 1;
 
-    if (index === picksBetweenNowAndUserPick && index > 0) {
-      return true;
-    }
-
-    return false;
+    return undraftedIndex === picksBetweenNowAndUserPick;
   }
 
   protected nextPickDividerLabel(): string {
