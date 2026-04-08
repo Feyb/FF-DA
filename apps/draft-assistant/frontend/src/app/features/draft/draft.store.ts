@@ -348,6 +348,7 @@ export const DraftStore = signalStore(
 
       const undrafted = store.rows()
         .filter((row) => !picked.has(row.playerId))
+        .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => (positionsToShow as string[]).includes(row.position))
         .sort((a, b) => {
           const aTier = a.combinedTier ?? Number.MAX_SAFE_INTEGER;
