@@ -33,7 +33,7 @@ export class PlayerNormalizationService {
     ktcLookup: Map<string, KtcPlayer>,
     flockLookup: Map<string, FlockPlayer>,
     currentSeason: number,
-  ): Omit<DraftPlayerRow, 'sleeperRank'> {
+  ): Omit<DraftPlayerRow, 'sleeperRank' | 'adpDelta'> {
     const firstName = source.first_name ?? '';
     const lastName = source.last_name ?? '';
     const fullName = source.full_name?.trim() || buildFullName(firstName, lastName);
@@ -44,8 +44,11 @@ export class PlayerNormalizationService {
 
     const ktcOverallTier = ktcPlayer?.overallTier ?? null;
     const ktcPositionalTier = ktcPlayer?.positionalTier ?? null;
+    const ktcPositionalRank = ktcPlayer?.positionalRank ?? null;
     const flockTier = flockPlayer?.averageTier ?? null;
     const flockPositionalTier = flockPlayer?.averagePositionalTier ?? null;
+    const flockPositionalRank = flockPlayer?.averagePositionalRank ?? null;
+    const flockAverageRank = flockPlayer?.averageRank ?? null;
 
     // SRS §3.1: combinedTier = sum of all available source tiers (lower = better).
     // When only one source has data the missing source contributes 0 to the sum, so
@@ -62,6 +65,15 @@ export class PlayerNormalizationService {
         ? (ktcPositionalTier ?? 0) + (flockPositionalTier ?? 0)
         : null;
 
+    // ADP: use flockAverageRank as proxy for Sleeper ADP (REQ-DS-05 / REQ-ADP-01).
+    const adpRank = flockAverageRank;
+
+    // valueGap = |ktcOverallTier – flockAverageTier| (REQ-VG-01).
+    let valueGap: number | null = null;
+    if (ktcOverallTier !== null && flockTier !== null) {
+      valueGap = Math.abs(ktcOverallTier - flockTier);
+    }
+
     return {
       playerId,
       fullName,
@@ -71,19 +83,24 @@ export class PlayerNormalizationService {
       rookie: ktcPlayer?.rookie ?? source.rookie_year === currentSeason,
       ktcValue: ktcPlayer?.value ?? null,
       ktcRank: ktcPlayer?.rank ?? null,
+      ktcPositionalRank,
       overallTier: ktcOverallTier,
       positionalTier: ktcPositionalTier,
       flockAverageTier: flockTier,
       flockAveragePositionalTier: flockPositionalTier,
-      averageRank: flockPlayer?.averageRank ?? null,
+      flockAveragePositionalRank: flockPositionalRank,
+      averageRank: flockAverageRank,
       combinedTier,
       combinedPositionalTier,
+      adpRank,
+      valueGap,
     };
   }
 
   /**
    * Build a full `DraftPlayerRow[]` from the Sleeper player catalog, applying
    * active-player / position filters and computing `sleeperRank` via KTC rank.
+   * Also computes `adpDelta` after sleeperRank is assigned (REQ-ADP-02).
    */
   buildPlayerRows(
     playersById: Record<string, SleeperCatalogPlayer>,
@@ -108,9 +125,21 @@ export class PlayerNormalizationService {
     );
     const rankMap = new Map(sorted.map((row, i) => [row.playerId, i + 1]));
 
-    return rawRows.map((row) => ({
-      ...row,
-      sleeperRank: rankMap.get(row.playerId) ?? Number.MAX_SAFE_INTEGER,
-    }));
+    return rawRows.map((row) => {
+      const sleeperRank = rankMap.get(row.playerId) ?? Number.MAX_SAFE_INTEGER;
+
+      // REQ-ADP-02: adpDelta = adpRank (flockAverageRank) minus average expert consensus (sleeperRank + ktcRank) / 2.
+      // flockAverageRank is intentionally excluded from the denominator to avoid including
+      // the ADP reference value on both sides of the comparison (circular logic).
+      let adpDelta: number | null = null;
+      if (row.adpRank !== null) {
+        const expertRanks: number[] = [sleeperRank];
+        if (row.ktcRank !== null) expertRanks.push(row.ktcRank);
+        const expertAvg = expertRanks.reduce((s, v) => s + v, 0) / expertRanks.length;
+        adpDelta = Math.round((row.adpRank - expertAvg) * 10) / 10;
+      }
+
+      return { ...row, sleeperRank, adpDelta };
+    });
   }
 }

@@ -15,6 +15,7 @@ interface FlockAssetPlayer {
   team?: string | null;
   averageRank?: number | null;
   averageTier?: number | null;
+  averagePositionalRank?: number | null;
   averagePositionalTier?: number | null;
 }
 
@@ -66,6 +67,7 @@ export class FlockRatingService {
       team: player.team ?? null,
       averageRank: player.averageRank ?? null,
       averageTier: player.averageTier ?? null,
+      averagePositionalRank: player.averagePositionalRank ?? null,
       averagePositionalTier: player.averagePositionalTier ?? null,
     }));
   }
