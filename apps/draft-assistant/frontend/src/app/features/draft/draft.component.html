@@ -430,8 +430,8 @@
                     <div class="need-row" [class.need-filled]="need.remaining === 0">
                       <span class="need-pos">{{ need.position }}</span>
                       <div class="need-dots">
-                        @for (i of [].constructor(need.configured); track $index) {
-                          <span class="need-dot" [class.filled]="$index < need.filled"></span>
+                        @for (i of range(need.configured); track i) {
+                          <span class="need-dot" [class.filled]="i < need.filled"></span>
                         }
                       </div>
                       <span class="need-label" [class.need-complete]="need.remaining === 0">

@@ -200,6 +200,49 @@ export function positionalRankForSortSource(row: DraftPlayerRow, src: DraftSortS
   }
 }
 
+/** Compute how many picks until the user's turn (0 = user's pick now). */
+function calcPicksUntilMyTurn(
+  currentPickNumber: number,
+  userSlot: number,
+  teams: number,
+): number {
+  const currentRound = Math.floor((currentPickNumber - 1) / teams);
+  const pickInRound = ((currentPickNumber - 1) % teams) + 1;
+  const userPickInRound = currentRound % 2 === 0 ? userSlot : teams - userSlot + 1;
+  if (pickInRound <= userPickInRound) {
+    return userPickInRound - pickInRound;
+  }
+  const nextRound = currentRound + 1;
+  const nextRoundUserPick = nextRound % 2 === 0 ? userSlot : teams - userSlot + 1;
+  return (teams - pickInRound) + nextRoundUserPick;
+}
+
+/** Count configured and filled roster slots from picks. */
+function buildRosterFillInfo(
+  rosterPositions: string[],
+  picks: SleeperDraftPick[],
+  userRosterId: number | null,
+  rows: DraftPlayerRow[],
+): { configuredByPos: Record<string, number>; filledByPos: Record<string, number> } {
+  const configuredByPos: Record<string, number> = {};
+  for (const slot of rosterPositions) {
+    if (slot === 'BN' || slot === 'IR') continue;
+    configuredByPos[slot] = (configuredByPos[slot] ?? 0) + 1;
+  }
+  const filledByPos: Record<string, number> = {};
+  if (userRosterId !== null) {
+    for (const pick of picks) {
+      if (pick.roster_id !== userRosterId) continue;
+      const pos = rows.find((r) => r.playerId === pick.player_id)?.position ?? null;
+      if (pos) filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
+    }
+  }
+  return { configuredByPos, filledByPos };
+}
+
+/** Monotonic counter for generating unique tier-drop alert IDs. */
+let tierAlertCounter = 0;
+
 export const DraftStore = signalStore(
   withState<DraftState>({
     loading: false,
@@ -264,66 +307,26 @@ export const DraftStore = signalStore(
       const teams = draft.settings?.['teams'];
       if (!teams || typeof teams !== 'number' || teams <= 0) return null;
 
-      const nextPickNum = store.picks().length + 1;
-      const currentRound = Math.floor((nextPickNum - 1) / teams);
-      const pickInRound = ((nextPickNum - 1) % teams) + 1;
-
-      let userPickInRound: number;
-      if (currentRound % 2 === 0) {
-        userPickInRound = userSlot;
-      } else {
-        userPickInRound = teams - userSlot + 1;
-      }
-
-      if (pickInRound < userPickInRound) {
-        return currentRound * teams + userPickInRound;
-      }
-
-      const nextRound = currentRound + 1;
-      let nextRoundUserPickInRound: number;
-      if (nextRound % 2 === 0) {
-        nextRoundUserPickInRound = userSlot;
-      } else {
-        nextRoundUserPickInRound = teams - userSlot + 1;
-      }
-
-      return nextRound * teams + nextRoundUserPickInRound;
+      const currentPickNumber = store.picks().length + 1;
+      const picksUntil = calcPicksUntilMyTurn(currentPickNumber, userSlot, teams);
+      return currentPickNumber + picksUntil;
     }),
+  })),
 
+  // Second withComputed block — can access userRosterId and userNextPickNumber from the first block.
+  withComputed((store, appStore = inject(AppStore)) => ({
     /**
      * Positional need entries derived from League roster_positions config (REQ-PN-01 to REQ-PN-08).
      */
     positionalNeeds: computed((): PositionalNeedEntry[] => {
       const league = appStore.selectedLeague();
       const rosterPositions = league?.roster_positions ?? [];
-      const userRosterId_ = (() => {
-        const userId = appStore.user()?.user_id;
-        const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
-        if (!userId || !draft) return null;
-        const userSlot = draft.draft_order?.[userId];
-        if (!userSlot || typeof userSlot !== 'number') return null;
-        const rId = draft.slot_to_roster_id?.[String(userSlot)];
-        return typeof rId === 'number' ? rId : null;
-      })();
-
-      // Count configured slots per position (ignore BN/IR)
-      const configuredByPos: Record<string, number> = {};
-      for (const slot of rosterPositions) {
-        if (slot === 'BN' || slot === 'IR') continue;
-        configuredByPos[slot] = (configuredByPos[slot] ?? 0) + 1;
-      }
-
-      // Count filled slots from user's picks
-      const filledByPos: Record<string, number> = {};
-      if (userRosterId_ !== null) {
-        for (const pick of store.picks()) {
-          if (pick.roster_id !== userRosterId_) continue;
-          const pos = store.rows().find((r) => r.playerId === pick.player_id)?.position ?? null;
-          if (pos) {
-            filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
-          }
-        }
-      }
+      const { configuredByPos, filledByPos } = buildRosterFillInfo(
+        rosterPositions,
+        store.picks(),
+        store.userRosterId(),
+        store.rows(),
+      );
 
       const positionOrder = ['QB', 'RB', 'WR', 'TE', 'FLEX', 'SUPER_FLEX', 'K', 'DEF'];
       return positionOrder
@@ -357,29 +360,12 @@ export const DraftStore = signalStore(
       if (neededOnly) {
         const league = appStore.selectedLeague();
         const rosterPositions = league?.roster_positions ?? [];
-        const userId = appStore.user()?.user_id;
-        const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
-        let userRosterId_: number | null = null;
-        if (userId && draft) {
-          const userSlot = draft.draft_order?.[userId];
-          if (userSlot && typeof userSlot === 'number') {
-            const rId = draft.slot_to_roster_id?.[String(userSlot)];
-            if (typeof rId === 'number') userRosterId_ = rId;
-          }
-        }
-        const configuredByPos: Record<string, number> = {};
-        for (const slot of rosterPositions) {
-          if (slot === 'BN' || slot === 'IR') continue;
-          configuredByPos[slot] = (configuredByPos[slot] ?? 0) + 1;
-        }
-        const filledByPos: Record<string, number> = {};
-        if (userRosterId_ !== null) {
-          for (const pick of store.picks()) {
-            if (pick.roster_id !== userRosterId_) continue;
-            const pos = store.rows().find((r) => r.playerId === pick.player_id)?.position ?? null;
-            if (pos) filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
-          }
-        }
+        const { configuredByPos, filledByPos } = buildRosterFillInfo(
+          rosterPositions,
+          store.picks(),
+          store.userRosterId(),
+          store.rows(),
+        );
         for (const pos of ['QB', 'RB', 'WR', 'TE']) {
           const configured = configuredByPos[pos] ?? 0;
           const flex = configuredByPos['FLEX'] ?? 0;
@@ -391,25 +377,8 @@ export const DraftStore = signalStore(
 
       // Compute pick position for availability risk (REQ-PA-05)
       const currentPickNumber = store.picks().length + 1;
-      const userId = appStore.user()?.user_id;
-      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
-      let picksUntilMyTurn = 0;
-      if (userId && draft) {
-        const userSlot = draft.draft_order?.[userId];
-        const teams = draft.settings?.['teams'];
-        if (userSlot && typeof userSlot === 'number' && teams && typeof teams === 'number' && teams > 0) {
-          const currentRound = Math.floor((currentPickNumber - 1) / teams);
-          const pickInRound = ((currentPickNumber - 1) % teams) + 1;
-          let userPickInRound = currentRound % 2 === 0 ? userSlot : teams - userSlot + 1;
-          if (pickInRound <= userPickInRound) {
-            picksUntilMyTurn = userPickInRound - pickInRound;
-          } else {
-            const nextRound = currentRound + 1;
-            const nextRoundUserPick = nextRound % 2 === 0 ? userSlot : teams - userSlot + 1;
-            picksUntilMyTurn = (teams - pickInRound) + nextRoundUserPick;
-          }
-        }
-      }
+      const userNextPick = store.userNextPickNumber();
+      const picksUntilMyTurn = userNextPick !== null ? userNextPick - currentPickNumber : 0;
       const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
       const goingSoonThreshold = currentPickNumber + 2; // within next 3 picks
 
@@ -484,25 +453,8 @@ export const DraftStore = signalStore(
       };
 
       const currentPickNumber = store.picks().length + 1;
-      const userId = appStore.user()?.user_id;
-      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
-      let picksUntilMyTurn = 0;
-      if (userId && draft) {
-        const userSlot = draft.draft_order?.[userId];
-        const teams = draft.settings?.['teams'];
-        if (userSlot && typeof userSlot === 'number' && teams && typeof teams === 'number' && teams > 0) {
-          const currentRound = Math.floor((currentPickNumber - 1) / teams);
-          const pickInRound = ((currentPickNumber - 1) % teams) + 1;
-          let userPickInRound = currentRound % 2 === 0 ? userSlot : teams - userSlot + 1;
-          if (pickInRound <= userPickInRound) {
-            picksUntilMyTurn = userPickInRound - pickInRound;
-          } else {
-            const nextRound = currentRound + 1;
-            const nextRoundUserPick = nextRound % 2 === 0 ? userSlot : teams - userSlot + 1;
-            picksUntilMyTurn = (teams - pickInRound) + nextRoundUserPick;
-          }
-        }
-      }
+      const userNextPick = store.userNextPickNumber();
+      const picksUntilMyTurn = userNextPick !== null ? userNextPick - currentPickNumber : 0;
       const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
 
       const sortedRows = store.rows()
@@ -657,27 +609,10 @@ export const DraftStore = signalStore(
       const lowestTierByPos = new Map<DraftPositionFilter, number>();
       const rookiesOnly = store.rookiesOnly();
 
-      // Compute availability risk threshold
+      // Compute availability risk threshold using shared userNextPickNumber (REQ-PA-05)
       const currentPickNumber = store.picks().length + 1;
-      const userId = appStore.user()?.user_id;
-      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
-      let picksUntilMyTurn = 0;
-      if (userId && draft) {
-        const userSlot = draft.draft_order?.[userId];
-        const teams = draft.settings?.['teams'];
-        if (userSlot && typeof userSlot === 'number' && teams && typeof teams === 'number' && teams > 0) {
-          const currentRound = Math.floor((currentPickNumber - 1) / teams);
-          const pickInRound = ((currentPickNumber - 1) % teams) + 1;
-          let userPickInRound = currentRound % 2 === 0 ? userSlot : teams - userSlot + 1;
-          if (pickInRound <= userPickInRound) {
-            picksUntilMyTurn = userPickInRound - pickInRound;
-          } else {
-            const nextRound = currentRound + 1;
-            const nextRoundUserPick = nextRound % 2 === 0 ? userSlot : teams - userSlot + 1;
-            picksUntilMyTurn = (teams - pickInRound) + nextRoundUserPick;
-          }
-        }
-      }
+      const userNextPick = store.userNextPickNumber();
+      const picksUntilMyTurn = userNextPick !== null ? userNextPick - currentPickNumber : 0;
       const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
 
       const isBetterCandidate = (candidate: DraftPlayerRow, current: DraftPlayerRow): boolean => {
@@ -712,27 +647,12 @@ export const DraftStore = signalStore(
       // Compute need-based ordering for positions (REQ-BA-07)
       const league = appStore.selectedLeague();
       const rosterPositions = league?.roster_positions ?? [];
-      const configuredByPos: Record<string, number> = {};
-      for (const slot of rosterPositions) {
-        if (slot === 'BN' || slot === 'IR') continue;
-        configuredByPos[slot] = (configuredByPos[slot] ?? 0) + 1;
-      }
-      let userRosterId: number | null = null;
-      if (userId && draft) {
-        const userSlot = draft.draft_order?.[userId];
-        if (userSlot && typeof userSlot === 'number') {
-          const rId = draft.slot_to_roster_id?.[String(userSlot)];
-          if (typeof rId === 'number') userRosterId = rId;
-        }
-      }
-      const filledByPos: Record<string, number> = {};
-      if (userRosterId !== null) {
-        for (const pick of store.picks()) {
-          if (pick.roster_id !== userRosterId) continue;
-          const pos = store.rows().find((r) => r.playerId === pick.player_id)?.position ?? null;
-          if (pos) filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
-        }
-      }
+      const { configuredByPos, filledByPos } = buildRosterFillInfo(
+        rosterPositions,
+        store.picks(),
+        store.userRosterId(),
+        store.rows(),
+      );
 
       const remainingByPos = (pos: string): number => {
         const configured = configuredByPos[pos] ?? 0;
@@ -1007,7 +927,7 @@ export const DraftStore = signalStore(
           const nextTier = undraftedSamePosRows[0]?.combinedPositionalTier ?? null;
 
           alerts.push({
-            id: `${Date.now()}-${draftedRow.position}-${tier}`,
+            id: `tier-drop-${++tierAlertCounter}-${draftedRow.position}-${tier}`,
             position: draftedRow.position as DraftPositionFilter,
             droppedTier: tier,
             nextTier,

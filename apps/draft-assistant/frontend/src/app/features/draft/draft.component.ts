@@ -171,12 +171,18 @@ export class DraftComponent implements OnInit {
   protected readonly userNextPickNumber = computed(() => this.store.userNextPickNumber());
 
   /** Auto-dismiss tier drop alerts after 8 seconds (REQ-TD-03). */
+  private readonly _scheduledAlertIds = new Set<string>();
   private readonly _tierAlertAutoDismiss = effect(() => {
     const alerts = this.store.tierDropAlerts();
     for (const alert of alerts) {
+      if (this._scheduledAlertIds.has(alert.id)) continue;
+      this._scheduledAlertIds.add(alert.id);
       const age = Date.now() - alert.createdAt;
       const delay = Math.max(0, 8000 - age);
-      setTimeout(() => this.store.dismissTierAlert(alert.id), delay);
+      setTimeout(() => {
+        this._scheduledAlertIds.delete(alert.id);
+        this.store.dismissTierAlert(alert.id);
+      }, delay);
     }
   });
 
@@ -531,6 +537,11 @@ export class DraftComponent implements OnInit {
   /** Format positional need entry for display (REQ-PN-03). */
   protected needLabel(need: PositionalNeedEntry): string {
     return `${need.remaining}/${need.configured}`;
+  }
+
+  /** Create a number array of a given length for @for loops. */
+  protected range(n: number): number[] {
+    return Array.from({ length: n }, (_, i) => i);
   }
 
   /** Picks-until-my-turn counter label (REQ-PA-03). */
