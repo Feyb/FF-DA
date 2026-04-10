@@ -535,6 +535,13 @@ export class DraftComponent implements OnInit, OnDestroy {
 
   /** Dismiss a tier drop alert (REQ-TD-03). */
   protected dismissAlert(id: string): void {
+    // Clear the auto-dismiss timeout if it's still pending (REQ-TD-03)
+    const handle = this._alertTimeouts.get(id);
+    if (handle !== undefined) {
+      clearTimeout(handle);
+      this._alertTimeouts.delete(id);
+    }
+    this._scheduledAlertIds.delete(id);
     this.store.dismissTierAlert(id);
   }
 

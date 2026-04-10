@@ -98,8 +98,9 @@ export interface DraftPlayerRow {
   /** ADP rank (uses flockAverageRank as proxy for Sleeper ADP). */
   adpRank: number | null;
   /**
-   * adpRank minus average expert rank (sleeperRank + ktcRank + flockAverageRank) / 3.
-   * Positive = value (drafted later than experts rank). Negative = reach.
+   * adpRank (flockAverageRank) minus average expert rank (sleeperRank + ktcRank) / 2.
+   * flockAverageRank is excluded from the denominator to avoid circular logic.
+   * Positive = value (community drafts later than experts rank). Negative = reach.
    */
   adpDelta: number | null;
   /**
