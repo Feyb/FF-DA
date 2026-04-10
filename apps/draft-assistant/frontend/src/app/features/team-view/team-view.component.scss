@@ -154,3 +154,43 @@ h3, h2 {
   margin: 0;
 }
 
+// ── Dark-mode overrides ────────────────────────────────────────────────────────
+html.dark {
+  .standings-entry {
+    background: var(--surface-container-low);
+    border-color: var(--outline-variant);
+  }
+
+  .standings-entry--mine {
+    background: rgb(15 30 70);
+    border-color: rgb(59 130 246);
+    color: rgb(191 219 254);
+  }
+
+  .standings-rank {
+    color: rgb(148 163 184);
+  }
+
+  .standings-name {
+    color: var(--on-surface);
+  }
+
+  .standings-my-rank {
+    color: rgb(148 163 184);
+  }
+
+  .standings-score {
+    color: rgb(203 213 225);
+  }
+
+  .pos-chip {
+    background: var(--surface-container-high);
+    color: rgb(203 213 225);
+  }
+
+  .standings-entry--mine .pos-chip {
+    background: rgb(30 58 138);
+    color: rgb(147 197 253);
+  }
+}
+
