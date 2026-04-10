@@ -128,15 +128,15 @@ export class PlayerNormalizationService {
     return rawRows.map((row) => {
       const sleeperRank = rankMap.get(row.playerId) ?? Number.MAX_SAFE_INTEGER;
 
-    // REQ-ADP-02: adpDelta = adpRank – (available ranks sum / available ranks count)
-    // Only include ranks that are actually available to avoid skewing the average.
+    // REQ-ADP-02: adpDelta = adpRank – expert consensus average
+    // adpRank = flockAverageRank (community ADP proxy); compare against KTC + Sleeper ranks only
+    // to avoid including the reference value on both sides of the formula.
     let adpDelta: number | null = null;
     if (row.adpRank !== null) {
-      const availableRanks: number[] = [sleeperRank];
-      if (row.ktcRank !== null) availableRanks.push(row.ktcRank);
-      if (row.averageRank !== null) availableRanks.push(row.averageRank);
-      const combinedAvgRank = availableRanks.reduce((s, v) => s + v, 0) / availableRanks.length;
-      adpDelta = Math.round((row.adpRank - combinedAvgRank) * 10) / 10;
+      const expertRanks: number[] = [sleeperRank];
+      if (row.ktcRank !== null) expertRanks.push(row.ktcRank);
+      const expertAvg = expertRanks.reduce((s, v) => s + v, 0) / expertRanks.length;
+      adpDelta = Math.round((row.adpRank - expertAvg) * 10) / 10;
     }
 
       return { ...row, sleeperRank, adpDelta };

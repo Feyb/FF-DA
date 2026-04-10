@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -100,7 +100,7 @@ interface SavedDirectUrlView {
     ErrorStateComponent,
   ],
 })
-export class DraftComponent implements OnInit {
+export class DraftComponent implements OnInit, OnDestroy {
   protected readonly store = inject(DraftStore);
   protected readonly appStore = inject(AppStore);
   private readonly storage = inject(StorageService);
@@ -172,6 +172,7 @@ export class DraftComponent implements OnInit {
 
   /** Auto-dismiss tier drop alerts after 8 seconds (REQ-TD-03). */
   private readonly _scheduledAlertIds = new Set<string>();
+  private readonly _alertTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
   private readonly _tierAlertAutoDismiss = effect(() => {
     const alerts = this.store.tierDropAlerts();
     for (const alert of alerts) {
@@ -179,15 +180,23 @@ export class DraftComponent implements OnInit {
       this._scheduledAlertIds.add(alert.id);
       const age = Date.now() - alert.createdAt;
       const delay = Math.max(0, 8000 - age);
-      setTimeout(() => {
+      const handle = setTimeout(() => {
         this._scheduledAlertIds.delete(alert.id);
+        this._alertTimeouts.delete(alert.id);
         this.store.dismissTierAlert(alert.id);
       }, delay);
+      this._alertTimeouts.set(alert.id, handle);
     }
   });
 
   ngOnInit(): void {
     this.loadSavedDirectUrls();
+  }
+
+  ngOnDestroy(): void {
+    for (const handle of this._alertTimeouts.values()) {
+      clearTimeout(handle);
+    }
   }
 
   protected onDraftChange(event: MatSelectChange): void {

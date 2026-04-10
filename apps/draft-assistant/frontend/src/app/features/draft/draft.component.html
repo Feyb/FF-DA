@@ -307,7 +307,7 @@
                     aria-label="Search players"
                   />
                   @if (store.searchQuery()) {
-                    <button matIconSuffix mat-icon-button (click)="store.setSearchQuery('')" aria-label="Clear search">
+                    <button type="button" matIconSuffix mat-icon-button (click)="store.setSearchQuery('')" aria-label="Clear search">
                       <mat-icon>close</mat-icon>
                     </button>
                   }

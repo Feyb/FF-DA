@@ -240,8 +240,13 @@ function buildRosterFillInfo(
   return { configuredByPos, filledByPos };
 }
 
-/** Monotonic counter for generating unique tier-drop alert IDs. */
-let tierAlertCounter = 0;
+/** Generate a unique alert ID without module-level mutable state. */
+function generateAlertId(position: string, tier: number): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return `tier-drop-${crypto.randomUUID()}`;
+  }
+  return `tier-drop-${Date.now()}-${Math.random().toString(36).slice(2)}-${position}-${tier}`;
+}
 
 export const DraftStore = signalStore(
   withState<DraftState>({
@@ -927,7 +932,7 @@ export const DraftStore = signalStore(
           const nextTier = undraftedSamePosRows[0]?.combinedPositionalTier ?? null;
 
           alerts.push({
-            id: `tier-drop-${++tierAlertCounter}-${draftedRow.position}-${tier}`,
+            id: generateAlertId(draftedRow.position, tier),
             position: draftedRow.position as DraftPositionFilter,
             droppedTier: tier,
             nextTier,
