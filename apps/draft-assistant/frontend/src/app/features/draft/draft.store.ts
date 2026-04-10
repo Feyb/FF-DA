@@ -336,17 +336,17 @@ export const DraftStore = signalStore(
 
       const positionOrder = ['QB', 'RB', 'WR', 'TE', 'FLEX', 'SUPER_FLEX', 'K', 'DEF'];
 
-      const configuredQb = configuredByPos.QB ?? 0;
-      const configuredRb = configuredByPos.RB ?? 0;
-      const configuredWr = configuredByPos.WR ?? 0;
-      const configuredTe = configuredByPos.TE ?? 0;
-      const configuredFlex = configuredByPos.FLEX ?? 0;
-      const configuredSuperFlex = configuredByPos.SUPER_FLEX ?? 0;
+      const configuredQb = configuredByPos['QB'] ?? 0;
+      const configuredRb = configuredByPos['RB'] ?? 0;
+      const configuredWr = configuredByPos['WR'] ?? 0;
+      const configuredTe = configuredByPos['TE'] ?? 0;
+      const configuredFlex = configuredByPos['FLEX'] ?? 0;
+      const configuredSuperFlex = configuredByPos['SUPER_FLEX'] ?? 0;
 
-      const surplusQb = Math.max(0, (filledByPos.QB ?? 0) - configuredQb);
-      const surplusRb = Math.max(0, (filledByPos.RB ?? 0) - configuredRb);
-      const surplusWr = Math.max(0, (filledByPos.WR ?? 0) - configuredWr);
-      const surplusTe = Math.max(0, (filledByPos.TE ?? 0) - configuredTe);
+      const surplusQb = Math.max(0, (filledByPos['QB'] ?? 0) - configuredQb);
+      const surplusRb = Math.max(0, (filledByPos['RB'] ?? 0) - configuredRb);
+      const surplusWr = Math.max(0, (filledByPos['WR'] ?? 0) - configuredWr);
+      const surplusTe = Math.max(0, (filledByPos['TE'] ?? 0) - configuredTe);
 
       const flexEligibleSurplus = surplusRb + surplusWr + surplusTe;
       const flexFilled = Math.min(configuredFlex, flexEligibleSurplus);
