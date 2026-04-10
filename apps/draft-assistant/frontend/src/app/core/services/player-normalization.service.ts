@@ -128,16 +128,16 @@ export class PlayerNormalizationService {
     return rawRows.map((row) => {
       const sleeperRank = rankMap.get(row.playerId) ?? Number.MAX_SAFE_INTEGER;
 
-    // REQ-ADP-02: adpDelta = adpRank (flockAverageRank) minus average expert consensus (sleeperRank + ktcRank) / 2.
-    // flockAverageRank is intentionally excluded from the denominator to avoid including
-    // the ADP reference value on both sides of the comparison (circular logic).
-    let adpDelta: number | null = null;
-    if (row.adpRank !== null) {
-      const expertRanks: number[] = [sleeperRank];
-      if (row.ktcRank !== null) expertRanks.push(row.ktcRank);
-      const expertAvg = expertRanks.reduce((s, v) => s + v, 0) / expertRanks.length;
-      adpDelta = Math.round((row.adpRank - expertAvg) * 10) / 10;
-    }
+      // REQ-ADP-02: adpDelta = adpRank (flockAverageRank) minus average expert consensus (sleeperRank + ktcRank) / 2.
+      // flockAverageRank is intentionally excluded from the denominator to avoid including
+      // the ADP reference value on both sides of the comparison (circular logic).
+      let adpDelta: number | null = null;
+      if (row.adpRank !== null) {
+        const expertRanks: number[] = [sleeperRank];
+        if (row.ktcRank !== null) expertRanks.push(row.ktcRank);
+        const expertAvg = expertRanks.reduce((s, v) => s + v, 0) / expertRanks.length;
+        adpDelta = Math.round((row.adpRank - expertAvg) * 10) / 10;
+      }
 
       return { ...row, sleeperRank, adpDelta };
     });

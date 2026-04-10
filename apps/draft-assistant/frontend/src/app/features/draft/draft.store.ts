@@ -229,11 +229,12 @@ function buildRosterFillInfo(
     if (slot === 'BN' || slot === 'IR') continue;
     configuredByPos[slot] = (configuredByPos[slot] ?? 0) + 1;
   }
+  const playerPositionById = new Map(rows.map((row) => [row.playerId, row.position] as const));
   const filledByPos: Record<string, number> = {};
   if (userRosterId !== null) {
     for (const pick of picks) {
       if (pick.roster_id !== userRosterId) continue;
-      const pos = rows.find((r) => r.playerId === pick.player_id)?.position ?? null;
+      const pos = playerPositionById.get(pick.player_id) ?? null;
       if (pos) filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
     }
   }
@@ -334,11 +335,36 @@ export const DraftStore = signalStore(
       );
 
       const positionOrder = ['QB', 'RB', 'WR', 'TE', 'FLEX', 'SUPER_FLEX', 'K', 'DEF'];
+
+      const configuredQb = configuredByPos.QB ?? 0;
+      const configuredRb = configuredByPos.RB ?? 0;
+      const configuredWr = configuredByPos.WR ?? 0;
+      const configuredTe = configuredByPos.TE ?? 0;
+      const configuredFlex = configuredByPos.FLEX ?? 0;
+      const configuredSuperFlex = configuredByPos.SUPER_FLEX ?? 0;
+
+      const surplusQb = Math.max(0, (filledByPos.QB ?? 0) - configuredQb);
+      const surplusRb = Math.max(0, (filledByPos.RB ?? 0) - configuredRb);
+      const surplusWr = Math.max(0, (filledByPos.WR ?? 0) - configuredWr);
+      const surplusTe = Math.max(0, (filledByPos.TE ?? 0) - configuredTe);
+
+      const flexEligibleSurplus = surplusRb + surplusWr + surplusTe;
+      const flexFilled = Math.min(configuredFlex, flexEligibleSurplus);
+      const remainingFlexEligibleSurplus = Math.max(0, flexEligibleSurplus - flexFilled);
+      const superFlexEligibleSurplus = surplusQb + remainingFlexEligibleSurplus;
+      const superFlexFilled = Math.min(configuredSuperFlex, superFlexEligibleSurplus);
+
+      const effectiveFilledByPos: Record<string, number> = {
+        ...filledByPos,
+        FLEX: flexFilled,
+        SUPER_FLEX: superFlexFilled,
+      };
+
       return positionOrder
         .filter((pos) => (configuredByPos[pos] ?? 0) > 0)
         .map((pos) => {
           const configured = configuredByPos[pos] ?? 0;
-          const filled = Math.min(filledByPos[pos] ?? 0, configured);
+          const filled = Math.min(effectiveFilledByPos[pos] ?? 0, configured);
           return { position: pos, configured, filled, remaining: configured - filled };
         });
     }),
@@ -371,20 +397,27 @@ export const DraftStore = signalStore(
           store.userRosterId(),
           store.rows(),
         );
-        for (const pos of ['QB', 'RB', 'WR', 'TE']) {
+        const flexEligiblePositions: DraftPositionFilter[] = ['RB', 'WR', 'TE'];
+        const superFlexEligiblePositions: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
+
+        for (const pos of ['QB', 'RB', 'WR', 'TE'] as const) {
           const configured = configuredByPos[pos] ?? 0;
-          const flex = configuredByPos['FLEX'] ?? 0;
-          const total = configured + flex;
+          const flex = flexEligiblePositions.includes(pos) ? (configuredByPos['FLEX'] ?? 0) : 0;
+          const superFlex = superFlexEligiblePositions.includes(pos)
+            ? (configuredByPos['SUPER_FLEX'] ?? 0)
+            : 0;
+          const total = configured + flex + superFlex;
           const filled = filledByPos[pos] ?? 0;
           if (filled < total) neededPositions.add(pos);
         }
       }
 
       // Compute pick position for availability risk (REQ-PA-05)
+      // Only compute at-risk thresholds when userNextPickNumber is known; otherwise
+      // treat all undrafted players as safe to avoid false "At Risk" labels.
       const currentPickNumber = store.picks().length + 1;
       const userNextPick = store.userNextPickNumber();
-      const picksUntilMyTurn = userNextPick !== null ? userNextPick - currentPickNumber : 0;
-      const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
+      const atRiskThreshold = userNextPick !== null ? userNextPick : null;
       const goingSoonThreshold = currentPickNumber + 2; // within next 3 picks
 
       return [...store.rows()]
@@ -400,7 +433,7 @@ export const DraftStore = signalStore(
           let isGoingSoon = false;
           if (isDrafted) {
             availabilityRisk = 'gone';
-          } else if (adpRef !== null && adpRef <= atRiskThreshold) {
+          } else if (atRiskThreshold !== null && adpRef !== null && adpRef <= atRiskThreshold) {
             availabilityRisk = 'at-risk';
           }
           if (!isDrafted && adpRef !== null && adpRef <= goingSoonThreshold) {
@@ -551,13 +584,8 @@ export const DraftStore = signalStore(
      * My roster picks — picks belonging to the current user's team (REQ-SM-04).
      */
     myRosterPicks: computed(() => {
-      const userId = appStore.user()?.user_id;
-      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
-      if (!userId || !draft) return [];
-      const userSlot = draft.draft_order?.[userId];
-      if (!userSlot || typeof userSlot !== 'number') return [];
-      const rosterId = draft.slot_to_roster_id?.[String(userSlot)];
-      if (typeof rosterId !== 'number') return [];
+      const rosterId = store.userRosterId();
+      if (rosterId === null) return [];
 
       return store.picks()
         .filter((pick) => pick.roster_id === rosterId && !!pick.player_id)
@@ -568,13 +596,8 @@ export const DraftStore = signalStore(
      * My roster player rows — enriched rows for the user's drafted players (REQ-SM-04 to REQ-SM-06).
      */
     myRosterRows: computed((): DraftPlayerRow[] => {
-      const userId = appStore.user()?.user_id;
-      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
-      if (!userId || !draft) return [];
-      const userSlot = draft.draft_order?.[userId];
-      if (!userSlot || typeof userSlot !== 'number') return [];
-      const rosterId = draft.slot_to_roster_id?.[String(userSlot)];
-      if (typeof rosterId !== 'number') return [];
+      const rosterId = store.userRosterId();
+      if (rosterId === null) return [];
 
       const myPickIds = new Set(
         store.picks()
@@ -615,10 +638,9 @@ export const DraftStore = signalStore(
       const rookiesOnly = store.rookiesOnly();
 
       // Compute availability risk threshold using shared userNextPickNumber (REQ-PA-05)
-      const currentPickNumber = store.picks().length + 1;
+      // Only mark at-risk when next pick number is known to avoid false positives.
       const userNextPick = store.userNextPickNumber();
-      const picksUntilMyTurn = userNextPick !== null ? userNextPick - currentPickNumber : 0;
-      const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
+      const atRiskThreshold: number | null = userNextPick;
 
       const isBetterCandidate = (candidate: DraftPlayerRow, current: DraftPlayerRow): boolean => {
         const candidateTier = candidate.combinedTier ?? Number.MAX_SAFE_INTEGER;
@@ -659,11 +681,16 @@ export const DraftStore = signalStore(
         store.rows(),
       );
 
+      // Use FLEX-aware remaining calculation for need priority (RB/WR/TE eligible for FLEX,
+      // QB/RB/WR/TE eligible for SUPER_FLEX).
+      const flexEligiblePositions = new Set(['RB', 'WR', 'TE']);
+      const superFlexEligiblePositions = new Set(['QB', 'RB', 'WR', 'TE']);
       const remainingByPos = (pos: string): number => {
         const configured = configuredByPos[pos] ?? 0;
-        const flex = configuredByPos['FLEX'] ?? 0;
+        const flex = flexEligiblePositions.has(pos) ? (configuredByPos['FLEX'] ?? 0) : 0;
+        const superFlex = superFlexEligiblePositions.has(pos) ? (configuredByPos['SUPER_FLEX'] ?? 0) : 0;
         const filled = filledByPos[pos] ?? 0;
-        return Math.max(0, configured + flex - filled);
+        return Math.max(0, configured + flex + superFlex - filled);
       };
 
       const orderedPositions = [...positionsToShow].sort(
@@ -674,7 +701,7 @@ export const DraftStore = signalStore(
         const player = bestByPos.get(pos) ?? null;
         const adpRef = player?.averageRank ?? null;
         const availabilityRisk: 'safe' | 'at-risk' | 'gone' =
-          adpRef !== null && adpRef <= atRiskThreshold ? 'at-risk' : 'safe';
+          atRiskThreshold !== null && adpRef !== null && adpRef <= atRiskThreshold ? 'at-risk' : 'safe';
         return {
           position: pos,
           player,
@@ -893,15 +920,15 @@ export const DraftStore = signalStore(
     /**
      * Detect tier drops after new picks are received (REQ-TD-01 to REQ-TD-07).
      * Returns alerts for each positional tier that lost its last undrafted player.
+     * Deduplicates by (position, droppedTier) to handle multiple picks in one poll.
      */
     const detectTierDrops = (
       newPickedIds: Set<string>,
       prevPickedIds: Set<string>,
       rows: DraftPlayerRow[],
     ): TierDropAlert[] => {
-      const alerts: TierDropAlert[] = [];
       const newlyPickedIds = [...newPickedIds].filter((id) => !prevPickedIds.has(id));
-      if (newlyPickedIds.length === 0) return alerts;
+      if (newlyPickedIds.length === 0) return [];
 
       // Group remaining undrafted rows by position+positionalTier
       const undraftedByPosTier = new Map<string, DraftPlayerRow[]>();
@@ -915,16 +942,23 @@ export const DraftStore = signalStore(
         undraftedByPosTier.set(key, existing);
       }
 
+      // Deduplicate: only one alert per (position, droppedTier) per refresh
+      const seen = new Set<string>();
+      const alerts: TierDropAlert[] = [];
+
       for (const newlyPickedId of newlyPickedIds) {
         const draftedRow = rows.find((r) => r.playerId === newlyPickedId);
         if (!draftedRow) continue;
         const tier = draftedRow.combinedPositionalTier;
         if (tier === null) continue;
         const key = `${draftedRow.position}:${tier}`;
+        if (seen.has(key)) continue;
+
         const remaining = undraftedByPosTier.get(key) ?? [];
 
         // If no undrafted players remain in this positional tier → tier drop
         if (remaining.length === 0) {
+          seen.add(key);
           // Find the next available tier for this position
           const undraftedSamePosRows = rows
             .filter((r) => r.position === draftedRow.position && !newPickedIds.has(r.playerId) && r.combinedPositionalTier !== null)
