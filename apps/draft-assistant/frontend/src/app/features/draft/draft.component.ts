@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import {
   extractSleeperDraftId,
   getSleeperDraftNameLabel,
@@ -31,6 +32,8 @@ import {
   DraftSourceMode,
   DraftValueSource,
   DraftStore,
+  TierDropAlert,
+  PositionalNeedEntry,
   rankForSortSource,
   positionalRankForSortSource,
 } from './draft.store';
@@ -89,6 +92,7 @@ interface SavedDirectUrlView {
     MatButtonToggleModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatTooltipModule,
     TierLegendComponent,
     DraftBoardGridComponent,
     PageHeaderComponent,
@@ -124,6 +128,8 @@ export class DraftComponent implements OnInit {
     { value: 'flockRank', label: 'Flock Rank' },
     { value: 'sleeperRank', label: 'Sleeper Rank' },
     { value: 'combinedPositionalTier', label: 'Combined Pos. Tier' },
+    { value: 'adpDelta', label: 'ADP Value (Delta)' },
+    { value: 'valueGap', label: 'Value Gap' },
   ];
   private static readonly MAX_VISIBLE_PLAYERS = 120;
   /** Memoized slice of the player list to avoid repeated slicing in template. */
@@ -161,47 +167,17 @@ export class DraftComponent implements OnInit {
   protected readonly savedDirectUrlOptions = computed(() =>
     this.savedDirectUrls().map((item) => this.buildSavedDirectUrlOption(item)),
   );
-  protected readonly userNextPickNumber = computed(() => {
-    const userId = this.appStore.user()?.user_id;
-    const draft = this.store.selectedDraft();
-    if (!userId || !draft) {
-      return null;
+  /** Delegate to store's userNextPickNumber computed (REQ-PA-03). */
+  protected readonly userNextPickNumber = computed(() => this.store.userNextPickNumber());
+
+  /** Auto-dismiss tier drop alerts after 8 seconds (REQ-TD-03). */
+  private readonly _tierAlertAutoDismiss = effect(() => {
+    const alerts = this.store.tierDropAlerts();
+    for (const alert of alerts) {
+      const age = Date.now() - alert.createdAt;
+      const delay = Math.max(0, 8000 - age);
+      setTimeout(() => this.store.dismissTierAlert(alert.id), delay);
     }
-
-    const userSlot = draft.draft_order?.[userId];
-    if (!userSlot || typeof userSlot !== 'number' || userSlot <= 0) {
-      return null;
-    }
-
-    const teams = draft.settings?.['teams'];
-    if (!teams || typeof teams !== 'number' || teams <= 0) {
-      return null;
-    }
-
-    const nextPickNum = this.store.nextPickNumber();
-    const currentRound = Math.floor((nextPickNum - 1) / teams);
-    const pickInRound = ((nextPickNum - 1) % teams) + 1;
-
-    let userPickInRound: number;
-    if (currentRound % 2 === 0) {
-      userPickInRound = userSlot;
-    } else {
-      userPickInRound = teams - userSlot + 1;
-    }
-
-    if (pickInRound < userPickInRound) {
-      return currentRound * teams + userPickInRound;
-    }
-
-    const nextRound = currentRound + 1;
-    let nextRoundUserPickInRound: number;
-    if (nextRound % 2 === 0) {
-      nextRoundUserPickInRound = userSlot;
-    } else {
-      nextRoundUserPickInRound = teams - userSlot + 1;
-    }
-
-    return nextRound * teams + nextRoundUserPickInRound;
   });
 
   ngOnInit(): void {
@@ -493,7 +469,79 @@ export class DraftComponent implements OnInit {
       case 'ktcRank': return 'KTC Rank';
       case 'flockRank': return 'Flock Rank';
       case 'combinedPositionalTier': return 'Comb. Pos. Tier';
+      case 'adpDelta': return 'ADP Delta';
+      case 'valueGap': return 'Value Gap';
     }
+  }
+
+  /** ADP delta display string with sign (REQ-ADP-03). */
+  protected adpDeltaLabel(delta: number | null): string {
+    if (delta === null) return '—';
+    if (delta > 0) return `+${delta}`;
+    return String(delta);
+  }
+
+  /** CSS class for ADP delta color coding (REQ-ADP-04). */
+  protected adpDeltaClass(delta: number | null): string {
+    if (delta === null) return '';
+    if (delta > 1) return 'adp-value';
+    if (delta < -1) return 'adp-reach';
+    return 'adp-neutral';
+  }
+
+  /** CSS class and label for value gap colored indicator (REQ-VG-02). */
+  protected valueGapClass(gap: number | null): string {
+    if (gap === null) return 'vg-none';
+    if (gap === 0) return 'vg-consensus';
+    if (gap === 1) return 'vg-minor';
+    return 'vg-high';
+  }
+
+  /** Tooltip text for value gap indicator (REQ-VG-03). */
+  protected valueGapTooltip(row: DraftPlayerRow): string {
+    const ktcTier = row.overallTier;
+    const flockTier = row.flockAverageTier;
+    if (ktcTier === null && flockTier === null) return 'No tier data';
+    const parts: string[] = [];
+    if (ktcTier !== null) parts.push(`KTC: Tier ${ktcTier}`);
+    if (flockTier !== null) parts.push(`Flock: Tier ${flockTier}`);
+    return parts.join(' · ');
+  }
+
+  /** Label for a tier drop alert banner (REQ-TD-02). */
+  protected tierAlertLabel(alert: TierDropAlert): string {
+    const pos = alert.position;
+    const dropped = alert.droppedTier;
+    if (alert.nextTier !== null) {
+      return `Last Tier ${dropped} ${pos} drafted — Tier ${alert.nextTier} ${pos}s now available`;
+    }
+    return `Last Tier ${dropped} ${pos} drafted — no more ${pos}s in ranked tiers`;
+  }
+
+  /** Dismiss a tier drop alert (REQ-TD-03). */
+  protected dismissAlert(id: string): void {
+    this.store.dismissTierAlert(id);
+  }
+
+  /** Toggle needed-positions-only filter (REQ-PL-11). */
+  protected toggleNeededPositionsOnly(): void {
+    this.store.toggleNeededPositionsOnly();
+  }
+
+  /** Format positional need entry for display (REQ-PN-03). */
+  protected needLabel(need: PositionalNeedEntry): string {
+    return `${need.remaining}/${need.configured}`;
+  }
+
+  /** Picks-until-my-turn counter label (REQ-PA-03). */
+  protected picksUntilMyTurnLabel(): string {
+    const nextPick = this.userNextPickNumber();
+    if (!nextPick) return '';
+    const currentPick = this.store.picks().length + 1;
+    const picks = nextPick - currentPick;
+    if (picks === 0) return 'Your pick now!';
+    if (picks === 1) return '1 pick until your turn';
+    return `${picks} picks until your turn`;
   }
 
   /** Rank value for a best-available entry based on the active sort source. */

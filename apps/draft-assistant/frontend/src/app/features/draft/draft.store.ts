@@ -28,17 +28,45 @@ import { toMapById } from '../../core/utils/array-mapping.util';
 export type DraftPositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
 export type DraftSourceMode = 'league' | 'direct';
 export type DraftValueSource = 'ktcValue' | 'averageRank';
-export type DraftSortSource = 'combinedTier' | 'sleeperRank' | 'ktcRank' | 'flockRank' | 'combinedPositionalTier';
+export type DraftSortSource =
+  | 'combinedTier'
+  | 'sleeperRank'
+  | 'ktcRank'
+  | 'flockRank'
+  | 'combinedPositionalTier'
+  | 'adpDelta'
+  | 'valueGap';
 
-/** A DraftPlayerRow enriched with the drafted flag for UI display. */
+/** A DraftPlayerRow enriched with runtime draft-session state for UI display. */
 export interface DraftPlayerDisplayRow extends DraftPlayerRow {
   isDrafted: boolean;
+  availabilityRisk: 'safe' | 'at-risk' | 'gone';
+  isGoingSoon: boolean;
 }
 
-/** Best-available entry for one position. */
+/** Best-available entry for one position (REQ-BA-01 to REQ-BA-08). */
 export interface BestAvailableEntry {
   position: DraftPositionFilter;
   player: DraftPlayerRow | null;
+  lowestAvailableTier: number | null;
+  availabilityRisk: 'safe' | 'at-risk' | 'gone';
+}
+
+/** Tier drop alert (REQ-TD-01 to REQ-TD-07). */
+export interface TierDropAlert {
+  id: string;
+  position: DraftPositionFilter;
+  droppedTier: number;
+  nextTier: number | null;
+  createdAt: number;
+}
+
+/** Per-position roster need entry (REQ-PN-01 to REQ-PN-08). */
+export interface PositionalNeedEntry {
+  position: string;
+  configured: number;
+  filled: number;
+  remaining: number;
 }
 
 interface SelectDraftOptions {
@@ -67,6 +95,12 @@ interface DraftState {
   tierSource: TierSource;
   valueSource: DraftValueSource;
   sortSource: DraftSortSource;
+  /** Search query for player list filtering (REQ-SN-01). */
+  searchQuery: string;
+  /** When true, show only positions with remaining roster slots (REQ-PL-11). */
+  neededPositionsOnly: boolean;
+  /** Active tier-drop alerts (REQ-TD-01 to REQ-TD-07). */
+  tierDropAlerts: TierDropAlert[];
 }
 
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
@@ -121,6 +155,20 @@ function sortBySortSource(a: DraftPlayerRow, b: DraftPlayerRow, src: DraftSortSo
       if (aTier !== bTier) return aTier - bTier;
       break;
     }
+    case 'adpDelta': {
+      // Descending: biggest positive delta (best value) first. Nulls last.
+      const aDelta = a.adpDelta ?? -Number.MAX_SAFE_INTEGER;
+      const bDelta = b.adpDelta ?? -Number.MAX_SAFE_INTEGER;
+      if (aDelta !== bDelta) return bDelta - aDelta;
+      break;
+    }
+    case 'valueGap': {
+      // Descending: highest disagreement first. Nulls last.
+      const aGap = a.valueGap ?? -1;
+      const bGap = b.valueGap ?? -1;
+      if (aGap !== bGap) return bGap - aGap;
+      break;
+    }
   }
   // Tiebreak: sleeperRank
   return a.sleeperRank - b.sleeperRank;
@@ -134,6 +182,8 @@ export function rankForSortSource(row: DraftPlayerRow, src: DraftSortSource): nu
     case 'ktcRank': return row.ktcRank;
     case 'flockRank': return row.averageRank;
     case 'combinedPositionalTier': return row.combinedPositionalTier;
+    case 'adpDelta': return row.adpDelta;
+    case 'valueGap': return row.valueGap;
   }
 }
 
@@ -145,6 +195,8 @@ export function positionalRankForSortSource(row: DraftPlayerRow, src: DraftSortS
     case 'ktcRank': return row.positionalTier;
     case 'flockRank': return row.flockAveragePositionalTier;
     case 'combinedPositionalTier': return row.combinedPositionalTier;
+    case 'adpDelta': return null;
+    case 'valueGap': return null;
   }
 }
 
@@ -170,8 +222,11 @@ export const DraftStore = signalStore(
     tierSource: 'ktc',
     valueSource: 'ktcValue',
     sortSource: 'combinedTier' as DraftSortSource,
+    searchQuery: '',
+    neededPositionsOnly: false,
+    tierDropAlerts: [],
   }),
-  withComputed((store) => ({
+  withComputed((store, appStore = inject(AppStore)) => ({
     selectedDraft: computed(() => store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null),
     pickedPlayerIds: computed(() => {
       const ids = new Set<string>();
@@ -182,10 +237,109 @@ export const DraftStore = signalStore(
       }
       return ids;
     }),
+
+    /**
+     * Derive the user's roster_id from draft_order and slot_to_roster_id.
+     * Used to identify "my picks" (REQ-SM-04, REQ-SM-05).
+     */
+    userRosterId: computed((): number | null => {
+      const userId = appStore.user()?.user_id;
+      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
+      if (!userId || !draft) return null;
+      const userSlot = draft.draft_order?.[userId];
+      if (!userSlot || typeof userSlot !== 'number') return null;
+      const rosterId = draft.slot_to_roster_id?.[String(userSlot)];
+      return typeof rosterId === 'number' ? rosterId : null;
+    }),
+
+    /**
+     * Next pick number for the current user in a snake draft (REQ-PA-02, REQ-PA-03).
+     */
+    userNextPickNumber: computed((): number | null => {
+      const userId = appStore.user()?.user_id;
+      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
+      if (!userId || !draft) return null;
+      const userSlot = draft.draft_order?.[userId];
+      if (!userSlot || typeof userSlot !== 'number' || userSlot <= 0) return null;
+      const teams = draft.settings?.['teams'];
+      if (!teams || typeof teams !== 'number' || teams <= 0) return null;
+
+      const nextPickNum = store.picks().length + 1;
+      const currentRound = Math.floor((nextPickNum - 1) / teams);
+      const pickInRound = ((nextPickNum - 1) % teams) + 1;
+
+      let userPickInRound: number;
+      if (currentRound % 2 === 0) {
+        userPickInRound = userSlot;
+      } else {
+        userPickInRound = teams - userSlot + 1;
+      }
+
+      if (pickInRound < userPickInRound) {
+        return currentRound * teams + userPickInRound;
+      }
+
+      const nextRound = currentRound + 1;
+      let nextRoundUserPickInRound: number;
+      if (nextRound % 2 === 0) {
+        nextRoundUserPickInRound = userSlot;
+      } else {
+        nextRoundUserPickInRound = teams - userSlot + 1;
+      }
+
+      return nextRound * teams + nextRoundUserPickInRound;
+    }),
+
+    /**
+     * Positional need entries derived from League roster_positions config (REQ-PN-01 to REQ-PN-08).
+     */
+    positionalNeeds: computed((): PositionalNeedEntry[] => {
+      const league = appStore.selectedLeague();
+      const rosterPositions = league?.roster_positions ?? [];
+      const userRosterId_ = (() => {
+        const userId = appStore.user()?.user_id;
+        const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
+        if (!userId || !draft) return null;
+        const userSlot = draft.draft_order?.[userId];
+        if (!userSlot || typeof userSlot !== 'number') return null;
+        const rId = draft.slot_to_roster_id?.[String(userSlot)];
+        return typeof rId === 'number' ? rId : null;
+      })();
+
+      // Count configured slots per position (ignore BN/IR)
+      const configuredByPos: Record<string, number> = {};
+      for (const slot of rosterPositions) {
+        if (slot === 'BN' || slot === 'IR') continue;
+        configuredByPos[slot] = (configuredByPos[slot] ?? 0) + 1;
+      }
+
+      // Count filled slots from user's picks
+      const filledByPos: Record<string, number> = {};
+      if (userRosterId_ !== null) {
+        for (const pick of store.picks()) {
+          if (pick.roster_id !== userRosterId_) continue;
+          const pos = store.rows().find((r) => r.playerId === pick.player_id)?.position ?? null;
+          if (pos) {
+            filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
+          }
+        }
+      }
+
+      const positionOrder = ['QB', 'RB', 'WR', 'TE', 'FLEX', 'SUPER_FLEX', 'K', 'DEF'];
+      return positionOrder
+        .filter((pos) => (configuredByPos[pos] ?? 0) > 0)
+        .map((pos) => {
+          const configured = configuredByPos[pos] ?? 0;
+          const filled = Math.min(filledByPos[pos] ?? 0, configured);
+          return { position: pos, configured, filled, remaining: configured - filled };
+        });
+    }),
+
     /**
      * All player rows (including drafted) sorted by the active sortSource.
-     * Drafted players carry isDrafted=true for visual differentiation.
-     * This satisfies REQ-PL-01, REQ-PL-02, REQ-PL-05, REQ-PL-06.
+     * Filtered by searchQuery and neededPositionsOnly when active.
+     * Drafted players carry isDrafted=true and availability risk info for display.
+     * REQ-PL-01, REQ-PL-02, REQ-PL-05, REQ-PL-06, REQ-SN-01 to REQ-SN-07, REQ-PL-11.
      */
     allPlayerRows: computed((): DraftPlayerDisplayRow[] => {
       const sortSrc = store.sortSource();
@@ -195,13 +349,93 @@ export const DraftStore = signalStore(
           .filter((pick) => !!pick.player_id)
           .map((pick) => pick.player_id),
       );
+      const query = store.searchQuery().toLowerCase().trim();
+      const neededOnly = store.neededPositionsOnly();
+
+      // Compute needed positions when filter is active
+      const neededPositions = new Set<string>();
+      if (neededOnly) {
+        const league = appStore.selectedLeague();
+        const rosterPositions = league?.roster_positions ?? [];
+        const userId = appStore.user()?.user_id;
+        const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
+        let userRosterId_: number | null = null;
+        if (userId && draft) {
+          const userSlot = draft.draft_order?.[userId];
+          if (userSlot && typeof userSlot === 'number') {
+            const rId = draft.slot_to_roster_id?.[String(userSlot)];
+            if (typeof rId === 'number') userRosterId_ = rId;
+          }
+        }
+        const configuredByPos: Record<string, number> = {};
+        for (const slot of rosterPositions) {
+          if (slot === 'BN' || slot === 'IR') continue;
+          configuredByPos[slot] = (configuredByPos[slot] ?? 0) + 1;
+        }
+        const filledByPos: Record<string, number> = {};
+        if (userRosterId_ !== null) {
+          for (const pick of store.picks()) {
+            if (pick.roster_id !== userRosterId_) continue;
+            const pos = store.rows().find((r) => r.playerId === pick.player_id)?.position ?? null;
+            if (pos) filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
+          }
+        }
+        for (const pos of ['QB', 'RB', 'WR', 'TE']) {
+          const configured = configuredByPos[pos] ?? 0;
+          const flex = configuredByPos['FLEX'] ?? 0;
+          const total = configured + flex;
+          const filled = filledByPos[pos] ?? 0;
+          if (filled < total) neededPositions.add(pos);
+        }
+      }
+
+      // Compute pick position for availability risk (REQ-PA-05)
+      const currentPickNumber = store.picks().length + 1;
+      const userId = appStore.user()?.user_id;
+      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
+      let picksUntilMyTurn = 0;
+      if (userId && draft) {
+        const userSlot = draft.draft_order?.[userId];
+        const teams = draft.settings?.['teams'];
+        if (userSlot && typeof userSlot === 'number' && teams && typeof teams === 'number' && teams > 0) {
+          const currentRound = Math.floor((currentPickNumber - 1) / teams);
+          const pickInRound = ((currentPickNumber - 1) % teams) + 1;
+          let userPickInRound = currentRound % 2 === 0 ? userSlot : teams - userSlot + 1;
+          if (pickInRound <= userPickInRound) {
+            picksUntilMyTurn = userPickInRound - pickInRound;
+          } else {
+            const nextRound = currentRound + 1;
+            const nextRoundUserPick = nextRound % 2 === 0 ? userSlot : teams - userSlot + 1;
+            picksUntilMyTurn = (teams - pickInRound) + nextRoundUserPick;
+          }
+        }
+      }
+      const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
+      const goingSoonThreshold = currentPickNumber + 2; // within next 3 picks
 
       return [...store.rows()]
         .filter((row) => selected.has(row.position))
         .filter((row) => !store.rookiesOnly() || row.rookie)
+        .filter((row) => !neededOnly || neededPositions.has(row.position))
+        .filter((row) => !query || row.fullName.toLowerCase().includes(query))
         .sort((a, b) => sortBySortSource(a, b, sortSrc))
-        .map((row) => ({ ...row, isDrafted: picked.has(row.playerId) }));
+        .map((row) => {
+          const isDrafted = picked.has(row.playerId);
+          const adpRef = row.averageRank;
+          let availabilityRisk: 'safe' | 'at-risk' | 'gone' = 'safe';
+          let isGoingSoon = false;
+          if (isDrafted) {
+            availabilityRisk = 'gone';
+          } else if (adpRef !== null && adpRef <= atRiskThreshold) {
+            availabilityRisk = 'at-risk';
+          }
+          if (!isDrafted && adpRef !== null && adpRef <= goingSoonThreshold) {
+            isGoingSoon = true;
+          }
+          return { ...row, isDrafted, availabilityRisk, isGoingSoon };
+        });
     }),
+
     availableRows: computed(() => {
       const tierSrc = store.tierSource();
       const valueSrc = store.valueSource();
@@ -231,6 +465,7 @@ export const DraftStore = signalStore(
           return a.sleeperRank - b.sleeperRank;
         });
     }),
+
     recommendations: computed(() => {
       const tierSrc = store.tierSource();
       const valueSrc = store.valueSource();
@@ -247,6 +482,28 @@ export const DraftStore = signalStore(
         WR: 2,
         TE: 3,
       };
+
+      const currentPickNumber = store.picks().length + 1;
+      const userId = appStore.user()?.user_id;
+      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
+      let picksUntilMyTurn = 0;
+      if (userId && draft) {
+        const userSlot = draft.draft_order?.[userId];
+        const teams = draft.settings?.['teams'];
+        if (userSlot && typeof userSlot === 'number' && teams && typeof teams === 'number' && teams > 0) {
+          const currentRound = Math.floor((currentPickNumber - 1) / teams);
+          const pickInRound = ((currentPickNumber - 1) % teams) + 1;
+          let userPickInRound = currentRound % 2 === 0 ? userSlot : teams - userSlot + 1;
+          if (pickInRound <= userPickInRound) {
+            picksUntilMyTurn = userPickInRound - pickInRound;
+          } else {
+            const nextRound = currentRound + 1;
+            const nextRoundUserPick = nextRound % 2 === 0 ? userSlot : teams - userSlot + 1;
+            picksUntilMyTurn = (teams - pickInRound) + nextRoundUserPick;
+          }
+        }
+      }
+      const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
 
       const sortedRows = store.rows()
         .filter((row) => selected.has(row.position))
@@ -287,21 +544,30 @@ export const DraftStore = signalStore(
         return true;
       });
 
-      return filtered.map<DraftRecommendation>((row) => ({
-        playerId: row.playerId,
-        fullName: row.fullName,
-        position: row.position,
-        team: row.team,
-        ktcValue: row.ktcValue,
-        ktcRank: row.ktcRank,
-        overallTier: row.overallTier,
-        positionalTier: row.positionalTier,
-        flockAverageTier: row.flockAverageTier,
-        flockAveragePositionalTier: row.flockAveragePositionalTier,
-        averageRank: row.averageRank,
-        boostedScore: resolveValue(row, valueSrc),
-      }));
+      return filtered.map<DraftRecommendation>((row) => {
+        const adpRef = row.averageRank;
+        const availabilityRisk: 'safe' | 'at-risk' | 'gone' =
+          adpRef !== null && adpRef <= atRiskThreshold ? 'at-risk' : 'safe';
+        return {
+          playerId: row.playerId,
+          fullName: row.fullName,
+          position: row.position,
+          team: row.team,
+          ktcValue: row.ktcValue,
+          ktcRank: row.ktcRank,
+          overallTier: row.overallTier,
+          positionalTier: row.positionalTier,
+          flockAverageTier: row.flockAverageTier,
+          flockAveragePositionalTier: row.flockAveragePositionalTier,
+          averageRank: row.averageRank,
+          combinedTier: row.combinedTier,
+          adpDelta: row.adpDelta,
+          availabilityRisk,
+          boostedScore: resolveValue(row, valueSrc),
+        };
+      });
     }),
+
     starredRows: computed(() => {
       const stars = new Set(store.starredPlayerIds());
       const selected = new Set(store.selectedPositions());
@@ -323,14 +589,54 @@ export const DraftStore = signalStore(
           return a.sleeperRank - b.sleeperRank;
         });
     }),
+
+    /**
+     * My roster picks — picks belonging to the current user's team (REQ-SM-04).
+     */
+    myRosterPicks: computed(() => {
+      const userId = appStore.user()?.user_id;
+      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
+      if (!userId || !draft) return [];
+      const userSlot = draft.draft_order?.[userId];
+      if (!userSlot || typeof userSlot !== 'number') return [];
+      const rosterId = draft.slot_to_roster_id?.[String(userSlot)];
+      if (typeof rosterId !== 'number') return [];
+
+      return store.picks()
+        .filter((pick) => pick.roster_id === rosterId && !!pick.player_id)
+        .sort((a, b) => a.pick_no - b.pick_no);
+    }),
+
+    /**
+     * My roster player rows — enriched rows for the user's drafted players (REQ-SM-04 to REQ-SM-06).
+     */
+    myRosterRows: computed((): DraftPlayerRow[] => {
+      const userId = appStore.user()?.user_id;
+      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
+      if (!userId || !draft) return [];
+      const userSlot = draft.draft_order?.[userId];
+      if (!userSlot || typeof userSlot !== 'number') return [];
+      const rosterId = draft.slot_to_roster_id?.[String(userSlot)];
+      if (typeof rosterId !== 'number') return [];
+
+      const myPickIds = new Set(
+        store.picks()
+          .filter((pick) => pick.roster_id === rosterId && !!pick.player_id)
+          .map((pick) => pick.player_id),
+      );
+
+      return store.rows().filter((row) => myPickIds.has(row.playerId));
+    }),
+
     pickBoard: computed(() => [...store.picks()].sort((a, b) => a.pick_no - b.pick_no)),
     recentPicks: computed(() => [...store.picks()].sort((a, b) => b.pick_no - a.pick_no).slice(0, 10)),
     nextPickNumber: computed(() => store.picks().length + 1),
+
     /**
      * Best available player per position group (QB, RB, WR, TE).
-     * "Best available" = lowest combinedTier among undrafted players.
-     * When a position filter is active, only the filtered positions are shown.
-     * Satisfies REQ-BA-02, REQ-BA-03, REQ-BA-04.
+     * Ordered by positional need priority (REQ-BA-07).
+     * Includes lowestAvailableTier and availabilityRisk (REQ-BA-05, REQ-BA-06, REQ-BA-07).
+     * Satisfies REQ-BA-02, REQ-BA-03, REQ-BA-04, REQ-BA-08.
      */
     bestAvailableByPosition: computed((): BestAvailableEntry[] => {
       const picked = new Set(
@@ -348,7 +654,32 @@ export const DraftStore = signalStore(
 
       const positionsToShowSet = new Set<string>(positionsToShow);
       const bestByPos = new Map<DraftPositionFilter, DraftPlayerRow>();
+      const lowestTierByPos = new Map<DraftPositionFilter, number>();
       const rookiesOnly = store.rookiesOnly();
+
+      // Compute availability risk threshold
+      const currentPickNumber = store.picks().length + 1;
+      const userId = appStore.user()?.user_id;
+      const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
+      let picksUntilMyTurn = 0;
+      if (userId && draft) {
+        const userSlot = draft.draft_order?.[userId];
+        const teams = draft.settings?.['teams'];
+        if (userSlot && typeof userSlot === 'number' && teams && typeof teams === 'number' && teams > 0) {
+          const currentRound = Math.floor((currentPickNumber - 1) / teams);
+          const pickInRound = ((currentPickNumber - 1) % teams) + 1;
+          let userPickInRound = currentRound % 2 === 0 ? userSlot : teams - userSlot + 1;
+          if (pickInRound <= userPickInRound) {
+            picksUntilMyTurn = userPickInRound - pickInRound;
+          } else {
+            const nextRound = currentRound + 1;
+            const nextRoundUserPick = nextRound % 2 === 0 ? userSlot : teams - userSlot + 1;
+            picksUntilMyTurn = (teams - pickInRound) + nextRoundUserPick;
+          }
+        }
+      }
+      const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
+
       const isBetterCandidate = (candidate: DraftPlayerRow, current: DraftPlayerRow): boolean => {
         const candidateTier = candidate.combinedTier ?? Number.MAX_SAFE_INTEGER;
         const currentTier = current.combinedTier ?? Number.MAX_SAFE_INTEGER;
@@ -368,9 +699,64 @@ export const DraftStore = signalStore(
         if (!currentBest || isBetterCandidate(row, currentBest)) {
           bestByPos.set(pos, row);
         }
+
+        const rowTier = row.combinedPositionalTier ?? row.combinedTier;
+        if (rowTier !== null) {
+          const currentLowest = lowestTierByPos.get(pos);
+          if (currentLowest === undefined || rowTier < currentLowest) {
+            lowestTierByPos.set(pos, rowTier);
+          }
+        }
       }
 
-      return positionsToShow.map((pos) => ({ position: pos, player: bestByPos.get(pos) ?? null }));
+      // Compute need-based ordering for positions (REQ-BA-07)
+      const league = appStore.selectedLeague();
+      const rosterPositions = league?.roster_positions ?? [];
+      const configuredByPos: Record<string, number> = {};
+      for (const slot of rosterPositions) {
+        if (slot === 'BN' || slot === 'IR') continue;
+        configuredByPos[slot] = (configuredByPos[slot] ?? 0) + 1;
+      }
+      let userRosterId: number | null = null;
+      if (userId && draft) {
+        const userSlot = draft.draft_order?.[userId];
+        if (userSlot && typeof userSlot === 'number') {
+          const rId = draft.slot_to_roster_id?.[String(userSlot)];
+          if (typeof rId === 'number') userRosterId = rId;
+        }
+      }
+      const filledByPos: Record<string, number> = {};
+      if (userRosterId !== null) {
+        for (const pick of store.picks()) {
+          if (pick.roster_id !== userRosterId) continue;
+          const pos = store.rows().find((r) => r.playerId === pick.player_id)?.position ?? null;
+          if (pos) filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
+        }
+      }
+
+      const remainingByPos = (pos: string): number => {
+        const configured = configuredByPos[pos] ?? 0;
+        const flex = configuredByPos['FLEX'] ?? 0;
+        const filled = filledByPos[pos] ?? 0;
+        return Math.max(0, configured + flex - filled);
+      };
+
+      const orderedPositions = [...positionsToShow].sort(
+        (a, b) => remainingByPos(b) - remainingByPos(a),
+      );
+
+      return orderedPositions.map((pos) => {
+        const player = bestByPos.get(pos) ?? null;
+        const adpRef = player?.averageRank ?? null;
+        const availabilityRisk: 'safe' | 'at-risk' | 'gone' =
+          adpRef !== null && adpRef <= atRiskThreshold ? 'at-risk' : 'safe';
+        return {
+          position: pos,
+          player,
+          lowestAvailableTier: lowestTierByPos.get(pos) ?? null,
+          availabilityRisk,
+        };
+      });
     }),
   })),
   withMethods((store, appStore = inject(AppStore), sleeper = inject(SleeperService), ktc = inject(KtcRatingService), flock = inject(FlockRatingService), storage = inject(StorageService), playerNorm = inject(PlayerNormalizationService)) => {
@@ -498,7 +884,7 @@ export const DraftStore = signalStore(
     const loadSortSource = (leagueId: string | null): DraftSortSource => {
       if (!leagueId) return 'combinedTier';
       const saved = storage.getRawItem(sortSourceStorageKey(leagueId));
-      const valid: DraftSortSource[] = ['combinedTier', 'sleeperRank', 'ktcRank', 'flockRank', 'combinedPositionalTier'];
+      const valid: DraftSortSource[] = ['combinedTier', 'sleeperRank', 'ktcRank', 'flockRank', 'combinedPositionalTier', 'adpDelta', 'valueGap'];
       return valid.includes(saved as DraftSortSource) ? (saved as DraftSortSource) : 'combinedTier';
     };
 
@@ -579,6 +965,60 @@ export const DraftStore = signalStore(
       };
     };
 
+    /**
+     * Detect tier drops after new picks are received (REQ-TD-01 to REQ-TD-07).
+     * Returns alerts for each positional tier that lost its last undrafted player.
+     */
+    const detectTierDrops = (
+      newPickedIds: Set<string>,
+      prevPickedIds: Set<string>,
+      rows: DraftPlayerRow[],
+    ): TierDropAlert[] => {
+      const alerts: TierDropAlert[] = [];
+      const newlyPickedIds = [...newPickedIds].filter((id) => !prevPickedIds.has(id));
+      if (newlyPickedIds.length === 0) return alerts;
+
+      // Group remaining undrafted rows by position+positionalTier
+      const undraftedByPosTier = new Map<string, DraftPlayerRow[]>();
+      for (const row of rows) {
+        if (newPickedIds.has(row.playerId)) continue;
+        const tier = row.combinedPositionalTier;
+        if (tier === null) continue;
+        const key = `${row.position}:${tier}`;
+        const existing = undraftedByPosTier.get(key) ?? [];
+        existing.push(row);
+        undraftedByPosTier.set(key, existing);
+      }
+
+      for (const newlyPickedId of newlyPickedIds) {
+        const draftedRow = rows.find((r) => r.playerId === newlyPickedId);
+        if (!draftedRow) continue;
+        const tier = draftedRow.combinedPositionalTier;
+        if (tier === null) continue;
+        const key = `${draftedRow.position}:${tier}`;
+        const remaining = undraftedByPosTier.get(key) ?? [];
+
+        // If no undrafted players remain in this positional tier → tier drop
+        if (remaining.length === 0) {
+          // Find the next available tier for this position
+          const undraftedSamePosRows = rows
+            .filter((r) => r.position === draftedRow.position && !newPickedIds.has(r.playerId) && r.combinedPositionalTier !== null)
+            .sort((a, b) => (a.combinedPositionalTier ?? 99) - (b.combinedPositionalTier ?? 99));
+          const nextTier = undraftedSamePosRows[0]?.combinedPositionalTier ?? null;
+
+          alerts.push({
+            id: `${Date.now()}-${draftedRow.position}-${tier}`,
+            position: draftedRow.position as DraftPositionFilter,
+            droppedTier: tier,
+            nextTier,
+            createdAt: Date.now(),
+          });
+        }
+      }
+
+      return alerts;
+    };
+
     const refreshDraft = async (): Promise<void> => {
       if (refreshInFlight) {
         return;
@@ -591,17 +1031,28 @@ export const DraftStore = signalStore(
 
       refreshInFlight = true;
       try {
+        const prevPickedIds = new Set(
+          store.picks()
+            .filter((pick) => !!pick.player_id)
+            .map((pick) => pick.player_id),
+        );
+
         const [draft, picks] = await firstValueFrom(
           forkJoin([sleeper.getDraft(selectedDraftId), sleeper.getDraftPicks(selectedDraftId)]),
         );
 
+        const normalizedPicks = normalizePicks(draft, picks);
+        const newPickedIds = new Set(normalizedPicks.map((p) => p.player_id).filter((id): id is string => !!id));
+        const newAlerts = detectTierDrops(newPickedIds, prevPickedIds, store.rows());
+
         patchState(store, {
           draftStatus: draft.status ?? null,
           drafts: upsertDraft(store.drafts(), draft),
-          picks: normalizePicks(draft, picks),
+          picks: normalizedPicks,
           staleData: false,
           lastUpdatedAt: Date.now(),
           error: null,
+          tierDropAlerts: [...store.tierDropAlerts(), ...newAlerts],
         });
       } catch {
         patchState(store, {
@@ -849,10 +1300,27 @@ export const DraftStore = signalStore(
           sortSource: 'combinedTier',
           selectedPositions: DEFAULT_POSITIONS,
           lastUpdatedAt: null,
+          searchQuery: '',
+          neededPositionsOnly: false,
+          tierDropAlerts: [],
         });
       },
       stopPolling(): void {
         stopPolling();
+      },
+      /** Update search query (REQ-SN-01 to REQ-SN-07). */
+      setSearchQuery(query: string): void {
+        patchState(store, { searchQuery: query });
+      },
+      /** Toggle "needed positions only" filter (REQ-PL-11). */
+      toggleNeededPositionsOnly(): void {
+        patchState(store, { neededPositionsOnly: !store.neededPositionsOnly() });
+      },
+      /** Dismiss a specific tier-drop alert by id (REQ-TD-03). */
+      dismissTierAlert(id: string): void {
+        patchState(store, {
+          tierDropAlerts: store.tierDropAlerts().filter((a) => a.id !== id),
+        });
       },
     };
   }),

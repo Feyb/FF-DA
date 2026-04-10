@@ -83,16 +83,30 @@ export interface DraftPlayerRow {
   rookie: boolean;
   ktcValue: number | null;
   ktcRank: number | null;
+  ktcPositionalRank: number | null;
   overallTier: number | null;
   positionalTier: number | null;
   flockAverageTier: number | null;
   flockAveragePositionalTier: number | null;
+  flockAveragePositionalRank: number | null;
   averageRank: number | null;
   sleeperRank: number;
   /** Sum of KTC overall tier + Flock average tier (lower = better). */
   combinedTier: number | null;
   /** Sum of KTC positional tier + Flock average positional tier (lower = better). */
   combinedPositionalTier: number | null;
+  /** ADP rank (uses flockAverageRank as proxy for Sleeper ADP). */
+  adpRank: number | null;
+  /**
+   * adpRank minus average expert rank (sleeperRank + ktcRank + flockAverageRank) / 3.
+   * Positive = value (drafted later than experts rank). Negative = reach.
+   */
+  adpDelta: number | null;
+  /**
+   * max(ktcOverallTier, flockAverageTier) – min(ktcOverallTier, flockAverageTier).
+   * 0 = full consensus, higher = more disagreement between sources.
+   */
+  valueGap: number | null;
 }
 
 export interface DraftRecommendation {
@@ -107,6 +121,9 @@ export interface DraftRecommendation {
   flockAverageTier: number | null;
   flockAveragePositionalTier: number | null;
   averageRank: number | null;
+  combinedTier: number | null;
+  adpDelta: number | null;
+  availabilityRisk: 'safe' | 'at-risk' | 'gone';
   boostedScore: number;
 }
 
@@ -224,6 +241,7 @@ export interface FlockPlayer {
   team: string | null;
   averageRank: number | null;
   averageTier: number | null;
+  averagePositionalRank: number | null;
   averagePositionalTier: number | null;
 }
 
