@@ -1,5 +1,16 @@
 {
   "source": "keeptradecut.com",
-  "generatedAt": "2026-04-10T13:40:38.559Z",
-  "formats": {}
+  "generatedAt": "2026-04-09T08:43:03.978Z",
+  "formats": {
+    "1qb": {
+      "count": 500,
+      "output": "players-1qb.json",
+      "url": "https://keeptradecut.com/dynasty-rankings?filters=QB|WR|RB|TE&format=1"
+    },
+    "superflex": {
+      "count": 500,
+      "output": "players-superflex.json",
+      "url": "https://keeptradecut.com/dynasty-rankings?filters=QB|WR|RB|TE&format=2"
+    }
+  }
 }
