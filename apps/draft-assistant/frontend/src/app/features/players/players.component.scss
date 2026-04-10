@@ -55,7 +55,9 @@
   }
 
   thead th {
-    @apply bg-slate-50 font-semibold;
+    background: var(--mat-sys-surface-container-high);
+    color: var(--mat-sys-on-surface-variant);
+    font-weight: 600;
   }
 
   tbody tr:hover {
@@ -141,11 +143,6 @@ html.dark {
     th,
     td {
       border-color: rgb(51 65 85);
-    }
-
-    thead th {
-      background: var(--surface-container-high, #2b2930);
-      color: rgb(203 213 225);
     }
   }
 
