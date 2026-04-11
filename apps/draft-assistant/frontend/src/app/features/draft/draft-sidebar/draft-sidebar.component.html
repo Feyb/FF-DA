@@ -1,0 +1,132 @@
+<aside class="draft-side">
+  @if (store.positionalNeeds().length > 0) {
+    <mat-card class="needs-card" appearance="outlined">
+      <div class="section-header">
+        <h2>Roster Needs</h2>
+        <span class="section-hint">Slots filled / configured</span>
+      </div>
+      <div class="needs-list">
+        @for (need of store.positionalNeeds(); track need.position) {
+          <div class="need-row" [class.need-filled]="need.remaining === 0">
+            <span class="need-pos">{{ need.position }}</span>
+            <div class="need-dots">
+              @for (i of range(need.configured); track i) {
+                <span class="need-dot" [class.filled]="i < need.filled"></span>
+              }
+            </div>
+            <span class="need-label" [class.need-complete]="need.remaining === 0">
+              @if (need.remaining === 0) {
+                <mat-icon class="need-check">check_circle</mat-icon>
+              } @else {
+                {{ needLabel(need) }}
+              }
+            </span>
+          </div>
+        }
+      </div>
+    </mat-card>
+  }
+
+  @if (store.myRosterRows().length > 0 || store.picks().length > 0) {
+    <mat-card class="my-roster-card" appearance="outlined">
+      <div class="section-header">
+        <h2>My Roster</h2>
+        <span class="section-hint">{{ store.myRosterRows().length }} picks</span>
+      </div>
+      @if (store.myRosterRows().length === 0) {
+        <p class="empty-copy">No picks yet.</p>
+      } @else {
+        <div class="roster-list">
+          @for (row of store.myRosterRows(); track row.playerId) {
+            <div class="roster-row">
+              <span class="roster-pos-badge" [ngClass]="'pos-' + row.position.toLowerCase()">{{ row.position }}</span>
+              <span class="roster-name">{{ row.fullName }}</span>
+              <span class="roster-tier">Tier {{ row.combinedTier ?? 'N/A' }}</span>
+              @if (row.adpDelta !== null) {
+                <span class="roster-adp" [ngClass]="adpDeltaClass(row.adpDelta)">{{ adpDeltaLabel(row.adpDelta) }}</span>
+              }
+            </div>
+          }
+        </div>
+      }
+    </mat-card>
+  }
+
+  <mat-card class="stars-card" appearance="outlined">
+    <div class="section-header">
+      <h2>Starred</h2>
+      <span class="section-hint">{{ store.starredRows().length }} available</span>
+    </div>
+    @if (store.starredRows().length === 0) {
+      <p class="empty-copy">No starred players available.</p>
+    } @else {
+      <div class="chip-list">
+        @for (row of store.starredRows(); track row.playerId) {
+          <mat-chip>
+            {{ row.fullName }}
+          </mat-chip>
+        }
+      </div>
+    }
+  </mat-card>
+
+  @if (store.selectedDraft(); as selectedDraft) {
+    <mat-card class="summary-card" appearance="outlined">
+      <p class="summary-title">Current Draft Status</p>
+      <div class="summary-grid">
+        <div>
+          <p class="summary-label">Name</p>
+          <p class="summary-value">{{ draftNameLabel(selectedDraft) }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Source</p>
+          <p class="summary-value">{{ sourceLabel() }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Status</p>
+          <p class="summary-value">{{ draftStatusLabel(selectedDraft) }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Type</p>
+          <p class="summary-value">{{ draftTypeLabel(selectedDraft) }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Scoring</p>
+          <p class="summary-value">{{ draftScoringLabel(selectedDraft) }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Rounds</p>
+          <p class="summary-value">{{ draftSetting(selectedDraft, 'rounds') }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Teams</p>
+          <p class="summary-value">{{ draftSetting(selectedDraft, 'teams') }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Draft position</p>
+          <p class="summary-value">{{ userDraftPositionLabel(selectedDraft) }}</p>
+        </div>
+        <div>
+          <p class="summary-label">My slot</p>
+          <p class="summary-value">{{ userDraftSlotLabel(selectedDraft) }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Start time</p>
+          <p class="summary-value">{{ draftStartLabel(selectedDraft) }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Draft ID</p>
+          <p class="summary-value summary-value-mono">{{ selectedDraft.draft_id }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Total picks made</p>
+          <p class="summary-value">{{ store.pickBoard().length }}</p>
+        </div>
+        <div>
+          <p class="summary-label">Next pick</p>
+          <p class="summary-value">#{{ store.nextPickNumber() }}</p>
+        </div>
+      </div>
+    </mat-card>
+  }
+</aside>
