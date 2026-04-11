@@ -1,0 +1,150 @@
+<mat-card class="controls-card" appearance="outlined">
+  <div class="source-switch-row">
+    <span class="source-switch-label">Source mode</span>
+    <mat-button-toggle-group
+      [value]="activeSourceMode()"
+      (change)="onSourceModeChange($event.value)"
+      aria-label="Draft source mode"
+    >
+      @for (source of sourceModes; track source) {
+        <mat-button-toggle [value]="source">
+          {{ source === 'direct' ? 'Direct URL' : 'League Drafts' }}
+        </mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="controls-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ activeSourceMode() === 'direct' ? 'Saved direct drafts' : 'League draft context' }}</mat-label>
+      <mat-select [value]="store.selectedDraftId()" (selectionChange)="onDraftChange($event)">
+        @if (activeSourceMode() === 'league') {
+          @if (leagueDraftOptions().length > 0) {
+            <mat-optgroup label="League Drafts">
+              @for (option of leagueDraftOptions(); track draftOptionTrackBy(option)) {
+                <mat-option [value]="option.draftId">
+                  <div class="draft-option-content">
+                    <div class="draft-option-header">
+                      <span class="draft-option-title">{{ option.title }}</span>
+                      <span class="draft-option-status" [class]="draftOptionStatusClass(option.draft)">
+                        {{ draftStatusLabel(option.draft) }}
+                      </span>
+                    </div>
+                    <div class="draft-option-meta-row">
+                      @for (entry of option.meta; track entry) {
+                        <span class="draft-option-meta-pill">{{ entry }}</span>
+                      }
+                    </div>
+                    <div class="draft-option-subtitle">{{ option.subtitle }}</div>
+                  </div>
+                </mat-option>
+              }
+            </mat-optgroup>
+          } @else {
+            <mat-option disabled>No league drafts available</mat-option>
+          }
+        } @else {
+          @if (savedDirectUrlOptions().length > 0) {
+            <mat-optgroup label="Saved Direct URLs">
+              @for (option of savedDirectUrlOptions(); track draftOptionTrackBy(option)) {
+                <mat-option [value]="option.draftId">
+                  <div class="draft-option-content draft-option-content-direct">
+                    <div class="draft-option-header">
+                      <span class="draft-option-title">{{ option.title }}</span>
+                      <span class="draft-option-status draft-option-status-direct">Direct URL</span>
+                    </div>
+                    @if (option.meta.length > 0) {
+                      <div class="draft-option-meta-row">
+                        @for (entry of option.meta; track entry) {
+                          <span class="draft-option-meta-pill">{{ entry }}</span>
+                        }
+                      </div>
+                    }
+                    <div class="draft-option-subtitle">{{ option.subtitle }}</div>
+                  </div>
+                </mat-option>
+              }
+            </mat-optgroup>
+          } @else {
+            <mat-option disabled>No saved direct URLs yet</mat-option>
+          }
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="position-filters">
+      @for (position of positions; track position) {
+        <button
+          [matButton]="store.selectedPositions().includes(position) ? 'tonal' : 'text'"
+          (click)="togglePosition(position)"
+        >
+          {{ position }}
+        </button>
+      }
+    </div>
+
+    <mat-slide-toggle
+      [ngModel]="store.rookiesOnly()"
+      (ngModelChange)="store.setRookiesOnly($event)"
+    >
+      Rookies only
+    </mat-slide-toggle>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tier source</mat-label>
+      <mat-select [ngModel]="store.tierSource()" (ngModelChange)="store.setTierSource($event)">
+        @for (source of tierSources; track source.value) {
+          <mat-option [value]="source.value">{{ source.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Value source</mat-label>
+      <mat-select [ngModel]="store.valueSource()" (ngModelChange)="store.setValueSource($event)">
+        @for (source of valueSources; track source.value) {
+          <mat-option [value]="source.value">{{ source.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Sort by</mat-label>
+      <mat-select [ngModel]="store.sortSource()" (ngModelChange)="store.setSortSource($event)">
+        @for (source of sortSources; track source.value) {
+          <mat-option [value]="source.value">{{ source.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="controls-actions">
+      <button matButton (click)="refreshDraft()">Refresh</button>
+      <button matButton color="warn" (click)="resetSession()" title="Clear draft session data">Reset Session</button>
+      @if (store.lastUpdatedAt()) {
+        <span class="updated-at">Updated {{ store.lastUpdatedAt()! | date:'mediumTime' }}</span>
+      }
+    </div>
+  </div>
+
+  @if (activeSourceMode() === 'direct') {
+    <div class="mock-draft-row">
+      <mat-form-field appearance="outline" class="mock-draft-field">
+        <mat-label>Mock draft URL or draft id</mat-label>
+        <input
+          matInput
+          [ngModel]="mockDraftUrl"
+          (ngModelChange)="mockDraftUrl = $event"
+          placeholder="https://sleeper.com/draft/nfl/1338981448228569088"
+        />
+      </mat-form-field>
+      <button matButton (click)="loadMockDraftUrl()">Load mock draft</button>
+      @if (savedDirectUrls().length > 0) {
+        <button matButton (click)="clearSavedUrls()">Clear saved URLs</button>
+      }
+    </div>
+  }
+
+  @if (mockDraftUrlError) {
+    <p class="mock-draft-error">{{ mockDraftUrlError }}</p>
+  }
+</mat-card>
