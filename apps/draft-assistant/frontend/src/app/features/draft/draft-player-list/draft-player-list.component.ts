@@ -16,6 +16,7 @@ import {
   positionalRankForSortSource,
   rankForSortSource,
 } from '../draft.store';
+import { TierColorPipe } from '../../../shared/pipes';
 
 @Component({
   selector: 'app-draft-player-list',
@@ -32,6 +33,7 @@ import {
     MatInputModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    TierColorPipe,
   ],
 })
 export class DraftPlayerListComponent {
@@ -51,13 +53,6 @@ export class DraftPlayerListComponent {
     return map;
   });
   protected readonly userNextPickNumber = computed(() => this.store.userNextPickNumber());
-
-  protected tierColorClass(tier: number | null): string {
-    if (tier === null) return 'tier-unranked';
-    const tierNum = Math.max(1, Math.min(tier, 10));
-    const cycledTier = ((tierNum - 1) % 10) + 1;
-    return `tier-${cycledTier}`;
-  }
 
   protected rowCombinedTier(row: DraftPlayerRow): number | null {
     return row.combinedTier;

@@ -55,7 +55,7 @@
         <div
           class="all-player-row"
           [class.player-drafted]="player.isDrafted"
-          [ngClass]="player.isDrafted ? '' : tierColorClass(rowCombinedTier(player))"
+          [ngClass]="player.isDrafted ? '' : (rowCombinedTier(player) | tierColor)"
         >
           <img
             class="player-avatar"

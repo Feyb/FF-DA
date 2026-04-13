@@ -5,7 +5,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import {
   getSleeperDraftNameLabel,
-  getSleeperDraftPresentation,
   getSleeperDraftScoringLabel,
   getSleeperDraftStatusLabel,
   getSleeperDraftTypeLabel,

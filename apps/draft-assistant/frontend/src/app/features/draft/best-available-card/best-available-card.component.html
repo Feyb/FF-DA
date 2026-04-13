@@ -9,7 +9,7 @@
   } @else {
     <div class="best-available-list">
       @for (entry of store.bestAvailableByPosition(); track entry.position) {
-        <div class="best-available-entry" [ngClass]="tierColorClass(entry.player?.combinedTier ?? null)">
+        <div class="best-available-entry" [ngClass]="entry.player?.combinedTier ?? null | tierColor">
           <span class="best-available-pos">{{ entry.position }}</span>
           @if (entry.player) {
             @let rank = bestAvailableRank(entry);
