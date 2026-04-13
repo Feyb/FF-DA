@@ -1,0 +1,120 @@
+<mat-card class="players-card" appearance="outlined">
+  <div class="section-header">
+    <h2>All Players</h2>
+    <span class="section-hint">{{ store.allPlayerRows().length }} players · {{ sortSourceRankLabel() }}</span>
+  </div>
+
+  <div class="player-list-controls">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search players</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input
+        matInput
+        [ngModel]="store.searchQuery()"
+        (ngModelChange)="store.setSearchQuery($event)"
+        placeholder="Player name…"
+        aria-label="Search players"
+      />
+      @if (store.searchQuery()) {
+        <button type="button" matIconSuffix mat-icon-button (click)="store.setSearchQuery('')" aria-label="Clear search">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+
+    <mat-slide-toggle
+      [ngModel]="store.neededPositionsOnly()"
+      (ngModelChange)="toggleNeededPositionsOnly()"
+    >
+      Needed positions only
+    </mat-slide-toggle>
+  </div>
+
+  @if (store.allPlayerRows().length === 0 && store.searchQuery()) {
+    <p class="empty-copy">No players found for "{{ store.searchQuery() }}".</p>
+  } @else if (store.allPlayerRows().length === 0) {
+    <p class="empty-copy">No players match your current filters.</p>
+  } @else {
+    <div class="players-list">
+      @for (player of visiblePlayerRows(); track player.playerId) {
+        @let undraftedIdx = undraftedIndexMap().get(player.playerId) ?? -1;
+
+        @if (!player.isDrafted && shouldShowNextPickDivider(visibleUndraftedRows(), undraftedIdx)) {
+          <div class="next-pick-divider-row">
+            <span class="next-pick-divider-label">{{ nextPickDividerLabel() }}</span>
+          </div>
+        }
+
+        @if (!player.isDrafted && undraftedIdx >= 0 && shouldShowTierDivider(visibleUndraftedRows(), undraftedIdx)) {
+          <div class="tier-divider-row">
+            <span class="tier-divider-label">{{ tierDividerLabel(player) }}</span>
+          </div>
+        }
+
+        @let rank = rowRank(player);
+        <div
+          class="all-player-row"
+          [class.player-drafted]="player.isDrafted"
+          [ngClass]="player.isDrafted ? '' : (rowCombinedTier(player) | tierColor)"
+        >
+          <img
+            class="player-avatar"
+            [src]="playerHeadshotUrl(player.playerId)"
+            [alt]="player.fullName"
+            loading="lazy"
+            (error)="onPlayerImageError($event)"
+          />
+          <div class="player-meta">
+            <span class="player-name" [class.player-name-drafted]="player.isDrafted">
+              {{ player.fullName }}
+              @if (!player.isDrafted && player.isGoingSoon) {
+                <span class="going-soon-badge" title="Expected to be picked very soon">⚠ Going Soon</span>
+              }
+            </span>
+            <span class="player-sub">{{ player.position }} · {{ player.team ?? 'FA' }}</span>
+          </div>
+          <span class="player-tier-badge">
+            <span [attr.aria-label]="'Combined Tier: ' + (player.combinedTier ?? 'N/A')" title="Combined Tier">CT:{{ player.combinedTier ?? 'N/A' }}</span>
+            <span class="player-tier-sep" aria-hidden="true"> · </span>
+            <span [attr.aria-label]="'KTC Tier: ' + (player.overallTier ?? 'N/A')" title="KTC Tier">KTC:{{ player.overallTier ?? 'N/A' }}</span>
+            <span class="player-tier-sep" aria-hidden="true"> · </span>
+            <span [attr.aria-label]="'Flock Tier: ' + (player.flockAverageTier ?? 'N/A')" title="Flock Tier">F:{{ player.flockAverageTier ?? 'N/A' }}</span>
+          </span>
+          <span class="player-rank">
+            @if (rank !== null) { #{{ rank }} }
+          </span>
+          <span
+            class="player-adp-delta"
+            [ngClass]="adpDeltaClass(player.adpDelta)"
+            title="ADP Delta: positive = value, negative = reach"
+          >
+            {{ adpDeltaLabel(player.adpDelta) }}
+          </span>
+          <span
+            class="value-gap-indicator"
+            [ngClass]="valueGapClass(player.valueGap)"
+            [matTooltip]="valueGapTooltip(player)"
+            [attr.aria-label]="'Value Gap: ' + (player.valueGap ?? 'N/A')"
+          >
+            @if (player.valueGap === 0) { ✓ }
+            @else if (player.valueGap !== null) { ● }
+          </span>
+          @if (!player.isDrafted && player.availabilityRisk === 'at-risk') {
+            <span class="availability-badge at-risk" title="May be taken before your next pick">At Risk</span>
+          }
+          @if (!player.isDrafted) {
+            <button
+              type="button"
+              class="star-button"
+              [class.star-active]="isStarred(player.playerId)"
+              (click)="toggleStar(player.playerId)"
+              [attr.aria-label]="isStarred(player.playerId) ? 'Unstar player' : 'Star player'"
+            >
+              <mat-icon>{{ isStarred(player.playerId) ? 'star' : 'star_border' }}</mat-icon>
+            </button>
+          }
+        </div>
+      }
+    </div>
+  }
+</mat-card>

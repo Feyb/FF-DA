@@ -1,0 +1,202 @@
+.controls-card {
+  padding: 1rem;
+}
+
+.source-switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.source-switch-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgb(71 85 105);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+@media (min-width: 1080px) {
+  .controls-grid {
+    grid-template-columns: 1.2fr 1.2fr 0.8fr 0.8fr 1fr;
+  }
+}
+
+.position-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.controls-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mock-draft-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+.mock-draft-field {
+  flex: 1;
+}
+
+.mock-draft-error {
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  color: rgb(185 28 28);
+}
+
+.updated-at {
+  font-size: 0.8125rem;
+  color: rgb(71 85 105);
+}
+
+.draft-option-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.125rem 0;
+}
+
+.draft-option-content-direct {
+  gap: 0.125rem;
+}
+
+.draft-option-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.draft-option-title {
+  font-weight: 600;
+  color: rgb(15 23 42);
+}
+
+.draft-option-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: rgb(226 232 240);
+  color: rgb(51 65 85);
+}
+
+.draft-option-status-drafting {
+  background: rgb(220 252 231);
+  color: rgb(22 101 52);
+}
+
+.draft-option-status-pre-draft,
+.draft-option-status-scheduled {
+  background: rgb(254 249 195);
+  color: rgb(133 77 14);
+}
+
+.draft-option-status-complete {
+  background: rgb(226 232 240);
+  color: rgb(71 85 105);
+}
+
+.draft-option-status-direct {
+  background: rgb(219 234 254);
+  color: rgb(30 64 175);
+}
+
+.draft-option-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.draft-option-meta-pill {
+  border-radius: 9999px;
+  background: rgb(241 245 249);
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  color: rgb(51 65 85);
+}
+
+.draft-option-subtitle {
+  font-size: 0.75rem;
+  color: rgb(100 116 139);
+}
+
+@media (max-width: 720px) {
+  .mock-draft-row {
+    flex-direction: column;
+  }
+
+  .mock-draft-field {
+    width: 100%;
+  }
+}
+
+html.dark {
+  .source-switch-label {
+    color: rgb(148 163 184);
+  }
+
+  .updated-at {
+    color: rgb(148 163 184);
+  }
+
+  .draft-option-title {
+    color: rgb(226 232 240);
+  }
+
+  .draft-option-status {
+    background: rgb(51 65 85);
+    color: rgb(203 213 225);
+  }
+
+  .draft-option-status-drafting {
+    background: rgb(6 78 59);
+    color: rgb(110 231 183);
+  }
+
+  .draft-option-status-pre-draft,
+  .draft-option-status-scheduled {
+    background: rgb(66 32 6);
+    color: rgb(253 211 77);
+  }
+
+  .draft-option-status-complete {
+    background: rgb(30 41 59);
+    color: rgb(148 163 184);
+  }
+
+  .draft-option-status-direct {
+    background: rgb(23 37 84);
+    color: rgb(147 197 253);
+  }
+
+  .draft-option-meta-pill {
+    background: rgb(30 41 59);
+    color: rgb(148 163 184);
+  }
+
+  .mock-draft-error {
+    color: rgb(252 165 165);
+  }
+}
