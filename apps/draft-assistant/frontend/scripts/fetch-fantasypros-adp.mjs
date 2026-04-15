@@ -44,7 +44,7 @@ const FORMATS = [
   },
 ];
 
-const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function fetchWithRetry(url, options = {}, retries = 2) {
   let lastError;
@@ -86,6 +86,10 @@ async function fetchWithRetry(url, options = {}, retries = 2) {
  * }
  */
 function mapPlayers(rawPlayers) {
+  // Sort by raw ADP ascending, then assign sequential integer ranks (1-based).
+  // Sequential re-ranking is intentional: it normalises fractional ADP values
+  // (e.g. 1.05, 2.67) to clean ordinal integers and is consistent with how
+  // KTC/Flock ranks are stored. Players without a numeric adp are excluded.
   return rawPlayers
     .filter((p) => p.player_name && typeof p.adp === 'number')
     .sort((a, b) => a.adp - b.adp)

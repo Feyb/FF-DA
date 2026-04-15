@@ -84,7 +84,7 @@
                   >T{{ cell.overallTier }}</span>
                 }
                 @let fpAdpRank = fpAdpRankByPlayerId().get(cell.playerId ?? '');
-                @if (fpAdpRank !== null && fpAdpRank !== undefined) {
+                @if (fpAdpRank !== undefined && fpAdpRank !== null) {
                   <span
                     class="cell-fp-adp-badge"
                     [attr.aria-label]="'FP ADP #' + fpAdpRank"

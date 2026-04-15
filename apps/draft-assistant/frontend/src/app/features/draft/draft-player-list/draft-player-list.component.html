@@ -81,7 +81,7 @@
             <span [attr.aria-label]="'Flock Tier: ' + (player.flockAverageTier ?? 'N/A')" title="Flock Tier">F:{{ player.flockAverageTier ?? 'N/A' }}</span>
             @if (player.fpAdpRank !== null) {
               <span class="player-tier-sep" aria-hidden="true"> · </span>
-              <span [attr.aria-label]="'FP ADP: #' + player.fpAdpRank" title="FantasyPros ADP Rank">FP ADP:{{ player.fpAdpRank }}</span>
+              <span [attr.aria-label]="'FP ADP: ' + player.fpAdpRank" title="FantasyPros ADP Rank">FP ADP:{{ player.fpAdpRank }}</span>
             }
           </span>
           <span class="player-rank">
