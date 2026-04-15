@@ -199,6 +199,19 @@
   line-height: 1.2;
 }
 
+.cell-fp-adp-badge {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  font-size: 0.55rem;
+  font-weight: 600;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--on-surface) 8%, transparent);
+  color: color-mix(in srgb, var(--on-surface) 55%, transparent);
+  line-height: 1.2;
+}
+
 // ── Position-based background colors ────────────────────────────────── //
 // Defined globally in shared/styles/_position-colors.scss
 

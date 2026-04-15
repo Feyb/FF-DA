@@ -75,6 +75,7 @@ export class DraftPlayerListComponent {
       case 'combinedPositionalTier': return 'Comb. Pos. Tier';
       case 'adpDelta': return 'ADP Delta';
       case 'valueGap': return 'Value Gap';
+      case 'fpAdpRank': return 'FP ADP';
     }
   }
 

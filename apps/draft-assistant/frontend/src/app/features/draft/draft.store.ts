@@ -7,6 +7,7 @@ import { SleeperService } from '../../core/adapters/sleeper/sleeper.service';
 import {
   DraftPlayerRow,
   DraftRecommendation,
+  FantasyProsPlayer,
   KtcPlayer,
   LeagueRoster,
   LeagueUser,
@@ -15,6 +16,7 @@ import {
   SleeperDraftPick,
 } from '../../core/models';
 import { FlockRatingService } from '../../core/adapters/flock/flock-rating.service';
+import { FantasyProsAdpService } from '../../core/adapters/fantasypros/fantasypros-adp.service';
 import { FlockPlayer, TierSource } from '../../core/models';
 import { mapRosterAvatarIds } from './draft-board-grid/draft-board-grid.util';
 import { AppStore } from '../../core/state/app.store';
@@ -35,7 +37,8 @@ export type DraftSortSource =
   | 'flockRank'
   | 'combinedPositionalTier'
   | 'adpDelta'
-  | 'valueGap';
+  | 'valueGap'
+  | 'fpAdpRank';
 
 /** A DraftPlayerRow enriched with runtime draft-session state for UI display. */
 export interface DraftPlayerDisplayRow extends DraftPlayerRow {
@@ -169,6 +172,12 @@ function sortBySortSource(a: DraftPlayerRow, b: DraftPlayerRow, src: DraftSortSo
       if (aGap !== bGap) return bGap - aGap;
       break;
     }
+    case 'fpAdpRank': {
+      const aRank = a.fpAdpRank ?? Number.MAX_SAFE_INTEGER;
+      const bRank = b.fpAdpRank ?? Number.MAX_SAFE_INTEGER;
+      if (aRank !== bRank) return aRank - bRank;
+      break;
+    }
   }
   // Tiebreak: sleeperRank
   return a.sleeperRank - b.sleeperRank;
@@ -184,6 +193,7 @@ export function rankForSortSource(row: DraftPlayerRow, src: DraftSortSource): nu
     case 'combinedPositionalTier': return row.combinedPositionalTier;
     case 'adpDelta': return row.adpDelta;
     case 'valueGap': return row.valueGap;
+    case 'fpAdpRank': return row.fpAdpRank;
   }
 }
 
@@ -197,6 +207,7 @@ export function positionalRankForSortSource(row: DraftPlayerRow, src: DraftSortS
     case 'combinedPositionalTier': return row.combinedPositionalTier;
     case 'adpDelta': return null;
     case 'valueGap': return null;
+    case 'fpAdpRank': return null;
   }
 }
 
@@ -711,7 +722,7 @@ export const DraftStore = signalStore(
       });
     }),
   })),
-  withMethods((store, appStore = inject(AppStore), sleeper = inject(SleeperService), ktc = inject(KtcRatingService), flock = inject(FlockRatingService), storage = inject(StorageService), playerNorm = inject(PlayerNormalizationService)) => {
+  withMethods((store, appStore = inject(AppStore), sleeper = inject(SleeperService), ktc = inject(KtcRatingService), flock = inject(FlockRatingService), fpAdp = inject(FantasyProsAdpService), storage = inject(StorageService), playerNorm = inject(PlayerNormalizationService)) => {
     let pollHandle: ReturnType<typeof setInterval> | null = null;
     let refreshInFlight = false;
 
@@ -778,7 +789,8 @@ export const DraftStore = signalStore(
       ktcLookup: Map<string, KtcPlayer>,
       flockLookup: Map<string, FlockPlayer>,
       currentSeason: number,
-    ): DraftPlayerRow[] => playerNorm.buildPlayerRows(playersById, ktcLookup, flockLookup, currentSeason);
+      fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
+    ): DraftPlayerRow[] => playerNorm.buildPlayerRows(playersById, ktcLookup, flockLookup, currentSeason, undefined, fpAdpLookup);
 
     const normalizePicks = (draft: SleeperDraft, picks: SleeperDraftPick[]): SleeperDraftPick[] => {
       const slotMap = draft.slot_to_roster_id ?? {};
@@ -836,7 +848,7 @@ export const DraftStore = signalStore(
     const loadSortSource = (leagueId: string | null): DraftSortSource => {
       if (!leagueId) return 'combinedTier';
       const saved = storage.getRawItem(sortSourceStorageKey(leagueId));
-      const valid: DraftSortSource[] = ['combinedTier', 'sleeperRank', 'ktcRank', 'flockRank', 'combinedPositionalTier', 'adpDelta', 'valueGap'];
+      const valid: DraftSortSource[] = ['combinedTier', 'sleeperRank', 'ktcRank', 'flockRank', 'combinedPositionalTier', 'adpDelta', 'valueGap', 'fpAdpRank'];
       return valid.includes(saved as DraftSortSource) ? (saved as DraftSortSource) : 'combinedTier';
     };
 
@@ -868,8 +880,8 @@ export const DraftStore = signalStore(
           ? (selectedLeague.roster_positions ?? []).includes('SUPER_FLEX')
           : false;
 
-      const [playersById, ktcPlayers, flockPlayers, flockRookies] = await firstValueFrom(
-        forkJoin([sleeper.getAllPlayers(), ktc.fetchPlayers(isSuperflex), flock.fetchPlayers(isSuperflex), flock.fetchRookies(isSuperflex)]),
+      const [playersById, ktcPlayers, flockPlayers, flockRookies, fpAdpPlayers] = await firstValueFrom(
+        forkJoin([sleeper.getAllPlayers(), ktc.fetchPlayers(isSuperflex), flock.fetchPlayers(isSuperflex), flock.fetchRookies(isSuperflex), isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings()]),
       );
 
       const playerNameMap = Object.entries(playersById).reduce<Record<string, string>>((acc, [id, player]) => {
@@ -887,7 +899,8 @@ export const DraftStore = signalStore(
       const flockLookup = isRookieDraft
         ? new Map([...flock.buildNameLookup(flockRookies), ...flock.buildNameLookup(flockPlayers)])
         : flock.buildNameLookup(flockPlayers);
-      const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season));
+      const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
+      const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season), fpAdpLookup);
 
       let rosterDisplayNames: Record<string, string> = {};
       let rosterAvatarIds: Record<string, string | null> = {};
@@ -1035,7 +1048,7 @@ export const DraftStore = signalStore(
 
       try {
         const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes('SUPER_FLEX');
-        const [rosters, users, playersById, ktcPlayers, flockPlayers, flockRookies, drafts] = await firstValueFrom(
+        const [rosters, users, playersById, ktcPlayers, flockPlayers, flockRookies, drafts, fpAdpPlayers] = await firstValueFrom(
           forkJoin([
             sleeper.getLeagueRosters(leagueId),
             sleeper.getLeagueUsers(leagueId),
@@ -1044,6 +1057,7 @@ export const DraftStore = signalStore(
             flock.fetchPlayers(isSuperflex),
             flock.fetchRookies(isSuperflex),
             sleeper.getLeagueDrafts(leagueId),
+            isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings(),
           ]),
         );
 
@@ -1068,7 +1082,8 @@ export const DraftStore = signalStore(
         const flockLookup = isRookieDraft
           ? new Map([...flock.buildNameLookup(flockRookies), ...flock.buildNameLookup(flockPlayers)])
           : flock.buildNameLookup(flockPlayers);
-        const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season));
+        const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
+        const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season), fpAdpLookup);
 
         const starredPlayerIds = (() => {
           const parsed = storage.getItem<string[]>(starStorageKey(leagueId));

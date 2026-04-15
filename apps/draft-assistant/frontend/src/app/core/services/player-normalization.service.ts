@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { KtcRatingService } from '../adapters/ktc/ktc-rating.service';
 import { FlockRatingService } from '../adapters/flock/flock-rating.service';
-import { DraftPlayerRow, FlockPlayer, KtcPlayer, SleeperCatalogPlayer } from '../models';
+import { FantasyProsAdpService } from '../adapters/fantasypros/fantasypros-adp.service';
+import { DraftPlayerRow, FantasyProsPlayer, FlockPlayer, KtcPlayer, SleeperCatalogPlayer } from '../models';
 import { buildFullName } from '../utils/player-name.util';
 
 type ActivePositions = readonly ('QB' | 'RB' | 'WR' | 'TE')[];
@@ -9,8 +10,8 @@ const DEFAULT_ACTIVE_POSITIONS: ActivePositions = ['QB', 'RB', 'WR', 'TE'];
 
 /**
  * Centralised service that maps Sleeper catalog players to the shared
- * `DraftPlayerRow` shape, computing KTC / Flock lookups, sleeperRank, and
- * applying active-player / position filters.
+ * `DraftPlayerRow` shape, computing KTC / Flock / FantasyPros lookups,
+ * sleeperRank, and applying active-player / position filters.
  *
  * Used by DraftStore and PlayersStore to eliminate ~150 lines of duplicated
  * normalisation logic.
@@ -19,6 +20,7 @@ const DEFAULT_ACTIVE_POSITIONS: ActivePositions = ['QB', 'RB', 'WR', 'TE'];
 export class PlayerNormalizationService {
   private readonly ktcService = inject(KtcRatingService);
   private readonly flockService = inject(FlockRatingService);
+  private readonly fpAdpService = inject(FantasyProsAdpService);
 
   isActivePlayer(source: SleeperCatalogPlayer): boolean {
     if (source.active === false) return false;
@@ -33,6 +35,7 @@ export class PlayerNormalizationService {
     ktcLookup: Map<string, KtcPlayer>,
     flockLookup: Map<string, FlockPlayer>,
     currentSeason: number,
+    fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
   ): Omit<DraftPlayerRow, 'sleeperRank' | 'adpDelta'> {
     const firstName = source.first_name ?? '';
     const lastName = source.last_name ?? '';
@@ -41,6 +44,7 @@ export class PlayerNormalizationService {
 
     const ktcPlayer = ktcLookup.get(this.ktcService.normalizeName(fullName));
     const flockPlayer = flockLookup.get(this.flockService.normalizeName(fullName));
+    const fpAdpPlayer = fpAdpLookup.get(this.fpAdpService.normalizeName(fullName));
 
     const ktcOverallTier = ktcPlayer?.overallTier ?? null;
     const ktcPositionalTier = ktcPlayer?.positionalTier ?? null;
@@ -49,6 +53,7 @@ export class PlayerNormalizationService {
     const flockPositionalTier = flockPlayer?.averagePositionalTier ?? null;
     const flockPositionalRank = flockPlayer?.averagePositionalRank ?? null;
     const flockAverageRank = flockPlayer?.averageRank ?? null;
+    const fpAdpRank = fpAdpPlayer?.adpRank ?? null;
 
     // SRS §3.1: combinedTier = sum of all available source tiers (lower = better).
     // When only one source has data the missing source contributes 0 to the sum, so
@@ -94,6 +99,7 @@ export class PlayerNormalizationService {
       combinedPositionalTier,
       adpRank,
       valueGap,
+      fpAdpRank,
     };
   }
 
@@ -108,13 +114,14 @@ export class PlayerNormalizationService {
     flockLookup: Map<string, FlockPlayer>,
     currentSeason: number,
     positions: ActivePositions = DEFAULT_ACTIVE_POSITIONS,
+    fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
   ): DraftPlayerRow[] {
     const positionSet = new Set<string>(positions);
 
     const rawRows = Object.entries(playersById)
       .filter(([, source]) => this.isActivePlayer(source))
       .map(([playerId, source]) =>
-        this.normalizePlayer(playerId, source, ktcLookup, flockLookup, currentSeason),
+        this.normalizePlayer(playerId, source, ktcLookup, flockLookup, currentSeason, fpAdpLookup),
       )
       .filter((row) => row.fullName.length > 0)
       .filter((row) => positionSet.has(row.position))

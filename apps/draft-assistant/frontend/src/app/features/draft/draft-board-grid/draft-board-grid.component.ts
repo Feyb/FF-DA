@@ -45,6 +45,14 @@ export class DraftBoardGridComponent {
     return m;
   });
 
+  protected readonly fpAdpRankByPlayerId = computed((): Map<string, number | null> => {
+    const m = new Map<string, number | null>();
+    for (const row of this.rows()) {
+      m.set(row.playerId, row.fpAdpRank);
+    }
+    return m;
+  });
+
   protected readonly headers = computed<GridTeamHeader[]>(() =>
     buildGridHeaders(
       this.draft(),
