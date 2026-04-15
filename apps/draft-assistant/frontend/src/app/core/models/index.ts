@@ -108,6 +108,8 @@ export interface DraftPlayerRow {
    * 0 = full consensus, higher = more disagreement between sources.
    */
   valueGap: number | null;
+  /** FantasyPros dynasty ADP rank (1QB or Superflex depending on league format). */
+  fpAdpRank: number | null;
 }
 
 export interface DraftRecommendation {
@@ -244,6 +246,13 @@ export interface FlockPlayer {
   averageTier: number | null;
   averagePositionalRank: number | null;
   averagePositionalTier: number | null;
+}
+
+export interface FantasyProsPlayer {
+  playerName: string;
+  position: string;
+  team: string | null;
+  adpRank: number;
 }
 
 export type TierSource = 'average' | 'flock' | 'ktc';

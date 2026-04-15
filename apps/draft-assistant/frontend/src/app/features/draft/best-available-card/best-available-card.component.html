@@ -23,6 +23,9 @@
                 @if (entry.player.adpDelta !== null) {
                   · ADP <span [ngClass]="adpDeltaClass(entry.player.adpDelta)">{{ adpDeltaLabel(entry.player.adpDelta) }}</span>
                 }
+                @if (entry.player.fpAdpRank !== null) {
+                  · FP ADP #{{ entry.player.fpAdpRank }}
+                }
               </span>
               @if (entry.lowestAvailableTier !== null) {
                 <span class="best-available-tier-line">

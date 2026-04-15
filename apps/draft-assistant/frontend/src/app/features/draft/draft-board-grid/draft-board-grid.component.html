@@ -83,6 +83,14 @@
                     [attr.aria-label]="'Tier ' + cell.overallTier"
                   >T{{ cell.overallTier }}</span>
                 }
+                @let fpAdpRank = fpAdpRankByPlayerId().get(cell.playerId ?? '');
+                @if (fpAdpRank !== null && fpAdpRank !== undefined) {
+                  <span
+                    class="cell-fp-adp-badge"
+                    [attr.aria-label]="'FP ADP #' + fpAdpRank"
+                    title="FantasyPros ADP"
+                  >#{{ fpAdpRank }}</span>
+                }
               </div>
             } @else {
               <span class="cell-arrow" aria-hidden="true">

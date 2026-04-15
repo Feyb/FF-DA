@@ -199,6 +199,19 @@
   line-height: 1.2;
 }
 
+.cell-fp-adp-badge {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  font-size: 0.55rem;
+  font-weight: 600;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.55);
+  line-height: 1.2;
+}
+
 // ── Position-based background colors ────────────────────────────────── //
 // Defined globally in shared/styles/_position-colors.scss
 
@@ -277,6 +290,11 @@ html.dark {
 
   .cell-arrow {
     color: rgba(255, 255, 255, 0.25);
+  }
+
+  .cell-fp-adp-badge {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
   }
 
   .cell-thumb {
