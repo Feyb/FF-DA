@@ -17,9 +17,9 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--mat-app-background-color, #fff);
+  background: var(--surface);
   padding-bottom: 2px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--outline-variant);
 }
 
 .header-cell {
@@ -106,8 +106,8 @@
   position: relative;
   min-height: 58px;
   padding: 4px 5px;
-  background: var(--mat-app-surface-variant, #f3f4f6);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--surface-container-high);
+  border: 1px solid var(--outline-variant);
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -132,14 +132,14 @@
 .cell-label {
   font-size: 0.62rem;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.38);
+  color: color-mix(in srgb, var(--on-surface) 50%, transparent);
   line-height: 1;
   letter-spacing: 0.01em;
 }
 
 .cell-arrow {
   font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.2);
+  color: color-mix(in srgb, var(--on-surface) 30%, transparent);
   align-self: flex-end;
   margin-top: auto;
 }
@@ -160,7 +160,7 @@
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: color-mix(in srgb, var(--on-surface) 10%, transparent);
 }
 
 .cell-player-info {
@@ -207,8 +207,8 @@
   font-weight: 600;
   padding: 1px 3px;
   border-radius: 3px;
-  background: rgba(0, 0, 0, 0.08);
-  color: rgba(0, 0, 0, 0.55);
+  background: color-mix(in srgb, var(--on-surface) 8%, transparent);
+  color: color-mix(in srgb, var(--on-surface) 55%, transparent);
   line-height: 1.2;
 }
 
@@ -225,14 +225,14 @@
 .skeleton-header {
   height: 62px;
   border-radius: 6px;
-  background: #e2e8f0;
+  background: var(--surface-container-highest);
   animation: skeleton-pulse 1.5s ease-in-out infinite;
 }
 
 .skeleton-cell {
   height: 58px;
   border-radius: 4px;
-  background: #f1f5f9;
+  background: var(--surface-container-high);
   animation: skeleton-pulse 1.5s ease-in-out infinite;
 
   &:nth-child(odd) {
@@ -249,11 +249,6 @@
 // ── Dark-mode overrides ──────────────────────────────────────────────── //
 
 html.dark {
-  .board-headers {
-    background: var(--surface, #141218);
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-  }
-
   .header-avatar {
     background: rgb(51 65 85);
   }
@@ -270,9 +265,6 @@ html.dark {
   }
 
   .board-cell {
-    background: var(--surface-container-high, #2b2930);
-    border-color: rgba(255, 255, 255, 0.08);
-
     &.cell-current {
       background: rgba(59, 130, 246, 0.15) !important;
       box-shadow: 0 0 0 2px #3b82f6;
@@ -282,31 +274,6 @@ html.dark {
     &.cell-mine-empty {
       background: rgba(76, 34, 189, 0.12);
     }
-  }
-
-  .cell-label {
-    color: rgba(255, 255, 255, 0.4);
-  }
-
-  .cell-arrow {
-    color: rgba(255, 255, 255, 0.25);
-  }
-
-  .cell-fp-adp-badge {
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.5);
-  }
-
-  .cell-thumb {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .skeleton-header {
-    background: rgb(30 41 59);
-  }
-
-  .skeleton-cell {
-    background: rgb(22 32 48);
   }
 }
 
