@@ -79,12 +79,12 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 0.75rem;
-  background: rgb(239 246 255);
-  border: 1px solid rgb(191 219 254);
+  background: color-mix(in srgb, var(--primary) 16%, var(--surface-container-low));
+  border: 1px solid color-mix(in srgb, var(--primary) 40%, var(--outline-variant));
   border-radius: 0.375rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: rgb(30 64 175);
+  color: color-mix(in srgb, var(--primary) 78%, var(--on-surface));
 
   .picks-until-icon {
     font-size: 1.1rem;
@@ -96,12 +96,6 @@
 html.dark {
   .info-card-copy {
     color: rgb(148 163 184);
-  }
-
-  .picks-until-row {
-    background: rgb(23 37 84);
-    border-color: rgb(59 130 246);
-    color: rgb(147 197 253);
   }
 
   .section-header h2 {

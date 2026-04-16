@@ -25,6 +25,7 @@
   @if (showStar()) {
     <button
       type="button"
+      mat-icon-button
       class="star-button"
       [class.star-active]="starred()"
       (click)="onStarClick()"

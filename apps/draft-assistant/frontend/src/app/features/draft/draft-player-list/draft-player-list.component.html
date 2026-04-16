@@ -108,8 +108,7 @@
           }
           @if (!player.isDrafted) {
             <button
-              type="button"
-              class="star-button"
+              mat-icon-button
               [class.star-active]="isStarred(player.playerId)"
               (click)="toggleStar(player.playerId)"
               [attr.aria-label]="isStarred(player.playerId) ? 'Unstar player' : 'Star player'"

@@ -4,6 +4,7 @@ import {
   input,
   output,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 export interface PlayerRowData {
@@ -20,7 +21,7 @@ export interface PlayerRowData {
   templateUrl: './player-row.component.html',
   styleUrl: './player-row.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIconModule],
+  imports: [MatButtonModule, MatIconModule],
 })
 export class PlayerRowComponent {
   readonly player = input.required<PlayerRowData>();
