@@ -116,23 +116,6 @@
   color: color-mix(in srgb, var(--on-surface) 80%, transparent);
 }
 
-.details-grid {
-  @apply grid gap-2;
-}
-
-.detail-item {
-  @apply flex items-center justify-between gap-3 text-sm;
-}
-
-.detail-label {
-  color: color-mix(in srgb, var(--on-surface) 62%, transparent);
-}
-
-.detail-value {
-  @apply font-semibold text-right;
-  color: var(--on-surface);
-}
-
 @media (max-width: 768px) {
   .player-summary {
     grid-template-columns: minmax(0, 1fr);

@@ -22,6 +22,7 @@ import { TierSource } from '../../core/models';
 import { PLAYER_FALLBACK_IMAGE } from '../../core/constants/images.constants';
 import { resolveTier } from '../../core/utils/tier-resolution.util';
 import { PageHeaderComponent } from '../../shared/components/page-header';
+import { PlayerDetailGridItem, PlayerDetailsGridComponent } from '../../shared/components/player-details-grid';
 
 interface PlayersStoreView {
   selectedPositions: () => PositionFilter[];
@@ -62,6 +63,7 @@ interface PlayersStoreView {
     PageHeaderComponent,
     LoadingStateComponent,
     ErrorStateComponent,
+    PlayerDetailsGridComponent,
   ],
 })
 export class PlayersComponent {
@@ -141,6 +143,25 @@ export class PlayersComponent {
     return this.store.valueSource() === 'ktcValue' ? 'KTC Value' : 'Flock Average Rank';
   }
 
+  protected playerDetailItems(player: PlayerRow): PlayerDetailGridItem[] {
+    return [
+      { label: 'Rookie', value: player.rookie ? 'Yes' : 'No' },
+      { label: 'Sleeper Rank', value: this.formatNullable(player.sleeperRank) },
+      {
+        label: 'Overall Tier',
+        value: this.formatNullable(this.selectedTierValue(player, false)),
+        subtext: `(${this.secondaryTierText(player, false)})`,
+      },
+      {
+        label: 'Positional Tier',
+        value: this.formatNullable(this.selectedTierValue(player, true)),
+        subtext: `(${this.secondaryTierText(player, true)})`,
+      },
+      { label: 'KTC Rank', value: this.formatNullable(player.ktcRank) },
+      { label: this.selectedValueLabel(), value: this.formatNullable(this.selectedValue(player)) },
+    ];
+  }
+
   private resolveTierValue(player: PlayerRow, source: TierSource, positional: boolean): number | null {
     const ktcTier = positional ? player.positionalTier : player.overallTier;
     const flockTier = positional ? player.flockAveragePositionalTier : player.flockAverageTier;
@@ -149,6 +170,10 @@ export class PlayersComponent {
 
   private formatTier(value: number | null): string {
     return value === null ? '-' : String(value);
+  }
+
+  private formatNullable(value: number | null | undefined): string {
+    return value === null || value === undefined ? '-' : String(value);
   }
 }
 

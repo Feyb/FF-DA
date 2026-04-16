@@ -89,100 +89,17 @@
                 <div class="player-details">
                   <section class="details-panel">
                     <h4 class="details-heading">Consensus</h4>
-                    <div class="details-grid">
-                      <div class="detail-item">
-                        <span class="detail-label">Sleeper Rank</span>
-                        <span class="detail-value">{{ numberLabel(player.sleeperRank) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Combined Tier</span>
-                        <span class="detail-value">{{ numberLabel(player.combinedTier) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Combined Pos Tier</span>
-                        <span class="detail-value">{{ numberLabel(player.combinedPositionalTier) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Value Gap</span>
-                        <span class="detail-value">{{ numberLabel(player.valueGap) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">ADP Delta</span>
-                        <span class="detail-value">{{ deltaLabel(player.adpDelta) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Market ADP</span>
-                        <span class="detail-value">{{ numberLabel(player.adpRank) }}</span>
-                      </div>
-                    </div>
+                    <app-player-details-grid [items]="consensusDetailItems(player)" />
                   </section>
 
                   <section class="details-panel">
                     <h4 class="details-heading">Sources</h4>
-                    <div class="details-grid">
-                      <div class="detail-item">
-                        <span class="detail-label">KTC Overall Tier</span>
-                        <span class="detail-value">{{ numberLabel(player.ktcOverallTier) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">KTC Pos Tier</span>
-                        <span class="detail-value">{{ numberLabel(player.ktcPositionalTier) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Flock Tier</span>
-                        <span class="detail-value">{{ numberLabel(player.flockAverageTier) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Flock Pos Tier</span>
-                        <span class="detail-value">{{ numberLabel(player.flockAveragePositionalTier) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Flock Pos Rank</span>
-                        <span class="detail-value">{{ numberLabel(player.flockAveragePositionalRank) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">FantasyPros ADP</span>
-                        <span class="detail-value">{{ numberLabel(player.fpAdpRank) }}</span>
-                      </div>
-                    </div>
+                    <app-player-details-grid [items]="sourceDetailItems(player)" />
                   </section>
 
                   <section class="details-panel">
                     <h4 class="details-heading">Profile</h4>
-                    <div class="details-grid">
-                      <div class="detail-item">
-                        <span class="detail-label">Team</span>
-                        <span class="detail-value">{{ teamLabel(player) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Position</span>
-                        <span class="detail-value">{{ player.position }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Age</span>
-                        <span class="detail-value">{{ ageLabel(player) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Experience</span>
-                        <span class="detail-value">{{ expLabel(player) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Injury</span>
-                        <span class="detail-value">{{ injuryLabel(player) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Rookie</span>
-                        <span class="detail-value">{{ player.rookie ? 'Yes' : 'No' }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">Rookie Year</span>
-                        <span class="detail-value">{{ numberLabel(player.rookieYear) }}</span>
-                      </div>
-                      <div class="detail-item">
-                        <span class="detail-label">College</span>
-                        <span class="detail-value">{{ player.college ?? '—' }}</span>
-                      </div>
-                    </div>
+                    <app-player-details-grid [items]="profileDetailItems(player)" />
                   </section>
                 </div>
               }

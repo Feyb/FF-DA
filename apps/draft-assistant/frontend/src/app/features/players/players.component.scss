@@ -11,7 +11,8 @@
 }
 
 .players-subtitle {
-  @apply text-sm text-slate-600;
+  @apply text-sm;
+  color: color-mix(in srgb, var(--on-surface) 68%, transparent);
 }
 
 .controls-card {
@@ -27,7 +28,8 @@
 }
 
 .tier-legend-label {
-  @apply text-sm font-semibold text-slate-700;
+  @apply text-sm font-semibold;
+  color: color-mix(in srgb, var(--on-surface) 72%, transparent);
 }
 
 .controls-grid {
@@ -51,7 +53,8 @@
 
   th,
   td {
-    @apply text-left px-3 py-2 border-b border-slate-200 text-sm;
+    @apply text-left px-3 py-2 border-b text-sm;
+    border-color: var(--outline-variant);
   }
 
   thead th {
@@ -74,33 +77,15 @@
 }
 
 .row-expanded {
-  @apply bg-slate-50;
+  background: var(--surface-container-low);
 }
 
 // row-tier-N classes are defined globally in shared/styles/_tier-colors.scss
 
 .player-details-row td {
-  @apply bg-slate-100 border-b border-slate-300;
-}
-
-.player-details-grid {
-  @apply grid grid-cols-2 gap-x-4 gap-y-2 px-1 py-3 md:grid-cols-1;
-}
-
-.player-detail-item {
-  @apply flex justify-between gap-3 text-xs;
-}
-
-.detail-label {
-  @apply text-slate-600;
-}
-
-.detail-value {
-  @apply font-semibold text-slate-900;
-}
-
-.detail-subtext {
-  @apply text-[11px] text-slate-500 font-normal;
+  border-color: var(--outline-variant);
+  background: var(--surface-container-highest);
+  padding: 0.75rem 0.25rem;
 }
 
 .tier-cell {
@@ -108,11 +93,13 @@
 }
 
 .tier-primary {
-  @apply font-semibold text-slate-900;
+  @apply font-semibold;
+  color: var(--on-surface);
 }
 
 .tier-secondary {
-  @apply text-[11px] text-slate-500;
+  @apply text-[11px];
+  color: color-mix(in srgb, var(--on-surface) 56%, transparent);
 }
 
 .player-cell {
@@ -120,7 +107,8 @@
 }
 
 .player-avatar {
-  @apply w-7 h-7 rounded-full object-cover bg-slate-200 flex-shrink-0;
+  @apply w-7 h-7 rounded-full object-cover flex-shrink-0;
+  background: var(--surface-container-high);
 }
 
 .player-cell-name {
@@ -129,53 +117,4 @@
 
 // empty-copy is defined globally in shared/styles/_states.scss
 
-// ── Dark-mode overrides ────────────────────────────────────────────────────────
-html.dark {
-  .players-subtitle {
-    color: rgb(148 163 184);
-  }
-
-  .tier-legend-label {
-    color: rgb(148 163 184);
-  }
-
-  .players-table {
-    th,
-    td {
-      border-color: rgb(51 65 85);
-    }
-  }
-
-  .row-expanded {
-    background: var(--surface-container-high, #2b2930);
-  }
-
-  .player-details-row td {
-    background: var(--surface-container-highest, #36343b);
-    border-color: rgb(51 65 85);
-  }
-
-  .tier-primary {
-    color: rgb(226 232 240);
-  }
-
-  .detail-label {
-    color: rgb(148 163 184);
-  }
-
-  .detail-value {
-    color: rgb(226 232 240);
-  }
-
-  .detail-subtext {
-    color: rgb(100 116 139);
-  }
-
-  .tier-secondary {
-    color: rgb(100 116 139);
-  }
-
-  .player-avatar {
-    background: rgb(51 65 85);
-  }
-}
+// dark mode follows the same CSS tokens, no explicit overrides needed

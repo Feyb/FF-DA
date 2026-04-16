@@ -157,32 +157,10 @@
                   @if (isExpanded(player.playerId)) {
                     <tr class="player-details-row">
                       <td colspan="10">
-                        <div class="player-details-grid">
-                          <div class="player-detail-item">
-                            <span class="detail-label">Rookie</span>
-                            <span class="detail-value">{{ player.rookie ? 'Yes' : 'No' }}</span>
-                          </div>
-                          <div class="player-detail-item">
-                            <span class="detail-label">Sleeper Rank</span>
-                            <span class="detail-value">{{ player.sleeperRank }}</span>
-                          </div>
-                          <div class="player-detail-item">
-                            <span class="detail-label">Overall Tier</span>
-                            <span class="detail-value">{{ selectedTierValue(player, false) ?? '-' }} <span class="detail-subtext">({{ secondaryTierText(player, false) }})</span></span>
-                          </div>
-                          <div class="player-detail-item">
-                            <span class="detail-label">Positional Tier</span>
-                            <span class="detail-value">{{ selectedTierValue(player, true) ?? '-' }} <span class="detail-subtext">({{ secondaryTierText(player, true) }})</span></span>
-                          </div>
-                          <div class="player-detail-item">
-                            <span class="detail-label">KTC Rank</span>
-                            <span class="detail-value">{{ player.ktcRank ?? '-' }}</span>
-                          </div>
-                          <div class="player-detail-item">
-                            <span class="detail-label">{{ selectedValueLabel() }}</span>
-                            <span class="detail-value">{{ selectedValue(player) ?? '-' }}</span>
-                          </div>
-                        </div>
+                        <app-player-details-grid
+                          [items]="playerDetailItems(player)"
+                          [columns]="2"
+                        ></app-player-details-grid>
                       </td>
                     </tr>
                   }

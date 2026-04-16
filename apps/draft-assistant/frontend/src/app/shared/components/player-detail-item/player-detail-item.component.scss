@@ -1,0 +1,17 @@
+.detail-item {
+  @apply flex items-center justify-between gap-3 text-sm;
+}
+
+.detail-label {
+  color: color-mix(in srgb, var(--on-surface) 62%, transparent);
+}
+
+.detail-value {
+  @apply font-semibold text-right;
+  color: var(--on-surface);
+}
+
+.detail-subtext {
+  @apply text-xs font-normal;
+  color: color-mix(in srgb, var(--on-surface) 56%, transparent);
+}

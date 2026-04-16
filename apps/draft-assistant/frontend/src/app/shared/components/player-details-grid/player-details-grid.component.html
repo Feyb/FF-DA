@@ -1,0 +1,9 @@
+<div class="player-details-grid" [class.player-details-grid--two-columns]="columns() === 2">
+  @for (item of items(); track item.label) {
+    <app-player-detail-item
+      [label]="item.label"
+      [value]="item.value"
+      [subtext]="item.subtext ?? null"
+    />
+  }
+</div>

@@ -1,0 +1,9 @@
+<div class="detail-item">
+  <span class="detail-label">{{ label() }}</span>
+  <span class="detail-value">
+    {{ value() }}
+    @if (subtext()) {
+      <span class="detail-subtext">{{ subtext() }}</span>
+    }
+  </span>
+</div>

@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PLAYER_FALLBACK_IMAGE } from '../../../core/constants/images.constants';
 import { TeamViewPlayer } from '../../../core/models';
+import { PlayerDetailGridItem, PlayerDetailsGridComponent } from '../../../shared/components/player-details-grid';
 
 interface PlayerGroup {
   heading: string | null;
@@ -15,7 +16,7 @@ interface PlayerGroup {
   templateUrl: './team-view-players-list.component.html',
   styleUrl: './team-view-players-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, PlayerDetailsGridComponent],
 })
 export class TeamViewPlayersListComponent {
   readonly sectionTitle = input.required<string>();
@@ -118,5 +119,40 @@ export class TeamViewPlayersListComponent {
       return `+${value}`;
     }
     return String(value);
+  }
+
+  protected consensusDetailItems(player: TeamViewPlayer): PlayerDetailGridItem[] {
+    return [
+      { label: 'Sleeper Rank', value: this.numberLabel(player.sleeperRank) },
+      { label: 'Combined Tier', value: this.numberLabel(player.combinedTier) },
+      { label: 'Combined Pos Tier', value: this.numberLabel(player.combinedPositionalTier) },
+      { label: 'Value Gap', value: this.numberLabel(player.valueGap) },
+      { label: 'ADP Delta', value: this.deltaLabel(player.adpDelta) },
+      { label: 'Market ADP', value: this.numberLabel(player.adpRank) },
+    ];
+  }
+
+  protected sourceDetailItems(player: TeamViewPlayer): PlayerDetailGridItem[] {
+    return [
+      { label: 'KTC Overall Tier', value: this.numberLabel(player.ktcOverallTier) },
+      { label: 'KTC Pos Tier', value: this.numberLabel(player.ktcPositionalTier) },
+      { label: 'Flock Tier', value: this.numberLabel(player.flockAverageTier) },
+      { label: 'Flock Pos Tier', value: this.numberLabel(player.flockAveragePositionalTier) },
+      { label: 'Flock Pos Rank', value: this.numberLabel(player.flockAveragePositionalRank) },
+      { label: 'FantasyPros ADP', value: this.numberLabel(player.fpAdpRank) },
+    ];
+  }
+
+  protected profileDetailItems(player: TeamViewPlayer): PlayerDetailGridItem[] {
+    return [
+      { label: 'Team', value: this.teamLabel(player) },
+      { label: 'Position', value: player.position },
+      { label: 'Age', value: this.ageLabel(player) },
+      { label: 'Experience', value: this.expLabel(player) },
+      { label: 'Injury', value: this.injuryLabel(player) },
+      { label: 'Rookie', value: player.rookie ? 'Yes' : 'No' },
+      { label: 'Rookie Year', value: this.numberLabel(player.rookieYear) },
+      { label: 'College', value: player.college ?? '—' },
+    ];
   }
 }
