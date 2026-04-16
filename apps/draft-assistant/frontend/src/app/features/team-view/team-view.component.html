@@ -51,171 +51,26 @@
             <app-tier-legend />
           </section>
 
-          <section class="section-block">
-            <h2 class="section-title">Starters</h2>
-            @if (store.sections().starters.length === 0) {
-              <p class="empty-copy">No starter data available.</p>
-            } @else {
-              @for (position of positionOrder; track position) {
-                @if (getStartersByPosition(position); as players) {
-                  @if (players.length > 0) {
-                    <div class="position-section">
-                      <h3 class="position-heading">{{ position }}</h3>
-                      <mat-list class="players-list" role="list">
-                        @for (player of players; track player.playerId) {
-                          <mat-list-item
-                            role="listitem"
-                            [class]="
-                              'player-row ' +
-                              getTierClass(player.ktcPositionalTier)
-                            "
-                          >
-                            <img
-                              matListItemAvatar
-                              class="player-avatar"
-                              [src]="playerHeadshotUrl(player.playerId)"
-                              [alt]="player.fullName"
-                              loading="lazy"
-                              (error)="onPlayerImageError($event)"
-                            />
-                            <span matListItemTitle class="player-name"
-                              >{{ player.fullName }} •
-                              {{ player.team ?? "FA" }} •
-                              Rk {{ player.ktcRank ?? "-" }} • T{{
-                                player.ktcPositionalTier ?? "-"
-                              }} • PosRk
-                                  {{ player.ktcPositionalRank ?? "-" }}</span
-                            >
-                            <span matListItemMeta>
-                              <div class="flex gap-1">
-                                <span>Val {{ player.ktcValue ?? "-" }}</span>
-                                <span>Age {{ player.age ?? "-" }}</span>
-                                <span
-                                  >Injury:
-                                  {{ player.injuryStatus ?? "Healthy" }}</span
-                                >
-                              </div>
-                            </span>
-                          </mat-list-item>
-                        }
-                      </mat-list>
-                    </div>
-                  }
-                }
-              }
-            }
-          </section>
+          <app-team-view-players-list
+            sectionTitle="Starters"
+            [players]="store.sections().starters"
+            emptyMessage="No starter data available."
+            [positionOrder]="positionOrder"
+          />
 
-          <section class="section-block">
-            <h2 class="section-title">Bench</h2>
-            @if (store.sections().bench.length === 0) {
-              <p class="empty-copy">No bench players found.</p>
-            } @else {
-              @for (position of positionOrder; track position) {
-                @if (getBenchByPosition(position); as players) {
-                  @if (players.length > 0) {
-                   <div class="position-section">
-                      <h3 class="position-heading">{{ position }}</h3>
-                      <mat-list class="players-list" role="list">
-                        @for (player of players; track player.playerId) {
-                          <mat-list-item
-                            role="listitem"
-                            [class]="
-                              'player-row ' +
-                              getTierClass(player.ktcPositionalTier)
-                            "
-                          >
-                            <img
-                              matListItemAvatar
-                              class="player-avatar"
-                              [src]="playerHeadshotUrl(player.playerId)"
-                              [alt]="player.fullName"
-                              loading="lazy"
-                              (error)="onPlayerImageError($event)"
-                            />
-                            <span matListItemTitle class="player-name"
-                              >{{ player.fullName }} •
-                              {{ player.team ?? "FA" }} •
-                              Rk {{ player.ktcRank ?? "-" }} • T{{
-                                player.ktcPositionalTier ?? "-"
-                              }}</span
-                            >
-                            <span matListItemMeta>
-                              <div class="flex gap-1">
-                                <span
-                                  >Pos
-                                  {{ player.ktcPositionalRank ?? "-" }}</span
-                                >
-                                <span>Val {{ player.ktcValue ?? "-" }}</span>
-                                <span>Age {{ player.age ?? "-" }}</span>
-                                <span
-                                  >Injury:
-                                  {{ player.injuryStatus ?? "Healthy" }}</span
-                                >
-                              </div>
-                            </span>
-                          </mat-list-item>
-                        }
-                      </mat-list>
-                    </div>
-                  }
-                }
-              }
-            }
-          </section>
+          <app-team-view-players-list
+            sectionTitle="Bench"
+            [players]="store.sections().bench"
+            emptyMessage="No bench players found."
+            [positionOrder]="positionOrder"
+          />
 
-          <section class="section-block">
-            <h2 class="section-title">IR</h2>
-            @if (store.sections().ir.length === 0) {
-              <p class="empty-copy">No players currently in IR.</p>
-            } @else {
-              <mat-list class="players-list" role="list">
-                @for (player of store.sections().ir; track player.playerId) {
-                  <mat-list-item
-                    role="listitem"
-                    [lines]="3"
-                    [class]="
-                      'player-row ' + getTierClass(player.ktcPositionalTier)
-                    "
-                  >
-                    <img
-                      matListItemAvatar
-                      class="player-avatar"
-                      [src]="playerHeadshotUrl(player.playerId)"
-                      [alt]="player.fullName"
-                      loading="lazy"
-                      (error)="onPlayerImageError($event)"
-                    />
-                    <span matListItemTitle class="player-name">{{
-                      player.fullName
-                    }}</span>
-                    <span matListItemLine class="player-meta-line"
-                      >{{ player.position }} • {{ player.team ?? "FA" }}</span
-                    >
-                    <span matListItemLine class="player-meta-line"
-                      >Age {{ player.age ?? "-" }} • Exp
-                      {{ player.yearsExp ?? "-" }} • Injury
-                      {{ player.injuryStatus ?? "Healthy" }}</span
-                    >
-                    <span matListItemMeta class="player-row-meta">
-                      <span class="meta-pill"
-                        >Rk {{ player.ktcRank ?? "-" }}</span
-                      >
-                      <span class="meta-pill"
-                        >Pos {{ player.ktcPositionalRank ?? "-" }}</span
-                      >
-                      <span class="meta-pill"
-                        >Val {{ player.ktcValue ?? "-" }}</span
-                      >
-                      <span class="meta-pill"
-                        >T{{ player.ktcPositionalTier ?? "-" }}</span
-                      >
-                    </span>
-                  </mat-list-item>
-                }
-              </mat-list>
-            }
-          </section>
+          <app-team-view-players-list
+            sectionTitle="IR"
+            [players]="store.sections().ir"
+            emptyMessage="No players currently in IR."
+            [groupByPosition]="false"
+          />
 
           <section class="section-block">
             <h2 class="section-title">Future Picks</h2>
@@ -242,55 +97,11 @@
           </section>
         </div>
 
-        @if (store.leagueStandings().length > 0) {
-          <aside class="standings-panel">
-            <h2 class="section-title">League Rankings</h2>
-            @if (myRank()) {
-              <p class="standings-my-rank">
-                Your rank: <strong>{{ myRank() }}</strong> of
-                {{ store.leagueStandings().length }}
-              </p>
-            }
-            <div class="standings-list">
-              @for (entry of store.leagueStandings(); track entry.rosterId) {
-                <mat-card
-                  [class]="
-                    entry.rosterId === store.selectedRosterId()
-                      ? 'standings-entry standings-entry--mine'
-                      : 'standings-entry'
-                  "
-                  appearance="outlined"
-                >
-                  <div class="standings-header">
-                    <div class="standings-title-row">
-                      <span class="standings-rank">#{{ entry.rank }}</span>
-                      <span class="standings-name">{{
-                        entry.ownerDisplayName
-                      }}</span>
-                    </div>
-                    <span class="standings-score">{{
-                      entry.combinedScore | number: "1.0-0"
-                    }}</span>
-                  </div>
-                  <div class="standings-positions">
-                    <span class="pos-chip"
-                      >QB {{ entry.positionScores.QB | number: "1.0-0" }}</span
-                    >
-                    <span class="pos-chip"
-                      >RB {{ entry.positionScores.RB | number: "1.0-0" }}</span
-                    >
-                    <span class="pos-chip"
-                      >WR {{ entry.positionScores.WR | number: "1.0-0" }}</span
-                    >
-                    <span class="pos-chip"
-                      >TE {{ entry.positionScores.TE | number: "1.0-0" }}</span
-                    >
-                  </div>
-                </mat-card>
-              }
-            </div>
-          </aside>
-        }
+        <app-team-view-standings-panel
+          [standings]="store.leagueStandings()"
+          [myRank]="myRank()"
+          [selectedRosterId]="store.selectedRosterId()"
+        />
       </div>
     }
   }

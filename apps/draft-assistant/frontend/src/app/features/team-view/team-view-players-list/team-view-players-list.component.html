@@ -1,0 +1,195 @@
+<section class="section-block">
+  <h2 class="section-title">{{ sectionTitle() }}</h2>
+
+  @if (players().length === 0) {
+    <p class="empty-copy">{{ emptyMessage() }}</p>
+  } @else {
+    @for (group of groupedPlayers(); track group.heading ?? sectionTitle()) {
+      <div class="position-section">
+        @if (group.heading) {
+          <h3 class="position-heading">{{ group.heading }}</h3>
+        }
+
+        <div class="players-list" role="list">
+          @for (player of group.players; track player.playerId) {
+            <article
+              [class]="'player-card ' + getTierClass(player.ktcPositionalTier)"
+              role="listitem"
+            >
+              <div class="player-summary" [class.player-summary--expanded]="isExpanded(player.playerId)">
+                <div class="player-identity">
+                  <img
+                    class="player-avatar"
+                    [src]="playerHeadshotUrl(player.playerId)"
+                    [alt]="player.fullName"
+                    loading="lazy"
+                    (error)="onPlayerImageError($event)"
+                  />
+
+                  <div class="player-copy">
+                    <div class="player-name-row">
+                      <span class="player-name">{{ player.fullName }}</span>
+                      @if (player.rookie) {
+                        <span class="status-pill">Rookie</span>
+                      }
+                      @if (player.injuryStatus && player.injuryStatus !== 'Healthy') {
+                        <span class="status-pill status-pill--warn">{{ player.injuryStatus }}</span>
+                      }
+                    </div>
+
+                    <p class="player-subline">
+                      {{ player.position }} • {{ teamLabel(player) }} • Age {{ ageLabel(player) }} • Exp
+                      {{ expLabel(player) }}
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  mat-icon-button
+                  type="button"
+                  class="expand-button"
+                  (click)="toggleExpanded(player.playerId)"
+                  [attr.aria-label]="(isExpanded(player.playerId) ? 'Hide details for ' : 'Show details for ') + player.fullName"
+                  [attr.aria-expanded]="isExpanded(player.playerId)"
+                >
+                  <mat-icon>
+                    {{ isExpanded(player.playerId) ? 'expand_less' : 'expand_more' }}
+                  </mat-icon>
+                </button>
+
+                <div class="quick-metrics">
+                  <span class="metric-pill">
+                    <span class="metric-label">KTC</span>
+                    <span class="metric-value">#{{ numberLabel(player.ktcRank) }}</span>
+                  </span>
+                  <span class="metric-pill">
+                    <span class="metric-label">Pos</span>
+                    <span class="metric-value">#{{ numberLabel(player.ktcPositionalRank) }}</span>
+                  </span>
+                  <span class="metric-pill">
+                    <span class="metric-label">Tier</span>
+                    <span class="metric-value">{{ numberLabel(player.ktcPositionalTier) }}</span>
+                  </span>
+                  <span class="metric-pill">
+                    <span class="metric-label">Val</span>
+                    <span class="metric-value">{{ numberLabel(player.ktcValue) }}</span>
+                  </span>
+                  <span class="metric-pill">
+                    <span class="metric-label">Flock</span>
+                    <span class="metric-value">#{{ numberLabel(player.averageRank) }}</span>
+                  </span>
+                  <span class="metric-pill">
+                    <span class="metric-label">FP ADP</span>
+                    <span class="metric-value">#{{ numberLabel(player.fpAdpRank) }}</span>
+                  </span>
+                </div>
+              </div>
+
+              @if (isExpanded(player.playerId)) {
+                <div class="player-details">
+                  <section class="details-panel">
+                    <h4 class="details-heading">Consensus</h4>
+                    <div class="details-grid">
+                      <div class="detail-item">
+                        <span class="detail-label">Sleeper Rank</span>
+                        <span class="detail-value">{{ numberLabel(player.sleeperRank) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Combined Tier</span>
+                        <span class="detail-value">{{ numberLabel(player.combinedTier) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Combined Pos Tier</span>
+                        <span class="detail-value">{{ numberLabel(player.combinedPositionalTier) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Value Gap</span>
+                        <span class="detail-value">{{ numberLabel(player.valueGap) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">ADP Delta</span>
+                        <span class="detail-value">{{ deltaLabel(player.adpDelta) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Market ADP</span>
+                        <span class="detail-value">{{ numberLabel(player.adpRank) }}</span>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="details-panel">
+                    <h4 class="details-heading">Sources</h4>
+                    <div class="details-grid">
+                      <div class="detail-item">
+                        <span class="detail-label">KTC Overall Tier</span>
+                        <span class="detail-value">{{ numberLabel(player.ktcOverallTier) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">KTC Pos Tier</span>
+                        <span class="detail-value">{{ numberLabel(player.ktcPositionalTier) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Flock Tier</span>
+                        <span class="detail-value">{{ numberLabel(player.flockAverageTier) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Flock Pos Tier</span>
+                        <span class="detail-value">{{ numberLabel(player.flockAveragePositionalTier) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Flock Pos Rank</span>
+                        <span class="detail-value">{{ numberLabel(player.flockAveragePositionalRank) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">FantasyPros ADP</span>
+                        <span class="detail-value">{{ numberLabel(player.fpAdpRank) }}</span>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="details-panel">
+                    <h4 class="details-heading">Profile</h4>
+                    <div class="details-grid">
+                      <div class="detail-item">
+                        <span class="detail-label">Team</span>
+                        <span class="detail-value">{{ teamLabel(player) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Position</span>
+                        <span class="detail-value">{{ player.position }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Age</span>
+                        <span class="detail-value">{{ ageLabel(player) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Experience</span>
+                        <span class="detail-value">{{ expLabel(player) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Injury</span>
+                        <span class="detail-value">{{ injuryLabel(player) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Rookie</span>
+                        <span class="detail-value">{{ player.rookie ? 'Yes' : 'No' }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">Rookie Year</span>
+                        <span class="detail-value">{{ numberLabel(player.rookieYear) }}</span>
+                      </div>
+                      <div class="detail-item">
+                        <span class="detail-label">College</span>
+                        <span class="detail-value">{{ player.college ?? '—' }}</span>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              }
+            </article>
+          }
+        </div>
+      </div>
+    }
+  }
+</section>

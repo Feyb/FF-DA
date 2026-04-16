@@ -1,9 +1,12 @@
 import { effect, inject } from '@angular/core';
 import { patchState, signalStore, withHooks, withMethods, withState } from '@ngrx/signals';
 import { forkJoin, firstValueFrom } from 'rxjs';
+import { FantasyProsAdpService } from '../../core/adapters/fantasypros/fantasypros-adp.service';
+import { FlockRatingService } from '../../core/adapters/flock/flock-rating.service';
 import { KtcRatingService } from '../../core/adapters/ktc/ktc-rating.service';
 import { SleeperService } from '../../core/adapters/sleeper/sleeper.service';
 import {
+  DraftPlayerRow,
   DraftPick,
   KtcPlayer,
   LeagueRoster,
@@ -15,6 +18,7 @@ import {
   TeamViewRosterOption,
   TeamViewRosterSections,
 } from '../../core/models';
+import { PlayerNormalizationService } from '../../core/services/player-normalization.service';
 import { AppStore } from '../../core/state/app.store';
 import { toErrorMessage } from '../../core/utils/error.util';
 import { toMapById } from '../../core/utils/array-mapping.util';
@@ -57,12 +61,16 @@ export const TeamViewStore = signalStore(
       appStore = inject(AppStore),
       sleeperService = inject(SleeperService),
       ratingService = inject(KtcRatingService),
+      flockService = inject(FlockRatingService),
+      fantasyProsService = inject(FantasyProsAdpService),
+      playerNormalizationService = inject(PlayerNormalizationService),
     ) => {
       let rostersCache: LeagueRoster[] = [];
       let usersByIdCache: Record<string, LeagueUser> = {};
       let playersByIdCache: Record<string, SleeperCatalogPlayer> = {};
       let seasonCache = '';
       let ktcLookupCache: Map<string, KtcPlayer> = new Map();
+      let normalizedPlayersByIdCache: Record<string, DraftPlayerRow> = {};
 
       const sortByValueDesc = (players: TeamViewPlayer[]): TeamViewPlayer[] =>
         [...players].sort((a, b) => {
@@ -70,31 +78,6 @@ export const TeamViewStore = signalStore(
           const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
           return aRank - bRank;
         });
-
-      const groupByPosition = (
-        players: TeamViewPlayer[],
-      ): Record<string, TeamViewPlayer[]> => {
-        const groups: Record<string, TeamViewPlayer[]> = {
-          QB: [],
-          RB: [],
-          WR: [],
-          TE: [],
-        };
-        players.forEach((player) => {
-          const pos = (player.position as keyof typeof groups) || 'UNKNOWN';
-          if (groups[pos]) {
-            groups[pos].push(player);
-          }
-        });
-        Object.keys(groups).forEach((pos) => {
-          groups[pos] = groups[pos].sort((a, b) => {
-            const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
-            const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
-            return aRank - bRank;
-          });
-        });
-        return groups;
-      };
 
       const buildRosterOptions = (
         rosters: LeagueRoster[],
@@ -124,8 +107,7 @@ export const TeamViewStore = signalStore(
         const age = sleeperPlayer?.age ?? null;
         const yearsExp = sleeperPlayer?.years_exp ?? null;
         const injuryStatus = sleeperPlayer?.injury_status ?? null;
-
-        const ktcPlayer = ktcLookupCache.get(ratingService.normalizeName(fullName));
+        const normalizedPlayer = normalizedPlayersByIdCache[playerId];
 
         return {
           playerId,
@@ -135,13 +117,27 @@ export const TeamViewStore = signalStore(
           position,
           team: sleeperPlayer?.team ?? null,
           age,
+          college: sleeperPlayer?.college ?? null,
+          rookie: normalizedPlayer?.rookie ?? false,
+          rookieYear: sleeperPlayer?.rookie_year ?? null,
           yearsExp,
           injuryStatus,
-          ktcValue: ktcPlayer?.value ?? null,
-          ktcRank: ktcPlayer?.rank ?? null,
-          ktcPositionalRank: ktcPlayer?.positionalRank ?? null,
-          ktcOverallTier: ktcPlayer?.overallTier ?? null,
-          ktcPositionalTier: ktcPlayer?.positionalTier ?? null,
+          ktcValue: normalizedPlayer?.ktcValue ?? null,
+          ktcRank: normalizedPlayer?.ktcRank ?? null,
+          ktcPositionalRank: normalizedPlayer?.ktcPositionalRank ?? null,
+          ktcOverallTier: normalizedPlayer?.overallTier ?? null,
+          ktcPositionalTier: normalizedPlayer?.positionalTier ?? null,
+          sleeperRank: normalizedPlayer?.sleeperRank ?? null,
+          flockAverageTier: normalizedPlayer?.flockAverageTier ?? null,
+          flockAveragePositionalTier: normalizedPlayer?.flockAveragePositionalTier ?? null,
+          flockAveragePositionalRank: normalizedPlayer?.flockAveragePositionalRank ?? null,
+          averageRank: normalizedPlayer?.averageRank ?? null,
+          combinedTier: normalizedPlayer?.combinedTier ?? null,
+          combinedPositionalTier: normalizedPlayer?.combinedPositionalTier ?? null,
+          adpRank: normalizedPlayer?.adpRank ?? null,
+          adpDelta: normalizedPlayer?.adpDelta ?? null,
+          valueGap: normalizedPlayer?.valueGap ?? null,
+          fpAdpRank: normalizedPlayer?.fpAdpRank ?? null,
         };
       };
 
@@ -238,6 +234,7 @@ export const TeamViewStore = signalStore(
         playersByIdCache = {};
         seasonCache = '';
         ktcLookupCache = new Map();
+        normalizedPlayersByIdCache = {};
         patchState(store, {
           loading: false,
           error: null,
@@ -264,12 +261,16 @@ export const TeamViewStore = signalStore(
 
         try {
           const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes('SUPER_FLEX');
-          const [rosters, users, playersById, ktcPlayers] = await firstValueFrom(
+          const [rosters, users, playersById, ktcPlayers, flockPlayers, fantasyProsPlayers] = await firstValueFrom(
             forkJoin([
               sleeperService.getLeagueRosters(leagueId),
               sleeperService.getLeagueUsers(leagueId),
               sleeperService.getAllPlayers(),
               ratingService.fetchPlayers(isSuperflex),
+              flockService.fetchPlayers(isSuperflex),
+              isSuperflex
+                ? fantasyProsService.getSuperflexADPRankings()
+                : fantasyProsService.get1QBADPRankings(),
             ]),
           );
 
@@ -278,6 +279,20 @@ export const TeamViewStore = signalStore(
           playersByIdCache = playersById;
           ktcLookupCache = ratingService.buildNameLookup(ktcPlayers);
           seasonCache = season;
+
+          const flockLookup = flockService.buildNameLookup(flockPlayers);
+          const fantasyProsLookup = fantasyProsService.buildNameLookup(fantasyProsPlayers);
+          const normalizedPlayers = playerNormalizationService.buildPlayerRows(
+            playersByIdCache,
+            ktcLookupCache,
+            flockLookup,
+            Number(season),
+            ['QB', 'RB', 'WR', 'TE'],
+            fantasyProsLookup,
+          );
+          normalizedPlayersByIdCache = Object.fromEntries(
+            normalizedPlayers.map((player) => [player.playerId, player]),
+          ) as Record<string, DraftPlayerRow>;
 
           const availableRosters = buildRosterOptions(rostersCache, usersByIdCache);
           const leagueStandings = computeLeagueStandings();

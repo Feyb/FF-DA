@@ -187,6 +187,9 @@ export interface TeamViewPlayer {
   position: string;
   team: string | null;
   age: number | null;
+  college: string | null;
+  rookie: boolean;
+  rookieYear: number | null;
   yearsExp: number | null;
   injuryStatus: string | null;
   ktcValue: number | null;
@@ -194,6 +197,17 @@ export interface TeamViewPlayer {
   ktcPositionalRank: number | null;
   ktcOverallTier: number | null;
   ktcPositionalTier: number | null;
+  sleeperRank: number | null;
+  flockAverageTier: number | null;
+  flockAveragePositionalTier: number | null;
+  flockAveragePositionalRank: number | null;
+  averageRank: number | null;
+  combinedTier: number | null;
+  combinedPositionalTier: number | null;
+  adpRank: number | null;
+  adpDelta: number | null;
+  valueGap: number | null;
+  fpAdpRank: number | null;
 }
 
 export interface TeamViewRating {

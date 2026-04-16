@@ -1,0 +1,148 @@
+:host {
+  display: block;
+}
+
+.section-block {
+  @apply flex flex-col gap-3;
+}
+
+.position-section {
+  @apply flex flex-col gap-2;
+}
+
+.position-heading {
+  @apply text-sm font-semibold uppercase tracking-wider;
+  color: color-mix(in srgb, var(--on-surface) 68%, transparent);
+}
+
+.players-list {
+  @apply flex flex-col gap-2 bg-transparent;
+}
+
+.player-card {
+  @apply rounded-xl overflow-hidden;
+}
+
+.player-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  align-items: start;
+}
+
+.player-summary--expanded {
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.player-identity {
+  @apply flex items-start gap-3 min-w-0;
+}
+
+.player-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--surface-container-high);
+  border: 2px solid var(--surface-container-lowest);
+}
+
+.player-copy {
+  @apply min-w-0 flex flex-col gap-1;
+}
+
+.player-name-row {
+  @apply flex items-center gap-2 flex-wrap min-w-0;
+}
+
+.player-name {
+  @apply font-semibold truncate min-w-0;
+  color: var(--on-surface);
+}
+
+.player-subline {
+  @apply text-sm m-0;
+  color: color-mix(in srgb, var(--on-surface) 70%, transparent);
+}
+
+.status-pill {
+  @apply text-xs font-semibold rounded-full px-2 py-0.5;
+  background: color-mix(in srgb, var(--primary) 14%, var(--surface-container-high));
+  color: var(--on-surface);
+}
+
+.status-pill--warn {
+  background: color-mix(in srgb, #ef4444 16%, var(--surface-container-high));
+}
+
+.expand-button {
+  @apply shrink-0;
+  color: color-mix(in srgb, var(--on-surface) 72%, transparent);
+}
+
+.quick-metrics {
+  @apply flex flex-wrap gap-2;
+  grid-column: 1 / -1;
+}
+
+.metric-pill {
+  @apply inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium;
+  background: var(--surface-container-high);
+  color: color-mix(in srgb, var(--on-surface) 84%, transparent);
+}
+
+.metric-label {
+  color: color-mix(in srgb, var(--on-surface) 62%, transparent);
+}
+
+.metric-value {
+  color: var(--on-surface);
+}
+
+.player-details {
+  @apply grid gap-3 p-3 md:grid-cols-3;
+  background: color-mix(in srgb, var(--surface-container-high) 88%, var(--surface-container-low));
+}
+
+.details-panel {
+  @apply rounded-xl p-3 flex flex-col gap-3;
+  background: var(--surface-container-highest);
+}
+
+.details-heading {
+  @apply text-sm font-semibold m-0;
+  color: color-mix(in srgb, var(--on-surface) 80%, transparent);
+}
+
+.details-grid {
+  @apply grid gap-2;
+}
+
+.detail-item {
+  @apply flex items-center justify-between gap-3 text-sm;
+}
+
+.detail-label {
+  color: color-mix(in srgb, var(--on-surface) 62%, transparent);
+}
+
+.detail-value {
+  @apply font-semibold text-right;
+  color: var(--on-surface);
+}
+
+@media (max-width: 768px) {
+  .player-summary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .expand-button {
+    justify-self: end;
+  }
+
+  .player-details {
+    @apply grid-cols-1;
+  }
+}

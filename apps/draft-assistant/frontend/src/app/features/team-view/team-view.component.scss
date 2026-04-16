@@ -34,42 +34,7 @@
   @apply text-sm font-semibold text-slate-600;
 }
 
-.position-section {
-  @apply flex flex-col gap-2;
-}
-
-.position-heading {
-  @apply text-sm font-semibold text-slate-600 uppercase tracking-wider;
-}
-
 // empty-copy is defined globally in shared/styles/_states.scss
-
-.players-list {
-  @apply bg-transparent flex flex-col gap-2;
-}
-
-.player-row {
-  @apply rounded-xl border-2 border-slate-200 bg-slate-50 px-3 py-2;
-}
-
-.player-row-meta {
-  @apply flex flex-wrap justify-end gap-1.5 pl-2;
-}
-
-.meta-pill {
-  @apply text-xs font-medium rounded-full border border-slate-300 bg-white px-2 py-0.5 text-slate-700;
-}
-
-.player-meta-line {
-  @apply text-xs text-slate-600;
-}
-
-.player-avatar {
-  @apply w-14 h-14 rounded-full object-cover shrink-0 bg-slate-200;
-  margin-top: 0 !important;
-  margin-left: 8px !important;
-  border: 2px solid white;
-}
 
 .picks-list {
   @apply bg-transparent flex flex-col gap-2;
@@ -95,70 +60,6 @@
 
 .team-main {
   @apply flex flex-col gap-6;
-}
-
-.standings-panel {
-  min-width: 295px;
-  @apply flex flex-col gap-3 sticky top-4;
-}
-
-.standings-my-rank {
-  @apply text-sm;
-  color: color-mix(in srgb, var(--on-surface) 68%, transparent);
-}
-
-.standings-list {
-  @apply bg-transparent flex flex-col gap-2;
-}
-
-.standings-entry {
-  @apply rounded-xl px-3 py-2;
-  border: 1px solid var(--outline-variant);
-  background: var(--surface-container-low);
-}
-
-.standings-entry--mine {
-  background: color-mix(in srgb, var(--primary) 12%, var(--surface-container-low));
-  border-color: color-mix(in srgb, var(--primary) 45%, var(--outline-variant));
-  color: var(--on-surface);
-}
-
-.standings-title-row {
-  @apply flex items-center gap-2 flex-1 min-w-0;
-}
-
-.standings-header {
-  @apply flex items-center justify-between gap-2 min-w-0;
-}
-
-.standings-rank {
-  @apply text-xs font-mono shrink-0;
-  color: color-mix(in srgb, var(--on-surface) 62%, transparent);
-}
-
-.standings-name {
-  @apply truncate min-w-0 font-semibold;
-  color: var(--on-surface);
-}
-
-.standings-positions {
-  @apply flex gap-1 flex-wrap;
-}
-
-.standings-score {
-  @apply text-sm font-semibold shrink-0;
-  color: color-mix(in srgb, var(--on-surface) 80%, transparent);
-}
-
-.pos-chip {
-  @apply text-xs px-1.5 py-0.5 rounded;
-  background: var(--surface-container-high);
-  color: color-mix(in srgb, var(--on-surface) 82%, transparent);
-}
-
-.standings-entry--mine .pos-chip {
-  background: color-mix(in srgb, var(--primary) 16%, var(--surface-container-high));
-  color: var(--on-surface);
 }
 
 h3, h2 {

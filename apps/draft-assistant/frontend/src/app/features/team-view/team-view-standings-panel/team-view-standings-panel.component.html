@@ -1,0 +1,37 @@
+@if (standings().length > 0) {
+  <aside class="standings-panel">
+    <h2 class="section-title">League Rankings</h2>
+    @if (myRank()) {
+      <p class="standings-my-rank">
+        Your rank: <strong>{{ myRank() }}</strong> of
+        {{ standings().length }}
+      </p>
+    }
+    <div class="standings-list">
+      @for (entry of standings(); track entry.rosterId) {
+        <mat-card
+          [class]="
+            entry.rosterId === selectedRosterId()
+              ? 'standings-entry standings-entry--mine'
+              : 'standings-entry'
+          "
+          appearance="outlined"
+        >
+          <div class="standings-header">
+            <div class="standings-title-row">
+              <span class="standings-rank">#{{ entry.rank }}</span>
+              <span class="standings-name">{{ entry.ownerDisplayName }}</span>
+            </div>
+            <span class="standings-score">{{ entry.combinedScore | number: '1.0-0' }}</span>
+          </div>
+          <div class="standings-positions">
+            <span class="pos-chip">QB {{ entry.positionScores.QB | number: '1.0-0' }}</span>
+            <span class="pos-chip">RB {{ entry.positionScores.RB | number: '1.0-0' }}</span>
+            <span class="pos-chip">WR {{ entry.positionScores.WR | number: '1.0-0' }}</span>
+            <span class="pos-chip">TE {{ entry.positionScores.TE | number: '1.0-0' }}</span>
+          </div>
+        </mat-card>
+      }
+    </div>
+  </aside>
+}
