@@ -103,7 +103,8 @@
 }
 
 .standings-my-rank {
-  @apply text-sm text-slate-500;
+  @apply text-sm;
+  color: color-mix(in srgb, var(--on-surface) 68%, transparent);
 }
 
 .standings-list {
@@ -111,27 +112,33 @@
 }
 
 .standings-entry {
-  @apply rounded-xl border border-slate-200 bg-slate-50 px-3 py-2;
+  @apply rounded-xl px-3 py-2;
+  border: 1px solid var(--outline-variant);
+  background: var(--surface-container-low);
 }
 
 .standings-entry--mine {
-  @apply bg-blue-50 border-blue-300 text-blue-900;
+  background: color-mix(in srgb, var(--primary) 12%, var(--surface-container-low));
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--outline-variant));
+  color: var(--on-surface);
 }
 
 .standings-title-row {
-  @apply flex items-center gap-2;
+  @apply flex items-center gap-2 flex-1 min-w-0;
 }
 
 .standings-header {
-  @apply flex items-center justify-between gap-2;
+  @apply flex items-center justify-between gap-2 min-w-0;
 }
 
 .standings-rank {
-  @apply text-xs text-slate-500 font-mono shrink-0;
+  @apply text-xs font-mono shrink-0;
+  color: color-mix(in srgb, var(--on-surface) 62%, transparent);
 }
 
 .standings-name {
-  @apply truncate min-w-0 font-semibold text-slate-900;
+  @apply truncate min-w-0 font-semibold;
+  color: var(--on-surface);
 }
 
 .standings-positions {
@@ -139,58 +146,22 @@
 }
 
 .standings-score {
-  @apply text-sm font-semibold text-slate-700;
+  @apply text-sm font-semibold shrink-0;
+  color: color-mix(in srgb, var(--on-surface) 80%, transparent);
 }
 
 .pos-chip {
-  @apply text-xs px-1.5 py-0.5 rounded bg-slate-200 text-slate-700;
+  @apply text-xs px-1.5 py-0.5 rounded;
+  background: var(--surface-container-high);
+  color: color-mix(in srgb, var(--on-surface) 82%, transparent);
 }
 
 .standings-entry--mine .pos-chip {
-  @apply bg-blue-200 text-blue-800;
+  background: color-mix(in srgb, var(--primary) 16%, var(--surface-container-high));
+  color: var(--on-surface);
 }
 
 h3, h2 {
   margin: 0;
-}
-
-// ── Dark-mode overrides ────────────────────────────────────────────────────────
-html.dark {
-  .standings-entry {
-    background: var(--surface-container-low);
-    border-color: var(--outline-variant);
-  }
-
-  .standings-entry--mine {
-    background: rgb(15 30 70);
-    border-color: rgb(59 130 246);
-    color: rgb(191 219 254);
-  }
-
-  .standings-rank {
-    color: rgb(148 163 184);
-  }
-
-  .standings-name {
-    color: var(--on-surface);
-  }
-
-  .standings-my-rank {
-    color: rgb(148 163 184);
-  }
-
-  .standings-score {
-    color: rgb(203 213 225);
-  }
-
-  .pos-chip {
-    background: var(--surface-container-high);
-    color: rgb(203 213 225);
-  }
-
-  .standings-entry--mine .pos-chip {
-    background: rgb(30 58 138);
-    color: rgb(147 197 253);
-  }
 }
 
