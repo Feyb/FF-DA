@@ -164,9 +164,15 @@
   letter-spacing: 0.01em;
 }
 
-.adp-value  { color: rgb(22 163 74); }
-.adp-reach  { color: rgb(220 38 38); }
-.adp-neutral { color: rgb(100 116 139); }
+.adp-value {
+  color: rgb(22 163 74);
+}
+.adp-reach {
+  color: rgb(220 38 38);
+}
+.adp-neutral {
+  color: rgb(100 116 139);
+}
 
 .value-gap-indicator {
   font-size: 0.875rem;
@@ -175,10 +181,18 @@
   cursor: help;
 }
 
-.vg-none     { color: rgb(203 213 225); }
-.vg-consensus { color: rgb(22 163 74); }
-.vg-minor     { color: rgb(234 179 8); }
-.vg-high      { color: rgb(220 38 38); }
+.vg-none {
+  color: rgb(203 213 225);
+}
+.vg-consensus {
+  color: rgb(22 163 74);
+}
+.vg-minor {
+  color: rgb(234 179 8);
+}
+.vg-high {
+  color: rgb(220 38 38);
+}
 
 .going-soon-badge {
   display: inline-flex;
@@ -197,8 +211,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.6; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .availability-badge {
@@ -260,13 +279,25 @@ html.dark {
     background: rgb(30 41 59);
   }
 
-  .adp-value  { color: rgb(74 222 128); }
-  .adp-reach  { color: rgb(252 165 165); }
-  .adp-neutral { color: rgb(100 116 139); }
+  .adp-value {
+    color: rgb(74 222 128);
+  }
+  .adp-reach {
+    color: rgb(252 165 165);
+  }
+  .adp-neutral {
+    color: rgb(100 116 139);
+  }
 
-  .vg-consensus { color: rgb(74 222 128); }
-  .vg-minor     { color: rgb(250 204 21); }
-  .vg-high      { color: rgb(252 165 165); }
+  .vg-consensus {
+    color: rgb(74 222 128);
+  }
+  .vg-minor {
+    color: rgb(250 204 21);
+  }
+  .vg-high {
+    color: rgb(252 165 165);
+  }
 
   .going-soon-badge {
     background: rgb(67 20 7);

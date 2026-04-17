@@ -1,14 +1,13 @@
-@use '@angular/material' as mat;
-@use 'app/shared/styles/tier-colors';
-@use 'app/shared/styles/position-colors';
-@use 'app/shared/styles/typography';
-@use 'app/shared/styles/states';
+@use "@angular/material" as mat;
+@use "app/shared/styles/tier-colors";
+@use "app/shared/styles/position-colors";
+@use "app/shared/styles/typography";
+@use "app/shared/styles/states";
 
 // ── TailwindCSS ────────────────────────────────────────────────────────────────
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 // ── Custom Angular Material Theme: Digital Curator ─────────────────────────────
 @mixin apply-theme($density-scale) {
@@ -20,8 +19,8 @@
         tertiary: mat.$blue-palette,
       ),
       typography: (
-        plain-family: 'Inter',
-        brand-family: 'Plus Jakarta Sans',
+        plain-family: "Inter",
+        brand-family: "Plus Jakarta Sans",
       ),
       density: (
         scale: $density-scale,
@@ -65,8 +64,8 @@ html.dark {
         tertiary: mat.$blue-palette,
       ),
       typography: (
-        plain-family: 'Inter',
-        brand-family: 'Plus Jakarta Sans',
+        plain-family: "Inter",
+        brand-family: "Plus Jakarta Sans",
       ),
       density: (
         scale: 0,
@@ -76,24 +75,29 @@ html.dark {
   @include mat.all-component-colors($dark-theme);
 }
 
-
 html,
 body {
   height: 100%;
   margin: 0;
-  font-family: 'Inter', 'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Inter", "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
   background: var(--surface, #fdf8fb);
   color: var(--on-surface, #1c1b1d);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Plus Jakarta Sans', 'Inter', Arial, sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-b, strong {
-  font-family: 'Inter', Arial, sans-serif;
+b,
+strong {
+  font-family: "Inter", Arial, sans-serif;
   font-weight: 700;
 }
 
@@ -125,5 +129,3 @@ html.dark {
     color: var(--on-surface);
   }
 }
-
-

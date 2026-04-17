@@ -1,12 +1,18 @@
-import { Injectable, inject } from '@angular/core';
-import { KtcRatingService } from '../adapters/ktc/ktc-rating.service';
-import { FlockRatingService } from '../adapters/flock/flock-rating.service';
-import { FantasyProsAdpService } from '../adapters/fantasypros/fantasypros-adp.service';
-import { DraftPlayerRow, FantasyProsPlayer, FlockPlayer, KtcPlayer, SleeperCatalogPlayer } from '../models';
-import { buildFullName } from '../utils/player-name.util';
+import { Injectable, inject } from "@angular/core";
+import { KtcRatingService } from "../adapters/ktc/ktc-rating.service";
+import { FlockRatingService } from "../adapters/flock/flock-rating.service";
+import { FantasyProsAdpService } from "../adapters/fantasypros/fantasypros-adp.service";
+import {
+  DraftPlayerRow,
+  FantasyProsPlayer,
+  FlockPlayer,
+  KtcPlayer,
+  SleeperCatalogPlayer,
+} from "../models";
+import { buildFullName } from "../utils/player-name.util";
 
-type ActivePositions = readonly ('QB' | 'RB' | 'WR' | 'TE')[];
-const DEFAULT_ACTIVE_POSITIONS: ActivePositions = ['QB', 'RB', 'WR', 'TE'];
+type ActivePositions = readonly ("QB" | "RB" | "WR" | "TE")[];
+const DEFAULT_ACTIVE_POSITIONS: ActivePositions = ["QB", "RB", "WR", "TE"];
 
 /**
  * Centralised service that maps Sleeper catalog players to the shared
@@ -16,7 +22,7 @@ const DEFAULT_ACTIVE_POSITIONS: ActivePositions = ['QB', 'RB', 'WR', 'TE'];
  * Used by DraftStore and PlayersStore to eliminate ~150 lines of duplicated
  * normalisation logic.
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class PlayerNormalizationService {
   private readonly ktcService = inject(KtcRatingService);
   private readonly flockService = inject(FlockRatingService);
@@ -26,7 +32,7 @@ export class PlayerNormalizationService {
     if (source.active === false) return false;
     const status = source.status?.toLowerCase().trim();
     if (!status) return true;
-    return status === 'active';
+    return status === "active";
   }
 
   normalizePlayer(
@@ -36,11 +42,11 @@ export class PlayerNormalizationService {
     flockLookup: Map<string, FlockPlayer>,
     currentSeason: number,
     fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
-  ): Omit<DraftPlayerRow, 'sleeperRank' | 'adpDelta'> {
-    const firstName = source.first_name ?? '';
-    const lastName = source.last_name ?? '';
+  ): Omit<DraftPlayerRow, "sleeperRank" | "adpDelta"> {
+    const firstName = source.first_name ?? "";
+    const lastName = source.last_name ?? "";
     const fullName = source.full_name?.trim() || buildFullName(firstName, lastName);
-    const position = (source.position ?? '') as DraftPlayerRow['position'];
+    const position = (source.position ?? "") as DraftPlayerRow["position"];
 
     const ktcPlayer = ktcLookup.get(this.ktcService.normalizeName(fullName));
     const flockPlayer = flockLookup.get(this.flockService.normalizeName(fullName));

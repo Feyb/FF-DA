@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 /**
  * Thin wrapper around localStorage that silently swallows quota/security errors
  * and handles JSON serialisation / deserialisation.
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class StorageService {
   getItem<T>(key: string): T | null {
     try {

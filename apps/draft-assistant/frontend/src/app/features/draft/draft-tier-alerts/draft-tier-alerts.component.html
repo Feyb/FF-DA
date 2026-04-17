@@ -2,7 +2,12 @@
   <div class="tier-alert-banner" role="alert">
     <mat-icon>trending_down</mat-icon>
     <span>{{ tierAlertLabel(alert) }}</span>
-    <button type="button" class="tier-alert-dismiss" (click)="dismissAlert(alert.id)" aria-label="Dismiss">
+    <button
+      type="button"
+      class="tier-alert-dismiss"
+      (click)="dismissAlert(alert.id)"
+      aria-label="Dismiss"
+    >
       <mat-icon>close</mat-icon>
     </button>
   </div>

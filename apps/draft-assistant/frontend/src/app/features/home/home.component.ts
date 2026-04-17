@@ -1,26 +1,26 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatIconModule } from '@angular/material/icon';
-import { HomeStore } from './home.store';
-import { AppStore } from '../../core/state/app.store';
-import { StorageService } from '../../core/services/storage.service';
-import { League } from '../../core/models';
-import { PageHeaderComponent } from '../../shared/components/page-header';
-import { LoadingStateComponent } from '../../shared/components/loading-state';
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { FormControl, ReactiveFormsModule } from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { MatListModule } from "@angular/material/list";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatIconModule } from "@angular/material/icon";
+import { HomeStore } from "./home.store";
+import { AppStore } from "../../core/state/app.store";
+import { StorageService } from "../../core/services/storage.service";
+import { League } from "../../core/models";
+import { PageHeaderComponent } from "../../shared/components/page-header";
+import { LoadingStateComponent } from "../../shared/components/loading-state";
 
-const HOME_USERNAME_STORAGE_KEY = 'draftAssistant.sleeperUsername';
+const HOME_USERNAME_STORAGE_KEY = "draftAssistant.sleeperUsername";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrl: "./home.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [HomeStore],
   imports: [
@@ -42,11 +42,11 @@ export class HomeComponent {
   protected readonly appStore = inject(AppStore);
   private readonly storage = inject(StorageService);
 
-  protected readonly usernameControl = new FormControl('');
-  protected readonly leagueIdControl = new FormControl('');
+  protected readonly usernameControl = new FormControl("");
+  protected readonly leagueIdControl = new FormControl("");
 
   constructor() {
-    const savedUsername = this.storage.getRawItem(HOME_USERNAME_STORAGE_KEY) ?? '';
+    const savedUsername = this.storage.getRawItem(HOME_USERNAME_STORAGE_KEY) ?? "";
     if (savedUsername) {
       this.usernameControl.setValue(savedUsername);
       this.store.loadByUsername(savedUsername);
@@ -70,4 +70,3 @@ export class HomeComponent {
     this.store.selectLeague(league);
   }
 }
-

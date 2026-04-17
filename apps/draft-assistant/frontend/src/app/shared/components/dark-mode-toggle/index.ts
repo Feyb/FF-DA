@@ -1,1 +1,1 @@
-export { DarkModeToggleComponent } from './dark-mode-toggle.component';
+export { DarkModeToggleComponent } from "./dark-mode-toggle.component";

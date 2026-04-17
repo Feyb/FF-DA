@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { AppStore } from '../../../core/state/app.store';
+import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core";
+import { AppStore } from "../../../core/state/app.store";
 
 @Component({
-  selector: 'app-dark-mode-toggle',
-  templateUrl: './dark-mode-toggle.component.html',
-  styleUrl: './dark-mode-toggle.component.scss',
+  selector: "app-dark-mode-toggle",
+  templateUrl: "./dark-mode-toggle.component.html",
+  styleUrl: "./dark-mode-toggle.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DarkModeToggleComponent {

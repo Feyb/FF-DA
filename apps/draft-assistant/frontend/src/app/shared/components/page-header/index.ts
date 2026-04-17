@@ -1,1 +1,1 @@
-export { PageHeaderComponent } from './page-header.component';
+export { PageHeaderComponent } from "./page-header.component";

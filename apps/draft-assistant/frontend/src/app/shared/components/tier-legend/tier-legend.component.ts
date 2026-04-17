@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { getTierColorClass } from '../../pipes/tier-color.pipe';
+import { ChangeDetectionStrategy, Component, input } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { getTierColorClass } from "../../pipes/tier-color.pipe";
 
 @Component({
-  selector: 'app-tier-legend',
-  templateUrl: './tier-legend.component.html',
-  styleUrl: './tier-legend.component.scss',
+  selector: "app-tier-legend",
+  templateUrl: "./tier-legend.component.html",
+  styleUrl: "./tier-legend.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule],

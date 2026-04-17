@@ -1,15 +1,15 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const OUTPUT_DIR = resolve(__dirname, '../src/assets/flock');
-const ENV_FILE = resolve(__dirname, '../.env.local');
+const OUTPUT_DIR = resolve(__dirname, "../src/assets/flock");
+const ENV_FILE = resolve(__dirname, "../.env.local");
 
-const YEAR = process.env.FLOCK_YEAR ?? '2025';
-const STRICT = (process.env.FLOCK_SYNC_STRICT ?? 'false').toLowerCase() === 'true';
+const YEAR = process.env.FLOCK_YEAR ?? "2025";
+const STRICT = (process.env.FLOCK_SYNC_STRICT ?? "false").toLowerCase() === "true";
 
 // Prospect rankings are scoped to the current draft class year.
 // Each calendar year maps to one draft class (e.g. 2026 → 2026 prospects).
@@ -20,33 +20,33 @@ const PROSPECT_YEAR = process.env.FLOCK_PROSPECT_YEAR ?? String(new Date().getFu
 
 const FORMATS = [
   {
-    key: '1qb',
-    output: 'players-1qb.json',
+    key: "1qb",
+    output: "players-1qb.json",
     url:
-      'https://api.flockfantasy.com/rankings?format=ONEQB&pickType=hybrid&year=' +
+      "https://api.flockfantasy.com/rankings?format=ONEQB&pickType=hybrid&year=" +
       encodeURIComponent(YEAR) +
-      '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=1QB',
+      "&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=1QB",
   },
   {
-    key: 'superflex',
-    output: 'players-superflex.json',
+    key: "superflex",
+    output: "players-superflex.json",
     url:
-      'https://api.flockfantasy.com/rankings?format=SUPERFLEX&pickType=hybrid&year=' +
+      "https://api.flockfantasy.com/rankings?format=SUPERFLEX&pickType=hybrid&year=" +
       encodeURIComponent(YEAR) +
-      '&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=SUPERFLEX',
+      "&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=SUPERFLEX",
   },
   {
-    key: 'rookies-1qb',
-    output: 'players-rookies-1qb.json',
+    key: "rookies-1qb",
+    output: "players-rookies-1qb.json",
     url:
-      'https://api.flockfantasy.com/rankings?format=PROSPECTS&pickType=hybrid&year=' +
+      "https://api.flockfantasy.com/rankings?format=PROSPECTS&pickType=hybrid&year=" +
       encodeURIComponent(PROSPECT_YEAR),
   },
   {
-    key: 'rookies-sf',
-    output: 'players-rookies-sf.json',
+    key: "rookies-sf",
+    output: "players-rookies-sf.json",
     url:
-      'https://api.flockfantasy.com/rankings?format=PROSPECTS_SF&pickType=hybrid&year=' +
+      "https://api.flockfantasy.com/rankings?format=PROSPECTS_SF&pickType=hybrid&year=" +
       encodeURIComponent(PROSPECT_YEAR),
   },
 ];
@@ -56,11 +56,11 @@ const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms)
 function parseEnvFile(content) {
   const env = {};
 
-  for (const rawLine of content.split('\n')) {
+  for (const rawLine of content.split("\n")) {
     const line = rawLine.trim();
-    if (!line || line.startsWith('#')) continue;
+    if (!line || line.startsWith("#")) continue;
 
-    const separatorIndex = line.indexOf('=');
+    const separatorIndex = line.indexOf("=");
     if (separatorIndex === -1) continue;
 
     const key = line.slice(0, separatorIndex).trim();
@@ -73,7 +73,7 @@ function parseEnvFile(content) {
 
 async function loadLocalEnv() {
   try {
-    const content = await readFile(ENV_FILE, 'utf8');
+    const content = await readFile(ENV_FILE, "utf8");
     return parseEnvFile(content);
   } catch {
     return {};
@@ -81,11 +81,13 @@ async function loadLocalEnv() {
 }
 
 function getConfig(localEnv) {
-  const email = process.env.FLOCK_EMAIL ?? localEnv.FLOCK_EMAIL ?? '';
-  const password = process.env.FLOCK_PASSWORD ?? localEnv.FLOCK_PASSWORD ?? '';
-  const sessionCookie = process.env.FLOCK_SESSION_COOKIE ?? localEnv.FLOCK_SESSION_COOKIE ?? '';
+  const email = process.env.FLOCK_EMAIL ?? localEnv.FLOCK_EMAIL ?? "";
+  const password = process.env.FLOCK_PASSWORD ?? localEnv.FLOCK_PASSWORD ?? "";
+  const sessionCookie = process.env.FLOCK_SESSION_COOKIE ?? localEnv.FLOCK_SESSION_COOKIE ?? "";
   const loginUrl =
-    process.env.FLOCK_LOGIN_URL ?? localEnv.FLOCK_LOGIN_URL ?? 'https://flockfantasy.com/api/auth/login';
+    process.env.FLOCK_LOGIN_URL ??
+    localEnv.FLOCK_LOGIN_URL ??
+    "https://flockfantasy.com/api/auth/login";
 
   return { email, password, sessionCookie, loginUrl };
 }
@@ -118,49 +120,49 @@ async function loginAndGetCookie(config) {
   }
 
   const baseHeaders = {
-    accept: 'application/json,text/plain,*/*',
-    'user-agent': 'ff-draft-assistant-flock-sync/1.0',
+    accept: "application/json,text/plain,*/*",
+    "user-agent": "ff-draft-assistant-flock-sync/1.0",
   };
 
   try {
     const response = await fetchWithRetry(
       config.loginUrl,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
           ...baseHeaders,
-          'content-type': 'application/json',
+          "content-type": "application/json",
         },
         body: JSON.stringify({ email: config.email, password: config.password }),
       },
       1,
     );
 
-    const cookie = response.headers.get('set-cookie');
+    const cookie = response.headers.get("set-cookie");
     if (cookie) return cookie;
   } catch {
     // Fall through to form login attempt.
   }
 
   const body = new URLSearchParams();
-  body.set('email', config.email);
-  body.set('password', config.password);
+  body.set("email", config.email);
+  body.set("password", config.password);
 
   try {
     const response = await fetchWithRetry(
       config.loginUrl,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
           ...baseHeaders,
-          'content-type': 'application/x-www-form-urlencoded',
+          "content-type": "application/x-www-form-urlencoded",
         },
         body: body.toString(),
       },
       1,
     );
 
-    return response.headers.get('set-cookie');
+    return response.headers.get("set-cookie");
   } catch {
     return null;
   }
@@ -168,8 +170,8 @@ async function loginAndGetCookie(config) {
 
 async function fetchRankings(url, cookieHeader) {
   const headers = {
-    accept: 'application/json,text/plain,*/*',
-    'user-agent': 'ff-draft-assistant-flock-sync/1.0',
+    accept: "application/json,text/plain,*/*",
+    "user-agent": "ff-draft-assistant-flock-sync/1.0",
   };
 
   if (cookieHeader) {
@@ -181,7 +183,7 @@ async function fetchRankings(url, cookieHeader) {
 }
 
 async function writeJsonFile(path, data) {
-  await writeFile(path, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+  await writeFile(path, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
 
 async function run() {
@@ -191,7 +193,7 @@ async function run() {
   try {
     await mkdir(OUTPUT_DIR, { recursive: true });
 
-    let cookieHeader = '';
+    let cookieHeader = "";
     if (config.sessionCookie) {
       cookieHeader = config.sessionCookie;
     } else {
@@ -202,12 +204,14 @@ async function run() {
     }
 
     if (!cookieHeader && STRICT) {
-      throw new Error('Flock credentials are missing. Set FLOCK_SESSION_COOKIE or FLOCK_EMAIL/FLOCK_PASSWORD.');
+      throw new Error(
+        "Flock credentials are missing. Set FLOCK_SESSION_COOKIE or FLOCK_EMAIL/FLOCK_PASSWORD.",
+      );
     }
 
-    const metadataPath = resolve(OUTPUT_DIR, 'metadata.json');
+    const metadataPath = resolve(OUTPUT_DIR, "metadata.json");
     const metadata = {
-      source: 'flockfantasy.com',
+      source: "flockfantasy.com",
       generatedAt: new Date().toISOString(),
       formats: {},
     };
@@ -226,7 +230,7 @@ async function run() {
           url: formatConfig.url,
         };
 
-        const count = Array.isArray(data?.data) ? data.data.length : 'unknown';
+        const count = Array.isArray(data?.data) ? data.data.length : "unknown";
         console.log(`[flock-sync] wrote ${count} players to ${playersPath}`);
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
@@ -243,7 +247,9 @@ async function run() {
     });
 
     if (errors.length > 0) {
-      console.error(`[flock-sync] ${errors.length} format(s) failed: ${errors.map((e) => `${e.key}: ${e.error}`).join(', ')}`);
+      console.error(
+        `[flock-sync] ${errors.length} format(s) failed: ${errors.map((e) => `${e.key}: ${e.error}`).join(", ")}`,
+      );
       process.exitCode = 1;
     }
   } catch (error) {

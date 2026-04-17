@@ -39,11 +39,15 @@
         <div class="roster-list">
           @for (row of store.myRosterRows(); track row.playerId) {
             <div class="roster-row">
-              <span class="roster-pos-badge" [ngClass]="'pos-' + row.position.toLowerCase()">{{ row.position }}</span>
+              <span class="roster-pos-badge" [ngClass]="'pos-' + row.position.toLowerCase()">{{
+                row.position
+              }}</span>
               <span class="roster-name">{{ row.fullName }}</span>
-              <span class="roster-tier">Tier {{ row.combinedTier ?? 'N/A' }}</span>
+              <span class="roster-tier">Tier {{ row.combinedTier ?? "N/A" }}</span>
               @if (row.adpDelta !== null) {
-                <span class="roster-adp" [ngClass]="adpDeltaClass(row.adpDelta)">{{ adpDeltaLabel(row.adpDelta) }}</span>
+                <span class="roster-adp" [ngClass]="adpDeltaClass(row.adpDelta)">{{
+                  adpDeltaLabel(row.adpDelta)
+                }}</span>
               }
             </div>
           }
@@ -96,11 +100,11 @@
         </div>
         <div>
           <p class="summary-label">Rounds</p>
-          <p class="summary-value">{{ draftSetting(selectedDraft, 'rounds') }}</p>
+          <p class="summary-value">{{ draftSetting(selectedDraft, "rounds") }}</p>
         </div>
         <div>
           <p class="summary-label">Teams</p>
-          <p class="summary-value">{{ draftSetting(selectedDraft, 'teams') }}</p>
+          <p class="summary-value">{{ draftSetting(selectedDraft, "teams") }}</p>
         </div>
         <div>
           <p class="summary-label">Draft position</p>

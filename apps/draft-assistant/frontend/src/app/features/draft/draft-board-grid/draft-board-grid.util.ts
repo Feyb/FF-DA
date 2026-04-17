@@ -1,5 +1,5 @@
-import { LeagueRoster, LeagueUser, SleeperDraft, SleeperDraftPick } from '../../../core/models';
-import { extractLastName } from '../../../core/utils/player-name.util';
+import { LeagueRoster, LeagueUser, SleeperDraft, SleeperDraftPick } from "../../../core/models";
+import { extractLastName } from "../../../core/utils/player-name.util";
 
 export interface GridTeamHeader {
   slot: number;
@@ -44,7 +44,12 @@ export interface GridRow {
  * @param teams  total number of teams
  * @param linear true for rookie/linear drafts (always left→right)
  */
-export const computePickNo = (round: number, slot: number, teams: number, linear: boolean): number => {
+export const computePickNo = (
+  round: number,
+  slot: number,
+  teams: number,
+  linear: boolean,
+): number => {
   if (linear || round % 2 === 1) {
     // Odd rounds and linear drafts: left-to-right
     return (round - 1) * teams + slot;
@@ -65,7 +70,7 @@ export const pickInRoundFromPickNo = (pickNo: number, teams: number): number =>
 export const formatPickLabel = (round: number, pickNo: number, teams: number): string => {
   const within = pickInRoundFromPickNo(pickNo, teams);
   const width = String(teams).length;
-  return `${round}.${String(within).padStart(width, '0')}`;
+  return `${round}.${String(within).padStart(width, "0")}`;
 };
 
 /**
@@ -82,20 +87,19 @@ export const buildGridHeaders = (
   rosterAvatarIds: Record<string, string | null>,
   currentUserId: string | null,
 ): GridTeamHeader[] => {
-  const teams = Number(draft.settings?.['teams'] ?? 0);
+  const teams = Number(draft.settings?.["teams"] ?? 0);
   if (!teams || teams <= 0) return [];
 
   const slotMap = draft.slot_to_roster_id ?? {};
-  const mySlot =
-    currentUserId != null ? (draft.draft_order?.[currentUserId] ?? null) : null;
+  const mySlot = currentUserId != null ? (draft.draft_order?.[currentUserId] ?? null) : null;
   const myRawRosterId = mySlot != null ? (slotMap[String(mySlot)] ?? null) : null;
-  const myRosterId = typeof myRawRosterId === 'number' ? myRawRosterId : null;
+  const myRosterId = typeof myRawRosterId === "number" ? myRawRosterId : null;
 
   return Array.from({ length: teams }, (_, i) => {
     const slot = i + 1;
     const raw = slotMap[String(slot)];
-    const rosterId = typeof raw === 'number' ? raw : null;
-    const key = rosterId !== null ? String(rosterId) : '';
+    const rosterId = typeof raw === "number" ? raw : null;
+    const key = rosterId !== null ? String(rosterId) : "";
 
     return {
       slot,
@@ -124,18 +128,17 @@ export const buildGridRows = (
   tierByPlayerId: Map<string, number | null>,
   currentUserId: string | null,
 ): GridRow[] => {
-  const teams = Number(draft.settings?.['teams'] ?? 0);
-  const rounds = Number(draft.settings?.['rounds'] ?? 0);
+  const teams = Number(draft.settings?.["teams"] ?? 0);
+  const rounds = Number(draft.settings?.["rounds"] ?? 0);
   if (teams <= 0 || rounds <= 0) return [];
 
-  const isLinear = (draft.type ?? '').toLowerCase() === 'linear';
+  const isLinear = (draft.type ?? "").toLowerCase() === "linear";
   const slotMap = draft.slot_to_roster_id ?? {};
 
   // Resolve the current user's roster_id via their draft slot
-  const mySlot =
-    currentUserId != null ? (draft.draft_order?.[currentUserId] ?? null) : null;
+  const mySlot = currentUserId != null ? (draft.draft_order?.[currentUserId] ?? null) : null;
   const myRawRosterId = mySlot != null ? (slotMap[String(mySlot)] ?? null) : null;
-  const myRosterId = typeof myRawRosterId === 'number' ? myRawRosterId : null;
+  const myRosterId = typeof myRawRosterId === "number" ? myRawRosterId : null;
 
   const nextPickNo = picks.length + 1;
 
@@ -152,18 +155,18 @@ export const buildGridRows = (
       const slot = ci + 1;
       const pickNo = computePickNo(round, slot, teams, isLinear);
       const rawRid = slotMap[String(slot)];
-      const slotRosterId = typeof rawRid === 'number' ? rawRid : null;
+      const slotRosterId = typeof rawRid === "number" ? rawRid : null;
 
       const draftedPick = picksByNo.get(pickNo) ?? null;
       // For traded picks the pick's own roster_id takes precedence
       const effectiveRosterId = draftedPick?.roster_id ?? slotRosterId;
 
       const playerId = draftedPick?.player_id ?? null;
-      const position = draftedPick?.metadata?.['position'] ?? null;
+      const position = draftedPick?.metadata?.["position"] ?? null;
 
       const lastName: string | null =
-        draftedPick?.metadata?.['last_name'] ??
-        (playerId ? extractLastName(playerNameMap[playerId] ?? '') : null);
+        draftedPick?.metadata?.["last_name"] ??
+        (playerId ? extractLastName(playerNameMap[playerId] ?? "") : null);
 
       const tier = playerId ? (tierByPlayerId.get(playerId) ?? null) : null;
       const pickLabel = formatPickLabel(round, pickNo, teams);
@@ -201,10 +204,9 @@ export const mapRosterAvatarIds = (
   }, {});
 
   return rosters.reduce<Record<string, string | null>>((acc, roster) => {
-    const ownerId = roster.owner_id ?? '';
+    const ownerId = roster.owner_id ?? "";
     const user = ownerId ? usersById[ownerId] : undefined;
     acc[String(roster.roster_id)] = user?.avatar ?? null;
     return acc;
   }, {});
 };
-

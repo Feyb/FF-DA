@@ -9,9 +9,7 @@
       <mat-icon>info</mat-icon>
       <div>
         <p class="info-panel-title">No league selected</p>
-        <p class="info-panel-copy">
-          Select a league in Home first, then return to Team View.
-        </p>
+        <p class="info-panel-copy">Select a league in Home first, then return to Team View.</p>
       </div>
     </section>
   } @else {
@@ -27,8 +25,7 @@
       <section class="selection-panel">
         <p class="selection-title">Choose a roster to continue</p>
         <p class="selection-copy">
-          This league was loaded without user context, so please pick the roster
-          to analyze.
+          This league was loaded without user context, so please pick the roster to analyze.
         </p>
         <mat-form-field appearance="outline" class="selection-field">
           <mat-label>League roster</mat-label>
@@ -81,15 +78,9 @@
                 @for (pick of store.sections().futurePicks; track $index) {
                   <mat-list-item role="listitem" [lines]="2" class="pick-row">
                     <mat-icon matListItemIcon>sports_football</mat-icon>
-                    <span matListItemTitle class="pick-season">{{
-                      pick.season
-                    }}</span>
-                    <span matListItemLine class="pick-round"
-                      >Round {{ pick.round }}</span
-                    >
-                    <span matListItemMeta class="pick-meta-pill"
-                      >R{{ pick.round }}</span
-                    >
+                    <span matListItemTitle class="pick-season">{{ pick.season }}</span>
+                    <span matListItemLine class="pick-round">Round {{ pick.round }}</span>
+                    <span matListItemMeta class="pick-meta-pill">R{{ pick.round }}</span>
                   </mat-list-item>
                 }
               </mat-list>

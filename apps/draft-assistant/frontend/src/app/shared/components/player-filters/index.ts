@@ -1,1 +1,1 @@
-export * from './player-filters.component';
+export * from "./player-filters.component";

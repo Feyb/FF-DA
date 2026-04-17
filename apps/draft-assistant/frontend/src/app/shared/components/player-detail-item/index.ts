@@ -1,1 +1,1 @@
-export { PlayerDetailItemComponent } from './player-detail-item.component';
+export { PlayerDetailItemComponent } from "./player-detail-item.component";

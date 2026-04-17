@@ -9,7 +9,7 @@ export interface League {
   league_id: string;
   name: string;
   season: string;
-  status: 'pre_draft' | 'drafting' | 'in_season' | 'complete' | string;
+  status: "pre_draft" | "drafting" | "in_season" | "complete" | string;
   total_rosters: number;
   sport: string;
   settings: Record<string, unknown>;
@@ -33,7 +33,7 @@ export interface Player {
   first_name: string;
   last_name: string;
   full_name: string;
-  position: 'QB' | 'RB' | 'WR' | 'TE' | 'K' | 'DEF' | string;
+  position: "QB" | "RB" | "WR" | "TE" | "K" | "DEF" | string;
   team: string | null;
   age: number | null;
   years_exp: number | null;
@@ -77,7 +77,7 @@ export interface SleeperDraftPick {
 export interface DraftPlayerRow {
   playerId: string;
   fullName: string;
-  position: 'QB' | 'RB' | 'WR' | 'TE';
+  position: "QB" | "RB" | "WR" | "TE";
   team: string | null;
   age: number | null;
   rookie: boolean;
@@ -115,7 +115,7 @@ export interface DraftPlayerRow {
 export interface DraftRecommendation {
   playerId: string;
   fullName: string;
-  position: 'QB' | 'RB' | 'WR' | 'TE';
+  position: "QB" | "RB" | "WR" | "TE";
   team: string | null;
   ktcValue: number | null;
   ktcRank: number | null;
@@ -126,11 +126,11 @@ export interface DraftRecommendation {
   averageRank: number | null;
   combinedTier: number | null;
   adpDelta: number | null;
-  availabilityRisk: 'safe' | 'at-risk' | 'gone';
+  availabilityRisk: "safe" | "at-risk" | "gone";
   boostedScore: number;
 }
 
-export type TierLabel = 'S' | 'A' | 'B' | 'C' | 'D';
+export type TierLabel = "S" | "A" | "B" | "C" | "D";
 
 export interface PlayerTier {
   player_id: string;
@@ -219,7 +219,7 @@ export interface TeamViewRating {
     TE: number;
   };
   playerCount: number;
-  source: 'ktc' | 'sleeper-fallback';
+  source: "ktc" | "sleeper-fallback";
   ktcUnavailable: boolean;
 }
 
@@ -269,7 +269,7 @@ export interface FantasyProsPlayer {
   adpRank: number;
 }
 
-export type TierSource = 'average' | 'flock' | 'ktc';
+export type TierSource = "average" | "flock" | "ktc";
 
 export interface LeagueStandingEntry {
   rosterId: number;

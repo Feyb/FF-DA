@@ -1,1 +1,1 @@
-export * from './tier-legend.component';
+export * from "./tier-legend.component";

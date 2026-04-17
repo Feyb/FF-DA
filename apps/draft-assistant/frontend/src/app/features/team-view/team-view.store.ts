@@ -1,10 +1,10 @@
-import { effect, inject } from '@angular/core';
-import { patchState, signalStore, withHooks, withMethods, withState } from '@ngrx/signals';
-import { forkJoin, firstValueFrom } from 'rxjs';
-import { FantasyProsAdpService } from '../../core/adapters/fantasypros/fantasypros-adp.service';
-import { FlockRatingService } from '../../core/adapters/flock/flock-rating.service';
-import { KtcRatingService } from '../../core/adapters/ktc/ktc-rating.service';
-import { SleeperService } from '../../core/adapters/sleeper/sleeper.service';
+import { effect, inject } from "@angular/core";
+import { patchState, signalStore, withHooks, withMethods, withState } from "@ngrx/signals";
+import { forkJoin, firstValueFrom } from "rxjs";
+import { FantasyProsAdpService } from "../../core/adapters/fantasypros/fantasypros-adp.service";
+import { FlockRatingService } from "../../core/adapters/flock/flock-rating.service";
+import { KtcRatingService } from "../../core/adapters/ktc/ktc-rating.service";
+import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import {
   DraftPlayerRow,
   DraftPick,
@@ -17,12 +17,12 @@ import {
   TeamViewRating,
   TeamViewRosterOption,
   TeamViewRosterSections,
-} from '../../core/models';
-import { PlayerNormalizationService } from '../../core/services/player-normalization.service';
-import { AppStore } from '../../core/state/app.store';
-import { toErrorMessage } from '../../core/utils/error.util';
-import { toMapById } from '../../core/utils/array-mapping.util';
-import { buildFullName } from '../../core/utils/player-name.util';
+} from "../../core/models";
+import { PlayerNormalizationService } from "../../core/services/player-normalization.service";
+import { AppStore } from "../../core/state/app.store";
+import { toErrorMessage } from "../../core/utils/error.util";
+import { toMapById } from "../../core/utils/array-mapping.util";
+import { buildFullName } from "../../core/utils/player-name.util";
 
 interface TeamViewState {
   loading: boolean;
@@ -68,7 +68,7 @@ export const TeamViewStore = signalStore(
       let rostersCache: LeagueRoster[] = [];
       let usersByIdCache: Record<string, LeagueUser> = {};
       let playersByIdCache: Record<string, SleeperCatalogPlayer> = {};
-      let seasonCache = '';
+      let seasonCache = "";
       let ktcLookupCache: Map<string, KtcPlayer> = new Map();
       let normalizedPlayersByIdCache: Record<string, DraftPlayerRow> = {};
 
@@ -99,11 +99,11 @@ export const TeamViewStore = signalStore(
         playerId: string,
         sleeperPlayer: SleeperCatalogPlayer | undefined,
       ): TeamViewPlayer => {
-        const firstName = sleeperPlayer?.first_name ?? '';
-        const lastName = sleeperPlayer?.last_name ?? '';
+        const firstName = sleeperPlayer?.first_name ?? "";
+        const lastName = sleeperPlayer?.last_name ?? "";
         const fullName =
           sleeperPlayer?.full_name?.trim() || buildFullName(firstName, lastName) || playerId;
-        const position = sleeperPlayer?.position ?? 'UNKNOWN';
+        const position = sleeperPlayer?.position ?? "UNKNOWN";
         const age = sleeperPlayer?.age ?? null;
         const yearsExp = sleeperPlayer?.years_exp ?? null;
         const injuryStatus = sleeperPlayer?.injury_status ?? null;
@@ -173,7 +173,7 @@ export const TeamViewStore = signalStore(
         const selectedRoster = rostersCache.find((roster) => roster.roster_id === rosterId);
         if (!selectedRoster) {
           patchState(store, {
-            error: 'Selected roster is no longer available.',
+            error: "Selected roster is no longer available.",
             sections: emptySections(),
             rating: null,
             ratingWarning: null,
@@ -188,9 +188,7 @@ export const TeamViewStore = signalStore(
         const allPlayerIds = selectedRoster.players ?? [];
 
         const starters = sortByValueDesc(
-          Array.from(starterSet).map((playerId) =>
-            toPlayer(playerId, playersByIdCache[playerId]),
-          ),
+          Array.from(starterSet).map((playerId) => toPlayer(playerId, playersByIdCache[playerId])),
         );
 
         const ir = sortByValueDesc(
@@ -221,7 +219,7 @@ export const TeamViewStore = signalStore(
           selectedRosterId: rosterId,
           rating,
           ratingWarning: rating.ktcUnavailable
-            ? 'KTC values are currently unavailable. Showing Sleeper-only fallback scoring.'
+            ? "KTC values are currently unavailable. Showing Sleeper-only fallback scoring."
             : null,
           loading: false,
           error: null,
@@ -232,7 +230,7 @@ export const TeamViewStore = signalStore(
         rostersCache = [];
         usersByIdCache = {};
         playersByIdCache = {};
-        seasonCache = '';
+        seasonCache = "";
         ktcLookupCache = new Map();
         normalizedPlayersByIdCache = {};
         patchState(store, {
@@ -260,22 +258,25 @@ export const TeamViewStore = signalStore(
         });
 
         try {
-          const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes('SUPER_FLEX');
-          const [rosters, users, playersById, ktcPlayers, flockPlayers, fantasyProsPlayers] = await firstValueFrom(
-            forkJoin([
-              sleeperService.getLeagueRosters(leagueId),
-              sleeperService.getLeagueUsers(leagueId),
-              sleeperService.getAllPlayers(),
-              ratingService.fetchPlayers(isSuperflex),
-              flockService.fetchPlayers(isSuperflex),
-              isSuperflex
-                ? fantasyProsService.getSuperflexADPRankings()
-                : fantasyProsService.get1QBADPRankings(),
-            ]),
+          const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes(
+            "SUPER_FLEX",
           );
+          const [rosters, users, playersById, ktcPlayers, flockPlayers, fantasyProsPlayers] =
+            await firstValueFrom(
+              forkJoin([
+                sleeperService.getLeagueRosters(leagueId),
+                sleeperService.getLeagueUsers(leagueId),
+                sleeperService.getAllPlayers(),
+                ratingService.fetchPlayers(isSuperflex),
+                flockService.fetchPlayers(isSuperflex),
+                isSuperflex
+                  ? fantasyProsService.getSuperflexADPRankings()
+                  : fantasyProsService.get1QBADPRankings(),
+              ]),
+            );
 
           rostersCache = rosters;
-          usersByIdCache = toMapById(users, 'user_id');
+          usersByIdCache = toMapById(users, "user_id");
           playersByIdCache = playersById;
           ktcLookupCache = ratingService.buildNameLookup(ktcPlayers);
           seasonCache = season;
@@ -287,7 +288,7 @@ export const TeamViewStore = signalStore(
             ktcLookupCache,
             flockLookup,
             Number(season),
-            ['QB', 'RB', 'WR', 'TE'],
+            ["QB", "RB", "WR", "TE"],
             fantasyProsLookup,
           );
           normalizedPlayersByIdCache = Object.fromEntries(
@@ -311,8 +312,7 @@ export const TeamViewStore = signalStore(
           if (!matchedRoster) {
             patchState(store, {
               loading: false,
-              error:
-                'No roster matched the selected user. Please select a roster manually.',
+              error: "No roster matched the selected user. Please select a roster manually.",
             });
             return;
           }
@@ -321,7 +321,7 @@ export const TeamViewStore = signalStore(
         } catch (error: unknown) {
           patchState(store, {
             loading: false,
-            error: toErrorMessage(error, 'Failed to load team view data from Sleeper.'),
+            error: toErrorMessage(error, "Failed to load team view data from Sleeper."),
           });
         }
       };

@@ -7,28 +7,36 @@
   background: rgba(239, 68, 68, 0.16) !important;
   border-color: rgba(239, 68, 68, 0.28) !important;
 
-  .cell-label { color: rgba(185, 28, 28, 0.55); }
+  .cell-label {
+    color: rgba(185, 28, 28, 0.55);
+  }
 }
 
 .pos-rb {
   background: rgba(34, 197, 94, 0.16) !important;
   border-color: rgba(34, 197, 94, 0.28) !important;
 
-  .cell-label { color: rgba(21, 128, 61, 0.55); }
+  .cell-label {
+    color: rgba(21, 128, 61, 0.55);
+  }
 }
 
 .pos-wr {
   background: rgba(59, 130, 246, 0.16) !important;
   border-color: rgba(59, 130, 246, 0.28) !important;
 
-  .cell-label { color: rgba(29, 78, 216, 0.55); }
+  .cell-label {
+    color: rgba(29, 78, 216, 0.55);
+  }
 }
 
 .pos-te {
   background: rgba(249, 115, 22, 0.16) !important;
   border-color: rgba(249, 115, 22, 0.28) !important;
 
-  .cell-label { color: rgba(194, 65, 12, 0.55); }
+  .cell-label {
+    color: rgba(194, 65, 12, 0.55);
+  }
 }
 
 // ── Dark-mode overrides ────────────────────────────────────────────────────────
@@ -37,27 +45,35 @@ html.dark {
     background: rgba(239, 68, 68, 0.22) !important;
     border-color: rgba(239, 68, 68, 0.45) !important;
 
-    .cell-label { color: rgba(252, 165, 165, 0.7); }
+    .cell-label {
+      color: rgba(252, 165, 165, 0.7);
+    }
   }
 
   .pos-rb {
     background: rgba(34, 197, 94, 0.22) !important;
     border-color: rgba(34, 197, 94, 0.45) !important;
 
-    .cell-label { color: rgba(134, 239, 172, 0.7); }
+    .cell-label {
+      color: rgba(134, 239, 172, 0.7);
+    }
   }
 
   .pos-wr {
     background: rgba(59, 130, 246, 0.22) !important;
     border-color: rgba(59, 130, 246, 0.45) !important;
 
-    .cell-label { color: rgba(147, 197, 253, 0.7); }
+    .cell-label {
+      color: rgba(147, 197, 253, 0.7);
+    }
   }
 
   .pos-te {
     background: rgba(249, 115, 22, 0.22) !important;
     border-color: rgba(249, 115, 22, 0.45) !important;
 
-    .cell-label { color: rgba(253, 186, 116, 0.7); }
+    .cell-label {
+      color: rgba(253, 186, 116, 0.7);
+    }
   }
 }

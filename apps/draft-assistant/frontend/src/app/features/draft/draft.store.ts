@@ -1,9 +1,16 @@
-import { computed, effect, inject } from '@angular/core';
-import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
-import { forkJoin, firstValueFrom } from 'rxjs';
-import { KtcRatingService } from '../../core/adapters/ktc/ktc-rating.service';
-import { isSleeperRookieDraft } from '../../core/adapters/sleeper/sleeper-draft.util';
-import { SleeperService } from '../../core/adapters/sleeper/sleeper.service';
+import { computed, effect, inject } from "@angular/core";
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withHooks,
+  withMethods,
+  withState,
+} from "@ngrx/signals";
+import { forkJoin, firstValueFrom } from "rxjs";
+import { KtcRatingService } from "../../core/adapters/ktc/ktc-rating.service";
+import { isSleeperRookieDraft } from "../../core/adapters/sleeper/sleeper-draft.util";
+import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import {
   DraftPlayerRow,
   DraftRecommendation,
@@ -14,31 +21,27 @@ import {
   SleeperCatalogPlayer,
   SleeperDraft,
   SleeperDraftPick,
-} from '../../core/models';
-import { FlockRatingService } from '../../core/adapters/flock/flock-rating.service';
-import { FantasyProsAdpService } from '../../core/adapters/fantasypros/fantasypros-adp.service';
-import { FlockPlayer, TierSource } from '../../core/models';
-import { mapRosterAvatarIds } from './draft-board-grid/draft-board-grid.util';
-import { AppStore } from '../../core/state/app.store';
-import { StorageService } from '../../core/services/storage.service';
-import { PlayerNormalizationService } from '../../core/services/player-normalization.service';
-import { toErrorMessage } from '../../core/utils/error.util';
-import { togglePositionFilter } from '../../core/utils/position-filter.util';
-import { toMapById } from '../../core/utils/array-mapping.util';
-import {
-  DraftValueSource,
-  resolveDraftTier,
-  resolveDraftValue,
-} from './draft-ranking.util';
+} from "../../core/models";
+import { FlockRatingService } from "../../core/adapters/flock/flock-rating.service";
+import { FantasyProsAdpService } from "../../core/adapters/fantasypros/fantasypros-adp.service";
+import { FlockPlayer, TierSource } from "../../core/models";
+import { mapRosterAvatarIds } from "./draft-board-grid/draft-board-grid.util";
+import { AppStore } from "../../core/state/app.store";
+import { StorageService } from "../../core/services/storage.service";
+import { PlayerNormalizationService } from "../../core/services/player-normalization.service";
+import { toErrorMessage } from "../../core/utils/error.util";
+import { togglePositionFilter } from "../../core/utils/position-filter.util";
+import { toMapById } from "../../core/utils/array-mapping.util";
+import { DraftValueSource, resolveDraftTier, resolveDraftValue } from "./draft-ranking.util";
 import {
   DraftSortSource,
   positionalRankForSortSource,
   rankForSortSource,
   sortBySortSource,
-} from './draft-sort.util';
+} from "./draft-sort.util";
 
-export type DraftPositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
-export type DraftSourceMode = 'league' | 'direct';
+export type DraftPositionFilter = "QB" | "RB" | "WR" | "TE";
+export type DraftSourceMode = "league" | "direct";
 export type { DraftSortSource, DraftValueSource };
 
 export { positionalRankForSortSource, rankForSortSource };
@@ -46,7 +49,7 @@ export { positionalRankForSortSource, rankForSortSource };
 /** A DraftPlayerRow enriched with runtime draft-session state for UI display. */
 export interface DraftPlayerDisplayRow extends DraftPlayerRow {
   isDrafted: boolean;
-  availabilityRisk: 'safe' | 'at-risk' | 'gone';
+  availabilityRisk: "safe" | "at-risk" | "gone";
   isGoingSoon: boolean;
 }
 
@@ -55,7 +58,7 @@ export interface BestAvailableEntry {
   position: DraftPositionFilter;
   player: DraftPlayerRow | null;
   lowestAvailableTier: number | null;
-  availabilityRisk: 'safe' | 'at-risk' | 'gone';
+  availabilityRisk: "safe" | "at-risk" | "gone";
 }
 
 /** Tier drop alert (REQ-TD-01 to REQ-TD-07). */
@@ -109,15 +112,11 @@ interface DraftState {
   tierDropAlerts: TierDropAlert[];
 }
 
-const DEFAULT_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
-const BEST_AVAILABLE_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
+const DEFAULT_POSITIONS: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
+const BEST_AVAILABLE_POSITIONS: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
 
 /** Compute how many picks until the user's turn (0 = user's pick now). */
-function calcPicksUntilMyTurn(
-  currentPickNumber: number,
-  userSlot: number,
-  teams: number,
-): number {
+function calcPicksUntilMyTurn(currentPickNumber: number, userSlot: number, teams: number): number {
   const currentRound = Math.floor((currentPickNumber - 1) / teams);
   const pickInRound = ((currentPickNumber - 1) % teams) + 1;
   const userPickInRound = currentRound % 2 === 0 ? userSlot : teams - userSlot + 1;
@@ -126,7 +125,7 @@ function calcPicksUntilMyTurn(
   }
   const nextRound = currentRound + 1;
   const nextRoundUserPick = nextRound % 2 === 0 ? userSlot : teams - userSlot + 1;
-  return (teams - pickInRound) + nextRoundUserPick;
+  return teams - pickInRound + nextRoundUserPick;
 }
 
 /** Count configured and filled roster slots from picks. */
@@ -138,7 +137,7 @@ function buildRosterFillInfo(
 ): { configuredByPos: Record<string, number>; filledByPos: Record<string, number> } {
   const configuredByPos: Record<string, number> = {};
   for (const slot of rosterPositions) {
-    if (slot === 'BN' || slot === 'IR') continue;
+    if (slot === "BN" || slot === "IR") continue;
     configuredByPos[slot] = (configuredByPos[slot] ?? 0) + 1;
   }
   const playerPositionById = new Map(rows.map((row) => [row.playerId, row.position] as const));
@@ -155,7 +154,7 @@ function buildRosterFillInfo(
 
 /** Generate a unique alert ID without module-level mutable state. */
 function generateAlertId(position: string, tier: number): string {
-  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
     return `tier-drop-${crypto.randomUUID()}`;
   }
   return `tier-drop-${Date.now()}-${Math.random().toString(36).slice(2)}-${position}-${tier}`;
@@ -180,15 +179,17 @@ export const DraftStore = signalStore(
     rookiesOnly: false,
     starredPlayerIds: [],
     lastUpdatedAt: null,
-    tierSource: 'ktc',
-    valueSource: 'ktcValue',
-    sortSource: 'combinedTier' as DraftSortSource,
-    searchQuery: '',
+    tierSource: "ktc",
+    valueSource: "ktcValue",
+    sortSource: "combinedTier" as DraftSortSource,
+    searchQuery: "",
     neededPositionsOnly: false,
     tierDropAlerts: [],
   }),
   withComputed((store, appStore = inject(AppStore)) => ({
-    selectedDraft: computed(() => store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null),
+    selectedDraft: computed(
+      () => store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null,
+    ),
     pickedPlayerIds: computed(() => {
       const ids = new Set<string>();
       for (const pick of store.picks()) {
@@ -208,9 +209,9 @@ export const DraftStore = signalStore(
       const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
       if (!userId || !draft) return null;
       const userSlot = draft.draft_order?.[userId];
-      if (!userSlot || typeof userSlot !== 'number') return null;
+      if (!userSlot || typeof userSlot !== "number") return null;
       const rosterId = draft.slot_to_roster_id?.[String(userSlot)];
-      return typeof rosterId === 'number' ? rosterId : null;
+      return typeof rosterId === "number" ? rosterId : null;
     }),
 
     /**
@@ -221,9 +222,9 @@ export const DraftStore = signalStore(
       const draft = store.drafts().find((d) => d.draft_id === store.selectedDraftId()) ?? null;
       if (!userId || !draft) return null;
       const userSlot = draft.draft_order?.[userId];
-      if (!userSlot || typeof userSlot !== 'number' || userSlot <= 0) return null;
-      const teams = draft.settings?.['teams'];
-      if (!teams || typeof teams !== 'number' || teams <= 0) return null;
+      if (!userSlot || typeof userSlot !== "number" || userSlot <= 0) return null;
+      const teams = draft.settings?.["teams"];
+      if (!teams || typeof teams !== "number" || teams <= 0) return null;
 
       const currentPickNumber = store.picks().length + 1;
       const picksUntil = calcPicksUntilMyTurn(currentPickNumber, userSlot, teams);
@@ -246,19 +247,19 @@ export const DraftStore = signalStore(
         store.rows(),
       );
 
-      const positionOrder = ['QB', 'RB', 'WR', 'TE', 'FLEX', 'SUPER_FLEX', 'K', 'DEF'];
+      const positionOrder = ["QB", "RB", "WR", "TE", "FLEX", "SUPER_FLEX", "K", "DEF"];
 
-      const configuredQb = configuredByPos['QB'] ?? 0;
-      const configuredRb = configuredByPos['RB'] ?? 0;
-      const configuredWr = configuredByPos['WR'] ?? 0;
-      const configuredTe = configuredByPos['TE'] ?? 0;
-      const configuredFlex = configuredByPos['FLEX'] ?? 0;
-      const configuredSuperFlex = configuredByPos['SUPER_FLEX'] ?? 0;
+      const configuredQb = configuredByPos["QB"] ?? 0;
+      const configuredRb = configuredByPos["RB"] ?? 0;
+      const configuredWr = configuredByPos["WR"] ?? 0;
+      const configuredTe = configuredByPos["TE"] ?? 0;
+      const configuredFlex = configuredByPos["FLEX"] ?? 0;
+      const configuredSuperFlex = configuredByPos["SUPER_FLEX"] ?? 0;
 
-      const surplusQb = Math.max(0, (filledByPos['QB'] ?? 0) - configuredQb);
-      const surplusRb = Math.max(0, (filledByPos['RB'] ?? 0) - configuredRb);
-      const surplusWr = Math.max(0, (filledByPos['WR'] ?? 0) - configuredWr);
-      const surplusTe = Math.max(0, (filledByPos['TE'] ?? 0) - configuredTe);
+      const surplusQb = Math.max(0, (filledByPos["QB"] ?? 0) - configuredQb);
+      const surplusRb = Math.max(0, (filledByPos["RB"] ?? 0) - configuredRb);
+      const surplusWr = Math.max(0, (filledByPos["WR"] ?? 0) - configuredWr);
+      const surplusTe = Math.max(0, (filledByPos["TE"] ?? 0) - configuredTe);
 
       const flexEligibleSurplus = surplusRb + surplusWr + surplusTe;
       const flexFilled = Math.min(configuredFlex, flexEligibleSurplus);
@@ -291,7 +292,8 @@ export const DraftStore = signalStore(
       const sortSrc = store.sortSource();
       const selected = new Set(store.selectedPositions());
       const picked = new Set(
-        store.picks()
+        store
+          .picks()
           .filter((pick) => !!pick.player_id)
           .map((pick) => pick.player_id),
       );
@@ -309,14 +311,14 @@ export const DraftStore = signalStore(
           store.userRosterId(),
           store.rows(),
         );
-        const flexEligiblePositions: DraftPositionFilter[] = ['RB', 'WR', 'TE'];
-        const superFlexEligiblePositions: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
+        const flexEligiblePositions: DraftPositionFilter[] = ["RB", "WR", "TE"];
+        const superFlexEligiblePositions: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
 
-        for (const pos of ['QB', 'RB', 'WR', 'TE'] as const) {
+        for (const pos of ["QB", "RB", "WR", "TE"] as const) {
           const configured = configuredByPos[pos] ?? 0;
-          const flex = flexEligiblePositions.includes(pos) ? (configuredByPos['FLEX'] ?? 0) : 0;
+          const flex = flexEligiblePositions.includes(pos) ? (configuredByPos["FLEX"] ?? 0) : 0;
           const superFlex = superFlexEligiblePositions.includes(pos)
-            ? (configuredByPos['SUPER_FLEX'] ?? 0)
+            ? (configuredByPos["SUPER_FLEX"] ?? 0)
             : 0;
           const total = configured + flex + superFlex;
           const filled = filledByPos[pos] ?? 0;
@@ -341,12 +343,12 @@ export const DraftStore = signalStore(
         .map((row) => {
           const isDrafted = picked.has(row.playerId);
           const adpRef = row.averageRank;
-          let availabilityRisk: 'safe' | 'at-risk' | 'gone' = 'safe';
+          let availabilityRisk: "safe" | "at-risk" | "gone" = "safe";
           let isGoingSoon = false;
           if (isDrafted) {
-            availabilityRisk = 'gone';
+            availabilityRisk = "gone";
           } else if (atRiskThreshold !== null && adpRef !== null && adpRef <= atRiskThreshold) {
-            availabilityRisk = 'at-risk';
+            availabilityRisk = "at-risk";
           }
           if (!isDrafted && adpRef !== null && adpRef <= goingSoonThreshold) {
             isGoingSoon = true;
@@ -360,12 +362,14 @@ export const DraftStore = signalStore(
       const valueSrc = store.valueSource();
       const selected = new Set(store.selectedPositions());
       const picked = new Set(
-        store.picks()
+        store
+          .picks()
           .filter((pick) => !!pick.player_id)
           .map((pick) => pick.player_id),
       );
 
-      return store.rows()
+      return store
+        .rows()
         .filter((row) => selected.has(row.position))
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
@@ -374,12 +378,14 @@ export const DraftStore = signalStore(
           const bTier = resolveDraftTier(b, tierSrc);
           if (aTier !== bTier) return aTier - bTier;
 
-          const aRank = valueSrc === 'ktcValue'
-            ? (a.ktcRank ?? Number.MAX_SAFE_INTEGER)
-            : (a.averageRank ?? a.ktcRank ?? Number.MAX_SAFE_INTEGER);
-          const bRank = valueSrc === 'ktcValue'
-            ? (b.ktcRank ?? Number.MAX_SAFE_INTEGER)
-            : (b.averageRank ?? b.ktcRank ?? Number.MAX_SAFE_INTEGER);
+          const aRank =
+            valueSrc === "ktcValue"
+              ? (a.ktcRank ?? Number.MAX_SAFE_INTEGER)
+              : (a.averageRank ?? a.ktcRank ?? Number.MAX_SAFE_INTEGER);
+          const bRank =
+            valueSrc === "ktcValue"
+              ? (b.ktcRank ?? Number.MAX_SAFE_INTEGER)
+              : (b.averageRank ?? b.ktcRank ?? Number.MAX_SAFE_INTEGER);
           if (aRank !== bRank) return aRank - bRank;
           return a.sleeperRank - b.sleeperRank;
         });
@@ -390,7 +396,8 @@ export const DraftStore = signalStore(
       const valueSrc = store.valueSource();
       const selected = new Set(store.selectedPositions());
       const picked = new Set(
-        store.picks()
+        store
+          .picks()
           .filter((pick) => !!pick.player_id)
           .map((pick) => pick.player_id),
       );
@@ -407,7 +414,8 @@ export const DraftStore = signalStore(
       const picksUntilMyTurn = userNextPick !== null ? userNextPick - currentPickNumber : 0;
       const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
 
-      const sortedRows = store.rows()
+      const sortedRows = store
+        .rows()
         .filter((row) => selected.has(row.position))
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
@@ -448,8 +456,8 @@ export const DraftStore = signalStore(
 
       return filtered.map<DraftRecommendation>((row) => {
         const adpRef = row.averageRank;
-        const availabilityRisk: 'safe' | 'at-risk' | 'gone' =
-          adpRef !== null && adpRef <= atRiskThreshold ? 'at-risk' : 'safe';
+        const availabilityRisk: "safe" | "at-risk" | "gone" =
+          adpRef !== null && adpRef <= atRiskThreshold ? "at-risk" : "safe";
         return {
           playerId: row.playerId,
           fullName: row.fullName,
@@ -474,12 +482,14 @@ export const DraftStore = signalStore(
       const stars = new Set(store.starredPlayerIds());
       const selected = new Set(store.selectedPositions());
       const picked = new Set(
-        store.picks()
+        store
+          .picks()
           .filter((pick) => !!pick.player_id)
           .map((pick) => pick.player_id),
       );
 
-      return store.rows()
+      return store
+        .rows()
         .filter((row) => selected.has(row.position))
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
@@ -499,7 +509,8 @@ export const DraftStore = signalStore(
       const rosterId = store.userRosterId();
       if (rosterId === null) return [];
 
-      return store.picks()
+      return store
+        .picks()
         .filter((pick) => pick.roster_id === rosterId && !!pick.player_id)
         .sort((a, b) => a.pick_no - b.pick_no);
     }),
@@ -512,7 +523,8 @@ export const DraftStore = signalStore(
       if (rosterId === null) return [];
 
       const myPickIds = new Set(
-        store.picks()
+        store
+          .picks()
           .filter((pick) => pick.roster_id === rosterId && !!pick.player_id)
           .map((pick) => pick.player_id),
       );
@@ -521,7 +533,9 @@ export const DraftStore = signalStore(
     }),
 
     pickBoard: computed(() => [...store.picks()].sort((a, b) => a.pick_no - b.pick_no)),
-    recentPicks: computed(() => [...store.picks()].sort((a, b) => b.pick_no - a.pick_no).slice(0, 10)),
+    recentPicks: computed(() =>
+      [...store.picks()].sort((a, b) => b.pick_no - a.pick_no).slice(0, 10),
+    ),
     nextPickNumber: computed(() => store.picks().length + 1),
 
     /**
@@ -532,7 +546,8 @@ export const DraftStore = signalStore(
      */
     bestAvailableByPosition: computed((): BestAvailableEntry[] => {
       const picked = new Set(
-        store.picks()
+        store
+          .picks()
           .filter((pick) => !!pick.player_id)
           .map((pick) => pick.player_id),
       );
@@ -564,7 +579,11 @@ export const DraftStore = signalStore(
       };
 
       for (const row of store.rows()) {
-        if (picked.has(row.playerId) || !positionsToShowSet.has(row.position) || (rookiesOnly && !row.rookie)) {
+        if (
+          picked.has(row.playerId) ||
+          !positionsToShowSet.has(row.position) ||
+          (rookiesOnly && !row.rookie)
+        ) {
           continue;
         }
 
@@ -595,12 +614,14 @@ export const DraftStore = signalStore(
 
       // Use FLEX-aware remaining calculation for need priority (RB/WR/TE eligible for FLEX,
       // QB/RB/WR/TE eligible for SUPER_FLEX).
-      const flexEligiblePositions = new Set(['RB', 'WR', 'TE']);
-      const superFlexEligiblePositions = new Set(['QB', 'RB', 'WR', 'TE']);
+      const flexEligiblePositions = new Set(["RB", "WR", "TE"]);
+      const superFlexEligiblePositions = new Set(["QB", "RB", "WR", "TE"]);
       const remainingByPos = (pos: string): number => {
         const configured = configuredByPos[pos] ?? 0;
-        const flex = flexEligiblePositions.has(pos) ? (configuredByPos['FLEX'] ?? 0) : 0;
-        const superFlex = superFlexEligiblePositions.has(pos) ? (configuredByPos['SUPER_FLEX'] ?? 0) : 0;
+        const flex = flexEligiblePositions.has(pos) ? (configuredByPos["FLEX"] ?? 0) : 0;
+        const superFlex = superFlexEligiblePositions.has(pos)
+          ? (configuredByPos["SUPER_FLEX"] ?? 0)
+          : 0;
         const filled = filledByPos[pos] ?? 0;
         return Math.max(0, configured + flex + superFlex - filled);
       };
@@ -612,8 +633,10 @@ export const DraftStore = signalStore(
       return orderedPositions.map((pos) => {
         const player = bestByPos.get(pos) ?? null;
         const adpRef = player?.averageRank ?? null;
-        const availabilityRisk: 'safe' | 'at-risk' | 'gone' =
-          atRiskThreshold !== null && adpRef !== null && adpRef <= atRiskThreshold ? 'at-risk' : 'safe';
+        const availabilityRisk: "safe" | "at-risk" | "gone" =
+          atRiskThreshold !== null && adpRef !== null && adpRef <= atRiskThreshold
+            ? "at-risk"
+            : "safe";
         return {
           position: pos,
           player,
@@ -623,582 +646,659 @@ export const DraftStore = signalStore(
       });
     }),
   })),
-  withMethods((store, appStore = inject(AppStore), sleeper = inject(SleeperService), ktc = inject(KtcRatingService), flock = inject(FlockRatingService), fpAdp = inject(FantasyProsAdpService), storage = inject(StorageService), playerNorm = inject(PlayerNormalizationService)) => {
-    let pollHandle: ReturnType<typeof setInterval> | null = null;
-    let refreshInFlight = false;
+  withMethods(
+    (
+      store,
+      appStore = inject(AppStore),
+      sleeper = inject(SleeperService),
+      ktc = inject(KtcRatingService),
+      flock = inject(FlockRatingService),
+      fpAdp = inject(FantasyProsAdpService),
+      storage = inject(StorageService),
+      playerNorm = inject(PlayerNormalizationService),
+    ) => {
+      let pollHandle: ReturnType<typeof setInterval> | null = null;
+      let refreshInFlight = false;
 
-    const selectedDraftStorageKey = (leagueId: string): string => `draftAssistant.selectedDraft.${leagueId}`;
-    const starStorageKey = (leagueId: string): string => `draftAssistant.draftStars.${leagueId}`;
-    const sortSourceStorageKey = (leagueId: string): string => `draftAssistant.sortSource.${leagueId}`;
-    const positionsStorageKey = (leagueId: string): string => `draftAssistant.positions.${leagueId}`;
+      const selectedDraftStorageKey = (leagueId: string): string =>
+        `draftAssistant.selectedDraft.${leagueId}`;
+      const starStorageKey = (leagueId: string): string => `draftAssistant.draftStars.${leagueId}`;
+      const sortSourceStorageKey = (leagueId: string): string =>
+        `draftAssistant.sortSource.${leagueId}`;
+      const positionsStorageKey = (leagueId: string): string =>
+        `draftAssistant.positions.${leagueId}`;
 
-    const stopPolling = (): void => {
-      if (pollHandle !== null) {
-        clearInterval(pollHandle);
-        pollHandle = null;
-      }
-    };
-
-    const getPollingInterval = (status: string | null): number | null => {
-      if (!status) {
-        return null;
-      }
-
-      const normalizedStatus = status.toLowerCase().trim();
-      if (normalizedStatus === 'drafting') {
-        return 1000;
-      }
-      if (normalizedStatus === 'pre_draft' || normalizedStatus === 'scheduled' || normalizedStatus === 'paused') {
-        return 5000;
-      }
-
-      return null;
-    };
-
-    const maybeStartPolling = (): void => {
-      const selectedDraftId = store.selectedDraftId();
-      const status = store.draftStatus();
-      const interval = getPollingInterval(status);
-
-      if (!selectedDraftId || interval === null) {
-        stopPolling();
-        return;
-      }
-
-      if (pollHandle !== null) {
-        return;
-      }
-
-      pollHandle = setInterval(() => {
-        void refreshDraft();
-      }, interval);
-    };
-
-    const mapRosterDisplayNames = (rosters: LeagueRoster[], users: LeagueUser[]): Record<string, string> => {
-      const usersById = toMapById(users, 'user_id');
-
-      return rosters.reduce<Record<string, string>>((acc, roster) => {
-        const ownerId = roster.owner_id ?? '';
-        const user = ownerId ? usersById[ownerId] : undefined;
-        acc[String(roster.roster_id)] = user?.display_name ?? `Roster ${roster.roster_id}`;
-        return acc;
-      }, {});
-    };
-
-    const mapRows = (
-      playersById: Record<string, SleeperCatalogPlayer>,
-      ktcLookup: Map<string, KtcPlayer>,
-      flockLookup: Map<string, FlockPlayer>,
-      currentSeason: number,
-      fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
-    ): DraftPlayerRow[] => playerNorm.buildPlayerRows(playersById, ktcLookup, flockLookup, currentSeason, undefined, fpAdpLookup);
-
-    const normalizePicks = (draft: SleeperDraft, picks: SleeperDraftPick[]): SleeperDraftPick[] => {
-      const slotMap = draft.slot_to_roster_id ?? {};
-
-      return picks
-        .filter((pick) => !!pick.player_id)
-        .map((pick) => {
-          const slot = pick.draft_slot ?? null;
-          const mappedRosterId = slot !== null ? slotMap[String(slot)] : undefined;
-          const rosterId = pick.roster_id ?? mappedRosterId ?? null;
-          return {
-            ...pick,
-            roster_id: rosterId,
-          };
-        })
-        .sort((a, b) => a.pick_no - b.pick_no);
-    };
-
-    const chooseDraftId = (leagueId: string, drafts: SleeperDraft[]): string | null => {
-      const savedDraftId = storage.getRawItem(selectedDraftStorageKey(leagueId));
-
-      if (savedDraftId && drafts.some((draft) => draft.draft_id === savedDraftId)) {
-        return savedDraftId;
-      }
-
-      const drafting = drafts.find((draft) => draft.status === 'drafting');
-      if (drafting) {
-        return drafting.draft_id;
-      }
-
-      const sorted = [...drafts].sort((a, b) => (b.start_time ?? 0) - (a.start_time ?? 0));
-      return sorted[0]?.draft_id ?? null;
-    };
-
-    const upsertDraft = (drafts: SleeperDraft[], draft: SleeperDraft): SleeperDraft[] => {
-      const hasDraft = drafts.some((existing) => existing.draft_id === draft.draft_id);
-      if (!hasDraft) {
-        return [draft, ...drafts];
-      }
-
-      return drafts.map((existing) =>
-        existing.draft_id === draft.draft_id ? draft : existing,
-      );
-    };
-
-    const loadStarredPlayerIds = (leagueId: string | null): string[] => {
-      if (!leagueId) {
-        return [];
-      }
-
-      const parsed = storage.getItem<string[]>(starStorageKey(leagueId));
-      return Array.isArray(parsed) ? parsed : [];
-    };
-
-    const loadSortSource = (leagueId: string | null): DraftSortSource => {
-      if (!leagueId) return 'combinedTier';
-      const saved = storage.getRawItem(sortSourceStorageKey(leagueId));
-      const valid: DraftSortSource[] = ['combinedTier', 'sleeperRank', 'ktcRank', 'flockRank', 'combinedPositionalTier', 'adpDelta', 'valueGap', 'fpAdpRank'];
-      return valid.includes(saved as DraftSortSource) ? (saved as DraftSortSource) : 'combinedTier';
-    };
-
-    const loadSavedPositions = (leagueId: string | null): DraftPositionFilter[] => {
-      if (!leagueId) return DEFAULT_POSITIONS;
-      const parsed = storage.getItem<DraftPositionFilter[]>(positionsStorageKey(leagueId));
-      if (!Array.isArray(parsed) || parsed.length === 0) return DEFAULT_POSITIONS;
-      const valid = new Set<string>(DEFAULT_POSITIONS);
-      const filtered = parsed.filter((p) => valid.has(p));
-      return filtered.length > 0 ? filtered : DEFAULT_POSITIONS;
-    };
-
-    const loadDraftContext = async (
-      draft: SleeperDraft,
-      fallbackLeagueId: string | null,
-    ): Promise<{
-      selectedLeagueId: string | null;
-      rosterDisplayNames: Record<string, string>;
-      rosterAvatarIds: Record<string, string | null>;
-      playerNameMap: Record<string, string>;
-      rows: DraftPlayerRow[];
-      starredPlayerIds: string[];
-    }> => {
-      const selectedLeague = appStore.selectedLeague();
-      const selectedLeagueId = draft.league_id || fallbackLeagueId;
-      const season = draft.season ?? selectedLeague?.season ?? String(new Date().getFullYear());
-      const isSuperflex =
-        selectedLeague?.league_id === selectedLeagueId
-          ? (selectedLeague.roster_positions ?? []).includes('SUPER_FLEX')
-          : false;
-
-      const [playersById, ktcPlayers, flockPlayers, flockRookies, fpAdpPlayers] = await firstValueFrom(
-        forkJoin([sleeper.getAllPlayers(), ktc.fetchPlayers(isSuperflex), flock.fetchPlayers(isSuperflex), flock.fetchRookies(isSuperflex), isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings()]),
-      );
-
-      const playerNameMap = Object.entries(playersById).reduce<Record<string, string>>((acc, [id, player]) => {
-        const firstName = player.first_name ?? '';
-        const lastName = player.last_name ?? '';
-        const fullName = player.full_name?.trim() || `${firstName} ${lastName}`.trim();
-        if (fullName.length > 0) {
-          acc[id] = fullName;
+      const stopPolling = (): void => {
+        if (pollHandle !== null) {
+          clearInterval(pollHandle);
+          pollHandle = null;
         }
-        return acc;
-      }, {});
+      };
 
-      const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-      const isRookieDraft = isSleeperRookieDraft(draft);
-      const flockLookup = isRookieDraft
-        ? new Map([...flock.buildNameLookup(flockRookies), ...flock.buildNameLookup(flockPlayers)])
-        : flock.buildNameLookup(flockPlayers);
-      const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
-      const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season), fpAdpLookup);
+      const getPollingInterval = (status: string | null): number | null => {
+        if (!status) {
+          return null;
+        }
 
-      let rosterDisplayNames: Record<string, string> = {};
-      let rosterAvatarIds: Record<string, string | null> = {};
-      if (selectedLeagueId) {
-        try {
-          const [rosters, users] = await firstValueFrom(
+        const normalizedStatus = status.toLowerCase().trim();
+        if (normalizedStatus === "drafting") {
+          return 1000;
+        }
+        if (
+          normalizedStatus === "pre_draft" ||
+          normalizedStatus === "scheduled" ||
+          normalizedStatus === "paused"
+        ) {
+          return 5000;
+        }
+
+        return null;
+      };
+
+      const maybeStartPolling = (): void => {
+        const selectedDraftId = store.selectedDraftId();
+        const status = store.draftStatus();
+        const interval = getPollingInterval(status);
+
+        if (!selectedDraftId || interval === null) {
+          stopPolling();
+          return;
+        }
+
+        if (pollHandle !== null) {
+          return;
+        }
+
+        pollHandle = setInterval(() => {
+          void refreshDraft();
+        }, interval);
+      };
+
+      const mapRosterDisplayNames = (
+        rosters: LeagueRoster[],
+        users: LeagueUser[],
+      ): Record<string, string> => {
+        const usersById = toMapById(users, "user_id");
+
+        return rosters.reduce<Record<string, string>>((acc, roster) => {
+          const ownerId = roster.owner_id ?? "";
+          const user = ownerId ? usersById[ownerId] : undefined;
+          acc[String(roster.roster_id)] = user?.display_name ?? `Roster ${roster.roster_id}`;
+          return acc;
+        }, {});
+      };
+
+      const mapRows = (
+        playersById: Record<string, SleeperCatalogPlayer>,
+        ktcLookup: Map<string, KtcPlayer>,
+        flockLookup: Map<string, FlockPlayer>,
+        currentSeason: number,
+        fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
+      ): DraftPlayerRow[] =>
+        playerNorm.buildPlayerRows(
+          playersById,
+          ktcLookup,
+          flockLookup,
+          currentSeason,
+          undefined,
+          fpAdpLookup,
+        );
+
+      const normalizePicks = (
+        draft: SleeperDraft,
+        picks: SleeperDraftPick[],
+      ): SleeperDraftPick[] => {
+        const slotMap = draft.slot_to_roster_id ?? {};
+
+        return picks
+          .filter((pick) => !!pick.player_id)
+          .map((pick) => {
+            const slot = pick.draft_slot ?? null;
+            const mappedRosterId = slot !== null ? slotMap[String(slot)] : undefined;
+            const rosterId = pick.roster_id ?? mappedRosterId ?? null;
+            return {
+              ...pick,
+              roster_id: rosterId,
+            };
+          })
+          .sort((a, b) => a.pick_no - b.pick_no);
+      };
+
+      const chooseDraftId = (leagueId: string, drafts: SleeperDraft[]): string | null => {
+        const savedDraftId = storage.getRawItem(selectedDraftStorageKey(leagueId));
+
+        if (savedDraftId && drafts.some((draft) => draft.draft_id === savedDraftId)) {
+          return savedDraftId;
+        }
+
+        const drafting = drafts.find((draft) => draft.status === "drafting");
+        if (drafting) {
+          return drafting.draft_id;
+        }
+
+        const sorted = [...drafts].sort((a, b) => (b.start_time ?? 0) - (a.start_time ?? 0));
+        return sorted[0]?.draft_id ?? null;
+      };
+
+      const upsertDraft = (drafts: SleeperDraft[], draft: SleeperDraft): SleeperDraft[] => {
+        const hasDraft = drafts.some((existing) => existing.draft_id === draft.draft_id);
+        if (!hasDraft) {
+          return [draft, ...drafts];
+        }
+
+        return drafts.map((existing) => (existing.draft_id === draft.draft_id ? draft : existing));
+      };
+
+      const loadStarredPlayerIds = (leagueId: string | null): string[] => {
+        if (!leagueId) {
+          return [];
+        }
+
+        const parsed = storage.getItem<string[]>(starStorageKey(leagueId));
+        return Array.isArray(parsed) ? parsed : [];
+      };
+
+      const loadSortSource = (leagueId: string | null): DraftSortSource => {
+        if (!leagueId) return "combinedTier";
+        const saved = storage.getRawItem(sortSourceStorageKey(leagueId));
+        const valid: DraftSortSource[] = [
+          "combinedTier",
+          "sleeperRank",
+          "ktcRank",
+          "flockRank",
+          "combinedPositionalTier",
+          "adpDelta",
+          "valueGap",
+          "fpAdpRank",
+        ];
+        return valid.includes(saved as DraftSortSource)
+          ? (saved as DraftSortSource)
+          : "combinedTier";
+      };
+
+      const loadSavedPositions = (leagueId: string | null): DraftPositionFilter[] => {
+        if (!leagueId) return DEFAULT_POSITIONS;
+        const parsed = storage.getItem<DraftPositionFilter[]>(positionsStorageKey(leagueId));
+        if (!Array.isArray(parsed) || parsed.length === 0) return DEFAULT_POSITIONS;
+        const valid = new Set<string>(DEFAULT_POSITIONS);
+        const filtered = parsed.filter((p) => valid.has(p));
+        return filtered.length > 0 ? filtered : DEFAULT_POSITIONS;
+      };
+
+      const loadDraftContext = async (
+        draft: SleeperDraft,
+        fallbackLeagueId: string | null,
+      ): Promise<{
+        selectedLeagueId: string | null;
+        rosterDisplayNames: Record<string, string>;
+        rosterAvatarIds: Record<string, string | null>;
+        playerNameMap: Record<string, string>;
+        rows: DraftPlayerRow[];
+        starredPlayerIds: string[];
+      }> => {
+        const selectedLeague = appStore.selectedLeague();
+        const selectedLeagueId = draft.league_id || fallbackLeagueId;
+        const season = draft.season ?? selectedLeague?.season ?? String(new Date().getFullYear());
+        const isSuperflex =
+          selectedLeague?.league_id === selectedLeagueId
+            ? (selectedLeague.roster_positions ?? []).includes("SUPER_FLEX")
+            : false;
+
+        const [playersById, ktcPlayers, flockPlayers, flockRookies, fpAdpPlayers] =
+          await firstValueFrom(
             forkJoin([
-              sleeper.getLeagueRosters(selectedLeagueId),
-              sleeper.getLeagueUsers(selectedLeagueId),
+              sleeper.getAllPlayers(),
+              ktc.fetchPlayers(isSuperflex),
+              flock.fetchPlayers(isSuperflex),
+              flock.fetchRookies(isSuperflex),
+              isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings(),
             ]),
           );
-          rosterDisplayNames = mapRosterDisplayNames(rosters, users);
-          rosterAvatarIds = mapRosterAvatarIds(rosters, users);
-        } catch {
-          rosterDisplayNames = {};
-          rosterAvatarIds = {};
-        }
-      }
 
-      return {
-        selectedLeagueId,
-        rosterDisplayNames,
-        rosterAvatarIds,
-        playerNameMap,
-        rows,
-        starredPlayerIds: loadStarredPlayerIds(selectedLeagueId),
-      };
-    };
-
-    /**
-     * Detect tier drops after new picks are received (REQ-TD-01 to REQ-TD-07).
-     * Returns alerts for each positional tier that lost its last undrafted player.
-     * Deduplicates by (position, droppedTier) to handle multiple picks in one poll.
-     */
-    const detectTierDrops = (
-      newPickedIds: Set<string>,
-      prevPickedIds: Set<string>,
-      rows: DraftPlayerRow[],
-    ): TierDropAlert[] => {
-      const newlyPickedIds = [...newPickedIds].filter((id) => !prevPickedIds.has(id));
-      if (newlyPickedIds.length === 0) return [];
-
-      // Group remaining undrafted rows by position+positionalTier
-      const undraftedByPosTier = new Map<string, DraftPlayerRow[]>();
-      for (const row of rows) {
-        if (newPickedIds.has(row.playerId)) continue;
-        const tier = row.combinedPositionalTier;
-        if (tier === null) continue;
-        const key = `${row.position}:${tier}`;
-        const existing = undraftedByPosTier.get(key) ?? [];
-        existing.push(row);
-        undraftedByPosTier.set(key, existing);
-      }
-
-      // Deduplicate: only one alert per (position, droppedTier) per refresh
-      const seen = new Set<string>();
-      const alerts: TierDropAlert[] = [];
-
-      for (const newlyPickedId of newlyPickedIds) {
-        const draftedRow = rows.find((r) => r.playerId === newlyPickedId);
-        if (!draftedRow) continue;
-        const tier = draftedRow.combinedPositionalTier;
-        if (tier === null) continue;
-        const key = `${draftedRow.position}:${tier}`;
-        if (seen.has(key)) continue;
-
-        const remaining = undraftedByPosTier.get(key) ?? [];
-
-        // If no undrafted players remain in this positional tier → tier drop
-        if (remaining.length === 0) {
-          seen.add(key);
-          // Find the next available tier for this position
-          const undraftedSamePosRows = rows
-            .filter((r) => r.position === draftedRow.position && !newPickedIds.has(r.playerId) && r.combinedPositionalTier !== null)
-            .sort((a, b) => (a.combinedPositionalTier ?? 99) - (b.combinedPositionalTier ?? 99));
-          const nextTier = undraftedSamePosRows[0]?.combinedPositionalTier ?? null;
-
-          alerts.push({
-            id: generateAlertId(draftedRow.position, tier),
-            position: draftedRow.position as DraftPositionFilter,
-            droppedTier: tier,
-            nextTier,
-            createdAt: Date.now(),
-          });
-        }
-      }
-
-      return alerts;
-    };
-
-    const refreshDraft = async (): Promise<void> => {
-      if (refreshInFlight) {
-        return;
-      }
-
-      const selectedDraftId = store.selectedDraftId();
-      if (!selectedDraftId) {
-        return;
-      }
-
-      refreshInFlight = true;
-      try {
-        const prevPickedIds = new Set(
-          store.picks()
-            .filter((pick) => !!pick.player_id)
-            .map((pick) => pick.player_id),
+        const playerNameMap = Object.entries(playersById).reduce<Record<string, string>>(
+          (acc, [id, player]) => {
+            const firstName = player.first_name ?? "";
+            const lastName = player.last_name ?? "";
+            const fullName = player.full_name?.trim() || `${firstName} ${lastName}`.trim();
+            if (fullName.length > 0) {
+              acc[id] = fullName;
+            }
+            return acc;
+          },
+          {},
         );
 
-        const [draft, picks] = await firstValueFrom(
-          forkJoin([sleeper.getDraft(selectedDraftId), sleeper.getDraftPicks(selectedDraftId)]),
-        );
-
-        const normalizedPicks = normalizePicks(draft, picks);
-        const newPickedIds = new Set(normalizedPicks.map((p) => p.player_id).filter((id): id is string => !!id));
-        const newAlerts = detectTierDrops(newPickedIds, prevPickedIds, store.rows());
-
-        patchState(store, {
-          draftStatus: draft.status ?? null,
-          drafts: upsertDraft(store.drafts(), draft),
-          picks: normalizedPicks,
-          staleData: false,
-          lastUpdatedAt: Date.now(),
-          error: null,
-          tierDropAlerts: [...store.tierDropAlerts(), ...newAlerts],
-        });
-      } catch {
-        patchState(store, {
-          staleData: true,
-          error: 'Failed to refresh draft state. Retrying automatically.',
-        });
-      } finally {
-        refreshInFlight = false;
-        maybeStartPolling();
-      }
-    };
-
-    const loadForLeague = async (leagueId: string, season: string): Promise<void> => {
-      patchState(store, {
-        loading: true,
-        error: null,
-        staleData: false,
-        selectedLeagueId: leagueId,
-        picks: [],
-      });
-
-      try {
-        const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes('SUPER_FLEX');
-        const [rosters, users, playersById, ktcPlayers, flockPlayers, flockRookies, drafts, fpAdpPlayers] = await firstValueFrom(
-          forkJoin([
-            sleeper.getLeagueRosters(leagueId),
-            sleeper.getLeagueUsers(leagueId),
-            sleeper.getAllPlayers(),
-            ktc.fetchPlayers(isSuperflex),
-            flock.fetchPlayers(isSuperflex),
-            flock.fetchRookies(isSuperflex),
-            sleeper.getLeagueDrafts(leagueId),
-            isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings(),
-          ]),
-        );
-
-        const rosterDisplayNames = mapRosterDisplayNames(rosters, users);
-        const rosterAvatarIds = mapRosterAvatarIds(rosters, users);
         const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-        const selectedDraftId = chooseDraftId(leagueId, drafts);
-
-        let selectedDraft: SleeperDraft | null = null;
-        let picks: SleeperDraftPick[] = [];
-        let nextDrafts = drafts;
-        if (selectedDraftId) {
-          const [draftDetail, draftPicks] = await firstValueFrom(
-            forkJoin([sleeper.getDraft(selectedDraftId), sleeper.getDraftPicks(selectedDraftId)]),
-          );
-          selectedDraft = draftDetail;
-          nextDrafts = upsertDraft(drafts, draftDetail);
-          picks = normalizePicks(draftDetail, draftPicks);
-        }
-
-        const isRookieDraft = selectedDraft ? isSleeperRookieDraft(selectedDraft) : false;
+        const isRookieDraft = isSleeperRookieDraft(draft);
         const flockLookup = isRookieDraft
-          ? new Map([...flock.buildNameLookup(flockRookies), ...flock.buildNameLookup(flockPlayers)])
+          ? new Map([
+              ...flock.buildNameLookup(flockRookies),
+              ...flock.buildNameLookup(flockPlayers),
+            ])
           : flock.buildNameLookup(flockPlayers);
         const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
         const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season), fpAdpLookup);
 
-        const starredPlayerIds = (() => {
-          const parsed = storage.getItem<string[]>(starStorageKey(leagueId));
-          return Array.isArray(parsed) ? parsed : [];
-        })();
+        let rosterDisplayNames: Record<string, string> = {};
+        let rosterAvatarIds: Record<string, string | null> = {};
+        if (selectedLeagueId) {
+          try {
+            const [rosters, users] = await firstValueFrom(
+              forkJoin([
+                sleeper.getLeagueRosters(selectedLeagueId),
+                sleeper.getLeagueUsers(selectedLeagueId),
+              ]),
+            );
+            rosterDisplayNames = mapRosterDisplayNames(rosters, users);
+            rosterAvatarIds = mapRosterAvatarIds(rosters, users);
+          } catch {
+            rosterDisplayNames = {};
+            rosterAvatarIds = {};
+          }
+        }
 
-        patchState(store, {
-          loading: false,
-          selectedLeagueId: leagueId,
-          draftSource: selectedDraftId ? 'league' : store.draftSource(),
-          drafts: nextDrafts,
-          selectedDraftId,
-          draftStatus: selectedDraft?.status ?? null,
+        return {
+          selectedLeagueId,
           rosterDisplayNames,
           rosterAvatarIds,
+          playerNameMap,
           rows,
-          picks,
-          rookiesOnly: isRookieDraft,
-          starredPlayerIds,
-          sortSource: loadSortSource(leagueId),
-          selectedPositions: loadSavedPositions(leagueId),
-          lastUpdatedAt: Date.now(),
-        });
+          starredPlayerIds: loadStarredPlayerIds(selectedLeagueId),
+        };
+      };
 
-        if (selectedDraftId) {
-          storage.setRawItem(selectedDraftStorageKey(leagueId), selectedDraftId);
+      /**
+       * Detect tier drops after new picks are received (REQ-TD-01 to REQ-TD-07).
+       * Returns alerts for each positional tier that lost its last undrafted player.
+       * Deduplicates by (position, droppedTier) to handle multiple picks in one poll.
+       */
+      const detectTierDrops = (
+        newPickedIds: Set<string>,
+        prevPickedIds: Set<string>,
+        rows: DraftPlayerRow[],
+      ): TierDropAlert[] => {
+        const newlyPickedIds = [...newPickedIds].filter((id) => !prevPickedIds.has(id));
+        if (newlyPickedIds.length === 0) return [];
+
+        // Group remaining undrafted rows by position+positionalTier
+        const undraftedByPosTier = new Map<string, DraftPlayerRow[]>();
+        for (const row of rows) {
+          if (newPickedIds.has(row.playerId)) continue;
+          const tier = row.combinedPositionalTier;
+          if (tier === null) continue;
+          const key = `${row.position}:${tier}`;
+          const existing = undraftedByPosTier.get(key) ?? [];
+          existing.push(row);
+          undraftedByPosTier.set(key, existing);
         }
-      } catch (error: unknown) {
-        patchState(store, {
-          loading: false,
-          error: toErrorMessage(error, 'Failed to load draft data.'),
-        });
-      } finally {
-        maybeStartPolling();
-      }
-    };
 
-    const resetForNoLeague = (): void => {
-      stopPolling();
-      patchState(store, {
-        loading: false,
-        error: null,
-        staleData: false,
-        selectedLeagueId: null,
-        draftSource: null,
-        drafts: [],
-        selectedDraftId: null,
-        draftStatus: null,
-        rosterDisplayNames: {},
-        rosterAvatarIds: {},
-        picks: [],
-        rows: [],
-        starredPlayerIds: [],
-        lastUpdatedAt: null,
-      });
-    };
+        // Deduplicate: only one alert per (position, droppedTier) per refresh
+        const seen = new Set<string>();
+        const alerts: TierDropAlert[] = [];
 
-    return {
-      async loadForSelectedLeague(): Promise<void> {
-        const selectedLeague = appStore.selectedLeague();
-        if (!selectedLeague) {
-          resetForNoLeague();
+        for (const newlyPickedId of newlyPickedIds) {
+          const draftedRow = rows.find((r) => r.playerId === newlyPickedId);
+          if (!draftedRow) continue;
+          const tier = draftedRow.combinedPositionalTier;
+          if (tier === null) continue;
+          const key = `${draftedRow.position}:${tier}`;
+          if (seen.has(key)) continue;
+
+          const remaining = undraftedByPosTier.get(key) ?? [];
+
+          // If no undrafted players remain in this positional tier → tier drop
+          if (remaining.length === 0) {
+            seen.add(key);
+            // Find the next available tier for this position
+            const undraftedSamePosRows = rows
+              .filter(
+                (r) =>
+                  r.position === draftedRow.position &&
+                  !newPickedIds.has(r.playerId) &&
+                  r.combinedPositionalTier !== null,
+              )
+              .sort((a, b) => (a.combinedPositionalTier ?? 99) - (b.combinedPositionalTier ?? 99));
+            const nextTier = undraftedSamePosRows[0]?.combinedPositionalTier ?? null;
+
+            alerts.push({
+              id: generateAlertId(draftedRow.position, tier),
+              position: draftedRow.position as DraftPositionFilter,
+              droppedTier: tier,
+              nextTier,
+              createdAt: Date.now(),
+            });
+          }
+        }
+
+        return alerts;
+      };
+
+      const refreshDraft = async (): Promise<void> => {
+        if (refreshInFlight) {
           return;
         }
 
-        await loadForLeague(selectedLeague.league_id, selectedLeague.season);
-      },
-      async selectDraft(draftId: string, options?: SelectDraftOptions): Promise<void> {
-        const fallbackLeagueId = store.selectedLeagueId() ?? appStore.selectedLeague()?.league_id ?? null;
+        const selectedDraftId = store.selectedDraftId();
+        if (!selectedDraftId) {
+          return;
+        }
 
+        refreshInFlight = true;
+        try {
+          const prevPickedIds = new Set(
+            store
+              .picks()
+              .filter((pick) => !!pick.player_id)
+              .map((pick) => pick.player_id),
+          );
+
+          const [draft, picks] = await firstValueFrom(
+            forkJoin([sleeper.getDraft(selectedDraftId), sleeper.getDraftPicks(selectedDraftId)]),
+          );
+
+          const normalizedPicks = normalizePicks(draft, picks);
+          const newPickedIds = new Set(
+            normalizedPicks.map((p) => p.player_id).filter((id): id is string => !!id),
+          );
+          const newAlerts = detectTierDrops(newPickedIds, prevPickedIds, store.rows());
+
+          patchState(store, {
+            draftStatus: draft.status ?? null,
+            drafts: upsertDraft(store.drafts(), draft),
+            picks: normalizedPicks,
+            staleData: false,
+            lastUpdatedAt: Date.now(),
+            error: null,
+            tierDropAlerts: [...store.tierDropAlerts(), ...newAlerts],
+          });
+        } catch {
+          patchState(store, {
+            staleData: true,
+            error: "Failed to refresh draft state. Retrying automatically.",
+          });
+        } finally {
+          refreshInFlight = false;
+          maybeStartPolling();
+        }
+      };
+
+      const loadForLeague = async (leagueId: string, season: string): Promise<void> => {
         patchState(store, {
-          selectedDraftId: draftId,
           loading: true,
           error: null,
+          staleData: false,
+          selectedLeagueId: leagueId,
+          picks: [],
         });
 
         try {
-          const [draft, picks] = await firstValueFrom(
-            forkJoin([sleeper.getDraft(draftId), sleeper.getDraftPicks(draftId)]),
+          const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes(
+            "SUPER_FLEX",
           );
-          const context = await loadDraftContext(draft, fallbackLeagueId);
+          const [
+            rosters,
+            users,
+            playersById,
+            ktcPlayers,
+            flockPlayers,
+            flockRookies,
+            drafts,
+            fpAdpPlayers,
+          ] = await firstValueFrom(
+            forkJoin([
+              sleeper.getLeagueRosters(leagueId),
+              sleeper.getLeagueUsers(leagueId),
+              sleeper.getAllPlayers(),
+              ktc.fetchPlayers(isSuperflex),
+              flock.fetchPlayers(isSuperflex),
+              flock.fetchRookies(isSuperflex),
+              sleeper.getLeagueDrafts(leagueId),
+              isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings(),
+            ]),
+          );
 
-          const nextDrafts = upsertDraft(store.drafts(), draft);
+          const rosterDisplayNames = mapRosterDisplayNames(rosters, users);
+          const rosterAvatarIds = mapRosterAvatarIds(rosters, users);
+          const ktcLookup = ktc.buildNameLookup(ktcPlayers);
+          const selectedDraftId = chooseDraftId(leagueId, drafts);
+
+          let selectedDraft: SleeperDraft | null = null;
+          let picks: SleeperDraftPick[] = [];
+          let nextDrafts = drafts;
+          if (selectedDraftId) {
+            const [draftDetail, draftPicks] = await firstValueFrom(
+              forkJoin([sleeper.getDraft(selectedDraftId), sleeper.getDraftPicks(selectedDraftId)]),
+            );
+            selectedDraft = draftDetail;
+            nextDrafts = upsertDraft(drafts, draftDetail);
+            picks = normalizePicks(draftDetail, draftPicks);
+          }
+
+          const isRookieDraft = selectedDraft ? isSleeperRookieDraft(selectedDraft) : false;
+          const flockLookup = isRookieDraft
+            ? new Map([
+                ...flock.buildNameLookup(flockRookies),
+                ...flock.buildNameLookup(flockPlayers),
+              ])
+            : flock.buildNameLookup(flockPlayers);
+          const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
+          const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season), fpAdpLookup);
+
+          const starredPlayerIds = (() => {
+            const parsed = storage.getItem<string[]>(starStorageKey(leagueId));
+            return Array.isArray(parsed) ? parsed : [];
+          })();
 
           patchState(store, {
             loading: false,
-            selectedLeagueId: context.selectedLeagueId,
-            draftSource: options?.source ?? store.draftSource() ?? 'league',
-            rosterDisplayNames: context.rosterDisplayNames,
-            rosterAvatarIds: context.rosterAvatarIds,
-            playerNameMap: context.playerNameMap,
-            rows: context.rows,
+            selectedLeagueId: leagueId,
+            draftSource: selectedDraftId ? "league" : store.draftSource(),
             drafts: nextDrafts,
-            draftStatus: draft.status ?? null,
-            picks: normalizePicks(draft, picks),
-            rookiesOnly: options?.rookieHint === true ? true : isSleeperRookieDraft(draft),
-            starredPlayerIds: context.starredPlayerIds,
-            staleData: false,
+            selectedDraftId,
+            draftStatus: selectedDraft?.status ?? null,
+            rosterDisplayNames,
+            rosterAvatarIds,
+            rows,
+            picks,
+            rookiesOnly: isRookieDraft,
+            starredPlayerIds,
+            sortSource: loadSortSource(leagueId),
+            selectedPositions: loadSavedPositions(leagueId),
             lastUpdatedAt: Date.now(),
           });
 
-          if (context.selectedLeagueId) {
-            storage.setRawItem(selectedDraftStorageKey(context.selectedLeagueId), draftId);
+          if (selectedDraftId) {
+            storage.setRawItem(selectedDraftStorageKey(leagueId), selectedDraftId);
           }
         } catch (error: unknown) {
           patchState(store, {
             loading: false,
-            error: toErrorMessage(error, 'Failed to load draft details.'),
+            error: toErrorMessage(error, "Failed to load draft data."),
           });
         } finally {
           maybeStartPolling();
         }
-      },
-      async refreshNow(): Promise<void> {
-        await refreshDraft();
-      },
-      retry(): void {
-        if (store.selectedDraftId()) {
-          void refreshDraft();
-          return;
-        }
+      };
 
-        void this.loadForSelectedLeague();
-      },
-      setDraftSource(source: DraftSourceMode): void {
-        patchState(store, {
-          draftSource: source,
-          error: null,
-        });
-      },
-      setTierSource(tierSource: TierSource): void {
-        patchState(store, { tierSource });
-      },
-      setValueSource(valueSource: DraftValueSource): void {
-        patchState(store, { valueSource });
-      },
-      togglePosition(position: DraftPositionFilter): void {
-        const next = togglePositionFilter(store.selectedPositions(), position);
-        patchState(store, { selectedPositions: next });
-        const leagueId = store.selectedLeagueId();
-        if (leagueId) storage.setItem(positionsStorageKey(leagueId), next);
-      },
-      setRookiesOnly(value: boolean): void {
-        patchState(store, { rookiesOnly: value });
-      },
-      setSortSource(sortSource: DraftSortSource): void {
-        patchState(store, { sortSource });
-        const leagueId = store.selectedLeagueId();
-        if (leagueId) storage.setRawItem(sortSourceStorageKey(leagueId), sortSource);
-      },
-      toggleStar(playerId: string): void {
-        const current = store.starredPlayerIds();
-        const next = current.includes(playerId)
-          ? current.filter((id) => id !== playerId)
-          : [...current, playerId];
-
-        patchState(store, { starredPlayerIds: next });
-
-        const leagueId = store.selectedLeagueId();
-        if (!leagueId) {
-          return;
-        }
-
-        storage.setItem(starStorageKey(leagueId), next);
-      },
-      /**
-       * Clears all session-specific storage keys and resets the draft state.
-       * Returns the app to the draft-source selection screen (REQ-SM-08).
-       */
-      resetSession(): void {
+      const resetForNoLeague = (): void => {
         stopPolling();
-        const leagueId = store.selectedLeagueId();
-        if (leagueId) {
-          storage.removeItem(selectedDraftStorageKey(leagueId));
-          storage.removeItem(starStorageKey(leagueId));
-          storage.removeItem(sortSourceStorageKey(leagueId));
-          storage.removeItem(positionsStorageKey(leagueId));
-        }
         patchState(store, {
           loading: false,
           error: null,
           staleData: false,
+          selectedLeagueId: null,
+          draftSource: null,
+          drafts: [],
           selectedDraftId: null,
           draftStatus: null,
+          rosterDisplayNames: {},
+          rosterAvatarIds: {},
           picks: [],
           rows: [],
           starredPlayerIds: [],
-          sortSource: 'combinedTier',
-          selectedPositions: DEFAULT_POSITIONS,
           lastUpdatedAt: null,
-          searchQuery: '',
-          neededPositionsOnly: false,
-          tierDropAlerts: [],
         });
-      },
-      stopPolling(): void {
-        stopPolling();
-      },
-      /** Update search query (REQ-SN-01 to REQ-SN-07). */
-      setSearchQuery(query: string): void {
-        patchState(store, { searchQuery: query });
-      },
-      /** Toggle "needed positions only" filter (REQ-PL-11). */
-      toggleNeededPositionsOnly(): void {
-        patchState(store, { neededPositionsOnly: !store.neededPositionsOnly() });
-      },
-      /** Dismiss a specific tier-drop alert by id (REQ-TD-03). */
-      dismissTierAlert(id: string): void {
-        patchState(store, {
-          tierDropAlerts: store.tierDropAlerts().filter((a) => a.id !== id),
-        });
-      },
-    };
-  }),
+      };
+
+      return {
+        async loadForSelectedLeague(): Promise<void> {
+          const selectedLeague = appStore.selectedLeague();
+          if (!selectedLeague) {
+            resetForNoLeague();
+            return;
+          }
+
+          await loadForLeague(selectedLeague.league_id, selectedLeague.season);
+        },
+        async selectDraft(draftId: string, options?: SelectDraftOptions): Promise<void> {
+          const fallbackLeagueId =
+            store.selectedLeagueId() ?? appStore.selectedLeague()?.league_id ?? null;
+
+          patchState(store, {
+            selectedDraftId: draftId,
+            loading: true,
+            error: null,
+          });
+
+          try {
+            const [draft, picks] = await firstValueFrom(
+              forkJoin([sleeper.getDraft(draftId), sleeper.getDraftPicks(draftId)]),
+            );
+            const context = await loadDraftContext(draft, fallbackLeagueId);
+
+            const nextDrafts = upsertDraft(store.drafts(), draft);
+
+            patchState(store, {
+              loading: false,
+              selectedLeagueId: context.selectedLeagueId,
+              draftSource: options?.source ?? store.draftSource() ?? "league",
+              rosterDisplayNames: context.rosterDisplayNames,
+              rosterAvatarIds: context.rosterAvatarIds,
+              playerNameMap: context.playerNameMap,
+              rows: context.rows,
+              drafts: nextDrafts,
+              draftStatus: draft.status ?? null,
+              picks: normalizePicks(draft, picks),
+              rookiesOnly: options?.rookieHint === true ? true : isSleeperRookieDraft(draft),
+              starredPlayerIds: context.starredPlayerIds,
+              staleData: false,
+              lastUpdatedAt: Date.now(),
+            });
+
+            if (context.selectedLeagueId) {
+              storage.setRawItem(selectedDraftStorageKey(context.selectedLeagueId), draftId);
+            }
+          } catch (error: unknown) {
+            patchState(store, {
+              loading: false,
+              error: toErrorMessage(error, "Failed to load draft details."),
+            });
+          } finally {
+            maybeStartPolling();
+          }
+        },
+        async refreshNow(): Promise<void> {
+          await refreshDraft();
+        },
+        retry(): void {
+          if (store.selectedDraftId()) {
+            void refreshDraft();
+            return;
+          }
+
+          void this.loadForSelectedLeague();
+        },
+        setDraftSource(source: DraftSourceMode): void {
+          patchState(store, {
+            draftSource: source,
+            error: null,
+          });
+        },
+        setTierSource(tierSource: TierSource): void {
+          patchState(store, { tierSource });
+        },
+        setValueSource(valueSource: DraftValueSource): void {
+          patchState(store, { valueSource });
+        },
+        togglePosition(position: DraftPositionFilter): void {
+          const next = togglePositionFilter(store.selectedPositions(), position);
+          patchState(store, { selectedPositions: next });
+          const leagueId = store.selectedLeagueId();
+          if (leagueId) storage.setItem(positionsStorageKey(leagueId), next);
+        },
+        setRookiesOnly(value: boolean): void {
+          patchState(store, { rookiesOnly: value });
+        },
+        setSortSource(sortSource: DraftSortSource): void {
+          patchState(store, { sortSource });
+          const leagueId = store.selectedLeagueId();
+          if (leagueId) storage.setRawItem(sortSourceStorageKey(leagueId), sortSource);
+        },
+        toggleStar(playerId: string): void {
+          const current = store.starredPlayerIds();
+          const next = current.includes(playerId)
+            ? current.filter((id) => id !== playerId)
+            : [...current, playerId];
+
+          patchState(store, { starredPlayerIds: next });
+
+          const leagueId = store.selectedLeagueId();
+          if (!leagueId) {
+            return;
+          }
+
+          storage.setItem(starStorageKey(leagueId), next);
+        },
+        /**
+         * Clears all session-specific storage keys and resets the draft state.
+         * Returns the app to the draft-source selection screen (REQ-SM-08).
+         */
+        resetSession(): void {
+          stopPolling();
+          const leagueId = store.selectedLeagueId();
+          if (leagueId) {
+            storage.removeItem(selectedDraftStorageKey(leagueId));
+            storage.removeItem(starStorageKey(leagueId));
+            storage.removeItem(sortSourceStorageKey(leagueId));
+            storage.removeItem(positionsStorageKey(leagueId));
+          }
+          patchState(store, {
+            loading: false,
+            error: null,
+            staleData: false,
+            selectedDraftId: null,
+            draftStatus: null,
+            picks: [],
+            rows: [],
+            starredPlayerIds: [],
+            sortSource: "combinedTier",
+            selectedPositions: DEFAULT_POSITIONS,
+            lastUpdatedAt: null,
+            searchQuery: "",
+            neededPositionsOnly: false,
+            tierDropAlerts: [],
+          });
+        },
+        stopPolling(): void {
+          stopPolling();
+        },
+        /** Update search query (REQ-SN-01 to REQ-SN-07). */
+        setSearchQuery(query: string): void {
+          patchState(store, { searchQuery: query });
+        },
+        /** Toggle "needed positions only" filter (REQ-PL-11). */
+        toggleNeededPositionsOnly(): void {
+          patchState(store, { neededPositionsOnly: !store.neededPositionsOnly() });
+        },
+        /** Dismiss a specific tier-drop alert by id (REQ-TD-03). */
+        dismissTierAlert(id: string): void {
+          patchState(store, {
+            tierDropAlerts: store.tierDropAlerts().filter((a) => a.id !== id),
+          });
+        },
+      };
+    },
+  ),
   withHooks((store, appStore = inject(AppStore)) => {
     let previousLeagueId: string | null = null;
     const storeWithMethods = store as typeof store & {

@@ -242,8 +242,12 @@
 
 @keyframes skeleton-pulse {
   0%,
-  100% { opacity: 1; }
-  50%   { opacity: 0.45; }
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
 }
 
 // ── Dark-mode overrides ──────────────────────────────────────────────── //

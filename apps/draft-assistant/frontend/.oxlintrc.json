@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2022": true
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "off"
+  },
+  "options": {
+    "denyWarnings": true
+  },
+  "ignorePatterns": ["dist/**", ".angular/**", "coverage/**"],
+  "overrides": [
+    {
+      "files": ["**/*.spec.ts", "**/*.test.ts"],
+      "env": {
+        "jasmine": true
+      }
+    }
+  ]
+}

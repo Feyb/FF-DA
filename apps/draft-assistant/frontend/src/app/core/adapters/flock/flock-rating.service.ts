@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable, catchError, map, of, shareReplay } from 'rxjs';
-import { FlockPlayer } from '../../models';
-import { normalizeName as normalizeNameUtil } from '../../utils/name-normalization.util';
+import { HttpClient } from "@angular/common/http";
+import { inject, Injectable } from "@angular/core";
+import { Observable, catchError, map, of, shareReplay } from "rxjs";
+import { FlockPlayer } from "../../models";
+import { normalizeName as normalizeNameUtil } from "../../utils/name-normalization.util";
 
-const FLOCK_ASSET_1QB_URL = 'assets/flock/players-1qb.json';
-const FLOCK_ASSET_SUPERFLEX_URL = 'assets/flock/players-superflex.json';
-const FLOCK_ASSET_ROOKIES_1QB_URL = 'assets/flock/players-rookies-1qb.json';
-const FLOCK_ASSET_ROOKIES_SF_URL = 'assets/flock/players-rookies-sf.json';
+const FLOCK_ASSET_1QB_URL = "assets/flock/players-1qb.json";
+const FLOCK_ASSET_SUPERFLEX_URL = "assets/flock/players-superflex.json";
+const FLOCK_ASSET_ROOKIES_1QB_URL = "assets/flock/players-rookies-1qb.json";
+const FLOCK_ASSET_ROOKIES_SF_URL = "assets/flock/players-rookies-sf.json";
 
 interface FlockAssetPlayer {
   playerName?: string;
@@ -23,13 +23,13 @@ interface FlockAssetResponse {
   data?: FlockAssetPlayer[];
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class FlockRatingService {
   private readonly http = inject(HttpClient);
   private readonly cache = new Map<string, Observable<FlockPlayer[]>>();
 
   fetchPlayers(superflex = false): Observable<FlockPlayer[]> {
-    const cacheKey = superflex ? 'superflex' : '1qb';
+    const cacheKey = superflex ? "superflex" : "1qb";
     const cached = this.cache.get(cacheKey);
     if (cached) return cached;
 
@@ -45,7 +45,7 @@ export class FlockRatingService {
   }
 
   fetchRookies(superflex = false): Observable<FlockPlayer[]> {
-    const cacheKey = superflex ? 'rookies-sf' : 'rookies-1qb';
+    const cacheKey = superflex ? "rookies-sf" : "rookies-1qb";
     const cached = this.cache.get(cacheKey);
     if (cached) return cached;
 
@@ -62,8 +62,8 @@ export class FlockRatingService {
 
   private mapFlockAssetResponse(response: FlockAssetResponse): FlockPlayer[] {
     return (response.data ?? []).map((player) => ({
-      playerName: (player.playerName ?? '').trim(),
-      position: player.position ?? '',
+      playerName: (player.playerName ?? "").trim(),
+      position: player.position ?? "",
       team: player.team ?? null,
       averageRank: player.averageRank ?? null,
       averageTier: player.averageTier ?? null,

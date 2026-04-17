@@ -1,13 +1,13 @@
-import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { AppStore } from './core/state/app.store';
-import { DarkModeToggleComponent } from './shared/components/dark-mode-toggle';
+import { DOCUMENT } from "@angular/common";
+import { ChangeDetectionStrategy, Component, effect, inject } from "@angular/core";
+import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatIconModule } from "@angular/material/icon";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectChange, MatSelectModule } from "@angular/material/select";
+import { AppStore } from "./core/state/app.store";
+import { DarkModeToggleComponent } from "./shared/components/dark-mode-toggle";
 
 interface NavLink {
   path: string;
@@ -15,9 +15,9 @@ interface NavLink {
 }
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterOutlet,
@@ -36,10 +36,10 @@ export class AppComponent {
   protected readonly appStore = inject(AppStore);
   protected readonly densityOptions: number[] = [0, -1, -2, -3, -4, -5];
   protected readonly navLinks: NavLink[] = [
-    { path: '/home', label: 'Home' },
-    { path: '/team', label: 'Team' },
-    { path: '/players', label: 'Players' },
-    { path: '/draft', label: 'Draft' },
+    { path: "/home", label: "Home" },
+    { path: "/team", label: "Team" },
+    { path: "/players", label: "Players" },
+    { path: "/draft", label: "Draft" },
   ];
 
   constructor() {
@@ -54,9 +54,9 @@ export class AppComponent {
     effect(() => {
       const root = this.document.documentElement;
       if (this.appStore.darkMode()) {
-        root.classList.add('dark');
+        root.classList.add("dark");
       } else {
-        root.classList.remove('dark');
+        root.classList.remove("dark");
       }
     });
   }
@@ -67,7 +67,7 @@ export class AppComponent {
   }
 
   protected densityLabel(value: number): string {
-    return value === 0 ? 'Default (0)' : `Compact (${value})`;
+    return value === 0 ? "Default (0)" : `Compact (${value})`;
   }
 
   private densityClass(value: number): string {

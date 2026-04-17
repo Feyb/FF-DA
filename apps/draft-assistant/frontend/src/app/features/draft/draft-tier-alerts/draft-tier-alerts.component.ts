@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { DraftStore, TierDropAlert } from '../draft.store';
+import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy } from "@angular/core";
+import { MatIconModule } from "@angular/material/icon";
+import { DraftStore, TierDropAlert } from "../draft.store";
 
 @Component({
-  selector: 'app-draft-tier-alerts',
-  templateUrl: './draft-tier-alerts.component.html',
-  styleUrl: './draft-tier-alerts.component.scss',
+  selector: "app-draft-tier-alerts",
+  templateUrl: "./draft-tier-alerts.component.html",
+  styleUrl: "./draft-tier-alerts.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIconModule],
 })

@@ -1,5 +1,5 @@
-import { League, SleeperDraft } from '../../models';
-import { SLEEPER_DRAFT_PLAYER_TYPE } from './sleeper-draft-payload.templates';
+import { League, SleeperDraft } from "../../models";
+import { SLEEPER_DRAFT_PLAYER_TYPE } from "./sleeper-draft-payload.templates";
 
 export interface SleeperDraftPresentation {
   name: string;
@@ -34,8 +34,10 @@ export const extractSleeperDraftId = (input: string): string | null => {
 };
 
 const isTruthyFlag = (value: unknown): boolean => {
-  const normalized = String(value ?? '').toLowerCase().trim();
-  return normalized === '1' || normalized === 'true' || normalized === 'yes' || normalized === 'on';
+  const normalized = String(value ?? "")
+    .toLowerCase()
+    .trim();
+  return normalized === "1" || normalized === "true" || normalized === "yes" || normalized === "on";
 };
 
 const toNumericSetting = (value: unknown): number | null => {
@@ -57,7 +59,7 @@ const titleize = (value: string): string =>
     .split(/[_\-\s]+/)
     .filter((part) => part.length > 0)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-    .join(' ');
+    .join(" ");
 
 const firstNonEmpty = (...values: Array<string | null | undefined>): string | null => {
   for (const value of values) {
@@ -71,13 +73,13 @@ const firstNonEmpty = (...values: Array<string | null | undefined>): string | nu
 };
 
 const isSuperflexLeague = (league: League | null | undefined): boolean =>
-  !!league?.roster_positions?.includes('SUPER_FLEX');
+  !!league?.roster_positions?.includes("SUPER_FLEX");
 
 export const getSleeperDraftStatusLabel = (draft: SleeperDraft): string =>
-  titleize(draft.status ?? 'unknown');
+  titleize(draft.status ?? "unknown");
 
 export const getSleeperDraftTypeLabel = (draft: SleeperDraft): string => {
-  const metadataType = firstNonEmpty(draft.metadata?.['type']);
+  const metadataType = firstNonEmpty(draft.metadata?.["type"]);
   if (metadataType) {
     return titleize(metadataType);
   }
@@ -88,19 +90,19 @@ export const getSleeperDraftTypeLabel = (draft: SleeperDraft): string => {
   }
 
   if (isSleeperRookieDraft(draft)) {
-    return 'Rookie';
+    return "Rookie";
   }
 
-  return 'Unknown';
+  return "Unknown";
 };
 
 export const getSleeperDraftNameLabel = (draft: SleeperDraft): string => {
-  const metadataName = firstNonEmpty(draft.metadata?.['name']);
+  const metadataName = firstNonEmpty(draft.metadata?.["name"]);
   if (metadataName) {
     return metadataName;
   }
 
-  const metadataType = firstNonEmpty(draft.metadata?.['type']);
+  const metadataType = firstNonEmpty(draft.metadata?.["type"]);
   if (metadataType) {
     return titleize(metadataType);
   }
@@ -110,7 +112,7 @@ export const getSleeperDraftNameLabel = (draft: SleeperDraft): string => {
     return titleize(draftType);
   }
 
-  return 'Unnamed Draft';
+  return "Unnamed Draft";
 };
 
 export const getSleeperDraftScoringLabel = (
@@ -118,23 +120,23 @@ export const getSleeperDraftScoringLabel = (
   league: League | null | undefined,
 ): string => {
   const metadataScoring = firstNonEmpty(
-    draft.metadata?.['scoring_type'],
-    draft.metadata?.['scoring'],
-    draft.metadata?.['format'],
+    draft.metadata?.["scoring_type"],
+    draft.metadata?.["scoring"],
+    draft.metadata?.["format"],
   );
   if (metadataScoring) {
     return titleize(metadataScoring);
   }
 
   if (isSuperflexLeague(league)) {
-    return 'Superflex';
+    return "Superflex";
   }
 
   if (league) {
-    return '1QB';
+    return "1QB";
   }
 
-  return 'Unknown';
+  return "Unknown";
 };
 
 export const getSleeperDraftPresentation = (
@@ -161,10 +163,8 @@ export const getSleeperUserDraftPosition = (
     return null;
   }
 
-  const teams = toPositiveInteger(draft.settings?.['teams']);
-  const label = teams
-    ? `1.${String(slot).padStart(String(teams).length, '0')}`
-    : `Slot ${slot}`;
+  const teams = toPositiveInteger(draft.settings?.["teams"]);
+  const label = teams ? `1.${String(slot).padStart(String(teams).length, "0")}` : `Slot ${slot}`;
 
   return {
     slot,
@@ -174,22 +174,24 @@ export const getSleeperUserDraftPosition = (
 };
 
 export const isSleeperRookieDraft = (draft: SleeperDraft): boolean => {
-  const playerType = toNumericSetting(draft.settings?.['player_type']);
+  const playerType = toNumericSetting(draft.settings?.["player_type"]);
   if (playerType === SLEEPER_DRAFT_PLAYER_TYPE.ROOKIES_ONLY) {
     return true;
   }
 
-  const type = (draft.type ?? '').toLowerCase();
-  if (type.includes('rookie')) {
+  const type = (draft.type ?? "").toLowerCase();
+  if (type.includes("rookie")) {
     return true;
   }
 
   const metadataEntries = Object.entries(draft.metadata ?? {});
   if (
     metadataEntries.some(([key, value]) =>
-      key.toLowerCase().includes('rookie')
-        ? isTruthyFlag(value) || String(value ?? '').trim().length === 0
-        : String(value ?? '').toLowerCase().includes('rookie'),
+      key.toLowerCase().includes("rookie")
+        ? isTruthyFlag(value) || String(value ?? "").trim().length === 0
+        : String(value ?? "")
+            .toLowerCase()
+            .includes("rookie"),
     )
   ) {
     return true;
@@ -197,8 +199,10 @@ export const isSleeperRookieDraft = (draft: SleeperDraft): boolean => {
 
   const settingsEntries = Object.entries(draft.settings ?? {});
   return settingsEntries.some(([key, value]) =>
-    key.toLowerCase().includes('rookie')
+    key.toLowerCase().includes("rookie")
       ? isTruthyFlag(value)
-      : String(value ?? '').toLowerCase().includes('rookie'),
+      : String(value ?? "")
+          .toLowerCase()
+          .includes("rookie"),
   );
 };

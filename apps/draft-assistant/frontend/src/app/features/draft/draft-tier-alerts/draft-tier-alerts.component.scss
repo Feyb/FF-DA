@@ -44,8 +44,14 @@
 }
 
 @keyframes slideIn {
-  from { transform: translateY(-4px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 html.dark {
@@ -54,7 +60,9 @@ html.dark {
     border-color: rgb(217 119 6);
     color: rgb(253 186 116);
 
-    mat-icon { color: rgb(251 191 36); }
+    mat-icon {
+      color: rgb(251 191 36);
+    }
   }
 
   .tier-alert-dismiss {

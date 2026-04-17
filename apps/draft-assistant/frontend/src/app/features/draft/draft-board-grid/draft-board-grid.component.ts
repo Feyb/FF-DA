@@ -1,22 +1,22 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { NgClass, NgStyle } from '@angular/common';
-import { DraftPlayerRow, SleeperDraft, SleeperDraftPick } from '../../../core/models';
+import { ChangeDetectionStrategy, Component, computed, input } from "@angular/core";
+import { NgClass, NgStyle } from "@angular/common";
+import { DraftPlayerRow, SleeperDraft, SleeperDraftPick } from "../../../core/models";
 import {
   GridCell,
   GridRow,
   GridTeamHeader,
   buildGridHeaders,
   buildGridRows,
-} from './draft-board-grid.util';
-import { PLAYER_FALLBACK_IMAGE } from '../../../core/constants/images.constants';
+} from "./draft-board-grid.util";
+import { PLAYER_FALLBACK_IMAGE } from "../../../core/constants/images.constants";
 
 export type { GridCell, GridRow, GridTeamHeader };
 
 @Component({
-  selector: 'app-draft-board-grid',
+  selector: "app-draft-board-grid",
   standalone: true,
-  templateUrl: './draft-board-grid.component.html',
-  styleUrl: './draft-board-grid.component.scss',
+  templateUrl: "./draft-board-grid.component.html",
+  styleUrl: "./draft-board-grid.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass, NgStyle],
 })
@@ -33,8 +33,8 @@ export class DraftBoardGridComponent {
   protected readonly fallbackAvatar = PLAYER_FALLBACK_IMAGE;
 
   protected readonly teamCount = computed(() => {
-    const v = this.draft().settings?.['teams'];
-    return typeof v === 'number' && v > 0 ? v : 0;
+    const v = this.draft().settings?.["teams"];
+    return typeof v === "number" && v > 0 ? v : 0;
   });
 
   protected readonly tierByPlayerId = computed((): Map<string, number | null> => {
@@ -96,21 +96,21 @@ export class DraftBoardGridComponent {
 
   protected positionClass(pos: string | null): string {
     switch (pos?.toUpperCase()) {
-      case 'QB':
-        return 'pos-qb';
-      case 'RB':
-        return 'pos-rb';
-      case 'WR':
-        return 'pos-wr';
-      case 'TE':
-        return 'pos-te';
+      case "QB":
+        return "pos-qb";
+      case "RB":
+        return "pos-rb";
+      case "WR":
+        return "pos-wr";
+      case "TE":
+        return "pos-te";
       default:
-        return '';
+        return "";
     }
   }
 
   protected tierClass(tier: number | null): string {
-    if (tier === null) return '';
+    if (tier === null) return "";
     const t = Math.max(1, Math.min(tier, 10));
     return `tier-${((t - 1) % 10) + 1}`;
   }

@@ -3,7 +3,9 @@
     <!-- Skeleton loading state -->
     <div
       class="board-skeleton"
-      [ngStyle]="{'grid-template-columns': 'repeat(' + skeletonColumns.length + ', minmax(0, 1fr))'}"
+      [ngStyle]="{
+        'grid-template-columns': 'repeat(' + skeletonColumns.length + ', minmax(0, 1fr))',
+      }"
     >
       @for (col of skeletonColumns; track col) {
         <div class="skeleton-header"></div>
@@ -16,10 +18,7 @@
     </div>
   } @else {
     <!-- Team header row -->
-    <div
-      class="board-headers"
-      [ngStyle]="{'grid-template-columns': gridColumnsStyle()}"
-    >
+    <div class="board-headers" [ngStyle]="{ 'grid-template-columns': gridColumnsStyle() }">
       @for (header of headers(); track header.slot) {
         <div class="header-cell" [class.header-mine]="header.isMyTeam">
           <img
@@ -48,10 +47,7 @@
 
     <!-- Grid rows -->
     @for (row of gridRows(); track row.round) {
-      <div
-        class="board-row"
-        [ngStyle]="{'grid-template-columns': gridColumnsStyle()}"
-      >
+      <div class="board-row" [ngStyle]="{ 'grid-template-columns': gridColumnsStyle() }">
         @for (cell of row.cells; track cell.pickNo) {
           <div
             class="board-cell"
@@ -59,7 +55,11 @@
             [class.cell-mine-empty]="cell.isMyTeam && !cell.pick && !cell.isCurrentPick"
             [class.cell-picked]="!!cell.pick"
             [ngClass]="cell.pick ? positionClass(cell.position) : ''"
-            [attr.aria-label]="cell.pick ? (cell.playerLastName ?? 'Pick') + ' ' + (cell.position ?? '') : 'Empty pick ' + cell.pickLabel"
+            [attr.aria-label]="
+              cell.pick
+                ? (cell.playerLastName ?? 'Pick') + ' ' + (cell.position ?? '')
+                : 'Empty pick ' + cell.pickLabel
+            "
           >
             <span class="cell-label">{{ cell.pickLabel }}</span>
 
@@ -81,20 +81,22 @@
                     class="cell-tier-badge"
                     [ngClass]="tierClass(cell.overallTier)"
                     [attr.aria-label]="'Tier ' + cell.overallTier"
-                  >T{{ cell.overallTier }}</span>
+                    >T{{ cell.overallTier }}</span
+                  >
                 }
-                @let fpAdpRank = fpAdpRankByPlayerId().get(cell.playerId ?? '');
+                @let fpAdpRank = fpAdpRankByPlayerId().get(cell.playerId ?? "");
                 @if (fpAdpRank !== undefined && fpAdpRank !== null) {
                   <span
                     class="cell-fp-adp-badge"
                     [attr.aria-label]="'FP ADP #' + fpAdpRank"
                     title="FantasyPros ADP"
-                  >#{{ fpAdpRank }}</span>
+                    >#{{ fpAdpRank }}</span
+                  >
                 }
               </div>
             } @else {
               <span class="cell-arrow" aria-hidden="true">
-                {{ row.flowRight ? '→' : '←' }}
+                {{ row.flowRight ? "→" : "←" }}
               </span>
             }
           </div>

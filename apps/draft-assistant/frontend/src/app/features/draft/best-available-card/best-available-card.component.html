@@ -1,7 +1,7 @@
 <mat-card class="recommendations-card" appearance="outlined">
   <div class="section-header">
     <h2>Best Available</h2>
-    <app-tier-legend/>
+    <app-tier-legend />
     <span class="section-hint">Top undrafted per position · ordered by need</span>
   </div>
   @if (store.bestAvailableByPosition().length === 0) {
@@ -9,19 +9,25 @@
   } @else {
     <div class="best-available-list">
       @for (entry of store.bestAvailableByPosition(); track entry.position) {
-        <div class="best-available-entry" [ngClass]="entry.player?.combinedTier ?? null | tierColor">
+        <div
+          class="best-available-entry"
+          [ngClass]="entry.player?.combinedTier ?? null | tierColor"
+        >
           <span class="best-available-pos">{{ entry.position }}</span>
           @if (entry.player) {
             @let rank = bestAvailableRank(entry);
             <div class="best-available-info">
               <span class="best-available-name">{{ entry.player.fullName }}</span>
               <span class="best-available-meta">
-                Tier {{ entry.player.combinedTier ?? 'N/A' }}
+                Tier {{ entry.player.combinedTier ?? "N/A" }}
                 @if (rank !== null) {
                   · #{{ rank }} ({{ sortSourceRankLabel() }})
                 }
                 @if (entry.player.adpDelta !== null) {
-                  · ADP <span [ngClass]="adpDeltaClass(entry.player.adpDelta)">{{ adpDeltaLabel(entry.player.adpDelta) }}</span>
+                  · ADP
+                  <span [ngClass]="adpDeltaClass(entry.player.adpDelta)">{{
+                    adpDeltaLabel(entry.player.adpDelta)
+                  }}</span>
                 }
                 @if (entry.player.fpAdpRank !== null) {
                   · FP ADP #{{ entry.player.fpAdpRank }}
@@ -34,7 +40,7 @@
               }
             </div>
             <span class="availability-badge" [class.at-risk]="entry.availabilityRisk === 'at-risk'">
-              {{ entry.availabilityRisk === 'at-risk' ? 'At Risk' : 'Safe' }}
+              {{ entry.availabilityRisk === "at-risk" ? "At Risk" : "Safe" }}
             </span>
           } @else {
             <span class="best-available-empty">None available</span>

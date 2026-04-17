@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { inject, Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import {
   League,
   SleeperDraft,
@@ -9,11 +9,11 @@ import {
   LeagueUser,
   SleeperCatalogPlayer,
   SleeperUser,
-} from '../../models';
+} from "../../models";
 
-const BASE = 'https://api.sleeper.app/v1';
+const BASE = "https://api.sleeper.app/v1";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class SleeperService {
   private readonly http = inject(HttpClient);
 

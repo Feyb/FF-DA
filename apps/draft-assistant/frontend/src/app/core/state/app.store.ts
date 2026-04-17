@@ -1,12 +1,12 @@
-import { inject } from '@angular/core';
-import { signalStore, withState, withMethods, withHooks, patchState } from '@ngrx/signals';
-import { League, SleeperUser } from '../models';
-import { StorageService } from '../services/storage.service';
+import { inject } from "@angular/core";
+import { signalStore, withState, withMethods, withHooks, patchState } from "@ngrx/signals";
+import { League, SleeperUser } from "../models";
+import { StorageService } from "../services/storage.service";
 
-const STORAGE_KEY_USER = 'draftAssistant.sleeperUser';
-const STORAGE_KEY_LEAGUE = 'draftAssistant.selectedLeague';
-const STORAGE_KEY_DENSITY = 'draftAssistant.materialDensity';
-const STORAGE_KEY_DARK_MODE = 'draftAssistant.darkMode';
+const STORAGE_KEY_USER = "draftAssistant.sleeperUser";
+const STORAGE_KEY_LEAGUE = "draftAssistant.selectedLeague";
+const STORAGE_KEY_DENSITY = "draftAssistant.materialDensity";
+const STORAGE_KEY_DARK_MODE = "draftAssistant.darkMode";
 const ALLOWED_DENSITY_SCALES = new Set([-5, -4, -3, -2, -1, 0]);
 
 export interface AppState {
@@ -17,7 +17,7 @@ export interface AppState {
 }
 
 export const AppStore = signalStore(
-  { providedIn: 'root' },
+  { providedIn: "root" },
   withState<AppState>({
     user: null,
     selectedLeague: null,
@@ -68,16 +68,15 @@ export const AppStore = signalStore(
       if (ALLOWED_DENSITY_SCALES.has(parsedDensity)) {
         patchState(store, { densityScale: parsedDensity });
       }
-      
+
       const rawDarkMode = storage.getRawItem(STORAGE_KEY_DARK_MODE);
       if (rawDarkMode !== null) {
-        patchState(store, { darkMode: rawDarkMode === 'true' });
+        patchState(store, { darkMode: rawDarkMode === "true" });
       } else {
         // Fall back to OS preference
-        const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
+        const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ?? false;
         patchState(store, { darkMode: prefersDark });
       }
     },
   })),
 );
-

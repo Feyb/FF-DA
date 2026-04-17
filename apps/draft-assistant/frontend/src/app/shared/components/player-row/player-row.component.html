@@ -10,7 +10,7 @@
   <div class="player-meta">
     <span class="player-name">{{ player().fullName }}</span>
     <span class="player-sub">
-      {{ player().position }} · {{ player().team ?? 'FA' }} · Age {{ player().age ?? '–' }}
+      {{ player().position }} · {{ player().team ?? "FA" }} · Age {{ player().age ?? "–" }}
     </span>
   </div>
 
@@ -31,7 +31,7 @@
       (click)="onStarClick()"
       [attr.aria-label]="starred() ? 'Unstar player' : 'Star player'"
     >
-      <mat-icon>{{ starred() ? 'star' : 'star_border' }}</mat-icon>
+      <mat-icon>{{ starred() ? "star" : "star_border" }}</mat-icon>
     </button>
   }
 </div>

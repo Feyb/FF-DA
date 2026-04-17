@@ -16,7 +16,10 @@
               [class]="'player-card ' + getTierClass(player.ktcPositionalTier)"
               role="listitem"
             >
-              <div class="player-summary" [class.player-summary--expanded]="isExpanded(player.playerId)">
+              <div
+                class="player-summary"
+                [class.player-summary--expanded]="isExpanded(player.playerId)"
+              >
                 <div class="player-identity">
                   <img
                     class="player-avatar"
@@ -32,13 +35,14 @@
                       @if (player.rookie) {
                         <span class="status-pill">Rookie</span>
                       }
-                      @if (player.injuryStatus && player.injuryStatus !== 'Healthy') {
+                      @if (player.injuryStatus && player.injuryStatus !== "Healthy") {
                         <span class="status-pill status-pill--warn">{{ player.injuryStatus }}</span>
                       }
                     </div>
 
                     <p class="player-subline">
-                      {{ player.position }} • {{ teamLabel(player) }} • Age {{ ageLabel(player) }} • Exp
+                      {{ player.position }} • {{ teamLabel(player) }} • Age {{ ageLabel(player) }} •
+                      Exp
                       {{ expLabel(player) }}
                     </p>
                   </div>
@@ -49,11 +53,14 @@
                   type="button"
                   class="expand-button"
                   (click)="toggleExpanded(player.playerId)"
-                  [attr.aria-label]="(isExpanded(player.playerId) ? 'Hide details for ' : 'Show details for ') + player.fullName"
+                  [attr.aria-label]="
+                    (isExpanded(player.playerId) ? 'Hide details for ' : 'Show details for ') +
+                    player.fullName
+                  "
                   [attr.aria-expanded]="isExpanded(player.playerId)"
                 >
                   <mat-icon>
-                    {{ isExpanded(player.playerId) ? 'expand_less' : 'expand_more' }}
+                    {{ isExpanded(player.playerId) ? "expand_less" : "expand_more" }}
                   </mat-icon>
                 </button>
 

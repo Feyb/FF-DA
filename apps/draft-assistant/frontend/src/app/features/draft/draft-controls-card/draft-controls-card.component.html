@@ -8,7 +8,7 @@
     >
       @for (source of sourceModes; track source) {
         <mat-button-toggle [value]="source">
-          {{ source === 'direct' ? 'Direct URL' : 'League Drafts' }}
+          {{ source === "direct" ? "Direct URL" : "League Drafts" }}
         </mat-button-toggle>
       }
     </mat-button-toggle-group>
@@ -16,9 +16,11 @@
 
   <div class="controls-grid">
     <mat-form-field appearance="outline">
-      <mat-label>{{ activeSourceMode() === 'direct' ? 'Saved direct drafts' : 'League draft context' }}</mat-label>
+      <mat-label>{{
+        activeSourceMode() === "direct" ? "Saved direct drafts" : "League draft context"
+      }}</mat-label>
       <mat-select [value]="store.selectedDraftId()" (selectionChange)="onDraftChange($event)">
-        @if (activeSourceMode() === 'league') {
+        @if (activeSourceMode() === "league") {
           @if (leagueDraftOptions().length > 0) {
             <mat-optgroup label="League Drafts">
               @for (option of leagueDraftOptions(); track draftOptionTrackBy(option)) {
@@ -26,7 +28,10 @@
                   <div class="draft-option-content">
                     <div class="draft-option-header">
                       <span class="draft-option-title">{{ option.title }}</span>
-                      <span class="draft-option-status" [class]="draftOptionStatusClass(option.draft)">
+                      <span
+                        class="draft-option-status"
+                        [class]="draftOptionStatusClass(option.draft)"
+                      >
                         {{ draftStatusLabel(option.draft) }}
                       </span>
                     </div>
@@ -119,14 +124,16 @@
 
     <div class="controls-actions">
       <button matButton (click)="refreshDraft()">Refresh</button>
-      <button matButton color="warn" (click)="resetSession()" title="Clear draft session data">Reset Session</button>
+      <button matButton color="warn" (click)="resetSession()" title="Clear draft session data">
+        Reset Session
+      </button>
       @if (store.lastUpdatedAt()) {
-        <span class="updated-at">Updated {{ store.lastUpdatedAt()! | date:'mediumTime' }}</span>
+        <span class="updated-at">Updated {{ store.lastUpdatedAt()! | date: "mediumTime" }}</span>
       }
     </div>
   </div>
 
-  @if (activeSourceMode() === 'direct') {
+  @if (activeSourceMode() === "direct") {
     <div class="mock-draft-row">
       <mat-form-field appearance="outline" class="mock-draft-field">
         <mat-label>Mock draft URL or draft id</mat-label>

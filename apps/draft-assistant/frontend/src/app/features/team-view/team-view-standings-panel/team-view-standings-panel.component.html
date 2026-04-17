@@ -22,13 +22,13 @@
               <span class="standings-rank">#{{ entry.rank }}</span>
               <span class="standings-name">{{ entry.ownerDisplayName }}</span>
             </div>
-            <span class="standings-score">{{ entry.combinedScore | number: '1.0-0' }}</span>
+            <span class="standings-score">{{ entry.combinedScore | number: "1.0-0" }}</span>
           </div>
           <div class="standings-positions">
-            <span class="pos-chip">QB {{ entry.positionScores.QB | number: '1.0-0' }}</span>
-            <span class="pos-chip">RB {{ entry.positionScores.RB | number: '1.0-0' }}</span>
-            <span class="pos-chip">WR {{ entry.positionScores.WR | number: '1.0-0' }}</span>
-            <span class="pos-chip">TE {{ entry.positionScores.TE | number: '1.0-0' }}</span>
+            <span class="pos-chip">QB {{ entry.positionScores.QB | number: "1.0-0" }}</span>
+            <span class="pos-chip">RB {{ entry.positionScores.RB | number: "1.0-0" }}</span>
+            <span class="pos-chip">WR {{ entry.positionScores.WR | number: "1.0-0" }}</span>
+            <span class="pos-chip">TE {{ entry.positionScores.TE | number: "1.0-0" }}</span>
           </div>
         </mat-card>
       }

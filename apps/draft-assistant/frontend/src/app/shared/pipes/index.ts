@@ -1,1 +1,1 @@
-export { TierColorPipe, getTierColorClass } from './tier-color.pipe';
+export { TierColorPipe, getTierColorClass } from "./tier-color.pipe";

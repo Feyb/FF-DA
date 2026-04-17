@@ -87,9 +87,15 @@
   }
 }
 
-.adp-value  { color: rgb(22 163 74); }
-.adp-reach  { color: rgb(220 38 38); }
-.adp-neutral { color: rgb(100 116 139); }
+.adp-value {
+  color: rgb(22 163 74);
+}
+.adp-reach {
+  color: rgb(220 38 38);
+}
+.adp-neutral {
+  color: rgb(100 116 139);
+}
 
 html.dark {
   .section-header h2 {
@@ -118,7 +124,13 @@ html.dark {
     }
   }
 
-  .adp-value  { color: rgb(74 222 128); }
-  .adp-reach  { color: rgb(252 165 165); }
-  .adp-neutral { color: rgb(100 116 139); }
+  .adp-value {
+    color: rgb(74 222 128);
+  }
+  .adp-reach {
+    color: rgb(252 165 165);
+  }
+  .adp-neutral {
+    color: rgb(100 116 139);
+  }
 }

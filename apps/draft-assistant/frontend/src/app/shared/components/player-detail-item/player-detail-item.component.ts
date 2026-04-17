@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from "@angular/core";
 
 @Component({
-  selector: 'app-player-detail-item',
-  templateUrl: './player-detail-item.component.html',
-  styleUrl: './player-detail-item.component.scss',
+  selector: "app-player-detail-item",
+  templateUrl: "./player-detail-item.component.html",
+  styleUrl: "./player-detail-item.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerDetailItemComponent {

@@ -1,14 +1,21 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from "@angular/core";
+import { CommonModule, DatePipe } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectChange, MatSelectModule } from "@angular/material/select";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import {
   extractSleeperDraftId,
   getSleeperDraftNameLabel,
@@ -18,18 +25,18 @@ import {
   getSleeperDraftTypeLabel,
   getSleeperUserDraftPosition,
   SleeperUserDraftPosition,
-} from '../../../core/adapters/sleeper/sleeper-draft.util';
-import { SleeperDraft } from '../../../core/models';
-import { AppStore } from '../../../core/state/app.store';
+} from "../../../core/adapters/sleeper/sleeper-draft.util";
+import { SleeperDraft } from "../../../core/models";
+import { AppStore } from "../../../core/state/app.store";
 import {
   DraftPositionFilter,
   DraftSortSource,
   DraftSourceMode,
   DraftStore,
   DraftValueSource,
-} from '../draft.store';
-import { TierSource } from '../../../core/models';
-import { StorageService } from '../../../core/services/storage.service';
+} from "../draft.store";
+import { TierSource } from "../../../core/models";
+import { StorageService } from "../../../core/services/storage.service";
 
 interface DraftOptionView {
   draft: SleeperDraft;
@@ -47,9 +54,9 @@ interface SavedDirectUrlView {
 }
 
 @Component({
-  selector: 'app-draft-controls-card',
-  templateUrl: './draft-controls-card.component.html',
-  styleUrl: './draft-controls-card.component.scss',
+  selector: "app-draft-controls-card",
+  templateUrl: "./draft-controls-card.component.html",
+  styleUrl: "./draft-controls-card.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
@@ -70,35 +77,37 @@ export class DraftControlsCardComponent implements OnInit {
   protected readonly appStore = inject(AppStore);
   private readonly storage = inject(StorageService);
 
-  protected mockDraftUrl = '';
+  protected mockDraftUrl = "";
   protected mockDraftUrlError: string | null = null;
   protected readonly savedDirectUrls = signal<Array<{ url: string; draftId: string }>>([]);
-  private readonly directUrlStorageKey = 'draft-assistant:direct-urls';
+  private readonly directUrlStorageKey = "draft-assistant:direct-urls";
 
-  protected readonly sourceModes: DraftSourceMode[] = ['league', 'direct'];
-  protected readonly positions: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
+  protected readonly sourceModes: DraftSourceMode[] = ["league", "direct"];
+  protected readonly positions: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
   protected readonly tierSources: Array<{ value: TierSource; label: string }> = [
-    { value: 'average', label: 'Average (KTC + Flock)' },
-    { value: 'flock', label: 'Flock' },
-    { value: 'ktc', label: 'KTC' },
+    { value: "average", label: "Average (KTC + Flock)" },
+    { value: "flock", label: "Flock" },
+    { value: "ktc", label: "KTC" },
   ];
   protected readonly valueSources: Array<{ value: DraftValueSource; label: string }> = [
-    { value: 'ktcValue', label: 'KTC Value' },
-    { value: 'averageRank', label: 'Flock Average Rank' },
+    { value: "ktcValue", label: "KTC Value" },
+    { value: "averageRank", label: "Flock Average Rank" },
   ];
   protected readonly sortSources: Array<{ value: DraftSortSource; label: string }> = [
-    { value: 'combinedTier', label: 'Combined Tier' },
-    { value: 'ktcRank', label: 'KTC Rank' },
-    { value: 'flockRank', label: 'Flock Rank' },
-    { value: 'sleeperRank', label: 'Sleeper Rank' },
-    { value: 'combinedPositionalTier', label: 'Combined Pos. Tier' },
-    { value: 'adpDelta', label: 'ADP Value (Delta)' },
-    { value: 'valueGap', label: 'Value Gap' },
+    { value: "combinedTier", label: "Combined Tier" },
+    { value: "ktcRank", label: "KTC Rank" },
+    { value: "flockRank", label: "Flock Rank" },
+    { value: "sleeperRank", label: "Sleeper Rank" },
+    { value: "combinedPositionalTier", label: "Combined Pos. Tier" },
+    { value: "adpDelta", label: "ADP Value (Delta)" },
+    { value: "valueGap", label: "Value Gap" },
   ];
 
-  protected readonly activeSourceMode = computed<DraftSourceMode>(() => this.store.draftSource() ?? 'league');
-  protected readonly savedDirectDraftIds = computed(() =>
-    new Set(this.savedDirectUrls().map((item) => item.draftId)),
+  protected readonly activeSourceMode = computed<DraftSourceMode>(
+    () => this.store.draftSource() ?? "league",
+  );
+  protected readonly savedDirectDraftIds = computed(
+    () => new Set(this.savedDirectUrls().map((item) => item.draftId)),
   );
   protected readonly leagueDraftOptions = computed(() =>
     this.store
@@ -115,7 +124,9 @@ export class DraftControlsCardComponent implements OnInit {
   }
 
   protected loadSavedDirectUrls(): void {
-    const parsed = this.storage.getItem<Array<{ url: string; draftId: string }>>(this.directUrlStorageKey);
+    const parsed = this.storage.getItem<Array<{ url: string; draftId: string }>>(
+      this.directUrlStorageKey,
+    );
     this.savedDirectUrls.set(Array.isArray(parsed) ? parsed : []);
   }
 
@@ -137,24 +148,25 @@ export class DraftControlsCardComponent implements OnInit {
   protected loadMockDraftUrl(): void {
     const value = this.mockDraftUrl.trim();
     if (!value) {
-      this.mockDraftUrlError = 'Enter a Sleeper draft URL or draft id.';
+      this.mockDraftUrlError = "Enter a Sleeper draft URL or draft id.";
       return;
     }
 
     const draftId = extractSleeperDraftId(value);
     if (!draftId) {
-      this.mockDraftUrlError = 'Could not parse draft id. Use a URL like sleeper.com/draft/nfl/<id>.';
+      this.mockDraftUrlError =
+        "Could not parse draft id. Use a URL like sleeper.com/draft/nfl/<id>.";
       return;
     }
 
     this.mockDraftUrlError = null;
     const rookieHint = /rookie/i.test(value);
     this.saveDirectUrl(value, draftId);
-    void this.store.selectDraft(draftId, { rookieHint, source: 'direct' });
+    void this.store.selectDraft(draftId, { rookieHint, source: "direct" });
   }
 
   protected onDraftChange(event: MatSelectChange): void {
-    const draftId = String(event.value ?? '');
+    const draftId = String(event.value ?? "");
     if (!draftId) return;
     void this.store.selectDraft(draftId, { source: this.activeSourceMode() });
   }
@@ -165,12 +177,12 @@ export class DraftControlsCardComponent implements OnInit {
 
     this.store.setDraftSource(mode);
 
-    if (mode === 'league') {
+    if (mode === "league") {
       if (!this.appStore.selectedLeague()) return;
 
       const [firstLeagueDraft] = this.leagueDraftOptions();
       if (firstLeagueDraft) {
-        void this.store.selectDraft(firstLeagueDraft.draftId, { source: 'league' });
+        void this.store.selectDraft(firstLeagueDraft.draftId, { source: "league" });
       } else {
         void this.store.loadForSelectedLeague();
       }
@@ -179,7 +191,7 @@ export class DraftControlsCardComponent implements OnInit {
 
     const [firstDirectDraft] = this.savedDirectUrlOptions();
     if (firstDirectDraft) {
-      void this.store.selectDraft(firstDirectDraft.draftId, { source: 'direct' });
+      void this.store.selectDraft(firstDirectDraft.draftId, { source: "direct" });
     }
   }
 
@@ -201,17 +213,17 @@ export class DraftControlsCardComponent implements OnInit {
 
   protected draftSetting(draft: SleeperDraft, key: string): string {
     const raw = draft.settings?.[key];
-    if (raw === undefined || raw === null || raw === '') return '-';
+    if (raw === undefined || raw === null || raw === "") return "-";
     return String(raw);
   }
 
   protected draftStartLabel(draft: SleeperDraft): string {
-    if (!draft.start_time) return '-';
+    if (!draft.start_time) return "-";
     return new Date(draft.start_time).toLocaleString([], {
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
     });
   }
 
@@ -228,8 +240,8 @@ export class DraftControlsCardComponent implements OnInit {
   }
 
   protected draftOptionStatusClass(draft: SleeperDraft): string {
-    const status = draft.status?.toLowerCase() ?? 'unknown';
-    return `draft-option-status-${status.replace(/[^a-z0-9]+/g, '-')}`;
+    const status = draft.status?.toLowerCase() ?? "unknown";
+    return `draft-option-status-${status.replace(/[^a-z0-9]+/g, "-")}`;
   }
 
   protected draftOptionTrackBy(option: DraftOptionView | SavedDirectUrlView): string {
@@ -238,8 +250,8 @@ export class DraftControlsCardComponent implements OnInit {
 
   private buildLeagueDraftOption(draft: SleeperDraft): DraftOptionView {
     const presentation = getSleeperDraftPresentation(draft, this.draftLeague(draft));
-    const teams = this.draftSetting(draft, 'teams');
-    const rounds = this.draftSetting(draft, 'rounds');
+    const teams = this.draftSetting(draft, "teams");
+    const rounds = this.draftSetting(draft, "rounds");
     const userPosition = this.userDraftPosition(draft);
     const startTime = draft.start_time ? this.draftStartLabel(draft) : null;
 
@@ -257,7 +269,8 @@ export class DraftControlsCardComponent implements OnInit {
   }
 
   private buildSavedDirectUrlOption(item: { url: string; draftId: string }): SavedDirectUrlView {
-    const loadedDraft = this.store.drafts().find((draft) => draft.draft_id === item.draftId) ?? null;
+    const loadedDraft =
+      this.store.drafts().find((draft) => draft.draft_id === item.draftId) ?? null;
     if (loadedDraft) {
       const presentation = getSleeperDraftPresentation(loadedDraft, this.draftLeague(loadedDraft));
       const userPosition = this.userDraftPosition(loadedDraft);

@@ -40,7 +40,7 @@
 }
 
 .summary-value-mono {
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 0.875rem;
   word-break: break-all;
 }
@@ -160,10 +160,22 @@
   text-align: center;
   text-transform: uppercase;
 
-  &.pos-qb { background: rgb(219 234 254); color: rgb(30 64 175); }
-  &.pos-rb { background: rgb(220 252 231); color: rgb(22 101 52); }
-  &.pos-wr { background: rgb(253 230 138); color: rgb(120 53 15); }
-  &.pos-te { background: rgb(252 231 243); color: rgb(136 19 55); }
+  &.pos-qb {
+    background: rgb(219 234 254);
+    color: rgb(30 64 175);
+  }
+  &.pos-rb {
+    background: rgb(220 252 231);
+    color: rgb(22 101 52);
+  }
+  &.pos-wr {
+    background: rgb(253 230 138);
+    color: rgb(120 53 15);
+  }
+  &.pos-te {
+    background: rgb(252 231 243);
+    color: rgb(136 19 55);
+  }
 }
 
 .roster-name {
@@ -186,25 +198,51 @@
   white-space: nowrap;
 }
 
-.adp-value  { color: rgb(22 163 74); }
-.adp-reach  { color: rgb(220 38 38); }
-.adp-neutral { color: rgb(100 116 139); }
+.adp-value {
+  color: rgb(22 163 74);
+}
+.adp-reach {
+  color: rgb(220 38 38);
+}
+.adp-neutral {
+  color: rgb(100 116 139);
+}
 
 html.dark {
   .section-header h2 {
     color: rgb(226 232 240);
   }
 
-  .need-dot { background: rgb(51 65 85); }
-  .need-dot.filled { background: rgb(129 140 248); }
-  .need-row { border-bottom-color: rgb(30 41 59); }
-  .need-pos { color: rgb(148 163 184); }
-  .need-label { color: rgb(100 116 139); }
+  .need-dot {
+    background: rgb(51 65 85);
+  }
+  .need-dot.filled {
+    background: rgb(129 140 248);
+  }
+  .need-row {
+    border-bottom-color: rgb(30 41 59);
+  }
+  .need-pos {
+    color: rgb(148 163 184);
+  }
+  .need-label {
+    color: rgb(100 116 139);
+  }
 
-  .roster-row { border-bottom-color: rgb(30 41 59); }
-  .roster-tier { color: rgb(100 116 139); }
+  .roster-row {
+    border-bottom-color: rgb(30 41 59);
+  }
+  .roster-tier {
+    color: rgb(100 116 139);
+  }
 
-  .adp-value  { color: rgb(74 222 128); }
-  .adp-reach  { color: rgb(252 165 165); }
-  .adp-neutral { color: rgb(100 116 139); }
+  .adp-value {
+    color: rgb(74 222 128);
+  }
+  .adp-reach {
+    color: rgb(252 165 165);
+  }
+  .adp-neutral {
+    color: rgb(100 116 139);
+  }
 }

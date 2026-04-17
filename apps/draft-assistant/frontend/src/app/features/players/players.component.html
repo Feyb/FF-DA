@@ -4,173 +4,176 @@
     subtitle="All available players with KTC-first ordering and Sleeper fallback."
   />
 
-      <mat-card class="controls-card">
-        <div class="controls-grid">
-          <div class="position-filters">
-            @for (position of positions; track position) {
-              <button
-                [matButton]="store.selectedPositions().includes(position) ? 'tonal' : 'text'"
-                (click)="togglePosition(position)"
-              >
-                {{ position }}
-              </button>
-            }
-          </div>
-
-          <mat-slide-toggle
-            [ngModel]="store.rookiesOnly()"
-            (ngModelChange)="store.setRookiesOnly($event)"
+  <mat-card class="controls-card">
+    <div class="controls-grid">
+      <div class="position-filters">
+        @for (position of positions; track position) {
+          <button
+            [matButton]="store.selectedPositions().includes(position) ? 'tonal' : 'text'"
+            (click)="togglePosition(position)"
           >
-            Rookies only
-          </mat-slide-toggle>
+            {{ position }}
+          </button>
+        }
+      </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Sort by</mat-label>
-            <mat-select [ngModel]="store.sortBy()" (ngModelChange)="store.setSortBy($event)">
-              <mat-option value="default">Rank (default)</mat-option>
-              <mat-option value="ktcValue">Value</mat-option>
-              <mat-option value="name">Name</mat-option>
-              <mat-option value="position">Position</mat-option>
-              <mat-option value="team">Team</mat-option>
-              <mat-option value="age">Age</mat-option>
-            </mat-select>
-          </mat-form-field>
+      <mat-slide-toggle
+        [ngModel]="store.rookiesOnly()"
+        (ngModelChange)="store.setRookiesOnly($event)"
+      >
+        Rookies only
+      </mat-slide-toggle>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Direction</mat-label>
-            <mat-select [ngModel]="store.sortDirection()" (ngModelChange)="store.setSortDirection($event)">
-              <mat-option value="asc">Ascending</mat-option>
-              <mat-option value="desc">Descending</mat-option>
-            </mat-select>
-          </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Sort by</mat-label>
+        <mat-select [ngModel]="store.sortBy()" (ngModelChange)="store.setSortBy($event)">
+          <mat-option value="default">Rank (default)</mat-option>
+          <mat-option value="ktcValue">Value</mat-option>
+          <mat-option value="name">Name</mat-option>
+          <mat-option value="position">Position</mat-option>
+          <mat-option value="team">Team</mat-option>
+          <mat-option value="age">Age</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Tier source</mat-label>
-            <mat-select [ngModel]="store.tierSource()" (ngModelChange)="store.setTierSource($event)">
-              @for (source of tierSources; track source.value) {
-                <mat-option [value]="source.value">{{ source.label }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Direction</mat-label>
+        <mat-select
+          [ngModel]="store.sortDirection()"
+          (ngModelChange)="store.setSortDirection($event)"
+        >
+          <mat-option value="asc">Ascending</mat-option>
+          <mat-option value="desc">Descending</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Value source</mat-label>
-            <mat-select [ngModel]="store.valueSource()" (ngModelChange)="store.setValueSource($event)">
-              @for (source of valueSources; track source.value) {
-                <mat-option [value]="source.value">{{ source.label }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </mat-card>
-
-      <mat-card class="tier-legend-card">
-        <div class="tier-legend-container">
-          <span class="tier-legend-label">Tier Legend (1=Best):</span>
-          <app-tier-legend />
-        </div>
-      </mat-card>
-
-      @if (store.ktcUnavailable()) {
-        <div class="warning-banner">
-          <mat-icon>warning</mat-icon>
-          <span>KTC data is unavailable right now. Showing Sleeper fallback ordering.</span>
-        </div>
-      }
-
-      @if (store.loading()) {
-        <app-loading-state message="Loading players…" />
-      }
-
-      @if (store.error()) {
-        <app-error-state [message]="store.error()!" (retry)="retryLoad()" />
-      }
-
-      @if (!store.loading()) {
-        <mat-card class="table-card">
-          <div class="table-scroll">
-            <table class="players-table">
-              <thead>
-                <tr>
-                  <th class="expander-col"></th>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Pos</th>
-                  <th>Team</th>
-                  <th>Age</th>
-                  <th>KTC Rank</th>
-                  <th>{{ selectedValueLabel() }}</th>
-                  <th>Tier</th>
-                  <th>Pos Tier</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (player of store.displayedRows(); track player.playerId; let i = $index) {
-                  <tr
-                    [class.row-expanded]="isExpanded(player.playerId)"
-                    [ngClass]="getTierClass(player.positionalTier)"
-                  >
-                    <td class="expander-cell">
-                      <button
-                        mat-icon-button
-                        type="button"
-                        (click)="toggleExpanded(player.playerId)"
-                        [attr.aria-label]="'Toggle details for ' + player.fullName"
-                      >
-                        <mat-icon>
-                          {{ isExpanded(player.playerId) ? 'expand_less' : 'expand_more' }}
-                        </mat-icon>
-                      </button>
-                    </td>
-                    <td>{{ i + 1 }}</td>
-                    <td>
-                      <div class="player-cell">
-                        <img
-                          class="player-avatar"
-                          [src]="playerHeadshotUrl(player.playerId)"
-                          [alt]="player.fullName"
-                          loading="lazy"
-                          (error)="onPlayerImageError($event)"
-                        />
-                        <span class="player-cell-name">{{ player.fullName }}</span>
-                      </div>
-                    </td>
-                    <td>{{ player.position }}</td>
-                    <td>{{ player.team ?? 'FA' }}</td>
-                    <td>{{ player.age ?? '-' }}</td>
-                    <td>{{ player.ktcRank ?? '-' }}</td>
-                    <td>{{ selectedValue(player) ?? '-' }}</td>
-                    <td>
-                      <div class="tier-cell">
-                        <span class="tier-primary">{{ selectedTierValue(player, false) ?? '-' }}</span>
-                        <span class="tier-secondary">({{ secondaryTierText(player, false) }})</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="tier-cell">
-                        <span class="tier-primary">{{ selectedTierValue(player, true) ?? '-' }}</span>
-                        <span class="tier-secondary">({{ secondaryTierText(player, true) }})</span>
-                      </div>
-                    </td>
-                  </tr>
-
-                  @if (isExpanded(player.playerId)) {
-                    <tr class="player-details-row">
-                      <td colspan="10">
-                        <app-player-details-grid
-                          [items]="playerDetailItems(player)"
-                          [columns]="2"
-                        ></app-player-details-grid>
-                      </td>
-                    </tr>
-                  }
-                }
-              </tbody>
-            </table>
-          </div>
-          @if (store.displayedRows().length === 0) {
-            <p class="empty-copy">No players match the selected filters.</p>
+      <mat-form-field appearance="outline">
+        <mat-label>Tier source</mat-label>
+        <mat-select [ngModel]="store.tierSource()" (ngModelChange)="store.setTierSource($event)">
+          @for (source of tierSources; track source.value) {
+            <mat-option [value]="source.value">{{ source.label }}</mat-option>
           }
-        </mat-card>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Value source</mat-label>
+        <mat-select [ngModel]="store.valueSource()" (ngModelChange)="store.setValueSource($event)">
+          @for (source of valueSources; track source.value) {
+            <mat-option [value]="source.value">{{ source.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+  <mat-card class="tier-legend-card">
+    <div class="tier-legend-container">
+      <span class="tier-legend-label">Tier Legend (1=Best):</span>
+      <app-tier-legend />
+    </div>
+  </mat-card>
+
+  @if (store.ktcUnavailable()) {
+    <div class="warning-banner">
+      <mat-icon>warning</mat-icon>
+      <span>KTC data is unavailable right now. Showing Sleeper fallback ordering.</span>
+    </div>
+  }
+
+  @if (store.loading()) {
+    <app-loading-state message="Loading players…" />
+  }
+
+  @if (store.error()) {
+    <app-error-state [message]="store.error()!" (retry)="retryLoad()" />
+  }
+
+  @if (!store.loading()) {
+    <mat-card class="table-card">
+      <div class="table-scroll">
+        <table class="players-table">
+          <thead>
+            <tr>
+              <th class="expander-col"></th>
+              <th>#</th>
+              <th>Name</th>
+              <th>Pos</th>
+              <th>Team</th>
+              <th>Age</th>
+              <th>KTC Rank</th>
+              <th>{{ selectedValueLabel() }}</th>
+              <th>Tier</th>
+              <th>Pos Tier</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (player of store.displayedRows(); track player.playerId; let i = $index) {
+              <tr
+                [class.row-expanded]="isExpanded(player.playerId)"
+                [ngClass]="getTierClass(player.positionalTier)"
+              >
+                <td class="expander-cell">
+                  <button
+                    mat-icon-button
+                    type="button"
+                    (click)="toggleExpanded(player.playerId)"
+                    [attr.aria-label]="'Toggle details for ' + player.fullName"
+                  >
+                    <mat-icon>
+                      {{ isExpanded(player.playerId) ? "expand_less" : "expand_more" }}
+                    </mat-icon>
+                  </button>
+                </td>
+                <td>{{ i + 1 }}</td>
+                <td>
+                  <div class="player-cell">
+                    <img
+                      class="player-avatar"
+                      [src]="playerHeadshotUrl(player.playerId)"
+                      [alt]="player.fullName"
+                      loading="lazy"
+                      (error)="onPlayerImageError($event)"
+                    />
+                    <span class="player-cell-name">{{ player.fullName }}</span>
+                  </div>
+                </td>
+                <td>{{ player.position }}</td>
+                <td>{{ player.team ?? "FA" }}</td>
+                <td>{{ player.age ?? "-" }}</td>
+                <td>{{ player.ktcRank ?? "-" }}</td>
+                <td>{{ selectedValue(player) ?? "-" }}</td>
+                <td>
+                  <div class="tier-cell">
+                    <span class="tier-primary">{{ selectedTierValue(player, false) ?? "-" }}</span>
+                    <span class="tier-secondary">({{ secondaryTierText(player, false) }})</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="tier-cell">
+                    <span class="tier-primary">{{ selectedTierValue(player, true) ?? "-" }}</span>
+                    <span class="tier-secondary">({{ secondaryTierText(player, true) }})</span>
+                  </div>
+                </td>
+              </tr>
+
+              @if (isExpanded(player.playerId)) {
+                <tr class="player-details-row">
+                  <td colspan="10">
+                    <app-player-details-grid
+                      [items]="playerDetailItems(player)"
+                      [columns]="2"
+                    ></app-player-details-grid>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+      @if (store.displayedRows().length === 0) {
+        <p class="empty-copy">No players match the selected filters.</p>
       }
-    </section>
+    </mat-card>
+  }
+</section>

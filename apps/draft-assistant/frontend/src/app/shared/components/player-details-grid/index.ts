@@ -1,2 +1,2 @@
-export { PlayerDetailsGridComponent } from './player-details-grid.component';
-export type { PlayerDetailGridItem } from './player-details-grid.types';
+export { PlayerDetailsGridComponent } from "./player-details-grid.component";
+export type { PlayerDetailGridItem } from "./player-details-grid.types";

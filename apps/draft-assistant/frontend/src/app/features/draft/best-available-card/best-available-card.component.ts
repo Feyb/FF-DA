@@ -1,20 +1,16 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import {
-  BestAvailableEntry,
-  DraftStore,
-  rankForSortSource,
-} from '../draft.store';
-import { adpDeltaClass, adpDeltaLabel, sortSourceRankLabel } from '../draft-display.util';
-import { TierLegendComponent } from '../../../shared/components/tier-legend';
-import { TierColorPipe } from '../../../shared/pipes';
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { BestAvailableEntry, DraftStore, rankForSortSource } from "../draft.store";
+import { adpDeltaClass, adpDeltaLabel, sortSourceRankLabel } from "../draft-display.util";
+import { TierLegendComponent } from "../../../shared/components/tier-legend";
+import { TierColorPipe } from "../../../shared/pipes";
 
 @Component({
-  selector: 'app-best-available-card',
-  templateUrl: './best-available-card.component.html',
-  styleUrl: './best-available-card.component.scss',
+  selector: "app-best-available-card",
+  templateUrl: "./best-available-card.component.html",
+  styleUrl: "./best-available-card.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, MatCardModule, MatIconModule, TierLegendComponent, TierColorPipe],
 })

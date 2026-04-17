@@ -13,7 +13,11 @@
     "build": "pnpm run rankings:sync && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "lint:ng": "ng lint",
+    "fmt": "oxfmt .",
+    "fmt:check": "oxfmt --check ."
   },
   "dependencies": {
     "@angular/animations": "^20.0.0",
@@ -44,6 +48,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "oxfmt": "^1.15.0",
+    "oxlint": "^1.15.0",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.0",
     "typescript": "~5.8.0"

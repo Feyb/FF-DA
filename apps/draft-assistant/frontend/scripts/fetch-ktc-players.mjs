@@ -1,39 +1,39 @@
-import { mkdir, writeFile } from 'node:fs/promises';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { mkdir, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const KTC_RANKINGS_URL = 'https://keeptradecut.com/dynasty-rankings';
-const OUTPUT_DIR = resolve(__dirname, '../src/assets/ktc');
+const KTC_RANKINGS_URL = "https://keeptradecut.com/dynasty-rankings";
+const OUTPUT_DIR = resolve(__dirname, "../src/assets/ktc");
 
 const FORMATS = [
-  { key: '1qb', format: 1, output: 'players-1qb.json' },
-  { key: 'superflex', format: 2, output: 'players-superflex.json' },
+  { key: "1qb", format: 1, output: "players-1qb.json" },
+  { key: "superflex", format: 2, output: "players-superflex.json" },
 ];
 
 const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
 
 function extractPlayersArray(html) {
-  const marker = 'var playersArray = ';
+  const marker = "var playersArray = ";
   const start = html.indexOf(marker);
   if (start === -1) {
-    throw new Error('playersArray marker not found in KTC response');
+    throw new Error("playersArray marker not found in KTC response");
   }
 
-  const arrayStart = html.indexOf('[', start);
+  const arrayStart = html.indexOf("[", start);
   if (arrayStart === -1) {
-    throw new Error('playersArray JSON start not found in KTC response');
+    throw new Error("playersArray JSON start not found in KTC response");
   }
 
   let depth = 0;
   let arrayEnd = -1;
   for (let i = arrayStart; i < html.length; i += 1) {
     const ch = html[i];
-    if (ch === '[' || ch === '{') {
+    if (ch === "[" || ch === "{") {
       depth += 1;
-    } else if (ch === ']' || ch === '}') {
+    } else if (ch === "]" || ch === "}") {
       depth -= 1;
       if (depth === 0) {
         arrayEnd = i;
@@ -43,7 +43,7 @@ function extractPlayersArray(html) {
   }
 
   if (arrayEnd === -1) {
-    throw new Error('playersArray JSON end not found in KTC response');
+    throw new Error("playersArray JSON end not found in KTC response");
   }
 
   return JSON.parse(html.slice(arrayStart, arrayEnd + 1));
@@ -77,8 +77,8 @@ async function fetchWithRetry(url, retries = 2) {
     try {
       const response = await fetch(url, {
         headers: {
-          'user-agent': 'ff-draft-assistant-cache-sync/1.0',
-          accept: 'text/html,*/*;q=0.8',
+          "user-agent": "ff-draft-assistant-cache-sync/1.0",
+          accept: "text/html,*/*;q=0.8",
         },
       });
 
@@ -99,14 +99,14 @@ async function fetchWithRetry(url, retries = 2) {
 }
 
 async function writeJsonFile(path, data) {
-  await writeFile(path, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+  await writeFile(path, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
 
 async function run() {
   await mkdir(OUTPUT_DIR, { recursive: true });
 
   const metadata = {
-    source: 'keeptradecut.com',
+    source: "keeptradecut.com",
     generatedAt: new Date().toISOString(),
     formats: {},
   };
@@ -118,7 +118,7 @@ async function run() {
     try {
       const html = await fetchWithRetry(url);
       const rawPlayers = extractPlayersArray(html);
-      const players = mapPlayers(rawPlayers, formatConfig.key === 'superflex');
+      const players = mapPlayers(rawPlayers, formatConfig.key === "superflex");
       const outputPath = resolve(OUTPUT_DIR, formatConfig.output);
       await writeJsonFile(outputPath, players);
 
@@ -136,12 +136,14 @@ async function run() {
     }
   }
 
-  const metadataPath = resolve(OUTPUT_DIR, 'metadata.json');
+  const metadataPath = resolve(OUTPUT_DIR, "metadata.json");
   await writeJsonFile(metadataPath, metadata);
   console.log(`[ktc-sync] wrote metadata to ${metadataPath}`);
 
   if (errors.length > 0) {
-    console.error(`[ktc-sync] ${errors.length} format(s) failed: ${errors.map((e) => `${e.key}: ${e.error}`).join(', ')}`);
+    console.error(
+      `[ktc-sync] ${errors.length} format(s) failed: ${errors.map((e) => `${e.key}: ${e.error}`).join(", ")}`,
+    );
     process.exitCode = 1;
   }
 }

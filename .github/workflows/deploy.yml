@@ -39,6 +39,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Lint project
+        run: pnpm draft-assistant:lint
+
+      - name: Check formatting
+        run: pnpm draft-assistant:fmt:check
+
       - name: Build project
         run: pnpm draft-assistant:build --base-href /FF-DA/
 

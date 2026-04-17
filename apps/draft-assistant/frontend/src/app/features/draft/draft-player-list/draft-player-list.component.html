@@ -1,7 +1,9 @@
 <mat-card class="players-card" appearance="outlined">
   <div class="section-header">
     <h2>All Players</h2>
-    <span class="section-hint">{{ store.allPlayerRows().length }} players · {{ sortSourceRankLabel() }}</span>
+    <span class="section-hint"
+      >{{ store.allPlayerRows().length }} players · {{ sortSourceRankLabel() }}</span
+    >
   </div>
 
   <div class="player-list-controls">
@@ -16,7 +18,13 @@
         aria-label="Search players"
       />
       @if (store.searchQuery()) {
-        <button type="button" matIconSuffix mat-icon-button (click)="store.setSearchQuery('')" aria-label="Clear search">
+        <button
+          type="button"
+          matIconSuffix
+          mat-icon-button
+          (click)="store.setSearchQuery('')"
+          aria-label="Clear search"
+        >
           <mat-icon>close</mat-icon>
         </button>
       }
@@ -45,7 +53,11 @@
           </div>
         }
 
-        @if (!player.isDrafted && undraftedIdx >= 0 && shouldShowTierDivider(visibleUndraftedRows(), undraftedIdx)) {
+        @if (
+          !player.isDrafted &&
+          undraftedIdx >= 0 &&
+          shouldShowTierDivider(visibleUndraftedRows(), undraftedIdx)
+        ) {
           <div class="tier-divider-row">
             <span class="tier-divider-label">{{ tierDividerLabel(player) }}</span>
           </div>
@@ -68,24 +80,40 @@
             <span class="player-name" [class.player-name-drafted]="player.isDrafted">
               {{ player.fullName }}
               @if (!player.isDrafted && player.isGoingSoon) {
-                <span class="going-soon-badge" title="Expected to be picked very soon">⚠ Going Soon</span>
+                <span class="going-soon-badge" title="Expected to be picked very soon"
+                  >⚠ Going Soon</span
+                >
               }
             </span>
-            <span class="player-sub">{{ player.position }} · {{ player.team ?? 'FA' }}</span>
+            <span class="player-sub">{{ player.position }} · {{ player.team ?? "FA" }}</span>
           </div>
           <span class="player-tier-badge">
-            <span [attr.aria-label]="'Combined Tier: ' + (player.combinedTier ?? 'N/A')" title="Combined Tier">CT:{{ player.combinedTier ?? 'N/A' }}</span>
+            <span
+              [attr.aria-label]="'Combined Tier: ' + (player.combinedTier ?? 'N/A')"
+              title="Combined Tier"
+              >CT:{{ player.combinedTier ?? "N/A" }}</span
+            >
             <span class="player-tier-sep" aria-hidden="true"> · </span>
-            <span [attr.aria-label]="'KTC Tier: ' + (player.overallTier ?? 'N/A')" title="KTC Tier">KTC:{{ player.overallTier ?? 'N/A' }}</span>
+            <span [attr.aria-label]="'KTC Tier: ' + (player.overallTier ?? 'N/A')" title="KTC Tier"
+              >KTC:{{ player.overallTier ?? "N/A" }}</span
+            >
             <span class="player-tier-sep" aria-hidden="true"> · </span>
-            <span [attr.aria-label]="'Flock Tier: ' + (player.flockAverageTier ?? 'N/A')" title="Flock Tier">F:{{ player.flockAverageTier ?? 'N/A' }}</span>
+            <span
+              [attr.aria-label]="'Flock Tier: ' + (player.flockAverageTier ?? 'N/A')"
+              title="Flock Tier"
+              >F:{{ player.flockAverageTier ?? "N/A" }}</span
+            >
             @if (player.fpAdpRank !== null) {
               <span class="player-tier-sep" aria-hidden="true"> · </span>
-              <span [attr.aria-label]="'FP ADP: ' + player.fpAdpRank" title="FantasyPros ADP Rank">FP ADP:{{ player.fpAdpRank }}</span>
+              <span [attr.aria-label]="'FP ADP: ' + player.fpAdpRank" title="FantasyPros ADP Rank"
+                >FP ADP:{{ player.fpAdpRank }}</span
+              >
             }
           </span>
           <span class="player-rank">
-            @if (rank !== null) { #{{ rank }} }
+            @if (rank !== null) {
+              #{{ rank }}
+            }
           </span>
           <span
             class="player-adp-delta"
@@ -100,11 +128,16 @@
             [matTooltip]="valueGapTooltip(player)"
             [attr.aria-label]="'Value Gap: ' + (player.valueGap ?? 'N/A')"
           >
-            @if (player.valueGap === 0) { ✓ }
-            @else if (player.valueGap !== null) { ● }
+            @if (player.valueGap === 0) {
+              ✓
+            } @else if (player.valueGap !== null) {
+              ●
+            }
           </span>
-          @if (!player.isDrafted && player.availabilityRisk === 'at-risk') {
-            <span class="availability-badge at-risk" title="May be taken before your next pick">At Risk</span>
+          @if (!player.isDrafted && player.availabilityRisk === "at-risk") {
+            <span class="availability-badge at-risk" title="May be taken before your next pick"
+              >At Risk</span
+            >
           }
           @if (!player.isDrafted) {
             <button
@@ -113,7 +146,7 @@
               (click)="toggleStar(player.playerId)"
               [attr.aria-label]="isStarred(player.playerId) ? 'Unstar player' : 'Star player'"
             >
-              <mat-icon>{{ isStarred(player.playerId) ? 'star' : 'star_border' }}</mat-icon>
+              <mat-icon>{{ isStarred(player.playerId) ? "star" : "star_border" }}</mat-icon>
             </button>
           }
         </div>

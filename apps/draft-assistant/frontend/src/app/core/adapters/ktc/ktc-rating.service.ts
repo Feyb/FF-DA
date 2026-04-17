@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable, catchError, map, of, shareReplay } from 'rxjs';
-import { KtcPlayer, TeamViewPlayer, TeamViewRating } from '../../models';
-import { normalizeName as normalizeNameUtil } from '../../utils/name-normalization.util';
+import { HttpClient } from "@angular/common/http";
+import { inject, Injectable } from "@angular/core";
+import { Observable, catchError, map, of, shareReplay } from "rxjs";
+import { KtcPlayer, TeamViewPlayer, TeamViewRating } from "../../models";
+import { normalizeName as normalizeNameUtil } from "../../utils/name-normalization.util";
 
-const KTC_RANKINGS_URL = '/ktc/dynasty-rankings';
-const KTC_ASSET_1QB_URL = 'assets/ktc/players-1qb.json';
-const KTC_ASSET_SUPERFLEX_URL = 'assets/ktc/players-superflex.json';
+const KTC_RANKINGS_URL = "/ktc/dynasty-rankings";
+const KTC_ASSET_1QB_URL = "assets/ktc/players-1qb.json";
+const KTC_ASSET_SUPERFLEX_URL = "assets/ktc/players-superflex.json";
 
 interface KtcRawValueBlock {
   value: number;
@@ -29,7 +29,7 @@ interface KtcRawPlayer {
   superflexValues: KtcRawValueBlock;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class KtcRatingService {
   private readonly http = inject(HttpClient);
   private readonly cache = new Map<string, Observable<KtcPlayer[]>>();
@@ -46,7 +46,7 @@ export class KtcRatingService {
     const obs$ = this.http.get<KtcPlayer[]>(assetUrl).pipe(
       map((players) => players ?? []),
       catchError(() =>
-        this.http.get(url, { responseType: 'text' }).pipe(
+        this.http.get(url, { responseType: "text" }).pipe(
           map((html) => this.extractPlayersArray(html, superflex)),
           catchError(() => of([])),
         ),
@@ -59,19 +59,19 @@ export class KtcRatingService {
   }
 
   private extractPlayersArray(html: string, superflex: boolean): KtcPlayer[] {
-    const marker = 'var playersArray = ';
+    const marker = "var playersArray = ";
     const start = html.indexOf(marker);
     if (start === -1) return [];
 
-    const arrayStart = html.indexOf('[', start);
+    const arrayStart = html.indexOf("[", start);
     if (arrayStart === -1) return [];
 
     let depth = 0;
     let arrayEnd = -1;
     for (let i = arrayStart; i < html.length; i++) {
       const ch = html[i];
-      if (ch === '[' || ch === '{') depth++;
-      else if (ch === ']' || ch === '}') {
+      if (ch === "[" || ch === "{") depth++;
+      else if (ch === "]" || ch === "}") {
         depth--;
         if (depth === 0) {
           arrayEnd = i;
@@ -123,24 +123,24 @@ export class KtcRatingService {
     players: TeamViewPlayer[],
     ktcLookup: Map<string, KtcPlayer> | null = null,
   ): TeamViewRating {
-    const positionScores: TeamViewRating['positionScores'] = { QB: 0, RB: 0, WR: 0, TE: 0 };
+    const positionScores: TeamViewRating["positionScores"] = { QB: 0, RB: 0, WR: 0, TE: 0 };
     const ktcUnavailable = !ktcLookup || ktcLookup.size === 0;
     let combinedScore = 0;
 
     for (const player of players) {
       const score = player.ktcValue ?? 0;
       combinedScore += score;
-      if (player.position === 'QB') positionScores.QB += score;
-      else if (player.position === 'RB') positionScores.RB += score;
-      else if (player.position === 'WR') positionScores.WR += score;
-      else if (player.position === 'TE') positionScores.TE += score;
+      if (player.position === "QB") positionScores.QB += score;
+      else if (player.position === "RB") positionScores.RB += score;
+      else if (player.position === "WR") positionScores.WR += score;
+      else if (player.position === "TE") positionScores.TE += score;
     }
 
     return {
       combinedScore,
       positionScores,
       playerCount: players.length,
-      source: ktcUnavailable ? 'sleeper-fallback' : 'ktc',
+      source: ktcUnavailable ? "sleeper-fallback" : "ktc",
       ktcUnavailable,
     };
   }
