@@ -4,10 +4,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import {
   BestAvailableEntry,
-  DraftPositionFilter,
   DraftStore,
   rankForSortSource,
 } from '../draft.store';
+import { adpDeltaClass, adpDeltaLabel, sortSourceRankLabel } from '../draft-display.util';
 import { TierLegendComponent } from '../../../shared/components/tier-legend';
 import { TierColorPipe } from '../../../shared/pipes';
 
@@ -22,29 +22,15 @@ export class BestAvailableCardComponent {
   protected readonly store = inject(DraftStore);
 
   protected adpDeltaLabel(delta: number | null): string {
-    if (delta === null) return '—';
-    if (delta > 0) return `+${delta}`;
-    return String(delta);
+    return adpDeltaLabel(delta);
   }
 
   protected adpDeltaClass(delta: number | null): string {
-    if (delta === null) return '';
-    if (delta > 1) return 'adp-value';
-    if (delta < -1) return 'adp-reach';
-    return 'adp-neutral';
+    return adpDeltaClass(delta);
   }
 
   protected sortSourceRankLabel(): string {
-    switch (this.store.sortSource()) {
-      case 'combinedTier': return 'Comb. Tier';
-      case 'sleeperRank': return 'Sleeper Rank';
-      case 'ktcRank': return 'KTC Rank';
-      case 'flockRank': return 'Flock Rank';
-      case 'combinedPositionalTier': return 'Comb. Pos. Tier';
-      case 'adpDelta': return 'ADP Delta';
-      case 'valueGap': return 'Value Gap';
-      case 'fpAdpRank': return 'FP ADP';
-    }
+    return sortSourceRankLabel(this.store.sortSource());
   }
 
   protected bestAvailableRank(entry: BestAvailableEntry): number | null {

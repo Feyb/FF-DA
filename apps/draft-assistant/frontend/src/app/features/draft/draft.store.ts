@@ -22,23 +22,26 @@ import { mapRosterAvatarIds } from './draft-board-grid/draft-board-grid.util';
 import { AppStore } from '../../core/state/app.store';
 import { StorageService } from '../../core/services/storage.service';
 import { PlayerNormalizationService } from '../../core/services/player-normalization.service';
-import { resolveTier as resolveTierUtil } from '../../core/utils/tier-resolution.util';
 import { toErrorMessage } from '../../core/utils/error.util';
 import { togglePositionFilter } from '../../core/utils/position-filter.util';
 import { toMapById } from '../../core/utils/array-mapping.util';
+import {
+  DraftValueSource,
+  resolveDraftTier,
+  resolveDraftValue,
+} from './draft-ranking.util';
+import {
+  DraftSortSource,
+  positionalRankForSortSource,
+  rankForSortSource,
+  sortBySortSource,
+} from './draft-sort.util';
 
 export type DraftPositionFilter = 'QB' | 'RB' | 'WR' | 'TE';
 export type DraftSourceMode = 'league' | 'direct';
-export type DraftValueSource = 'ktcValue' | 'averageRank';
-export type DraftSortSource =
-  | 'combinedTier'
-  | 'sleeperRank'
-  | 'ktcRank'
-  | 'flockRank'
-  | 'combinedPositionalTier'
-  | 'adpDelta'
-  | 'valueGap'
-  | 'fpAdpRank';
+export type { DraftSortSource, DraftValueSource };
+
+export { positionalRankForSortSource, rankForSortSource };
 
 /** A DraftPlayerRow enriched with runtime draft-session state for UI display. */
 export interface DraftPlayerDisplayRow extends DraftPlayerRow {
@@ -108,108 +111,6 @@ interface DraftState {
 
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
 const BEST_AVAILABLE_POSITIONS: DraftPositionFilter[] = ['QB', 'RB', 'WR', 'TE'];
-
-function resolveTier(row: DraftPlayerRow, tierSrc: TierSource): number {
-  const ktcTier = row.positionalTier ?? row.overallTier ?? null;
-  const flockTier = row.flockAveragePositionalTier ?? row.flockAverageTier ?? null;
-
-  if (tierSrc === 'flock' && flockTier === null) {
-    return ktcTier ?? Number.MAX_SAFE_INTEGER;
-  }
-
-  return resolveTierUtil(ktcTier, flockTier, tierSrc) ?? Number.MAX_SAFE_INTEGER;
-}
-
-function resolveValue(row: DraftPlayerRow, valueSrc: DraftValueSource): number {
-  if (valueSrc === 'ktcValue') return row.ktcValue ?? 0;
-  // averageRank is lower-is-better; negate so higher return value = better player.
-  // Fall back to ktcValue when averageRank is unavailable.
-  if (row.averageRank !== null) return -row.averageRank;
-  return row.ktcValue ?? 0;
-}
-
-/** Sort comparator keyed on DraftSortSource. Lower return = higher priority. */
-function sortBySortSource(a: DraftPlayerRow, b: DraftPlayerRow, src: DraftSortSource): number {
-  switch (src) {
-    case 'combinedTier': {
-      const aTier = a.combinedTier ?? Number.MAX_SAFE_INTEGER;
-      const bTier = b.combinedTier ?? Number.MAX_SAFE_INTEGER;
-      if (aTier !== bTier) return aTier - bTier;
-      break;
-    }
-    case 'sleeperRank':
-      if (a.sleeperRank !== b.sleeperRank) return a.sleeperRank - b.sleeperRank;
-      break;
-    case 'ktcRank': {
-      const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
-      const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
-      if (aRank !== bRank) return aRank - bRank;
-      break;
-    }
-    case 'flockRank': {
-      const aRank = a.averageRank ?? Number.MAX_SAFE_INTEGER;
-      const bRank = b.averageRank ?? Number.MAX_SAFE_INTEGER;
-      if (aRank !== bRank) return aRank - bRank;
-      break;
-    }
-    case 'combinedPositionalTier': {
-      const aTier = a.combinedPositionalTier ?? Number.MAX_SAFE_INTEGER;
-      const bTier = b.combinedPositionalTier ?? Number.MAX_SAFE_INTEGER;
-      if (aTier !== bTier) return aTier - bTier;
-      break;
-    }
-    case 'adpDelta': {
-      // Descending: biggest positive delta (best value) first. Nulls last.
-      const aDelta = a.adpDelta ?? -Number.MAX_SAFE_INTEGER;
-      const bDelta = b.adpDelta ?? -Number.MAX_SAFE_INTEGER;
-      if (aDelta !== bDelta) return bDelta - aDelta;
-      break;
-    }
-    case 'valueGap': {
-      // Descending: highest disagreement first. Nulls last.
-      const aGap = a.valueGap ?? -1;
-      const bGap = b.valueGap ?? -1;
-      if (aGap !== bGap) return bGap - aGap;
-      break;
-    }
-    case 'fpAdpRank': {
-      const aRank = a.fpAdpRank ?? Number.MAX_SAFE_INTEGER;
-      const bRank = b.fpAdpRank ?? Number.MAX_SAFE_INTEGER;
-      if (aRank !== bRank) return aRank - bRank;
-      break;
-    }
-  }
-  // Tiebreak: sleeperRank
-  return a.sleeperRank - b.sleeperRank;
-}
-
-/** Return the numeric rank value for a row based on the active sort source. */
-export function rankForSortSource(row: DraftPlayerRow, src: DraftSortSource): number | null {
-  switch (src) {
-    case 'combinedTier': return row.combinedTier;
-    case 'sleeperRank': return row.sleeperRank;
-    case 'ktcRank': return row.ktcRank;
-    case 'flockRank': return row.averageRank;
-    case 'combinedPositionalTier': return row.combinedPositionalTier;
-    case 'adpDelta': return row.adpDelta;
-    case 'valueGap': return row.valueGap;
-    case 'fpAdpRank': return row.fpAdpRank;
-  }
-}
-
-/** Return the positional-rank/tier value for a row based on the active sort source. */
-export function positionalRankForSortSource(row: DraftPlayerRow, src: DraftSortSource): number | null {
-  switch (src) {
-    case 'combinedTier': return row.combinedPositionalTier;
-    case 'sleeperRank': return null; // Sleeper does not expose a separate positional rank
-    case 'ktcRank': return row.positionalTier;
-    case 'flockRank': return row.flockAveragePositionalTier;
-    case 'combinedPositionalTier': return row.combinedPositionalTier;
-    case 'adpDelta': return null;
-    case 'valueGap': return null;
-    case 'fpAdpRank': return null;
-  }
-}
 
 /** Compute how many picks until the user's turn (0 = user's pick now). */
 function calcPicksUntilMyTurn(
@@ -469,8 +370,8 @@ export const DraftStore = signalStore(
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
         .sort((a, b) => {
-          const aTier = resolveTier(a, tierSrc);
-          const bTier = resolveTier(b, tierSrc);
+          const aTier = resolveDraftTier(a, tierSrc);
+          const bTier = resolveDraftTier(b, tierSrc);
           if (aTier !== bTier) return aTier - bTier;
 
           const aRank = valueSrc === 'ktcValue'
@@ -511,22 +412,22 @@ export const DraftStore = signalStore(
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
         .sort((a, b) => {
-          const aTier = resolveTier(a, tierSrc);
-          const bTier = resolveTier(b, tierSrc);
+          const aTier = resolveDraftTier(a, tierSrc);
+          const bTier = resolveDraftTier(b, tierSrc);
           if (aTier !== bTier) return aTier - bTier;
 
           const aPosition = positionOrder[a.position];
           const bPosition = positionOrder[b.position];
           if (aPosition !== bPosition) return aPosition - bPosition;
 
-          return resolveValue(b, valueSrc) - resolveValue(a, valueSrc);
+          return resolveDraftValue(b, valueSrc) - resolveDraftValue(a, valueSrc);
         });
 
       // Find top 3 distinct tier values
       const tierOrder: number[] = [];
       const seenTiers = new Set<number>();
       for (const row of sortedRows) {
-        const tier = resolveTier(row, tierSrc);
+        const tier = resolveDraftTier(row, tierSrc);
         if (!seenTiers.has(tier)) {
           tierOrder.push(tier);
           seenTiers.add(tier);
@@ -537,7 +438,7 @@ export const DraftStore = signalStore(
       // Filter to top 3 tiers and cap at 3 players per tier
       const tierPlayerCounts = new Map<number, number>();
       const filtered = sortedRows.filter((row) => {
-        const tier = resolveTier(row, tierSrc);
+        const tier = resolveDraftTier(row, tierSrc);
         if (!top3Tiers.has(tier)) return false;
         const count = tierPlayerCounts.get(tier) ?? 0;
         if (count >= 3) return false;
@@ -564,7 +465,7 @@ export const DraftStore = signalStore(
           combinedTier: row.combinedTier,
           adpDelta: row.adpDelta,
           availabilityRisk,
-          boostedScore: resolveValue(row, valueSrc),
+          boostedScore: resolveDraftValue(row, valueSrc),
         };
       });
     }),
