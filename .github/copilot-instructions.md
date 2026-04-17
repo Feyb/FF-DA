@@ -21,6 +21,7 @@ Use project skills plus Angular skills based on edit type:
   - `angular-forms`
 - Routing and navigation:
   - `angular-routing`
+- use context7 mcp for updated docuemntations not angular related
 
 ## App-Specific Instruction Files
 
