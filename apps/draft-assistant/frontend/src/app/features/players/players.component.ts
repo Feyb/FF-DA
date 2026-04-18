@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
@@ -8,6 +8,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { toSignal, toObservable } from "@angular/core/rxjs-interop";
+import { switchMap } from "rxjs";
 import { TierLegendComponent } from "../../shared/components/tier-legend";
 import { LoadingStateComponent } from "../../shared/components/loading-state";
 import { ErrorStateComponent } from "../../shared/components/error-state";
@@ -20,13 +22,17 @@ import {
   ValueSource,
 } from "./players.store";
 import { TierSource } from "../../core/models";
-import { PLAYER_FALLBACK_IMAGE } from "../../core/constants/images.constants";
+import { SleeperPlayerStats } from "../../core/models";
 import { resolveTier } from "../../core/utils/tier-resolution.util";
+import { getTierColorClass } from "../../shared/pipes/tier-color.pipe";
 import { PageHeaderComponent } from "../../shared/components/page-header";
 import {
   PlayerDetailGridItem,
   PlayerDetailsGridComponent,
 } from "../../shared/components/player-details-grid";
+import { SleeperStatsService } from "../../core/adapters/sleeper/sleeper-stats.service";
+import { AppStore } from "../../core/state/app.store";
+import { PlayerCardComponent } from "../../shared/components/player-card";
 
 interface PlayersStoreView {
   selectedPositions: () => PositionFilter[];
@@ -73,10 +79,14 @@ interface PlayersStoreView {
     LoadingStateComponent,
     ErrorStateComponent,
     PlayerDetailsGridComponent,
+    PlayerCardComponent,
   ],
 })
 export class PlayersComponent {
   protected readonly store = inject(PlayersStore) as PlayersStoreView;
+  private readonly appStore = inject(AppStore);
+  private readonly statsService = inject(SleeperStatsService);
+
   protected readonly tierSources: Array<{ value: TierSource; label: string }> = [
     { value: "average", label: "Average (KTC + Flock)" },
     { value: "flock", label: "Flock" },
@@ -87,8 +97,17 @@ export class PlayersComponent {
     { value: "averageRank", label: "Flock Average Rank" },
   ];
   protected expandedPlayerId: string | null = null;
-  protected readonly playerFallbackImage = PLAYER_FALLBACK_IMAGE;
   protected readonly positions = ["QB", "RB", "WR", "TE"] as const;
+
+  private readonly seasonYear = computed(() => {
+    const season = this.appStore.selectedLeague()?.season;
+    return season ? Number(season) : new Date().getFullYear() - 1;
+  });
+
+  protected readonly statsMap = toSignal(
+    toObservable(this.seasonYear).pipe(switchMap((year) => this.statsService.fetchStats(year))),
+    { initialValue: new Map<string, SleeperPlayerStats>() },
+  );
 
   protected togglePosition(position: "QB" | "RB" | "WR" | "TE"): void {
     this.store.togglePosition(position);
@@ -96,18 +115,6 @@ export class PlayersComponent {
 
   protected retryLoad(): void {
     this.store.loadPlayers();
-  }
-
-  protected playerHeadshotUrl(playerId: string): string {
-    return `https://sleepercdn.com/content/nfl/players/thumb/${playerId}.jpg`;
-  }
-
-  protected onPlayerImageError(event: Event): void {
-    const img = event.target as HTMLImageElement | null;
-    if (!img || img.src === this.playerFallbackImage) {
-      return;
-    }
-    img.src = this.playerFallbackImage;
   }
 
   protected toggleExpanded(playerId: string): void {
@@ -118,12 +125,9 @@ export class PlayersComponent {
     return this.expandedPlayerId === playerId;
   }
 
-  protected getTierClass(tier: number | null): string {
-    if (tier === null) {
-      return "";
-    }
-    const tierNum = Math.max(1, Math.min(tier, 10));
-    return `row-tier-${tierNum}`;
+  protected tierColorClass(player: PlayerRow): string {
+    const tier = this.resolveTierValue(player, this.store.tierSource(), true);
+    return getTierColorClass(tier);
   }
 
   protected selectedTierValue(player: PlayerRow, positional: boolean): number | null {
