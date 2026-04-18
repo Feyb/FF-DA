@@ -1,5 +1,4 @@
 <nav class="app-nav">
-
   <!-- Header -->
   <div class="nav-header">
     <img src="assets/logo.png" alt="Draft Assistant" class="nav-logo" />
@@ -43,7 +42,6 @@
   <div class="nav-footer">
     <span class="nav-section-label">Settings</span>
     <div class="nav-footer-controls">
-
       <app-dark-mode-toggle />
 
       <button
@@ -63,17 +61,12 @@
           aria-label="Density options"
         >
           @for (density of densityOptions; track density) {
-            <mat-radio-button
-              [value]="density"
-              color="primary"
-            >
+            <mat-radio-button [value]="density" color="primary">
               {{ densityLabel(density) }}
             </mat-radio-button>
           }
         </mat-radio-group>
       </mat-menu>
-
     </div>
   </div>
-
 </nav>

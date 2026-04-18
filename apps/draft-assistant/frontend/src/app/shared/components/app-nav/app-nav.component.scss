@@ -54,7 +54,9 @@
   color: color-mix(in srgb, var(--on-surface) 72%, transparent);
   font-size: 0.9375rem;
   font-weight: 500;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 
   &:hover {
     background: color-mix(in srgb, var(--primary) 8%, transparent);
