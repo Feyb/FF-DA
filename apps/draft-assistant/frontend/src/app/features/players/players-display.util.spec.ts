@@ -36,6 +36,7 @@ function run(
   sortBy: SortBy = "default",
   sortDirection: SortDirection = "asc",
   valueSource: ValueSource = "ktcValue",
+  searchQuery = "",
 ): PlayerRow[] {
   return filterAndSortPlayerRows(
     rows,
@@ -44,6 +45,7 @@ function run(
     sortBy,
     sortDirection,
     valueSource,
+    searchQuery,
   );
 }
 

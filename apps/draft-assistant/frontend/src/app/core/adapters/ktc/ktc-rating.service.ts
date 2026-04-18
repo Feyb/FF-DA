@@ -33,6 +33,7 @@ interface KtcRawPlayer {
 export class KtcRatingService {
   private readonly http = inject(HttpClient);
   private readonly cache = new Map<string, Observable<KtcPlayer[]>>();
+  private metadataCache: Observable<{ generatedAt: string } | null> | null = null;
 
   /** Fetch KTC dynasty rankings page and extract the embedded playersArray. */
   fetchPlayers(superflex = false): Observable<KtcPlayer[]> {
@@ -105,6 +106,22 @@ export class KtcRatingService {
     } catch {
       return [];
     }
+  }
+
+  fetchMetadata(): Observable<{ generatedAt: string } | null> {
+    if (this.metadataCache) return this.metadataCache;
+
+    this.metadataCache = this.http
+      .get<{ generatedAt: string }>("assets/ktc/metadata.json")
+      .pipe(
+        map((data) =>
+          data?.generatedAt && typeof data.generatedAt === "string" ? data : null,
+        ),
+        catchError(() => of(null)),
+        shareReplay({ bufferSize: 1, refCount: false }),
+      );
+
+    return this.metadataCache;
   }
 
   buildNameLookup(players: KtcPlayer[]): Map<string, KtcPlayer> {

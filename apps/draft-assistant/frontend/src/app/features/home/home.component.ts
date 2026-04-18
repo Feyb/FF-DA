@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { FormControl, ReactiveFormsModule } from "@angular/forms";
+import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatListModule } from "@angular/material/list";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSelectModule } from "@angular/material/select";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatIconModule } from "@angular/material/icon";
 import { HomeStore } from "./home.store";
@@ -24,6 +25,7 @@ const HOME_USERNAME_STORAGE_KEY = "draftAssistant.sleeperUsername";
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [HomeStore],
   imports: [
+    FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -31,6 +33,7 @@ const HOME_USERNAME_STORAGE_KEY = "draftAssistant.sleeperUsername";
     MatListModule,
     MatChipsModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     MatTabsModule,
     MatIconModule,
     PageHeaderComponent,
@@ -44,6 +47,15 @@ export class HomeComponent {
 
   protected readonly usernameControl = new FormControl("");
   protected readonly leagueIdControl = new FormControl("");
+
+  protected readonly seasonOptions: string[] = (() => {
+    const currentYear = new Date().getFullYear();
+    const years: string[] = [];
+    for (let y = currentYear; y >= 2020; y--) {
+      years.push(String(y));
+    }
+    return years;
+  })();
 
   constructor() {
     const savedUsername = this.storage.getRawItem(HOME_USERNAME_STORAGE_KEY) ?? "";
@@ -68,5 +80,13 @@ export class HomeComponent {
 
   protected selectLeague(league: League): void {
     this.store.selectLeague(league);
+  }
+
+  protected onSeasonChange(season: string): void {
+    this.store.setSelectedSeason(season);
+    const username = this.storage.getRawItem(HOME_USERNAME_STORAGE_KEY);
+    if (username) {
+      this.store.loadByUsername(username);
+    }
   }
 }
