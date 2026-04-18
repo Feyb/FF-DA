@@ -1,42 +1,11 @@
 <div class="app-shell">
-  <mat-toolbar color="primary" class="app-toolbar">
-    <div class="app-brand">
-      <img
-        src="assets/logo.png"
-        width="168"
-        height="40"
-        alt="Draft Assistant logo"
-        class="app-logo"
-      />
-      <span class="app-title">Draft Assistant</span>
-    </div>
-    <app-density-settings />
-    <app-dark-mode-toggle />
-    @if (appStore.selectedLeague()) {
-      <span class="toolbar-league">
-        <mat-icon>check_circle</mat-icon>
-        {{ appStore.selectedLeague()!.name }}
-      </span>
-    }
-  </mat-toolbar>
-
-  <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="app-nav">
-    @for (link of navLinks; track link.path) {
-      <a
-        mat-tab-link
-        [routerLink]="link.path"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        {{ link.label }}
-      </a>
-    }
-  </nav>
-
-  <mat-tab-nav-panel #tabPanel>
+  <aside class="app-sidebar">
+    <app-nav />
+  </aside>
+  <div class="app-main">
     <main class="app-content">
       <router-outlet />
     </main>
-  </mat-tab-nav-panel>
+    <app-bottom-nav class="app-bottom-nav" />
+  </div>
 </div>

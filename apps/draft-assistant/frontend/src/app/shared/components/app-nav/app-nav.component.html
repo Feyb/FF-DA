@@ -1,0 +1,80 @@
+<nav class="app-nav">
+
+  <!-- Header -->
+  <div class="nav-header">
+    <img src="assets/logo.png" alt="Draft Assistant" class="nav-logo" />
+    <span class="nav-title">Draft Assistant</span>
+  </div>
+
+  <!-- Nav items -->
+  <ul class="nav-items" role="list">
+    @for (link of navLinks; track link.path) {
+      <li>
+        <a
+          class="nav-item"
+          [routerLink]="link.path"
+          routerLinkActive="nav-item--active"
+          [attr.aria-label]="link.label"
+        >
+          <mat-icon class="nav-item-icon">{{ link.icon }}</mat-icon>
+          <span class="nav-item-label">{{ link.label }}</span>
+        </a>
+      </li>
+    }
+  </ul>
+
+  <!-- League context -->
+  <div class="nav-league">
+    <span class="nav-section-label">League</span>
+    @if (appStore.selectedLeague(); as league) {
+      <div class="nav-league-info">
+        <mat-icon class="nav-league-check">check_circle</mat-icon>
+        <div class="nav-league-text">
+          <span class="nav-league-name">{{ league.name }}</span>
+          <span class="nav-league-season">{{ league.season }}</span>
+        </div>
+      </div>
+    } @else {
+      <span class="nav-league-empty">No league selected</span>
+    }
+  </div>
+
+  <!-- Settings footer -->
+  <div class="nav-footer">
+    <span class="nav-section-label">Settings</span>
+    <div class="nav-footer-controls">
+
+      <app-dark-mode-toggle />
+
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="densityMenu"
+        class="nav-density-trigger"
+        aria-label="Adjust density"
+        [title]="'Density: ' + densityLabel(appStore.densityScale())"
+      >
+        <mat-icon>density_medium</mat-icon>
+      </button>
+
+      <mat-menu #densityMenu="matMenu">
+        @for (density of densityOptions; track density) {
+          <button
+            mat-menu-item
+            (click)="onDensityChange(density)"
+          >
+            <mat-radio-button
+              [value]="density"
+              [checked]="appStore.densityScale() === density"
+              (click)="$event.stopPropagation()"
+              color="primary"
+            >
+              {{ densityLabel(density) }}
+            </mat-radio-button>
+          </button>
+        }
+      </mat-menu>
+
+    </div>
+  </div>
+
+</nav>

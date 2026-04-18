@@ -1,0 +1,90 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.bottom-nav {
+  display: flex;
+  align-items: stretch;
+  height: 80px;
+  background: var(--surface-container-low);
+  border-top: 1px solid var(--outline-variant);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+// ── Nav item ──────────────────────────────────────────
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  color: color-mix(in srgb, var(--on-surface) 65%, transparent);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.15s;
+
+  &--active {
+    color: var(--primary);
+
+    .bottom-nav-pill {
+      background: color-mix(in srgb, var(--primary) 14%, transparent);
+    }
+
+    .bottom-nav-icon {
+      font-variation-settings: 'FILL' 1;
+    }
+  }
+
+  &:hover:not(.bottom-nav-item--active) {
+    color: var(--on-surface);
+
+    .bottom-nav-pill {
+      background: color-mix(in srgb, var(--on-surface) 6%, transparent);
+    }
+  }
+}
+
+// ── Pill indicator (Material 3 style) ─────────────────
+.bottom-nav-pill {
+  width: 64px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition: background 0.2s;
+}
+
+.bottom-nav-icon {
+  font-size: 1.375rem;
+  width: 1.375rem;
+  height: 1.375rem;
+  font-variation-settings: 'FILL' 0;
+  transition: font-variation-settings 0.15s;
+}
+
+.bottom-nav-label {
+  line-height: 1;
+}
+
+// ── Dark mode ─────────────────────────────────────────
+html.dark {
+  .bottom-nav {
+    background: var(--surface-container-low);
+    border-top-color: var(--outline-variant);
+  }
+
+  .bottom-nav-item--active {
+    color: #c4b5fd;
+
+    .bottom-nav-pill {
+      background: color-mix(in srgb, var(--primary) 22%, transparent);
+    }
+  }
+}

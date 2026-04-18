@@ -1,0 +1,14 @@
+<nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+  @for (link of navLinks; track link.path) {
+    <a
+      class="bottom-nav-item"
+      [routerLink]="link.path"
+      routerLinkActive="bottom-nav-item--active"
+    >
+      <div class="bottom-nav-pill">
+        <mat-icon class="bottom-nav-icon">{{ link.icon }}</mat-icon>
+      </div>
+      <span class="bottom-nav-label">{{ link.label }}</span>
+    </a>
+  }
+</nav>
