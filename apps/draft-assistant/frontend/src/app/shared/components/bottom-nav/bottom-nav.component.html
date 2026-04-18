@@ -1,10 +1,29 @@
 <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
-  @for (link of navLinks; track link.path) {
-    <a class="bottom-nav-item" [routerLink]="link.path" routerLinkActive="bottom-nav-item--active">
-      <div class="bottom-nav-pill">
-        <mat-icon class="bottom-nav-icon">{{ link.icon }}</mat-icon>
-      </div>
-      <span class="bottom-nav-label">{{ link.label }}</span>
-    </a>
-  }
+  <!-- Settings / league strip -->
+  <div class="bottom-nav-settings">
+    <div class="bottom-nav-league">
+      @if (appStore.selectedLeague(); as league) {
+        <mat-icon class="bottom-nav-league-icon">check_circle</mat-icon>
+        <span class="bottom-nav-league-name">{{ league.name }}</span>
+      } @else {
+        <span class="bottom-nav-league-empty">No league selected</span>
+      }
+    </div>
+    <div class="bottom-nav-controls">
+      <app-dark-mode-toggle />
+      <app-density-settings />
+    </div>
+  </div>
+
+  <!-- Nav links -->
+  <div class="bottom-nav-links">
+    @for (link of navLinks; track link.path) {
+      <a class="bottom-nav-item" [routerLink]="link.path" routerLinkActive="bottom-nav-item--active">
+        <div class="bottom-nav-pill">
+          <mat-icon class="bottom-nav-icon">{{ link.icon }}</mat-icon>
+        </div>
+        <span class="bottom-nav-label">{{ link.label }}</span>
+      </a>
+    }
+  </div>
 </nav>
