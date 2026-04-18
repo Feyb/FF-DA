@@ -5,11 +5,67 @@
 
 .bottom-nav {
   display: flex;
-  align-items: stretch;
-  height: 80px;
+  flex-direction: column;
   background: var(--surface-container-low);
   border-top: 1px solid var(--outline-variant);
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+// ── Settings / league strip ────────────────────────────
+.bottom-nav-settings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.75rem 0.25rem 0.875rem;
+  border-bottom: 1px solid var(--outline-variant);
+  min-height: 40px;
+}
+
+.bottom-nav-league {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.bottom-nav-league-icon {
+  color: rgb(22 163 74);
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.bottom-nav-league-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bottom-nav-league-empty {
+  font-size: 0.8125rem;
+  color: color-mix(in srgb, var(--on-surface) 45%, transparent);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.bottom-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  flex-shrink: 0;
+}
+
+// ── Nav links row ──────────────────────────────────────
+.bottom-nav-links {
+  display: flex;
+  align-items: stretch;
+  height: 80px;
 }
 
 // ── Nav item ──────────────────────────────────────────
@@ -78,6 +134,10 @@ html.dark {
   .bottom-nav {
     background: var(--surface-container-low);
     border-top-color: var(--outline-variant);
+  }
+
+  .bottom-nav-league-icon {
+    color: rgb(74 222 128);
   }
 
   .bottom-nav-item--active {
