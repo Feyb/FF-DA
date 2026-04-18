@@ -57,21 +57,20 @@
       </button>
 
       <mat-menu #densityMenu="matMenu">
-        @for (density of densityOptions; track density) {
-          <button
-            mat-menu-item
-            (click)="onDensityChange(density)"
-          >
+        <mat-radio-group
+          [value]="appStore.densityScale()"
+          (change)="onDensityChange($event.value)"
+          aria-label="Density options"
+        >
+          @for (density of densityOptions; track density) {
             <mat-radio-button
               [value]="density"
-              [checked]="appStore.densityScale() === density"
-              (click)="$event.stopPropagation()"
               color="primary"
             >
               {{ densityLabel(density) }}
             </mat-radio-button>
-          </button>
-        }
+          }
+        </mat-radio-group>
       </mat-menu>
 
     </div>
