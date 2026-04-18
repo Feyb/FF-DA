@@ -38,4 +38,13 @@ Draft Tab:
   - the players are filtered based on the draft type. for eample a rookie draft only shows rookies for this years rookie class.
 - the user can see the best avialable pick based on the tier list or based on keeptradecuts raiting.
   - the user has another recommended raiting call team need. this will be suggested based on the team needs. For example if the combined value of rbs are low or lower then most of the other teams it will recommend to pick an rb with the highest possible raiting available.
+## 2. App Shell
+
+- **[implemented]** Hybrid navigation: fixed left sidebar (240 px) on desktop (≥ 768 px) with icon + label nav items, league context block, and a settings footer.
+- **[implemented]** Settings footer contains a dark mode toggle and a density icon button that opens a `mat-menu` overlay with radio buttons (Default, Compact −1 … −5).
+- **[implemented]** Mobile (< 768 px): Material 3 styled bottom navigation bar with icon + pill indicator + label. The sidebar is hidden on mobile.
+- **[implemented]** The top `mat-toolbar` has been removed. The logo and app title now live in the sidebar header.
+- **[implemented]** `NAV_LINKS` constant (`app/shared/nav-links.constant.ts`) is the single source of truth for nav destinations (Home, Team, Players, Draft).
+- **[implemented]** Density and dark-mode effects are owned by `AppNavComponent` (moved from `AppComponent`).
+
 # Plan: Sleeper Live Draft Assistant
