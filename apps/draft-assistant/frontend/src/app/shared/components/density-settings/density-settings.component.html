@@ -1,0 +1,26 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="densityMenu"
+  aria-label="Open density settings"
+  type="button"
+>
+  <mat-icon>tune</mat-icon>
+</button>
+
+<mat-menu #densityMenu="matMenu" class="density-settings-menu">
+  <div class="density-settings-panel" (click)="$event.stopPropagation()">
+    <p class="density-settings-label">Density</p>
+    <mat-radio-group
+      [value]="appStore.densityScale()"
+      (change)="onDensityChange($event)"
+      aria-label="Select UI density"
+      class="density-settings-group"
+    >
+      @for (option of densityOptions; track option) {
+        <mat-radio-button [value]="option" class="density-settings-option">
+          {{ densityLabel(option) }}
+        </mat-radio-button>
+      }
+    </mat-radio-group>
+  </div>
+</mat-menu>

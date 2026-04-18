@@ -4,10 +4,9 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatSelectChange, MatSelectModule } from "@angular/material/select";
-import { AppStore } from "./core/state/app.store";
+import { AppStore, DENSITY_SCALES } from "./core/state/app.store";
 import { DarkModeToggleComponent } from "./shared/components/dark-mode-toggle";
+import { DensitySettingsComponent } from "./shared/components/density-settings";
 
 interface NavLink {
   path: string;
@@ -26,15 +25,13 @@ interface NavLink {
     MatTabsModule,
     MatToolbarModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatSelectModule,
     DarkModeToggleComponent,
+    DensitySettingsComponent,
   ],
 })
 export class AppComponent {
   private readonly document = inject(DOCUMENT);
   protected readonly appStore = inject(AppStore);
-  protected readonly densityOptions: number[] = [0, -1, -2, -3, -4, -5];
   protected readonly navLinks: NavLink[] = [
     { path: "/home", label: "Home" },
     { path: "/team", label: "Team" },
@@ -45,10 +42,10 @@ export class AppComponent {
   constructor() {
     effect(() => {
       const root = this.document.documentElement;
-      for (const option of this.densityOptions) {
-        root.classList.remove(this.densityClass(option));
+      for (const option of DENSITY_SCALES) {
+        root.classList.remove(`app-density-${option}`);
       }
-      root.classList.add(this.densityClass(this.appStore.densityScale()));
+      root.classList.add(`app-density-${this.appStore.densityScale()}`);
     });
 
     effect(() => {
@@ -59,18 +56,5 @@ export class AppComponent {
         root.classList.remove("dark");
       }
     });
-  }
-
-  protected onDensityChange(event: MatSelectChange): void {
-    const density = Number(event.value ?? 0);
-    this.appStore.setDensityScale(density);
-  }
-
-  protected densityLabel(value: number): string {
-    return value === 0 ? "Default (0)" : `Compact (${value})`;
-  }
-
-  private densityClass(value: number): string {
-    return `app-density-${value}`;
   }
 }
