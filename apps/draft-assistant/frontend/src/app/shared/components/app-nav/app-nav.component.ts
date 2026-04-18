@@ -55,6 +55,6 @@ export class AppNavComponent {
   }
 
   densityLabel(value: number): string {
-    return value === 0 ? "Default" : "Compact " + value;
+    return value === 0 ? "Default" : `Compact ${value}`;
   }
 }
