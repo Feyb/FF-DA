@@ -18,7 +18,11 @@
   <!-- Nav links -->
   <div class="bottom-nav-links">
     @for (link of navLinks; track link.path) {
-      <a class="bottom-nav-item" [routerLink]="link.path" routerLinkActive="bottom-nav-item--active">
+      <a
+        class="bottom-nav-item"
+        [routerLink]="link.path"
+        routerLinkActive="bottom-nav-item--active"
+      >
         <div class="bottom-nav-pill">
           <mat-icon class="bottom-nav-icon">{{ link.icon }}</mat-icon>
         </div>
