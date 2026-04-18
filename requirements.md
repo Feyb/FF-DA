@@ -4,6 +4,7 @@ Home
 - the user can enter his sleeper name and based on the that the users leagues will be showing up. Alternatively you can enter the league id directly.
 - the user can select his league.
   - all the other tabs are based on the selected league.
+- **[implemented]** season selector in the username tab: user can choose which NFL season (2020–current year) to load leagues for; selection is persisted to localStorage and defaults to the current year.
 
 Team View Tab:
 - The user can view his team he has on sleeper.
@@ -15,11 +16,13 @@ Players Tab:
 - the user can filter players by different criterias
  - players positions (QB, RB, WR, TE)
  - Rookies only
+- **[implemented]** real-time player name search/filter: a search field above the table filters displayed rows by name, combined with the existing position and rookie filters.
 - Players can be sorterd by the player properties.
 - if a draft is running its eighter a draft from the league or a mock draft you can enable that already picked players get striked out
 - the default ordering of the players is based on the keeptradecut rankings and can be combined with the sleeper trankings
 - in the players tab you can do a tier list (s,a,b,c,d) while s is the top tier and d the lowest tier
 - the players will get a tag to quickly identify the tier
+- **[implemented]** KTC staleness indicator: an amber banner is shown when the KTC asset data is more than 1 day old, displaying the age in days and the last-synced date. No banner when data is fresh or metadata is unavailable.
 
 Draft Tab:
 - The user can enter his draft url based on his leagues that have a draft open (mock drafts or real drafts)

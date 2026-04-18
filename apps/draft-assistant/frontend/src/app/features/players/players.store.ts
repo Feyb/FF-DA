@@ -31,9 +31,11 @@ interface PlayersState {
   loading: boolean;
   error: string | null;
   ktcUnavailable: boolean;
+  ktcSyncedAt: string | null;
   rows: PlayerRow[];
   selectedPositions: PositionFilter[];
   rookiesOnly: boolean;
+  searchQuery: string;
   sortBy: SortBy;
   sortDirection: SortDirection;
   tierSource: TierSource;
@@ -47,9 +49,11 @@ export const PlayersStore = signalStore(
     loading: false,
     error: null,
     ktcUnavailable: false,
+    ktcSyncedAt: null,
     rows: [],
     selectedPositions: DEFAULT_POSITIONS,
     rookiesOnly: false,
+    searchQuery: "",
     sortBy: "default",
     sortDirection: "asc",
     tierSource: "average",
@@ -65,8 +69,15 @@ export const PlayersStore = signalStore(
         store.sortBy(),
         store.sortDirection(),
         store.valueSource(),
+        store.searchQuery(),
       ),
     ),
+    ktcStaleDays: computed((): number | null => {
+      const synced = store.ktcSyncedAt();
+      if (!synced) return null;
+      const diffMs = Date.now() - new Date(synced).getTime();
+      return Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    }),
   })),
   withMethods(
     (
@@ -86,11 +97,12 @@ export const PlayersStore = signalStore(
             const isSuperflex = (selectedLeague?.roster_positions ?? []).includes("SUPER_FLEX");
             const currentSeason = Number(selectedLeague?.season ?? new Date().getFullYear());
 
-            const [allPlayers, ktcPlayers, flockPlayers] = await firstValueFrom(
+            const [allPlayers, ktcPlayers, flockPlayers, metadata] = await firstValueFrom(
               forkJoin([
                 sleeperService.getAllPlayers(),
                 ktcService.fetchPlayers(isSuperflex),
                 flockService.fetchPlayers(isSuperflex),
+                ktcService.fetchMetadata(),
               ]),
             );
 
@@ -108,6 +120,7 @@ export const PlayersStore = signalStore(
               rows,
               loading: false,
               ktcUnavailable: ktcPlayers.length === 0,
+              ktcSyncedAt: metadata?.generatedAt ?? null,
             });
           } catch (error: unknown) {
             patchState(store, {
@@ -135,6 +148,9 @@ export const PlayersStore = signalStore(
         },
         setValueSource(valueSource: ValueSource): void {
           patchState(store, { valueSource });
+        },
+        setSearchQuery(searchQuery: string): void {
+          patchState(store, { searchQuery });
         },
       };
     },

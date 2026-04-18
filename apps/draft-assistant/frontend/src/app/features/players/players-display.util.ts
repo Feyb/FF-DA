@@ -27,9 +27,12 @@ export function filterAndSortPlayerRows(
   sortBy: SortBy,
   sortDirection: SortDirection,
   valueSource: ValueSource,
+  searchQuery: string,
 ): PlayerRow[] {
   const selected = new Set(selectedPositions);
+  const normalizedQuery = searchQuery.toLowerCase().trim();
   const filtered = rows.filter((row) => {
+    if (normalizedQuery && !row.fullName.toLowerCase().includes(normalizedQuery)) return false;
     if (!selected.has(row.position)) return false;
     if (rookiesOnly && !row.rookie) return false;
     return true;

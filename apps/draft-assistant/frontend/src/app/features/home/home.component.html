@@ -14,6 +14,19 @@
           />
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Season</mat-label>
+          <mat-select
+            [ngModel]="store.selectedSeason()"
+            (ngModelChange)="onSeasonChange($event)"
+          >
+            @for (season of seasonOptions; track season) {
+              <mat-option [value]="season">{{ season }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
         <button matButton="tonal" (click)="searchByUsername()" [disabled]="store.loading()">
           Load Leagues
         </button>

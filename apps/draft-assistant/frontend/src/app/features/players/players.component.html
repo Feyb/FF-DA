@@ -81,6 +81,39 @@
     </div>
   }
 
+  @if (store.ktcStaleDays() !== null && store.ktcStaleDays()! > 1) {
+    <div class="stale-banner">
+      <mat-icon>schedule</mat-icon>
+      <span>
+        KTC rankings are <strong>{{ store.ktcStaleDays() }} days old</strong> and may not reflect
+        the latest trades. Last synced: <code>{{ store.ktcSyncedAt() }}</code>
+      </span>
+    </div>
+  }
+
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search players</mat-label>
+    <mat-icon matPrefix>search</mat-icon>
+    <input
+      matInput
+      [ngModel]="store.searchQuery()"
+      (ngModelChange)="store.setSearchQuery($event)"
+      placeholder="Player name…"
+      aria-label="Search players"
+    />
+    @if (store.searchQuery()) {
+      <button
+        type="button"
+        matIconSuffix
+        mat-icon-button
+        (click)="store.setSearchQuery('')"
+        aria-label="Clear search"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </mat-form-field>
+
   @if (store.loading()) {
     <app-loading-state message="Loading players…" />
   }

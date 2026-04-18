@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -30,15 +31,19 @@ import {
 interface PlayersStoreView {
   selectedPositions: () => PositionFilter[];
   rookiesOnly: () => boolean;
+  searchQuery: () => string;
   sortBy: () => SortBy;
   sortDirection: () => SortDirection;
   tierSource: () => TierSource;
   valueSource: () => ValueSource;
   ktcUnavailable: () => boolean;
+  ktcStaleDays: () => number | null;
+  ktcSyncedAt: () => string | null;
   loading: () => boolean;
   error: () => string | null;
   displayedRows: () => PlayerRow[];
   setRookiesOnly: (value: boolean) => void;
+  setSearchQuery: (query: string) => void;
   setSortBy: (value: SortBy) => void;
   setSortDirection: (value: SortDirection) => void;
   setTierSource: (value: TierSource) => void;
@@ -60,6 +65,7 @@ interface PlayersStoreView {
     MatCardModule,
     MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
     MatSelectModule,
     MatSlideToggleModule,
     TierLegendComponent,
