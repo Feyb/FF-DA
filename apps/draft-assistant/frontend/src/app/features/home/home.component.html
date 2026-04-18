@@ -17,10 +17,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Season</mat-label>
-          <mat-select
-            [ngModel]="store.selectedSeason()"
-            (ngModelChange)="onSeasonChange($event)"
-          >
+          <mat-select [ngModel]="store.selectedSeason()" (ngModelChange)="onSeasonChange($event)">
             @for (season of seasonOptions; track season) {
               <mat-option [value]="season">{{ season }}</mat-option>
             }
