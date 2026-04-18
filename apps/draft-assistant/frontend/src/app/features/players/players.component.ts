@@ -101,7 +101,7 @@ export class PlayersComponent {
 
   private readonly seasonYear = computed(() => {
     const season = this.appStore.selectedLeague()?.season;
-    return season ? Number(season) : new Date().getFullYear() - 1;
+    return season ? Number(season) : new Date().getUTCFullYear() - 1;
   });
 
   protected readonly statsMap = toSignal(

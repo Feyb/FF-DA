@@ -28,7 +28,11 @@ export class SleeperStatsService {
           }
           return result;
         }),
-        catchError(() => of(new Map<string, SleeperPlayerStats>())),
+        catchError((err: unknown) => {
+          const msg = err instanceof Error ? err.message : String(err);
+          console.warn(`[SleeperStatsService] stats asset unavailable for year ${year}: ${msg}`);
+          return of(new Map<string, SleeperPlayerStats>());
+        }),
         shareReplay(1),
       );
 

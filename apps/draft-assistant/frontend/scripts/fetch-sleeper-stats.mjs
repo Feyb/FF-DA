@@ -26,7 +26,7 @@ const __dirname = dirname(__filename);
 const OUTPUT_DIR = resolve(__dirname, "../src/assets/sleeper-stats");
 
 // Default to the previous calendar year (last completed NFL season).
-const defaultYear = String(new Date().getFullYear() - 1);
+const defaultYear = String(new Date().getUTCFullYear() - 1);
 const YEAR = process.env.STATS_YEAR ?? defaultYear;
 const REGULAR_SEASON_WEEKS = 18;
 
