@@ -7,7 +7,8 @@ const STORAGE_KEY_USER = "draftAssistant.sleeperUser";
 const STORAGE_KEY_LEAGUE = "draftAssistant.selectedLeague";
 const STORAGE_KEY_DENSITY = "draftAssistant.materialDensity";
 const STORAGE_KEY_DARK_MODE = "draftAssistant.darkMode";
-const ALLOWED_DENSITY_SCALES = new Set([-5, -4, -3, -2, -1, 0]);
+export const DENSITY_SCALES: readonly number[] = [0, -1, -2, -3, -4, -5];
+const ALLOWED_DENSITY_SCALES = new Set(DENSITY_SCALES);
 
 export interface AppState {
   user: SleeperUser | null;

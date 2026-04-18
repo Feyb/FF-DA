@@ -1,0 +1,23 @@
+.density-settings-panel {
+  padding: 0.75rem 1rem 0.5rem;
+  min-width: 11rem;
+}
+
+.density-settings-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.density-settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.density-settings-option {
+  display: block;
+}

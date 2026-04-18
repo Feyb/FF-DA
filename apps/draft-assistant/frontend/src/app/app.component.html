@@ -10,14 +10,7 @@
       />
       <span class="app-title">Draft Assistant</span>
     </div>
-    <mat-form-field appearance="outline" class="density-field">
-      <mat-label>Density</mat-label>
-      <mat-select [value]="appStore.densityScale()" (selectionChange)="onDensityChange($event)">
-        @for (density of densityOptions; track density) {
-          <mat-option [value]="density">{{ densityLabel(density) }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
+    <app-density-settings />
     <app-dark-mode-toggle />
     @if (appStore.selectedLeague()) {
       <span class="toolbar-league">
