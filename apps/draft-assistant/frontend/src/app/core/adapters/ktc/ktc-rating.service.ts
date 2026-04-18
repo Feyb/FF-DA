@@ -111,15 +111,11 @@ export class KtcRatingService {
   fetchMetadata(): Observable<{ generatedAt: string } | null> {
     if (this.metadataCache) return this.metadataCache;
 
-    this.metadataCache = this.http
-      .get<{ generatedAt: string }>("assets/ktc/metadata.json")
-      .pipe(
-        map((data) =>
-          data?.generatedAt && typeof data.generatedAt === "string" ? data : null,
-        ),
-        catchError(() => of(null)),
-        shareReplay({ bufferSize: 1, refCount: false }),
-      );
+    this.metadataCache = this.http.get<{ generatedAt: string }>("assets/ktc/metadata.json").pipe(
+      map((data) => (data?.generatedAt && typeof data.generatedAt === "string" ? data : null)),
+      catchError(() => of(null)),
+      shareReplay({ bufferSize: 1, refCount: false }),
+    );
 
     return this.metadataCache;
   }
