@@ -93,10 +93,13 @@ export const HomeStore = signalStore(
   ),
   withHooks((store, storage = inject(StorageService)) => ({
     onInit(): void {
-      const currentYear = String(new Date().getFullYear());
+      const currentYear = new Date().getFullYear();
       const stored = storage.getRawItem(SELECTED_SEASON_STORAGE_KEY);
-      if (stored && /^\d{4}$/.test(stored) && stored >= "2020" && stored <= currentYear) {
-        patchState(store, { selectedSeason: stored });
+      if (stored) {
+        const year = Number(stored);
+        if (!isNaN(year) && year >= 2020 && year <= currentYear) {
+          patchState(store, { selectedSeason: stored });
+        }
       }
     },
   })),
