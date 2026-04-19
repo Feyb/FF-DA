@@ -1,0 +1,64 @@
+# FF-DA — Fantasy Football Draft Assistant
+
+> An Angular 20 monorepo web app that connects to Sleeper to help users manage their fantasy football drafts. It displays player rankings from KeepTradeCut (KTC), Flock Fantasy, and FantasyPros ADP, supports live draft sync, tier list management, and team-need–based pick recommendations.
+
+## Overview
+
+- [README](README.md): Setup, dev, build, and deploy instructions.
+- [requirements.md](requirements.md): Full product requirements and feature list.
+
+## App Structure
+
+- [apps/draft-assistant/frontend/src/app/app.routes.ts](apps/draft-assistant/frontend/src/app/app.routes.ts): Top-level route definitions (Home, Team, Players, Draft).
+- [apps/draft-assistant/frontend/src/app/app.config.ts](apps/draft-assistant/frontend/src/app/app.config.ts): Angular application configuration, providers, and router setup.
+- [apps/draft-assistant/frontend/src/app/app.component.ts](apps/draft-assistant/frontend/src/app/app.component.ts): Root component with nav shell.
+- [apps/draft-assistant/frontend/src/app/shared/nav-links.constant.ts](apps/draft-assistant/frontend/src/app/shared/nav-links.constant.ts): Single source of truth for navigation destinations.
+
+## State Management
+
+- [apps/draft-assistant/frontend/src/app/core/state/app.store.ts](apps/draft-assistant/frontend/src/app/core/state/app.store.ts): Global NgRx Signal Store — holds league, roster, and player state.
+- [apps/draft-assistant/frontend/src/app/features/draft/draft.store.ts](apps/draft-assistant/frontend/src/app/features/draft/draft.store.ts): Draft feature store — live draft sync, pick tracking, starred players.
+- [apps/draft-assistant/frontend/src/app/features/players/players.store.ts](apps/draft-assistant/frontend/src/app/features/players/players.store.ts): Players feature store — filtering, sorting, tier list.
+
+## Features
+
+- [apps/draft-assistant/frontend/src/app/features/home](apps/draft-assistant/frontend/src/app/features/home): Home page — Sleeper username/league ID entry and league selection.
+- [apps/draft-assistant/frontend/src/app/features/team-view](apps/draft-assistant/frontend/src/app/features/team-view): Team View — roster display with KTC + Sleeper ratings, starters/bench/IR/picks.
+- [apps/draft-assistant/frontend/src/app/features/players](apps/draft-assistant/frontend/src/app/features/players): Players tab — filterable/sortable player table with tier list (S–D), KTC staleness indicator.
+- [apps/draft-assistant/frontend/src/app/features/draft](apps/draft-assistant/frontend/src/app/features/draft): Draft tab — live draft board (1 s sync), best-available picker, team-need recommendations, starred players.
+
+## Data Adapters
+
+- [apps/draft-assistant/frontend/src/app/core/adapters/sleeper/sleeper.service.ts](apps/draft-assistant/frontend/src/app/core/adapters/sleeper/sleeper.service.ts): Sleeper API client — fetches user leagues, rosters, and live draft picks.
+- [apps/draft-assistant/frontend/src/app/core/adapters/sleeper/sleeper-draft.util.ts](apps/draft-assistant/frontend/src/app/core/adapters/sleeper/sleeper-draft.util.ts): Utilities for mapping Sleeper draft payloads to domain models.
+- [apps/draft-assistant/frontend/src/app/core/adapters/ktc/ktc-rating.service.ts](apps/draft-assistant/frontend/src/app/core/adapters/ktc/ktc-rating.service.ts): KeepTradeCut rating service — loads pre-built JSON asset of KTC player values.
+- [apps/draft-assistant/frontend/src/app/core/adapters/flock](apps/draft-assistant/frontend/src/app/core/adapters/flock): Flock Fantasy adapter — loads pre-built JSON asset of Flock player rankings.
+- [apps/draft-assistant/frontend/src/app/core/adapters/fantasypros](apps/draft-assistant/frontend/src/app/core/adapters/fantasypros): FantasyPros ADP adapter.
+
+## Ranking Sync Scripts
+
+- [apps/draft-assistant/frontend/scripts/fetch-ktc-players.mjs](apps/draft-assistant/frontend/scripts/fetch-ktc-players.mjs): Node script that fetches fresh KTC data and writes it to `src/assets`.
+- [apps/draft-assistant/frontend/scripts/fetch-flock-players.mjs](apps/draft-assistant/frontend/scripts/fetch-flock-players.mjs): Node script that fetches Flock Fantasy rankings and writes them to `src/assets`.
+- [apps/draft-assistant/frontend/scripts/fetch-fantasypros-adp.mjs](apps/draft-assistant/frontend/scripts/fetch-fantasypros-adp.mjs): Node script that fetches FantasyPros ADP data and writes it to `src/assets`.
+
+## Core Utilities & Models
+
+- [apps/draft-assistant/frontend/src/app/core/models/index.ts](apps/draft-assistant/frontend/src/app/core/models/index.ts): Shared domain model types (Player, League, Roster, Draft, etc.).
+- [apps/draft-assistant/frontend/src/app/core/services/player-normalization.service.ts](apps/draft-assistant/frontend/src/app/core/services/player-normalization.service.ts): Cross-source player name normalization.
+- [apps/draft-assistant/frontend/src/app/core/services/storage.service.ts](apps/draft-assistant/frontend/src/app/core/services/storage.service.ts): LocalStorage persistence for user preferences.
+- [apps/draft-assistant/frontend/src/app/features/draft/draft-ranking.util.ts](apps/draft-assistant/frontend/src/app/features/draft/draft-ranking.util.ts): Composite ranking logic combining KTC, Flock, and FantasyPros scores.
+- [apps/draft-assistant/frontend/src/app/features/draft/draft-display.util.ts](apps/draft-assistant/frontend/src/app/features/draft/draft-display.util.ts): Display helpers for the draft board UI.
+
+## Configuration
+
+- [apps/draft-assistant/frontend/angular.json](apps/draft-assistant/frontend/angular.json): Angular CLI workspace configuration.
+- [apps/draft-assistant/frontend/tailwind.config.js](apps/draft-assistant/frontend/tailwind.config.js): Tailwind CSS configuration.
+- [apps/draft-assistant/frontend/tsconfig.json](apps/draft-assistant/frontend/tsconfig.json): TypeScript compiler options.
+- [pnpm-workspace.yaml](pnpm-workspace.yaml): pnpm monorepo workspace definition.
+- [.github/workflows](https://github.com/Feyb/FF-DA/tree/main/.github/workflows): GitHub Actions CI/CD — runs lint, build, and deploys to GitHub Pages on push to `main`.
+
+## Optional
+
+- [apps/draft-assistant/frontend/src/app/shared/components](apps/draft-assistant/frontend/src/app/shared/components): Reusable shared UI components (nav shell, bottom nav, density controls, dark mode toggle).
+- [apps/draft-assistant/frontend/src/app/shared/pipes](apps/draft-assistant/frontend/src/app/shared/pipes): Angular pipes for display formatting.
+- [apps/draft-assistant/frontend/src/app/core/utils](apps/draft-assistant/frontend/src/app/core/utils): Generic utility functions.
