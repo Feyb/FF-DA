@@ -15,11 +15,11 @@
   },
   "lint-staged": {
     "apps/draft-assistant/frontend/**/*.{ts,js}": [
-      "oxfmt --check",
-      "oxlint"
+      "oxfmt",
+      "oxlint --fix"
     ],
     "apps/draft-assistant/frontend/**/*.{json,html,scss,css}": [
-      "oxfmt --check"
+      "oxfmt"
     ]
   },
   "engines": {
