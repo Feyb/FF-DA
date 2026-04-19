@@ -42,6 +42,7 @@ The site is deployed to **GitHub Pages** via **GitHub Actions** using the offici
    - Builds the Angular app with `--base-href /FF-DA/` so all asset and route paths are relative to the project sub-path.
    - Uploads the build output as a Pages artifact.
    - Deploys the artifact to GitHub Pages.
+2. On every push to `main` (including merged pull requests) or via manual `workflow_dispatch`, the **Update llms.txt** workflow (`.github/workflows/update-llms.yml`) refreshes the repository root `llms.txt` from Gitingest and commits it back when the generated content changes.
 
 ### Required repository settings
 
