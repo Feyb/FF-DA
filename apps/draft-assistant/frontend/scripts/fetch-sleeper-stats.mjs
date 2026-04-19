@@ -65,8 +65,10 @@ async function fetchWithRetry(url, retries = 3) {
       lastError = error;
       if (attempt < retries) {
         const delay = 500 * (attempt + 1);
+        const errorMessage =
+          error instanceof Error ? error.message : String(error);
         console.warn(
-          `[sleeper-stats] attempt ${attempt + 1} failed for ${url}: ${error.message} — retrying in ${delay}ms`,
+          `[sleeper-stats] attempt ${attempt + 1} failed for ${url}: ${errorMessage} — retrying in ${delay}ms`,
         );
         await sleep(delay);
       }
