@@ -40,79 +40,44 @@
   @apply flex flex-wrap gap-2;
 }
 
-.table-card {
-  @apply p-0 overflow-hidden;
+// ── Player card list ──────────────────────────────────────────────────────────
+
+.players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-.table-scroll {
-  @apply overflow-x-auto;
-}
+.player-item {
+  position: relative;
+  display: flex;
+  align-items: stretch;
 
-.players-table {
-  @apply w-full border-collapse;
-
-  th,
-  td {
-    @apply text-left px-3 py-2 border-b text-sm;
-    border-color: var(--outline-variant);
-  }
-
-  thead th {
-    background: var(--mat-sys-surface-container-high);
-    color: var(--mat-sys-on-surface-variant);
-    font-weight: 600;
-  }
-
-  tbody tr:hover {
-    @apply brightness-95 saturate-150;
+  // The card fills the row; the expand button sits at the far right.
+  app-player-card {
+    flex: 1;
+    min-width: 0;
   }
 }
 
-.expander-col {
-  @apply w-11;
+.expand-btn {
+  flex-shrink: 0;
+  align-self: center;
+  color: rgb(100 116 139);
+  margin-left: 0.125rem;
+
+  &:hover {
+    background: rgb(241 245 249);
+  }
 }
 
-.expander-cell {
-  @apply w-11 text-center;
-}
-
-.row-expanded {
-  background: var(--surface-container-low);
-}
-
-// row-tier-N classes are defined globally in shared/styles/_tier-colors.scss
-
-.player-details-row td {
-  border-color: var(--outline-variant);
+.player-details-panel {
+  border: 1px solid var(--outline-variant);
+  border-top: none;
+  border-radius: 0 0 0.5rem 0.5rem;
   background: var(--surface-container-highest);
-  padding: 0.75rem 0.25rem;
-}
-
-.tier-cell {
-  @apply flex flex-col leading-tight;
-}
-
-.tier-primary {
-  @apply font-semibold;
-  color: var(--on-surface);
-}
-
-.tier-secondary {
-  @apply text-[11px];
-  color: color-mix(in srgb, var(--on-surface) 56%, transparent);
-}
-
-.player-cell {
-  @apply flex items-center gap-2 min-w-48;
-}
-
-.player-avatar {
-  @apply w-7 h-7 rounded-full object-cover flex-shrink-0;
-  background: var(--surface-container-high);
-}
-
-.player-cell-name {
-  @apply whitespace-nowrap;
+  padding: 0.75rem;
+  margin-bottom: 0.25rem;
 }
 
 // empty-copy is defined globally in shared/styles/_states.scss
@@ -147,6 +112,10 @@
 }
 
 html.dark {
+  .expand-btn:hover {
+    background: rgb(30 41 59);
+  }
+
   .stale-banner {
     background: rgb(78 35 9);
     border-color: rgb(217 119 6);
@@ -162,5 +131,3 @@ html.dark {
     }
   }
 }
-
-// dark mode follows the same CSS tokens, no explicit overrides needed

@@ -125,90 +125,44 @@
   }
 
   @if (!store.loading()) {
-    <mat-card class="table-card">
-      <div class="table-scroll">
-        <table class="players-table">
-          <thead>
-            <tr>
-              <th class="expander-col"></th>
-              <th>#</th>
-              <th>Name</th>
-              <th>Pos</th>
-              <th>Team</th>
-              <th>Age</th>
-              <th>KTC Rank</th>
-              <th>{{ selectedValueLabel() }}</th>
-              <th>Tier</th>
-              <th>Pos Tier</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (player of store.displayedRows(); track player.playerId; let i = $index) {
-              <tr
-                [class.row-expanded]="isExpanded(player.playerId)"
-                [ngClass]="getTierClass(player.positionalTier)"
-              >
-                <td class="expander-cell">
-                  <button
-                    mat-icon-button
-                    type="button"
-                    (click)="toggleExpanded(player.playerId)"
-                    [attr.aria-label]="'Toggle details for ' + player.fullName"
-                  >
-                    <mat-icon>
-                      {{ isExpanded(player.playerId) ? "expand_less" : "expand_more" }}
-                    </mat-icon>
-                  </button>
-                </td>
-                <td>{{ i + 1 }}</td>
-                <td>
-                  <div class="player-cell">
-                    <img
-                      class="player-avatar"
-                      [src]="playerHeadshotUrl(player.playerId)"
-                      [alt]="player.fullName"
-                      loading="lazy"
-                      (error)="onPlayerImageError($event)"
-                    />
-                    <span class="player-cell-name">{{ player.fullName }}</span>
-                  </div>
-                </td>
-                <td>{{ player.position }}</td>
-                <td>{{ player.team ?? "FA" }}</td>
-                <td>{{ player.age ?? "-" }}</td>
-                <td>{{ player.ktcRank ?? "-" }}</td>
-                <td>{{ selectedValue(player) ?? "-" }}</td>
-                <td>
-                  <div class="tier-cell">
-                    <span class="tier-primary">{{ selectedTierValue(player, false) ?? "-" }}</span>
-                    <span class="tier-secondary">({{ secondaryTierText(player, false) }})</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="tier-cell">
-                    <span class="tier-primary">{{ selectedTierValue(player, true) ?? "-" }}</span>
-                    <span class="tier-secondary">({{ secondaryTierText(player, true) }})</span>
-                  </div>
-                </td>
-              </tr>
+    @if (store.displayedRows().length === 0) {
+      <p class="empty-copy">No players match the selected filters.</p>
+    } @else {
+      <div class="players-list">
+        @for (player of store.displayedRows(); track player.playerId) {
+          <div class="player-item">
+            <app-player-card
+              [player]="player"
+              [stats]="statsMap().get(player.playerId) ?? null"
+              [tierColorClass]="tierColorClass(player)"
+              [rank]="playerCardRank(player)"
+              [rankLabel]="playerCardRankLabel()"
+            />
 
-              @if (isExpanded(player.playerId)) {
-                <tr class="player-details-row">
-                  <td colspan="10">
-                    <app-player-details-grid
-                      [items]="playerDetailItems(player)"
-                      [columns]="2"
-                    ></app-player-details-grid>
-                  </td>
-                </tr>
-              }
-            }
-          </tbody>
-        </table>
+            <button
+              class="expand-btn"
+              mat-icon-button
+              type="button"
+              (click)="toggleExpanded(player.playerId)"
+              [attr.aria-label]="'Toggle details for ' + player.fullName"
+              [attr.aria-expanded]="isExpanded(player.playerId)"
+            >
+              <mat-icon>
+                {{ isExpanded(player.playerId) ? "expand_less" : "expand_more" }}
+              </mat-icon>
+            </button>
+          </div>
+
+          @if (isExpanded(player.playerId)) {
+            <div class="player-details-panel">
+              <app-player-details-grid
+                [items]="playerDetailItems(player)"
+                [columns]="2"
+              ></app-player-details-grid>
+            </div>
+          }
+        }
       </div>
-      @if (store.displayedRows().length === 0) {
-        <p class="empty-copy">No players match the selected filters.</p>
-      }
-    </mat-card>
+    }
   }
 </section>

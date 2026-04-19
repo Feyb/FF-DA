@@ -8,16 +8,15 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { DraftPlayerRow } from "../../../core/models";
-import { PLAYER_FALLBACK_IMAGE } from "../../../core/constants/images.constants";
-import {
-  DraftPlayerDisplayRow,
-  DraftStore,
-  positionalRankForSortSource,
-  rankForSortSource,
-} from "../draft.store";
-import { adpDeltaClass, adpDeltaLabel, sortSourceRankLabel } from "../draft-display.util";
-import { TierColorPipe } from "../../../shared/pipes";
+import { toSignal, toObservable } from "@angular/core/rxjs-interop";
+import { switchMap } from "rxjs";
+import { DraftPlayerRow, SleeperPlayerStats } from "../../../core/models";
+import { DraftPlayerDisplayRow, DraftStore, rankForSortSource } from "../draft.store";
+import { sortSourceRankLabel, sortSourceShortLabel } from "../draft-display.util";
+import { getTierColorClass } from "../../../shared/pipes/tier-color.pipe";
+import { SleeperStatsService } from "../../../core/adapters/sleeper/sleeper-stats.service";
+import { AppStore } from "../../../core/state/app.store";
+import { PlayerCardComponent } from "../../../shared/components/player-card";
 
 @Component({
   selector: "app-draft-player-list",
@@ -34,13 +33,24 @@ import { TierColorPipe } from "../../../shared/pipes";
     MatInputModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    TierColorPipe,
+    PlayerCardComponent,
   ],
 })
 export class DraftPlayerListComponent {
   protected readonly store = inject(DraftStore);
+  private readonly appStore = inject(AppStore);
+  private readonly statsService = inject(SleeperStatsService);
   protected static readonly MAX_VISIBLE_PLAYERS = 120;
-  protected readonly playerFallbackImage = PLAYER_FALLBACK_IMAGE;
+
+  private readonly seasonYear = computed(() => {
+    const season = this.appStore.selectedLeague()?.season;
+    return season ? Number(season) : new Date().getUTCFullYear() - 1;
+  });
+
+  protected readonly statsMap = toSignal(
+    toObservable(this.seasonYear).pipe(switchMap((year) => this.statsService.fetchStats(year))),
+    { initialValue: new Map<string, SleeperPlayerStats>() },
+  );
 
   protected readonly visiblePlayerRows = computed(() =>
     this.store.allPlayerRows().slice(0, DraftPlayerListComponent.MAX_VISIBLE_PLAYERS),
@@ -63,37 +73,16 @@ export class DraftPlayerListComponent {
     return rankForSortSource(row, this.store.sortSource());
   }
 
-  protected rowPositionalRank(row: DraftPlayerRow): number | null {
-    return positionalRankForSortSource(row, this.store.sortSource());
+  protected tierColorClass(row: DraftPlayerDisplayRow): string {
+    return row.isDrafted ? "" : getTierColorClass(row.combinedTier);
   }
 
   protected sortSourceRankLabel(): string {
     return sortSourceRankLabel(this.store.sortSource());
   }
 
-  protected adpDeltaLabel(delta: number | null): string {
-    return adpDeltaLabel(delta);
-  }
-
-  protected adpDeltaClass(delta: number | null): string {
-    return adpDeltaClass(delta);
-  }
-
-  protected valueGapClass(gap: number | null): string {
-    if (gap === null) return "vg-none";
-    if (gap === 0) return "vg-consensus";
-    if (gap === 1) return "vg-minor";
-    return "vg-high";
-  }
-
-  protected valueGapTooltip(row: DraftPlayerRow): string {
-    const ktcTier = row.overallTier;
-    const flockTier = row.flockAverageTier;
-    if (ktcTier === null && flockTier === null) return "No tier data";
-    const parts: string[] = [];
-    if (ktcTier !== null) parts.push(`KTC: Tier ${ktcTier}`);
-    if (flockTier !== null) parts.push(`Flock: Tier ${flockTier}`);
-    return parts.join(" · ");
+  protected sortSourceShortLabel(): string {
+    return sortSourceShortLabel(this.store.sortSource());
   }
 
   protected shouldShowTierDivider(
@@ -145,16 +134,6 @@ export class DraftPlayerListComponent {
 
   protected isStarred(playerId: string): boolean {
     return this.store.starredPlayerIds().includes(playerId);
-  }
-
-  protected playerHeadshotUrl(playerId: string): string {
-    return `https://sleepercdn.com/content/nfl/players/thumb/${playerId}.jpg`;
-  }
-
-  protected onPlayerImageError(event: Event): void {
-    const img = event.target as HTMLImageElement | null;
-    if (!img || img.src === this.playerFallbackImage) return;
-    img.src = this.playerFallbackImage;
   }
 
   protected toggleNeededPositionsOnly(): void {

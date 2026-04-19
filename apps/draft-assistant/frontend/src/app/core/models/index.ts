@@ -271,6 +271,40 @@ export interface FantasyProsPlayer {
 
 export type TierSource = "average" | "flock" | "ktc";
 
+/** Season stat totals fetched from the Sleeper bulk weekly stats endpoint. */
+export interface SleeperPlayerStats {
+  pass_yd: number;
+  pass_td: number;
+  pass_int: number;
+  pass_cmp: number;
+  pass_att: number;
+  rush_yd: number;
+  rush_td: number;
+  rush_att: number;
+  rec_yd: number;
+  rec_td: number;
+  rec: number;
+  tar: number;
+  yac: number;
+  rec_drop: number;
+  /** Average snap participation rate (0–1) across weeks with snap data. */
+  snap_pct: number;
+}
+
+/** Minimal player data required by PlayerCardComponent. */
+export interface PlayerCardData {
+  playerId: string;
+  fullName: string;
+  position: string;
+  team: string | null;
+  age: number | null;
+  ktcRank: number | null;
+  overallTier: number | null;
+  flockAverageTier: number | null;
+  combinedTier?: number | null;
+  fpAdpRank?: number | null;
+}
+
 export interface LeagueStandingEntry {
   rosterId: number;
   ownerDisplayName: string;

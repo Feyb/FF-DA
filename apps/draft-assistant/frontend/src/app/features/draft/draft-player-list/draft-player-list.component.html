@@ -63,93 +63,21 @@
           </div>
         }
 
-        @let rank = rowRank(player);
-        <div
-          class="all-player-row"
-          [class.player-drafted]="player.isDrafted"
-          [ngClass]="player.isDrafted ? '' : (rowCombinedTier(player) | tierColor)"
-        >
-          <img
-            class="player-avatar"
-            [src]="playerHeadshotUrl(player.playerId)"
-            [alt]="player.fullName"
-            loading="lazy"
-            (error)="onPlayerImageError($event)"
-          />
-          <div class="player-meta">
-            <span class="player-name" [class.player-name-drafted]="player.isDrafted">
-              {{ player.fullName }}
-              @if (!player.isDrafted && player.isGoingSoon) {
-                <span class="going-soon-badge" title="Expected to be picked very soon"
-                  >⚠ Going Soon</span
-                >
-              }
-            </span>
-            <span class="player-sub">{{ player.position }} · {{ player.team ?? "FA" }}</span>
-          </div>
-          <span class="player-tier-badge">
-            <span
-              [attr.aria-label]="'Combined Tier: ' + (player.combinedTier ?? 'N/A')"
-              title="Combined Tier"
-              >CT:{{ player.combinedTier ?? "N/A" }}</span
-            >
-            <span class="player-tier-sep" aria-hidden="true"> · </span>
-            <span [attr.aria-label]="'KTC Tier: ' + (player.overallTier ?? 'N/A')" title="KTC Tier"
-              >KTC:{{ player.overallTier ?? "N/A" }}</span
-            >
-            <span class="player-tier-sep" aria-hidden="true"> · </span>
-            <span
-              [attr.aria-label]="'Flock Tier: ' + (player.flockAverageTier ?? 'N/A')"
-              title="Flock Tier"
-              >F:{{ player.flockAverageTier ?? "N/A" }}</span
-            >
-            @if (player.fpAdpRank !== null) {
-              <span class="player-tier-sep" aria-hidden="true"> · </span>
-              <span [attr.aria-label]="'FP ADP: ' + player.fpAdpRank" title="FantasyPros ADP Rank"
-                >FP ADP:{{ player.fpAdpRank }}</span
-              >
-            }
-          </span>
-          <span class="player-rank">
-            @if (rank !== null) {
-              #{{ rank }}
-            }
-          </span>
-          <span
-            class="player-adp-delta"
-            [ngClass]="adpDeltaClass(player.adpDelta)"
-            title="ADP Delta: positive = value, negative = reach"
-          >
-            {{ adpDeltaLabel(player.adpDelta) }}
-          </span>
-          <span
-            class="value-gap-indicator"
-            [ngClass]="valueGapClass(player.valueGap)"
-            [matTooltip]="valueGapTooltip(player)"
-            [attr.aria-label]="'Value Gap: ' + (player.valueGap ?? 'N/A')"
-          >
-            @if (player.valueGap === 0) {
-              ✓
-            } @else if (player.valueGap !== null) {
-              ●
-            }
-          </span>
-          @if (!player.isDrafted && player.availabilityRisk === "at-risk") {
-            <span class="availability-badge at-risk" title="May be taken before your next pick"
-              >At Risk</span
-            >
-          }
-          @if (!player.isDrafted) {
-            <button
-              mat-icon-button
-              [class.star-active]="isStarred(player.playerId)"
-              (click)="toggleStar(player.playerId)"
-              [attr.aria-label]="isStarred(player.playerId) ? 'Unstar player' : 'Star player'"
-            >
-              <mat-icon>{{ isStarred(player.playerId) ? "star" : "star_border" }}</mat-icon>
-            </button>
-          }
-        </div>
+        <app-player-card
+          [player]="player"
+          [stats]="statsMap().get(player.playerId) ?? null"
+          [tierColorClass]="tierColorClass(player)"
+          [rank]="rowRank(player)"
+          [rankLabel]="sortSourceShortLabel()"
+          [isDrafted]="player.isDrafted"
+          [availabilityRisk]="player.availabilityRisk"
+          [isGoingSoon]="player.isGoingSoon"
+          [adpDelta]="player.adpDelta"
+          [valueGap]="player.valueGap"
+          [showStar]="true"
+          [starred]="isStarred(player.playerId)"
+          (starToggle)="toggleStar($event)"
+        />
       }
     </div>
   }
