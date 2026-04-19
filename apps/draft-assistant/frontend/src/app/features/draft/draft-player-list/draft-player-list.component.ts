@@ -12,7 +12,7 @@ import { toSignal, toObservable } from "@angular/core/rxjs-interop";
 import { switchMap } from "rxjs";
 import { DraftPlayerRow, SleeperPlayerStats } from "../../../core/models";
 import { DraftPlayerDisplayRow, DraftStore, rankForSortSource } from "../draft.store";
-import { sortSourceRankLabel } from "../draft-display.util";
+import { sortSourceRankLabel, sortSourceShortLabel } from "../draft-display.util";
 import { getTierColorClass } from "../../../shared/pipes/tier-color.pipe";
 import { SleeperStatsService } from "../../../core/adapters/sleeper/sleeper-stats.service";
 import { AppStore } from "../../../core/state/app.store";
@@ -79,6 +79,10 @@ export class DraftPlayerListComponent {
 
   protected sortSourceRankLabel(): string {
     return sortSourceRankLabel(this.store.sortSource());
+  }
+
+  protected sortSourceShortLabel(): string {
+    return sortSourceShortLabel(this.store.sortSource());
   }
 
   protected shouldShowTierDivider(

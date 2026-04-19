@@ -21,6 +21,28 @@ export function sortSourceRankLabel(source: DraftSortSource): string {
   }
 }
 
+/** Short label (≤5 chars) shown as a prefix inside the rank badge on PlayerCardComponent. */
+export function sortSourceShortLabel(source: DraftSortSource): string {
+  switch (source) {
+    case "combinedTier":
+      return "CT";
+    case "sleeperRank":
+      return "Slpr";
+    case "ktcRank":
+      return "KTC";
+    case "flockRank":
+      return "Flock";
+    case "combinedPositionalTier":
+      return "CPT";
+    case "adpDelta":
+      return "ΔADP";
+    case "valueGap":
+      return "Gap";
+    case "fpAdpRank":
+      return "FP";
+  }
+}
+
 export function adpDeltaLabel(delta: number | null): string {
   if (delta === null) return "—";
   if (delta > 0) return `+${delta}`;

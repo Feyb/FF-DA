@@ -166,6 +166,17 @@
   font-weight: 700;
   color: rgb(51 65 85);
   white-space: nowrap;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.2em;
+}
+
+.rank-source {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgb(100 116 139);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .adp-delta {
@@ -318,8 +329,8 @@
 // ── Dark-mode overrides ────────────────────────────────────────────────────────
 html.dark {
   .player-card {
-    border-color: rgb(51 65 85);
-    background: var(--surface-container-lowest, rgb(15 13 19));
+    border-color: var(--tier-card-border, rgb(51 65 85));
+    background: var(--tier-card-bg, var(--surface-container-lowest, rgb(15 13 19)));
   }
 
   .pos-accent {
@@ -373,6 +384,10 @@ html.dark {
 
   .rank-badge {
     color: rgb(148 163 184);
+  }
+
+  .rank-source {
+    color: rgb(71 85 105);
   }
 
   .player-name--drafted {

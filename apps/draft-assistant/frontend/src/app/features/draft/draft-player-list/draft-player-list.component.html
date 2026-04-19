@@ -68,6 +68,7 @@
           [stats]="statsMap().get(player.playerId) ?? null"
           [tierColorClass]="tierColorClass(player)"
           [rank]="rowRank(player)"
+          [rankLabel]="sortSourceShortLabel()"
           [isDrafted]="player.isDrafted"
           [availabilityRisk]="player.availabilityRisk"
           [isGoingSoon]="player.isGoingSoon"

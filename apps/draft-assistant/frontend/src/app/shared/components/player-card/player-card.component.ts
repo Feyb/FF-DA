@@ -29,6 +29,8 @@ export class PlayerCardComponent {
   readonly tierColorClass = input<string>("");
   /** Rank number displayed in the card header (e.g., the list position). */
   readonly rank = input<number | null>(null);
+  /** Short label prefix shown before the rank number (e.g. "KTC", "Flock", "CT"). */
+  readonly rankLabel = input<string>("");
 
   // ── Draft-specific (all optional) ─────────────────────────────────────────────
   readonly isDrafted = input<boolean>(false);

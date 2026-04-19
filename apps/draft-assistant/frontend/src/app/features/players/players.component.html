@@ -129,13 +129,14 @@
       <p class="empty-copy">No players match the selected filters.</p>
     } @else {
       <div class="players-list">
-        @for (player of store.displayedRows(); track player.playerId; let i = $index) {
+        @for (player of store.displayedRows(); track player.playerId) {
           <div class="player-item">
             <app-player-card
               [player]="player"
               [stats]="statsMap().get(player.playerId) ?? null"
               [tierColorClass]="tierColorClass(player)"
-              [rank]="i + 1"
+              [rank]="playerCardRank(player)"
+              [rankLabel]="playerCardRankLabel()"
             />
 
             <button

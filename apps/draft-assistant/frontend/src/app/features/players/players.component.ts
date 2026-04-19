@@ -109,6 +109,14 @@ export class PlayersComponent {
     { initialValue: new Map<string, SleeperPlayerStats>() },
   );
 
+  protected playerCardRank(player: PlayerRow): number | null {
+    return this.store.valueSource() === "ktcValue" ? player.ktcRank : player.averageRank;
+  }
+
+  protected playerCardRankLabel(): string {
+    return this.store.valueSource() === "ktcValue" ? "KTC" : "Flock";
+  }
+
   protected togglePosition(position: "QB" | "RB" | "WR" | "TE"): void {
     this.store.togglePosition(position);
   }

@@ -44,7 +44,12 @@
         </span>
       }
       @if (rank() !== null) {
-        <span class="rank-badge">#{{ rank() }}</span>
+        <span class="rank-badge">
+          @if (rankLabel()) {
+            <span class="rank-source">{{ rankLabel() }}</span>
+          }
+          #{{ rank() }}
+        </span>
       }
       @if (adpDeltaLabel()) {
         <span class="adp-delta" [ngClass]="adpDeltaClass()" title="ADP Delta">
