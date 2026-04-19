@@ -27,12 +27,18 @@ $_tiers: (
     border-style: solid;
     border-color: $border;
     background: $bg;
+    // CSS custom property tokens — consumed by PlayerCardComponent to
+    // override its component-scoped default border/background.
+    --tier-card-border: #{$border};
+    --tier-card-bg: #{$bg};
   }
 }
 
 .tier-unranked {
   background: rgb(241 245 249);
   border: 2px solid rgb(203 213 225);
+  --tier-card-border: rgb(203 213 225);
+  --tier-card-bg: rgb(241 245 249);
 }
 
 // ── Players-table row variants (prefixed with row-) ────────────────────────────
@@ -56,12 +62,16 @@ html.dark {
     .tier-#{$tier} {
       border-color: $border-dark;
       background: $bg-dark;
+      --tier-card-border: #{$border-dark};
+      --tier-card-bg: #{$bg-dark};
     }
   }
 
   .tier-unranked {
     background: rgb(30 30 35);
     border-color: rgb(75 85 99);
+    --tier-card-border: rgb(75 85 99);
+    --tier-card-bg: rgb(30 30 35);
   }
 
   @each $tier, $bg, $border, $bg-dark, $border-dark in $_tiers {

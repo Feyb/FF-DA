@@ -11,7 +11,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { toSignal, toObservable } from "@angular/core/rxjs-interop";
 import { switchMap } from "rxjs";
 import { DraftPlayerRow, SleeperPlayerStats } from "../../../core/models";
-import { PLAYER_FALLBACK_IMAGE } from "../../../core/constants/images.constants";
 import { DraftPlayerDisplayRow, DraftStore, rankForSortSource } from "../draft.store";
 import { sortSourceRankLabel } from "../draft-display.util";
 import { getTierColorClass } from "../../../shared/pipes/tier-color.pipe";
@@ -42,7 +41,6 @@ export class DraftPlayerListComponent {
   private readonly appStore = inject(AppStore);
   private readonly statsService = inject(SleeperStatsService);
   protected static readonly MAX_VISIBLE_PLAYERS = 120;
-  protected readonly playerFallbackImage = PLAYER_FALLBACK_IMAGE;
 
   private readonly seasonYear = computed(() => {
     const season = this.appStore.selectedLeague()?.season;

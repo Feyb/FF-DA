@@ -29,7 +29,15 @@ export class SleeperStatsService {
           return result;
         }),
         catchError((err: unknown) => {
-          const msg = err instanceof Error ? err.message : String(err);
+          let msg: string;
+          if (err instanceof Error) {
+            msg = err.message;
+          } else if (typeof err === "object" && err !== null && "message" in err) {
+            const e = err as { message: unknown; status?: unknown };
+            msg = `HTTP ${e.status ?? "?"}: ${e.message}`;
+          } else {
+            msg = String(err);
+          }
           console.warn(`[SleeperStatsService] stats asset unavailable for year ${year}: ${msg}`);
           return of(new Map<string, SleeperPlayerStats>());
         }),

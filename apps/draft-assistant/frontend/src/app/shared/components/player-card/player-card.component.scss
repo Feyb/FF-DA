@@ -1,15 +1,18 @@
 :host {
-  display: contents;
+  display: block;
 }
 
 // ── Card wrapper ───────────────────────────────────────────────────────────────
 .player-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid rgb(226 232 240);
+  // Use CSS custom properties set by the global tier classes so they cascade
+  // through Angular's emulated encapsulation boundary.  Defaults to the
+  // untiered appearance when no tier class is present.
+  border: 2px solid var(--tier-card-border, rgb(203 213 225));
   border-radius: 0.5rem;
   overflow: hidden;
-  background: var(--surface-container-lowest, #ffffff);
+  background: var(--tier-card-bg, var(--surface-container-lowest, #ffffff));
   transition: box-shadow 0.15s ease;
 
   &:hover {

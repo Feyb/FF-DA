@@ -1,6 +1,6 @@
 <div class="player-card" [class.player-card--drafted]="isDrafted()" [ngClass]="tierColorClass()">
   <!-- Position accent bar -->
-  <span class="pos-accent" [class]="positionClass()" aria-hidden="true"></span>
+  <span class="pos-accent" [ngClass]="positionClass()" aria-hidden="true"></span>
 
   <!-- Header row -->
   <div class="card-header">
@@ -47,14 +47,14 @@
         <span class="rank-badge">#{{ rank() }}</span>
       }
       @if (adpDeltaLabel()) {
-        <span class="adp-delta" [class]="adpDeltaClass()" title="ADP Delta">
+        <span class="adp-delta" [ngClass]="adpDeltaClass()" title="ADP Delta">
           {{ adpDeltaLabel() }}
         </span>
       }
       @if (valueGap() !== null) {
         <span
           class="vg-dot"
-          [class]="valueGapClass()"
+          [ngClass]="valueGapClass()"
           title="Value gap between KTC and Flock tiers"
         >
           @if (valueGap() === 0) {
