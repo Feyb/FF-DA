@@ -9,9 +9,6 @@
     "correctness": "error",
     "suspicious": "off"
   },
-  "options": {
-    "denyWarnings": true
-  },
   "ignorePatterns": ["dist/**", ".angular/**", "coverage/**"],
   "overrides": [
     {

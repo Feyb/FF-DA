@@ -1,0 +1,6 @@
+{
+  "$schema": "./apps/draft-assistant/frontend/node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "denyWarnings": true
+  }
+}

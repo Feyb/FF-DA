@@ -106,6 +106,15 @@ export class PlayerNormalizationService {
       adpRank,
       valueGap,
       fpAdpRank,
+      fantasyCalcValue: null,
+      fantasyCalcTrend30Day: null,
+      adpMean: null,
+      adpStd: null,
+      baseValue: null,
+      baseValueDivergence: null,
+      pAvailAtNext: null,
+      tierCliffScore: null,
+      weightedCompositeScore: null,
     };
   }
 

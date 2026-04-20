@@ -31,6 +31,15 @@ function buildRow(overrides: Partial<DraftPlayerRow> = {}): DraftPlayerRow {
     adpDelta: 1,
     valueGap: 1,
     fpAdpRank: 18,
+    fantasyCalcValue: null,
+    fantasyCalcTrend30Day: null,
+    adpMean: null,
+    adpStd: null,
+    baseValue: null,
+    baseValueDivergence: null,
+    pAvailAtNext: null,
+    tierCliffScore: null,
+    weightedCompositeScore: null,
     ...overrides,
   };
 }

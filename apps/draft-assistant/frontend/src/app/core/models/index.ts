@@ -110,6 +110,37 @@ export interface DraftPlayerRow {
   valueGap: number | null;
   /** FantasyPros dynasty ADP rank (1QB or Superflex depending on league format). */
   fpAdpRank: number | null;
+  /** FantasyCalc crowdsourced trade value (format-aware). */
+  fantasyCalcValue: number | null;
+  /** FantasyCalc 30-day value trend (signed delta in FC value units). */
+  fantasyCalcTrend30Day: number | null;
+  /** FantasyFootballCalculator mean ADP pick number (1-based). */
+  adpMean: number | null;
+  /** FantasyFootballCalculator ADP standard deviation in picks. */
+  adpStd: number | null;
+  /**
+   * Consensus base value on a 0–100 scale, position-normalized via trimmed
+   * z-mean of all available ranking sources. Higher = better. See
+   * ConsensusAggregatorService.
+   */
+  baseValue: number | null;
+  /**
+   * Spread of source z-scores feeding baseValue (population sd). Higher =
+   * sharper-vs-square divergence between rankers.
+   */
+  baseValueDivergence: number | null;
+  /**
+   * Probability the player is still on the board at the user's next pick,
+   * estimated from ADP Normal(mean, std). 0–1.
+   */
+  pAvailAtNext: number | null;
+  /**
+   * Expected loss-of-waiting in baseValue units: probability the tier drains
+   * before next pick × baseValue gap to the next tier.
+   */
+  tierCliffScore: number | null;
+  /** Final Weighted Composite Score (Phase 1 simplified form); higher = better. */
+  weightedCompositeScore: number | null;
 }
 
 export interface DraftRecommendation {
@@ -267,6 +298,37 @@ export interface FantasyProsPlayer {
   position: string;
   team: string | null;
   adpRank: number;
+}
+
+/** Slim FantasyCalc value entry (matches scripts/fetch-fantasycalc.mjs output). */
+export interface FantasyCalcPlayer {
+  playerName: string;
+  sleeperId: string | null;
+  position: string;
+  value: number;
+  overallRank: number | null;
+  positionRank: number | null;
+  trend30Day: number | null;
+  redraftValue: number | null;
+  combinedValue: number | null;
+  /** Crowdsource value standard deviation (FC units). */
+  stdev: number | null;
+}
+
+/** Slim FantasyFootballCalculator ADP entry (matches scripts/fetch-ffc-adp.mjs output). */
+export interface FfcAdpPlayer {
+  playerName: string;
+  position: string;
+  team: string | null;
+  /** Mean ADP as a 1-based pick number. */
+  adp: number;
+  adpFormatted: string | null;
+  /** Standard deviation of pick number across surveyed drafts. */
+  stdev: number | null;
+  high: number | null;
+  low: number | null;
+  timesDrafted: number | null;
+  bye: number | null;
 }
 
 export type TierSource = "average" | "flock" | "ktc";
