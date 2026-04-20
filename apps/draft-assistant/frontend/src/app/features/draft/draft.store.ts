@@ -39,6 +39,7 @@ import {
 } from "../../core/services/consensus-aggregator.service";
 import { SurvivalService } from "../../core/services/survival.service";
 import { computeTierCliff, TierCliffPlayer } from "./tier-cliff.util";
+import { generateExplanation } from "./score-explanation.util";
 import { toErrorMessage } from "../../core/utils/error.util";
 import { togglePositionFilter } from "../../core/utils/position-filter.util";
 import { toMapById } from "../../core/utils/array-mapping.util";
@@ -242,424 +243,10 @@ export const DraftStore = signalStore(
     }),
   })),
 
-  // Second withComputed block — can access userRosterId and userNextPickNumber from the first block.
-  withComputed((store, appStore = inject(AppStore)) => ({
-    /**
-     * Positional need entries derived from League roster_positions config (REQ-PN-01 to REQ-PN-08).
-     */
-    positionalNeeds: computed((): PositionalNeedEntry[] => {
-      const league = appStore.selectedLeague();
-      const rosterPositions = league?.roster_positions ?? [];
-      const { configuredByPos, filledByPos } = buildRosterFillInfo(
-        rosterPositions,
-        store.picks(),
-        store.userRosterId(),
-        store.rows(),
-      );
-
-      const positionOrder = ["QB", "RB", "WR", "TE", "FLEX", "SUPER_FLEX", "K", "DEF"];
-
-      const configuredQb = configuredByPos["QB"] ?? 0;
-      const configuredRb = configuredByPos["RB"] ?? 0;
-      const configuredWr = configuredByPos["WR"] ?? 0;
-      const configuredTe = configuredByPos["TE"] ?? 0;
-      const configuredFlex = configuredByPos["FLEX"] ?? 0;
-      const configuredSuperFlex = configuredByPos["SUPER_FLEX"] ?? 0;
-
-      const surplusQb = Math.max(0, (filledByPos["QB"] ?? 0) - configuredQb);
-      const surplusRb = Math.max(0, (filledByPos["RB"] ?? 0) - configuredRb);
-      const surplusWr = Math.max(0, (filledByPos["WR"] ?? 0) - configuredWr);
-      const surplusTe = Math.max(0, (filledByPos["TE"] ?? 0) - configuredTe);
-
-      const flexEligibleSurplus = surplusRb + surplusWr + surplusTe;
-      const flexFilled = Math.min(configuredFlex, flexEligibleSurplus);
-      const remainingFlexEligibleSurplus = Math.max(0, flexEligibleSurplus - flexFilled);
-      const superFlexEligibleSurplus = surplusQb + remainingFlexEligibleSurplus;
-      const superFlexFilled = Math.min(configuredSuperFlex, superFlexEligibleSurplus);
-
-      const effectiveFilledByPos: Record<string, number> = {
-        ...filledByPos,
-        FLEX: flexFilled,
-        SUPER_FLEX: superFlexFilled,
-      };
-
-      return positionOrder
-        .filter((pos) => (configuredByPos[pos] ?? 0) > 0)
-        .map((pos) => {
-          const configured = configuredByPos[pos] ?? 0;
-          const filled = Math.min(effectiveFilledByPos[pos] ?? 0, configured);
-          return { position: pos, configured, filled, remaining: configured - filled };
-        });
-    }),
-
-    /**
-     * All player rows (including drafted) sorted by the active sortSource.
-     * Filtered by searchQuery and neededPositionsOnly when active.
-     * Drafted players carry isDrafted=true and availability risk info for display.
-     * REQ-PL-01, REQ-PL-02, REQ-PL-05, REQ-PL-06, REQ-SN-01 to REQ-SN-07, REQ-PL-11.
-     */
-    allPlayerRows: computed((): DraftPlayerDisplayRow[] => {
-      const sortSrc = store.sortSource();
-      const selected = new Set(store.selectedPositions());
-      const picked = new Set(
-        store
-          .picks()
-          .filter((pick) => !!pick.player_id)
-          .map((pick) => pick.player_id),
-      );
-      const query = store.searchQuery().toLowerCase().trim();
-      const neededOnly = store.neededPositionsOnly();
-
-      // Compute needed positions when filter is active
-      const neededPositions = new Set<string>();
-      if (neededOnly) {
-        const league = appStore.selectedLeague();
-        const rosterPositions = league?.roster_positions ?? [];
-        const { configuredByPos, filledByPos } = buildRosterFillInfo(
-          rosterPositions,
-          store.picks(),
-          store.userRosterId(),
-          store.rows(),
-        );
-        const flexEligiblePositions: DraftPositionFilter[] = ["RB", "WR", "TE"];
-        const superFlexEligiblePositions: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
-
-        for (const pos of ["QB", "RB", "WR", "TE"] as const) {
-          const configured = configuredByPos[pos] ?? 0;
-          const flex = flexEligiblePositions.includes(pos) ? (configuredByPos["FLEX"] ?? 0) : 0;
-          const superFlex = superFlexEligiblePositions.includes(pos)
-            ? (configuredByPos["SUPER_FLEX"] ?? 0)
-            : 0;
-          const total = configured + flex + superFlex;
-          const filled = filledByPos[pos] ?? 0;
-          if (filled < total) neededPositions.add(pos);
-        }
-      }
-
-      // Compute pick position for availability risk (REQ-PA-05)
-      // Only compute at-risk thresholds when userNextPickNumber is known; otherwise
-      // treat all undrafted players as safe to avoid false "At Risk" labels.
-      const currentPickNumber = store.picks().length + 1;
-      const userNextPick = store.userNextPickNumber();
-      const atRiskThreshold = userNextPick !== null ? userNextPick : null;
-      const goingSoonThreshold = currentPickNumber + 2; // within next 3 picks
-
-      return [...store.rows()]
-        .filter((row) => selected.has(row.position))
-        .filter((row) => !store.rookiesOnly() || row.rookie)
-        .filter((row) => !neededOnly || neededPositions.has(row.position))
-        .filter((row) => !query || row.fullName.toLowerCase().includes(query))
-        .sort((a, b) => sortBySortSource(a, b, sortSrc))
-        .map((row) => {
-          const isDrafted = picked.has(row.playerId);
-          const adpRef = row.averageRank;
-          let availabilityRisk: "safe" | "at-risk" | "gone" = "safe";
-          let isGoingSoon = false;
-          if (isDrafted) {
-            availabilityRisk = "gone";
-          } else if (atRiskThreshold !== null && adpRef !== null && adpRef <= atRiskThreshold) {
-            availabilityRisk = "at-risk";
-          }
-          if (!isDrafted && adpRef !== null && adpRef <= goingSoonThreshold) {
-            isGoingSoon = true;
-          }
-          return { ...row, isDrafted, availabilityRisk, isGoingSoon };
-        });
-    }),
-
-    availableRows: computed(() => {
-      const tierSrc = store.tierSource();
-      const valueSrc = store.valueSource();
-      const selected = new Set(store.selectedPositions());
-      const picked = new Set(
-        store
-          .picks()
-          .filter((pick) => !!pick.player_id)
-          .map((pick) => pick.player_id),
-      );
-
-      return store
-        .rows()
-        .filter((row) => selected.has(row.position))
-        .filter((row) => !store.rookiesOnly() || row.rookie)
-        .filter((row) => !picked.has(row.playerId))
-        .sort((a, b) => {
-          const aTier = resolveDraftTier(a, tierSrc);
-          const bTier = resolveDraftTier(b, tierSrc);
-          if (aTier !== bTier) return aTier - bTier;
-
-          const aRank =
-            valueSrc === "ktcValue"
-              ? (a.ktcRank ?? Number.MAX_SAFE_INTEGER)
-              : (a.averageRank ?? a.ktcRank ?? Number.MAX_SAFE_INTEGER);
-          const bRank =
-            valueSrc === "ktcValue"
-              ? (b.ktcRank ?? Number.MAX_SAFE_INTEGER)
-              : (b.averageRank ?? b.ktcRank ?? Number.MAX_SAFE_INTEGER);
-          if (aRank !== bRank) return aRank - bRank;
-          return a.sleeperRank - b.sleeperRank;
-        });
-    }),
-
-    recommendations: computed(() => {
-      const tierSrc = store.tierSource();
-      const valueSrc = store.valueSource();
-      const selected = new Set(store.selectedPositions());
-      const picked = new Set(
-        store
-          .picks()
-          .filter((pick) => !!pick.player_id)
-          .map((pick) => pick.player_id),
-      );
-
-      const positionOrder: Record<DraftPositionFilter, number> = {
-        QB: 0,
-        RB: 1,
-        WR: 2,
-        TE: 3,
-      };
-
-      const currentPickNumber = store.picks().length + 1;
-      const userNextPick = store.userNextPickNumber();
-      const picksUntilMyTurn = userNextPick !== null ? userNextPick - currentPickNumber : 0;
-      const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
-
-      const sortedRows = store
-        .rows()
-        .filter((row) => selected.has(row.position))
-        .filter((row) => !store.rookiesOnly() || row.rookie)
-        .filter((row) => !picked.has(row.playerId))
-        .sort((a, b) => {
-          const aTier = resolveDraftTier(a, tierSrc);
-          const bTier = resolveDraftTier(b, tierSrc);
-          if (aTier !== bTier) return aTier - bTier;
-
-          const aPosition = positionOrder[a.position];
-          const bPosition = positionOrder[b.position];
-          if (aPosition !== bPosition) return aPosition - bPosition;
-
-          return resolveDraftValue(b, valueSrc) - resolveDraftValue(a, valueSrc);
-        });
-
-      // Find top 3 distinct tier values
-      const tierOrder: number[] = [];
-      const seenTiers = new Set<number>();
-      for (const row of sortedRows) {
-        const tier = resolveDraftTier(row, tierSrc);
-        if (!seenTiers.has(tier)) {
-          tierOrder.push(tier);
-          seenTiers.add(tier);
-        }
-      }
-      const top3Tiers = new Set(tierOrder.slice(0, 3));
-
-      // Filter to top 3 tiers and cap at 3 players per tier
-      const tierPlayerCounts = new Map<number, number>();
-      const filtered = sortedRows.filter((row) => {
-        const tier = resolveDraftTier(row, tierSrc);
-        if (!top3Tiers.has(tier)) return false;
-        const count = tierPlayerCounts.get(tier) ?? 0;
-        if (count >= 3) return false;
-        tierPlayerCounts.set(tier, count + 1);
-        return true;
-      });
-
-      return filtered.map<DraftRecommendation>((row) => {
-        const adpRef = row.averageRank;
-        const availabilityRisk: "safe" | "at-risk" | "gone" =
-          adpRef !== null && adpRef <= atRiskThreshold ? "at-risk" : "safe";
-        return {
-          playerId: row.playerId,
-          fullName: row.fullName,
-          position: row.position,
-          team: row.team,
-          ktcValue: row.ktcValue,
-          ktcRank: row.ktcRank,
-          overallTier: row.overallTier,
-          positionalTier: row.positionalTier,
-          flockAverageTier: row.flockAverageTier,
-          flockAveragePositionalTier: row.flockAveragePositionalTier,
-          averageRank: row.averageRank,
-          combinedTier: row.combinedTier,
-          adpDelta: row.adpDelta,
-          availabilityRisk,
-          boostedScore: resolveDraftValue(row, valueSrc),
-        };
-      });
-    }),
-
-    starredRows: computed(() => {
-      const stars = new Set(store.starredPlayerIds());
-      const selected = new Set(store.selectedPositions());
-      const picked = new Set(
-        store
-          .picks()
-          .filter((pick) => !!pick.player_id)
-          .map((pick) => pick.player_id),
-      );
-
-      return store
-        .rows()
-        .filter((row) => selected.has(row.position))
-        .filter((row) => !store.rookiesOnly() || row.rookie)
-        .filter((row) => !picked.has(row.playerId))
-        .filter((row) => stars.has(row.playerId))
-        .sort((a, b) => {
-          const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
-          const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
-          if (aRank !== bRank) return aRank - bRank;
-          return a.sleeperRank - b.sleeperRank;
-        });
-    }),
-
-    /**
-     * My roster picks — picks belonging to the current user's team (REQ-SM-04).
-     */
-    myRosterPicks: computed(() => {
-      const rosterId = store.userRosterId();
-      if (rosterId === null) return [];
-
-      return store
-        .picks()
-        .filter((pick) => pick.roster_id === rosterId && !!pick.player_id)
-        .sort((a, b) => a.pick_no - b.pick_no);
-    }),
-
-    /**
-     * My roster player rows — enriched rows for the user's drafted players (REQ-SM-04 to REQ-SM-06).
-     */
-    myRosterRows: computed((): DraftPlayerRow[] => {
-      const rosterId = store.userRosterId();
-      if (rosterId === null) return [];
-
-      const myPickIds = new Set(
-        store
-          .picks()
-          .filter((pick) => pick.roster_id === rosterId && !!pick.player_id)
-          .map((pick) => pick.player_id),
-      );
-
-      return store.rows().filter((row) => myPickIds.has(row.playerId));
-    }),
-
-    pickBoard: computed(() => [...store.picks()].sort((a, b) => a.pick_no - b.pick_no)),
-    recentPicks: computed(() =>
-      [...store.picks()].sort((a, b) => b.pick_no - a.pick_no).slice(0, 10),
-    ),
-    nextPickNumber: computed(() => store.picks().length + 1),
-
-    /**
-     * Best available player per position group (QB, RB, WR, TE).
-     * Ordered by positional need priority (REQ-BA-07).
-     * Includes lowestAvailableTier and availabilityRisk (REQ-BA-05, REQ-BA-06, REQ-BA-07).
-     * Satisfies REQ-BA-02, REQ-BA-03, REQ-BA-04, REQ-BA-08.
-     */
-    bestAvailableByPosition: computed((): BestAvailableEntry[] => {
-      const picked = new Set(
-        store
-          .picks()
-          .filter((pick) => !!pick.player_id)
-          .map((pick) => pick.player_id),
-      );
-      const selected = store.selectedPositions();
-      const positionsToShow: DraftPositionFilter[] =
-        selected.length === DEFAULT_POSITIONS.length
-          ? BEST_AVAILABLE_POSITIONS
-          : selected.filter((p): p is DraftPositionFilter =>
-              BEST_AVAILABLE_POSITIONS.includes(p as DraftPositionFilter),
-            );
-
-      const positionsToShowSet = new Set<string>(positionsToShow);
-      const bestByPos = new Map<DraftPositionFilter, DraftPlayerRow>();
-      const lowestTierByPos = new Map<DraftPositionFilter, number>();
-      const rookiesOnly = store.rookiesOnly();
-
-      // Compute availability risk threshold using shared userNextPickNumber (REQ-PA-05)
-      // Only mark at-risk when next pick number is known to avoid false positives.
-      const userNextPick = store.userNextPickNumber();
-      const atRiskThreshold: number | null = userNextPick;
-
-      const isBetterCandidate = (candidate: DraftPlayerRow, current: DraftPlayerRow): boolean => {
-        const candidateTier = candidate.combinedTier ?? Number.MAX_SAFE_INTEGER;
-        const currentTier = current.combinedTier ?? Number.MAX_SAFE_INTEGER;
-        if (candidateTier !== currentTier) {
-          return candidateTier < currentTier;
-        }
-        return candidate.sleeperRank < current.sleeperRank;
-      };
-
-      for (const row of store.rows()) {
-        if (
-          picked.has(row.playerId) ||
-          !positionsToShowSet.has(row.position) ||
-          (rookiesOnly && !row.rookie)
-        ) {
-          continue;
-        }
-
-        const pos = row.position as DraftPositionFilter;
-        const currentBest = bestByPos.get(pos);
-        if (!currentBest || isBetterCandidate(row, currentBest)) {
-          bestByPos.set(pos, row);
-        }
-
-        const rowTier = row.combinedPositionalTier ?? row.combinedTier;
-        if (rowTier !== null) {
-          const currentLowest = lowestTierByPos.get(pos);
-          if (currentLowest === undefined || rowTier < currentLowest) {
-            lowestTierByPos.set(pos, rowTier);
-          }
-        }
-      }
-
-      // Compute need-based ordering for positions (REQ-BA-07)
-      const league = appStore.selectedLeague();
-      const rosterPositions = league?.roster_positions ?? [];
-      const { configuredByPos, filledByPos } = buildRosterFillInfo(
-        rosterPositions,
-        store.picks(),
-        store.userRosterId(),
-        store.rows(),
-      );
-
-      // Use FLEX-aware remaining calculation for need priority (RB/WR/TE eligible for FLEX,
-      // QB/RB/WR/TE eligible for SUPER_FLEX).
-      const flexEligiblePositions = new Set(["RB", "WR", "TE"]);
-      const superFlexEligiblePositions = new Set(["QB", "RB", "WR", "TE"]);
-      const remainingByPos = (pos: string): number => {
-        const configured = configuredByPos[pos] ?? 0;
-        const flex = flexEligiblePositions.has(pos) ? (configuredByPos["FLEX"] ?? 0) : 0;
-        const superFlex = superFlexEligiblePositions.has(pos)
-          ? (configuredByPos["SUPER_FLEX"] ?? 0)
-          : 0;
-        const filled = filledByPos[pos] ?? 0;
-        return Math.max(0, configured + flex + superFlex - filled);
-      };
-
-      const orderedPositions = [...positionsToShow].sort(
-        (a, b) => remainingByPos(b) - remainingByPos(a),
-      );
-
-      return orderedPositions.map((pos) => {
-        const player = bestByPos.get(pos) ?? null;
-        const adpRef = player?.averageRank ?? null;
-        const availabilityRisk: "safe" | "at-risk" | "gone" =
-          atRiskThreshold !== null && adpRef !== null && adpRef <= atRiskThreshold
-            ? "at-risk"
-            : "safe";
-        return {
-          position: pos,
-          player,
-          lowestAvailableTier: lowestTierByPos.get(pos) ?? null,
-          availabilityRisk,
-        };
-      });
-    }),
-  })),
-
-  // Third withComputed block — Weighted Composite Score pipeline (Phase 1).
-  // Isolated so the new algorithm can be reasoned about (and rolled back)
-  // independently of legacy combinedTier-based recommendations.
+  // Weighted Composite Score pipeline (Phase 1). Isolated from the legacy
+  // combinedTier-based recommendations so it can be reasoned about and rolled
+  // back independently. Runs before the general player-row computeds so they
+  // can consume enrichedRows (which back-fills baseValue / pAvail / cliff / WCS).
   //
   // Pipeline:
   //   1. ConsensusAggregator.aggregate(rows) → BaseValue (0-100, position-normalized).
@@ -763,8 +350,7 @@ export const DraftStore = signalStore(
           const bv = baseMap.get(row.playerId)?.baseValue;
           if (bv === null || bv === undefined) continue;
           // Cliff is in BaseValue units (0-100); normalize against bv to get a
-          // 0-1ish multiplier that represents the fractional opportunity cost
-          // of passing this player.
+          // 0-1ish multiplier representing the fractional opportunity cost of passing.
           const cliffRaw = cliffMap.get(row.playerId)?.cliff ?? 0;
           const cliffNorm = bv > 0 ? Math.min(1, cliffRaw / bv) : 0;
           // Falling players (low pAvailAtNext but still here now) get a soft bump.
@@ -775,15 +361,69 @@ export const DraftStore = signalStore(
         return out;
       });
 
+      const POSITION_RUN_WINDOW = 6;
+
+      const wcsExplanationByPlayer = computed((): Map<string, string> => {
+        const baseMap = baseValueByPlayer();
+        const cliffMap = tierCliffByPlayer();
+        const pAvailMap = pAvailAtNextByPlayer();
+        const currentPickNumber = store.picks().length + 1;
+
+        // Count positions in the trailing run-window for position-run flagging.
+        const recentPositions: Record<"QB" | "RB" | "WR" | "TE", number> = {
+          QB: 0,
+          RB: 0,
+          WR: 0,
+          TE: 0,
+        };
+        const recent = store
+          .picks()
+          .slice()
+          .sort((a, b) => b.pick_no - a.pick_no)
+          .slice(0, POSITION_RUN_WINDOW);
+        const posByPlayerId = new Map(store.rows().map((r) => [r.playerId, r.position]));
+        for (const pick of recent) {
+          const pos = posByPlayerId.get(pick.player_id);
+          if (pos && pos in recentPositions) {
+            recentPositions[pos as "QB" | "RB" | "WR" | "TE"]++;
+          }
+        }
+
+        const out = new Map<string, string>();
+        for (const row of store.rows()) {
+          const base = baseMap.get(row.playerId);
+          if (!base || base.baseValue === null) continue;
+          const tierInfo = cliffMap.get(row.playerId);
+          const explanation = generateExplanation({
+            baseValue: base.baseValue,
+            baseValueDivergence: base.divergence,
+            pAvailAtNext: pAvailMap.get(row.playerId) ?? null,
+            tierCliffScore: tierInfo?.cliff ?? null,
+            nextTierMeanBaseValue: tierInfo?.nextMean ?? null,
+            thisTierMeanBaseValue: tierInfo?.thisMean ?? null,
+            tier: tierInfo?.tier ?? null,
+            adpDelta: row.adpDelta,
+            adpMean: row.adpMean,
+            currentPickNumber,
+            age: row.age,
+            position: row.position,
+            positionRunCount: recentPositions[row.position] ?? 0,
+            positionRunWindow: POSITION_RUN_WINDOW,
+          });
+          if (explanation) out.set(row.playerId, explanation);
+        }
+        return out;
+      });
+
       return {
         baseValueByPlayer,
         pAvailAtNextByPlayer,
         tierCliffByPlayer,
         weightedCompositeByPlayer,
+        wcsExplanationByPlayer,
         /**
          * Player rows with WCS-pipeline fields back-filled. Drives the
-         * weighted-composite sort and any UI surface that needs the new signals
-         * without requiring a re-fetch of the underlying rows.
+         * weighted-composite sort and any UI surface that needs the new signals.
          */
         enrichedRows: computed((): DraftPlayerRow[] => {
           const baseMap = baseValueByPlayer();
@@ -805,6 +445,421 @@ export const DraftStore = signalStore(
       };
     },
   ),
+
+  // Second withComputed block — can access userRosterId and userNextPickNumber from the first block.
+  withComputed((store, appStore = inject(AppStore)) => ({
+    /**
+     * Positional need entries derived from League roster_positions config (REQ-PN-01 to REQ-PN-08).
+     */
+    positionalNeeds: computed((): PositionalNeedEntry[] => {
+      const league = appStore.selectedLeague();
+      const rosterPositions = league?.roster_positions ?? [];
+      const { configuredByPos, filledByPos } = buildRosterFillInfo(
+        rosterPositions,
+        store.picks(),
+        store.userRosterId(),
+        store.rows(),
+      );
+
+      const positionOrder = ["QB", "RB", "WR", "TE", "FLEX", "SUPER_FLEX", "K", "DEF"];
+
+      const configuredQb = configuredByPos["QB"] ?? 0;
+      const configuredRb = configuredByPos["RB"] ?? 0;
+      const configuredWr = configuredByPos["WR"] ?? 0;
+      const configuredTe = configuredByPos["TE"] ?? 0;
+      const configuredFlex = configuredByPos["FLEX"] ?? 0;
+      const configuredSuperFlex = configuredByPos["SUPER_FLEX"] ?? 0;
+
+      const surplusQb = Math.max(0, (filledByPos["QB"] ?? 0) - configuredQb);
+      const surplusRb = Math.max(0, (filledByPos["RB"] ?? 0) - configuredRb);
+      const surplusWr = Math.max(0, (filledByPos["WR"] ?? 0) - configuredWr);
+      const surplusTe = Math.max(0, (filledByPos["TE"] ?? 0) - configuredTe);
+
+      const flexEligibleSurplus = surplusRb + surplusWr + surplusTe;
+      const flexFilled = Math.min(configuredFlex, flexEligibleSurplus);
+      const remainingFlexEligibleSurplus = Math.max(0, flexEligibleSurplus - flexFilled);
+      const superFlexEligibleSurplus = surplusQb + remainingFlexEligibleSurplus;
+      const superFlexFilled = Math.min(configuredSuperFlex, superFlexEligibleSurplus);
+
+      const effectiveFilledByPos: Record<string, number> = {
+        ...filledByPos,
+        FLEX: flexFilled,
+        SUPER_FLEX: superFlexFilled,
+      };
+
+      return positionOrder
+        .filter((pos) => (configuredByPos[pos] ?? 0) > 0)
+        .map((pos) => {
+          const configured = configuredByPos[pos] ?? 0;
+          const filled = Math.min(effectiveFilledByPos[pos] ?? 0, configured);
+          return { position: pos, configured, filled, remaining: configured - filled };
+        });
+    }),
+
+    /**
+     * All player rows (including drafted) sorted by the active sortSource.
+     * Filtered by searchQuery and neededPositionsOnly when active.
+     * Drafted players carry isDrafted=true and availability risk info for display.
+     * REQ-PL-01, REQ-PL-02, REQ-PL-05, REQ-PL-06, REQ-SN-01 to REQ-SN-07, REQ-PL-11.
+     */
+    allPlayerRows: computed((): DraftPlayerDisplayRow[] => {
+      const sortSrc = store.sortSource();
+      const selected = new Set(store.selectedPositions());
+      const picked = new Set(
+        store
+          .picks()
+          .filter((pick) => !!pick.player_id)
+          .map((pick) => pick.player_id),
+      );
+      const query = store.searchQuery().toLowerCase().trim();
+      const neededOnly = store.neededPositionsOnly();
+
+      // Compute needed positions when filter is active
+      const neededPositions = new Set<string>();
+      if (neededOnly) {
+        const league = appStore.selectedLeague();
+        const rosterPositions = league?.roster_positions ?? [];
+        const { configuredByPos, filledByPos } = buildRosterFillInfo(
+          rosterPositions,
+          store.picks(),
+          store.userRosterId(),
+          store.rows(),
+        );
+        const flexEligiblePositions: DraftPositionFilter[] = ["RB", "WR", "TE"];
+        const superFlexEligiblePositions: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
+
+        for (const pos of ["QB", "RB", "WR", "TE"] as const) {
+          const configured = configuredByPos[pos] ?? 0;
+          const flex = flexEligiblePositions.includes(pos) ? (configuredByPos["FLEX"] ?? 0) : 0;
+          const superFlex = superFlexEligiblePositions.includes(pos)
+            ? (configuredByPos["SUPER_FLEX"] ?? 0)
+            : 0;
+          const total = configured + flex + superFlex;
+          const filled = filledByPos[pos] ?? 0;
+          if (filled < total) neededPositions.add(pos);
+        }
+      }
+
+      // Compute pick position for availability risk (REQ-PA-05)
+      // Only compute at-risk thresholds when userNextPickNumber is known; otherwise
+      // treat all undrafted players as safe to avoid false "At Risk" labels.
+      const currentPickNumber = store.picks().length + 1;
+      const userNextPick = store.userNextPickNumber();
+      const atRiskThreshold = userNextPick !== null ? userNextPick : null;
+      const goingSoonThreshold = currentPickNumber + 2; // within next 3 picks
+
+      return [...store.enrichedRows()]
+        .filter((row) => selected.has(row.position))
+        .filter((row) => !store.rookiesOnly() || row.rookie)
+        .filter((row) => !neededOnly || neededPositions.has(row.position))
+        .filter((row) => !query || row.fullName.toLowerCase().includes(query))
+        .sort((a, b) => sortBySortSource(a, b, sortSrc))
+        .map((row) => {
+          const isDrafted = picked.has(row.playerId);
+          const adpRef = row.averageRank;
+          let availabilityRisk: "safe" | "at-risk" | "gone" = "safe";
+          let isGoingSoon = false;
+          if (isDrafted) {
+            availabilityRisk = "gone";
+          } else if (atRiskThreshold !== null && adpRef !== null && adpRef <= atRiskThreshold) {
+            availabilityRisk = "at-risk";
+          }
+          if (!isDrafted && adpRef !== null && adpRef <= goingSoonThreshold) {
+            isGoingSoon = true;
+          }
+          return { ...row, isDrafted, availabilityRisk, isGoingSoon };
+        });
+    }),
+
+    availableRows: computed(() => {
+      const tierSrc = store.tierSource();
+      const valueSrc = store.valueSource();
+      const selected = new Set(store.selectedPositions());
+      const picked = new Set(
+        store
+          .picks()
+          .filter((pick) => !!pick.player_id)
+          .map((pick) => pick.player_id),
+      );
+
+      return store
+        .enrichedRows()
+        .filter((row) => selected.has(row.position))
+        .filter((row) => !store.rookiesOnly() || row.rookie)
+        .filter((row) => !picked.has(row.playerId))
+        .sort((a, b) => {
+          const aTier = resolveDraftTier(a, tierSrc);
+          const bTier = resolveDraftTier(b, tierSrc);
+          if (aTier !== bTier) return aTier - bTier;
+
+          const aRank =
+            valueSrc === "ktcValue"
+              ? (a.ktcRank ?? Number.MAX_SAFE_INTEGER)
+              : (a.averageRank ?? a.ktcRank ?? Number.MAX_SAFE_INTEGER);
+          const bRank =
+            valueSrc === "ktcValue"
+              ? (b.ktcRank ?? Number.MAX_SAFE_INTEGER)
+              : (b.averageRank ?? b.ktcRank ?? Number.MAX_SAFE_INTEGER);
+          if (aRank !== bRank) return aRank - bRank;
+          return a.sleeperRank - b.sleeperRank;
+        });
+    }),
+
+    recommendations: computed(() => {
+      const tierSrc = store.tierSource();
+      const valueSrc = store.valueSource();
+      const selected = new Set(store.selectedPositions());
+      const picked = new Set(
+        store
+          .picks()
+          .filter((pick) => !!pick.player_id)
+          .map((pick) => pick.player_id),
+      );
+
+      const positionOrder: Record<DraftPositionFilter, number> = {
+        QB: 0,
+        RB: 1,
+        WR: 2,
+        TE: 3,
+      };
+
+      const currentPickNumber = store.picks().length + 1;
+      const userNextPick = store.userNextPickNumber();
+      const picksUntilMyTurn = userNextPick !== null ? userNextPick - currentPickNumber : 0;
+      const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
+
+      const sortedRows = store
+        .enrichedRows()
+        .filter((row) => selected.has(row.position))
+        .filter((row) => !store.rookiesOnly() || row.rookie)
+        .filter((row) => !picked.has(row.playerId))
+        .sort((a, b) => {
+          const aTier = resolveDraftTier(a, tierSrc);
+          const bTier = resolveDraftTier(b, tierSrc);
+          if (aTier !== bTier) return aTier - bTier;
+
+          const aPosition = positionOrder[a.position];
+          const bPosition = positionOrder[b.position];
+          if (aPosition !== bPosition) return aPosition - bPosition;
+
+          return resolveDraftValue(b, valueSrc) - resolveDraftValue(a, valueSrc);
+        });
+
+      // Find top 3 distinct tier values
+      const tierOrder: number[] = [];
+      const seenTiers = new Set<number>();
+      for (const row of sortedRows) {
+        const tier = resolveDraftTier(row, tierSrc);
+        if (!seenTiers.has(tier)) {
+          tierOrder.push(tier);
+          seenTiers.add(tier);
+        }
+      }
+      const top3Tiers = new Set(tierOrder.slice(0, 3));
+
+      // Filter to top 3 tiers and cap at 3 players per tier
+      const tierPlayerCounts = new Map<number, number>();
+      const filtered = sortedRows.filter((row) => {
+        const tier = resolveDraftTier(row, tierSrc);
+        if (!top3Tiers.has(tier)) return false;
+        const count = tierPlayerCounts.get(tier) ?? 0;
+        if (count >= 3) return false;
+        tierPlayerCounts.set(tier, count + 1);
+        return true;
+      });
+
+      return filtered.map<DraftRecommendation>((row) => {
+        const adpRef = row.averageRank;
+        const availabilityRisk: "safe" | "at-risk" | "gone" =
+          adpRef !== null && adpRef <= atRiskThreshold ? "at-risk" : "safe";
+        return {
+          playerId: row.playerId,
+          fullName: row.fullName,
+          position: row.position,
+          team: row.team,
+          ktcValue: row.ktcValue,
+          ktcRank: row.ktcRank,
+          overallTier: row.overallTier,
+          positionalTier: row.positionalTier,
+          flockAverageTier: row.flockAverageTier,
+          flockAveragePositionalTier: row.flockAveragePositionalTier,
+          averageRank: row.averageRank,
+          combinedTier: row.combinedTier,
+          adpDelta: row.adpDelta,
+          availabilityRisk,
+          boostedScore: resolveDraftValue(row, valueSrc),
+        };
+      });
+    }),
+
+    starredRows: computed(() => {
+      const stars = new Set(store.starredPlayerIds());
+      const selected = new Set(store.selectedPositions());
+      const picked = new Set(
+        store
+          .picks()
+          .filter((pick) => !!pick.player_id)
+          .map((pick) => pick.player_id),
+      );
+
+      return store
+        .enrichedRows()
+        .filter((row) => selected.has(row.position))
+        .filter((row) => !store.rookiesOnly() || row.rookie)
+        .filter((row) => !picked.has(row.playerId))
+        .filter((row) => stars.has(row.playerId))
+        .sort((a, b) => {
+          const aRank = a.ktcRank ?? Number.MAX_SAFE_INTEGER;
+          const bRank = b.ktcRank ?? Number.MAX_SAFE_INTEGER;
+          if (aRank !== bRank) return aRank - bRank;
+          return a.sleeperRank - b.sleeperRank;
+        });
+    }),
+
+    /**
+     * My roster picks — picks belonging to the current user's team (REQ-SM-04).
+     */
+    myRosterPicks: computed(() => {
+      const rosterId = store.userRosterId();
+      if (rosterId === null) return [];
+
+      return store
+        .picks()
+        .filter((pick) => pick.roster_id === rosterId && !!pick.player_id)
+        .sort((a, b) => a.pick_no - b.pick_no);
+    }),
+
+    /**
+     * My roster player rows — enriched rows for the user's drafted players (REQ-SM-04 to REQ-SM-06).
+     */
+    myRosterRows: computed((): DraftPlayerRow[] => {
+      const rosterId = store.userRosterId();
+      if (rosterId === null) return [];
+
+      const myPickIds = new Set(
+        store
+          .picks()
+          .filter((pick) => pick.roster_id === rosterId && !!pick.player_id)
+          .map((pick) => pick.player_id),
+      );
+
+      return store.enrichedRows().filter((row) => myPickIds.has(row.playerId));
+    }),
+
+    pickBoard: computed(() => [...store.picks()].sort((a, b) => a.pick_no - b.pick_no)),
+    recentPicks: computed(() =>
+      [...store.picks()].sort((a, b) => b.pick_no - a.pick_no).slice(0, 10),
+    ),
+    nextPickNumber: computed(() => store.picks().length + 1),
+
+    /**
+     * Best available player per position group (QB, RB, WR, TE).
+     * Ordered by positional need priority (REQ-BA-07).
+     * Includes lowestAvailableTier and availabilityRisk (REQ-BA-05, REQ-BA-06, REQ-BA-07).
+     * Satisfies REQ-BA-02, REQ-BA-03, REQ-BA-04, REQ-BA-08.
+     */
+    bestAvailableByPosition: computed((): BestAvailableEntry[] => {
+      const picked = new Set(
+        store
+          .picks()
+          .filter((pick) => !!pick.player_id)
+          .map((pick) => pick.player_id),
+      );
+      const selected = store.selectedPositions();
+      const positionsToShow: DraftPositionFilter[] =
+        selected.length === DEFAULT_POSITIONS.length
+          ? BEST_AVAILABLE_POSITIONS
+          : selected.filter((p): p is DraftPositionFilter =>
+              BEST_AVAILABLE_POSITIONS.includes(p as DraftPositionFilter),
+            );
+
+      const positionsToShowSet = new Set<string>(positionsToShow);
+      const bestByPos = new Map<DraftPositionFilter, DraftPlayerRow>();
+      const lowestTierByPos = new Map<DraftPositionFilter, number>();
+      const rookiesOnly = store.rookiesOnly();
+
+      // Compute availability risk threshold using shared userNextPickNumber (REQ-PA-05)
+      // Only mark at-risk when next pick number is known to avoid false positives.
+      const userNextPick = store.userNextPickNumber();
+      const atRiskThreshold: number | null = userNextPick;
+
+      const isBetterCandidate = (candidate: DraftPlayerRow, current: DraftPlayerRow): boolean => {
+        const candidateTier = candidate.combinedTier ?? Number.MAX_SAFE_INTEGER;
+        const currentTier = current.combinedTier ?? Number.MAX_SAFE_INTEGER;
+        if (candidateTier !== currentTier) {
+          return candidateTier < currentTier;
+        }
+        return candidate.sleeperRank < current.sleeperRank;
+      };
+
+      for (const row of store.enrichedRows()) {
+        if (
+          picked.has(row.playerId) ||
+          !positionsToShowSet.has(row.position) ||
+          (rookiesOnly && !row.rookie)
+        ) {
+          continue;
+        }
+
+        const pos = row.position as DraftPositionFilter;
+        const currentBest = bestByPos.get(pos);
+        if (!currentBest || isBetterCandidate(row, currentBest)) {
+          bestByPos.set(pos, row);
+        }
+
+        const rowTier = row.combinedPositionalTier ?? row.combinedTier;
+        if (rowTier !== null) {
+          const currentLowest = lowestTierByPos.get(pos);
+          if (currentLowest === undefined || rowTier < currentLowest) {
+            lowestTierByPos.set(pos, rowTier);
+          }
+        }
+      }
+
+      // Compute need-based ordering for positions (REQ-BA-07)
+      const league = appStore.selectedLeague();
+      const rosterPositions = league?.roster_positions ?? [];
+      const { configuredByPos, filledByPos } = buildRosterFillInfo(
+        rosterPositions,
+        store.picks(),
+        store.userRosterId(),
+        store.rows(),
+      );
+
+      // Use FLEX-aware remaining calculation for need priority (RB/WR/TE eligible for FLEX,
+      // QB/RB/WR/TE eligible for SUPER_FLEX).
+      const flexEligiblePositions = new Set(["RB", "WR", "TE"]);
+      const superFlexEligiblePositions = new Set(["QB", "RB", "WR", "TE"]);
+      const remainingByPos = (pos: string): number => {
+        const configured = configuredByPos[pos] ?? 0;
+        const flex = flexEligiblePositions.has(pos) ? (configuredByPos["FLEX"] ?? 0) : 0;
+        const superFlex = superFlexEligiblePositions.has(pos)
+          ? (configuredByPos["SUPER_FLEX"] ?? 0)
+          : 0;
+        const filled = filledByPos[pos] ?? 0;
+        return Math.max(0, configured + flex + superFlex - filled);
+      };
+
+      const orderedPositions = [...positionsToShow].sort(
+        (a, b) => remainingByPos(b) - remainingByPos(a),
+      );
+
+      return orderedPositions.map((pos) => {
+        const player = bestByPos.get(pos) ?? null;
+        const adpRef = player?.averageRank ?? null;
+        const availabilityRisk: "safe" | "at-risk" | "gone" =
+          atRiskThreshold !== null && adpRef !== null && adpRef <= atRiskThreshold
+            ? "at-risk"
+            : "safe";
+        return {
+          position: pos,
+          player,
+          lowestAvailableTier: lowestTierByPos.get(pos) ?? null,
+          availabilityRisk,
+        };
+      });
+    }),
+  })),
   withMethods(
     (
       store,
@@ -997,6 +1052,7 @@ export const DraftStore = signalStore(
           "adpDelta",
           "valueGap",
           "fpAdpRank",
+          "weightedComposite",
         ];
         return valid.includes(saved as DraftSortSource)
           ? (saved as DraftSortSource)

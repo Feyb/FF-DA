@@ -32,4 +32,9 @@ export class BestAvailableCardComponent {
   protected bestAvailableRank(entry: BestAvailableEntry): number | null {
     return entry.player ? rankForSortSource(entry.player, this.store.sortSource()) : null;
   }
+
+  protected wcsExplanation(entry: BestAvailableEntry): string {
+    if (!entry.player) return "";
+    return this.store.wcsExplanationByPlayer().get(entry.player.playerId) ?? "";
+  }
 }
