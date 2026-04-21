@@ -142,18 +142,17 @@ export function computeTierCliff(
     const buckets = new Map<number, TierBucket>();
     for (const p of sortedDesc) {
       const v = p.baseValue as number;
-      // Determine tier: start at tierCount (lowest), walk up.
-      let tier = tierCount;
-      for (let k = ascThresholds.length - 1; k >= 0; k--) {
-        if (v >= ascThresholds[k]) {
-          tier = k + 1;
-          break;
-        }
-        tier = k; // lower than this threshold, so at most k tier
+      // ascThresholds has tierCount-1 entries (lower bound of each band
+      // above the lowest). Count how many thresholds v meets or exceeds —
+      // that is the ascending-band index (0 = lowest band, tierCount-1 = top).
+      let matched = 0;
+      for (let k = 0; k < ascThresholds.length; k++) {
+        if (v >= ascThresholds[k]) matched = k + 1;
+        else break;
       }
       // Convert ascending-band index to descending tier label
-      // (band 0 = lowest values = worst tier = tierCount).
-      const descTier = tierCount - tier + 1;
+      // (matched = tierCount-1 = highest band → descTier 1 = best).
+      const descTier = tierCount - matched;
       const bucket = buckets.get(descTier) ?? { tier: descTier, members: [], mean: 0 };
       bucket.members.push(p);
       buckets.set(descTier, bucket);

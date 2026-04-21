@@ -81,6 +81,20 @@ describe("tier-cliff.util", () => {
       expect(qbTiers.size).toBeGreaterThanOrEqual(2);
     });
 
+    it("assigns tier 1 to the top band and tierCount to the bottom band", () => {
+      // Three clearly separated clusters of 3 players each.
+      const players = buildPool([90, 89, 88, 50, 49, 48, 10, 9, 8]);
+      const { tierByPlayer } = computeTierCliff(players, { tierCount: () => 3 });
+      expect(tierByPlayer.get("WR0")?.tier).toBe(1);
+      expect(tierByPlayer.get("WR3")?.tier).toBe(2);
+      expect(tierByPlayer.get("WR6")?.tier).toBe(3);
+      // All assigned tiers must be in [1, tierCount].
+      for (const a of tierByPlayer.values()) {
+        expect(a.tier).toBeGreaterThanOrEqual(1);
+        expect(a.tier).toBeLessThanOrEqual(3);
+      }
+    });
+
     it("ignores players with null baseValue", () => {
       const players: TierCliffPlayer[] = [
         { playerId: "a", position: "WR", baseValue: 90, pAvailAtNext: 0.5 },
