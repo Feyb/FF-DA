@@ -131,7 +131,10 @@ export function computeTierCliff(
     const sortedDesc = [...posPlayers].sort((a, b) => (b.baseValue ?? 0) - (a.baseValue ?? 0));
     const valuesAsc = sortedDesc.map((p) => p.baseValue as number).sort((a, b) => a - b);
 
-    const tierCount = (options.tierCount ?? chooseTierCount)(sortedDesc.length);
+    // Jenks returns [] when n <= numClasses, so clamp requested tiers to
+    // the pool size — with n players and n tiers, each player is its own tier.
+    const requested = (options.tierCount ?? chooseTierCount)(sortedDesc.length);
+    const tierCount = Math.min(requested, sortedDesc.length);
     const breakIdxs = jenksBreaks(valuesAsc, tierCount);
 
     // breakIdxs are indices in the ascending-sorted array; convert to
@@ -140,19 +143,28 @@ export function computeTierCliff(
     // tier 1 = highest baseValue. Walk sortedDesc and assign by which
     // ascending-threshold band the value falls into (from the top).
     const buckets = new Map<number, TierBucket>();
-    for (const p of sortedDesc) {
+    const fallbackOneTierPerPlayer = ascThresholds.length === 0 && tierCount > 1;
+    for (let i = 0; i < sortedDesc.length; i++) {
+      const p = sortedDesc[i];
       const v = p.baseValue as number;
-      // ascThresholds has tierCount-1 entries (lower bound of each band
-      // above the lowest). Count how many thresholds v meets or exceeds —
-      // that is the ascending-band index (0 = lowest band, tierCount-1 = top).
-      let matched = 0;
-      for (let k = 0; k < ascThresholds.length; k++) {
-        if (v >= ascThresholds[k]) matched = k + 1;
-        else break;
+      let descTier: number;
+      if (fallbackOneTierPerPlayer) {
+        // Degenerate case: Jenks had no breaks (n <= tierCount). Give each
+        // player its own tier in descending baseValue order.
+        descTier = Math.min(i + 1, tierCount);
+      } else {
+        // ascThresholds has tierCount-1 entries (lower bound of each band
+        // above the lowest). Count how many thresholds v meets or exceeds —
+        // that is the ascending-band index (0 = lowest band, tierCount-1 = top).
+        let matched = 0;
+        for (let k = 0; k < ascThresholds.length; k++) {
+          if (v >= ascThresholds[k]) matched = k + 1;
+          else break;
+        }
+        // Convert ascending-band index to descending tier label
+        // (matched = tierCount-1 = highest band → descTier 1 = best).
+        descTier = tierCount - matched;
       }
-      // Convert ascending-band index to descending tier label
-      // (matched = tierCount-1 = highest band → descTier 1 = best).
-      const descTier = tierCount - matched;
       const bucket = buckets.get(descTier) ?? { tier: descTier, members: [], mean: 0 };
       bucket.members.push(p);
       buckets.set(descTier, bucket);

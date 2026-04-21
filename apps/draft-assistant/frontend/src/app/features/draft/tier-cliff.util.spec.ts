@@ -95,6 +95,15 @@ describe("tier-cliff.util", () => {
       }
     });
 
+    it("gives each player its own tier when n <= tierCount (no Jenks breaks)", () => {
+      // 3 players, tierCount = 4 → clamped to 3, one tier per player in desc order.
+      const players = buildPool([80, 50, 20]);
+      const { tierByPlayer } = computeTierCliff(players, { tierCount: () => 4 });
+      expect(tierByPlayer.get("WR0")?.tier).toBe(1);
+      expect(tierByPlayer.get("WR1")?.tier).toBe(2);
+      expect(tierByPlayer.get("WR2")?.tier).toBe(3);
+    });
+
     it("ignores players with null baseValue", () => {
       const players: TierCliffPlayer[] = [
         { playerId: "a", position: "WR", baseValue: 90, pAvailAtNext: 0.5 },
