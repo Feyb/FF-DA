@@ -14,7 +14,9 @@ import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import {
   DraftPlayerRow,
   DraftRecommendation,
+  FantasyCalcPlayer,
   FantasyProsPlayer,
+  FfcAdpPlayer,
   KtcPlayer,
   LeagueRoster,
   LeagueUser,
@@ -24,11 +26,20 @@ import {
 } from "../../core/models";
 import { FlockRatingService } from "../../core/adapters/flock/flock-rating.service";
 import { FantasyProsAdpService } from "../../core/adapters/fantasypros/fantasypros-adp.service";
+import { FantasyCalcService } from "../../core/adapters/fantasycalc/fantasycalc.service";
+import { FfcAdpService } from "../../core/adapters/ffc/ffc-adp.service";
 import { FlockPlayer, TierSource } from "../../core/models";
 import { mapRosterAvatarIds } from "./draft-board-grid/draft-board-grid.util";
 import { AppStore } from "../../core/state/app.store";
 import { StorageService } from "../../core/services/storage.service";
 import { PlayerNormalizationService } from "../../core/services/player-normalization.service";
+import {
+  ConsensusAggregatorService,
+  ConsensusInput,
+} from "../../core/services/consensus-aggregator.service";
+import { SurvivalService } from "../../core/services/survival.service";
+import { computeTierCliff, TierCliffPlayer } from "./tier-cliff.util";
+import { generateExplanation } from "./score-explanation.util";
 import { toErrorMessage } from "../../core/utils/error.util";
 import { togglePositionFilter } from "../../core/utils/position-filter.util";
 import { toMapById } from "../../core/utils/array-mapping.util";
@@ -232,6 +243,209 @@ export const DraftStore = signalStore(
     }),
   })),
 
+  // Weighted Composite Score pipeline (Phase 1). Isolated from the legacy
+  // combinedTier-based recommendations so it can be reasoned about and rolled
+  // back independently. Runs before the general player-row computeds so they
+  // can consume enrichedRows (which back-fills baseValue / pAvail / cliff / WCS).
+  //
+  // Pipeline:
+  //   1. ConsensusAggregator.aggregate(rows) → BaseValue (0-100, position-normalized).
+  //   2. SurvivalService.pAvailableAt(userNextPick) per row using ADP Normal(mean, std).
+  //   3. computeTierCliff(rows + pAvail) → expected loss-of-waiting per player.
+  //   4. WCS = baseValue × (1 + tierCliffNorm + valueDeltaNorm), where valueDelta
+  //      is a soft (1 - pAvailAtNext) bonus so falling players get nudged up.
+  withComputed(
+    (
+      store,
+      aggregator = inject(ConsensusAggregatorService),
+      survival = inject(SurvivalService),
+    ) => {
+      // Per-source weights for the consensus aggregator. Sums need not equal 1 —
+      // weights are renormalized per-player after dropping missing sources.
+      const SOURCE_WEIGHTS: Record<string, number> = {
+        ktc: 1.0,
+        flock: 1.0,
+        fantasycalc: 1.0,
+        fpAdp: 0.7,
+        ffcAdp: 0.7,
+      };
+
+      const baseValueByPlayer = computed(
+        (): Map<string, { baseValue: number | null; divergence: number | null }> => {
+          const inputs: ConsensusInput[] = [];
+          for (const row of store.rows()) {
+            const sources: ConsensusInput["sources"] = [];
+            if (row.ktcRank !== null) sources.push({ source: "ktc", rank: row.ktcRank });
+            if (row.averageRank !== null) sources.push({ source: "flock", rank: row.averageRank });
+            if (row.fantasyCalcValue !== null)
+              sources.push({ source: "fantasycalc", value: row.fantasyCalcValue });
+            if (row.fpAdpRank !== null) sources.push({ source: "fpAdp", rank: row.fpAdpRank });
+            if (row.adpMean !== null) sources.push({ source: "ffcAdp", rank: row.adpMean });
+            if (sources.length === 0) continue;
+            inputs.push({ playerId: row.playerId, position: row.position, sources });
+          }
+          const consensus = aggregator.aggregate(inputs, { weights: SOURCE_WEIGHTS });
+          const out = new Map<string, { baseValue: number | null; divergence: number | null }>();
+          for (const [pid, c] of consensus) {
+            out.set(pid, { baseValue: c.baseValue, divergence: c.divergence });
+          }
+          return out;
+        },
+      );
+
+      const pAvailAtNextByPlayer = computed((): Map<string, number> => {
+        const result = new Map<string, number>();
+        const userNext = store.userNextPickNumber();
+        if (userNext === null) return result;
+        for (const row of store.rows()) {
+          const mean = row.adpMean;
+          if (mean === null) continue;
+          const std = row.adpStd ?? survival.estimateSigma(mean);
+          result.set(row.playerId, survival.pAvailableAt(userNext, mean, std));
+        }
+        return result;
+      });
+
+      const tierCliffByPlayer = computed(
+        (): Map<
+          string,
+          { cliff: number; tier: number; thisMean: number; nextMean: number | null }
+        > => {
+          const baseMap = baseValueByPlayer();
+          const pAvailMap = pAvailAtNextByPlayer();
+          const tcInputs: TierCliffPlayer[] = [];
+          for (const row of store.rows()) {
+            const bv = baseMap.get(row.playerId)?.baseValue ?? null;
+            if (bv === null) continue;
+            tcInputs.push({
+              playerId: row.playerId,
+              position: row.position,
+              baseValue: bv,
+              pAvailAtNext: pAvailMap.get(row.playerId) ?? null,
+            });
+          }
+          const { tierByPlayer, tierCliffByPlayer: cliffByPlayer } = computeTierCliff(tcInputs);
+          const out = new Map<
+            string,
+            { cliff: number; tier: number; thisMean: number; nextMean: number | null }
+          >();
+          for (const [pid, t] of tierByPlayer) {
+            out.set(pid, {
+              cliff: cliffByPlayer.get(pid) ?? 0,
+              tier: t.tier,
+              thisMean: t.meanBaseValue,
+              nextMean: t.nextTierMeanBaseValue,
+            });
+          }
+          return out;
+        },
+      );
+
+      const weightedCompositeByPlayer = computed((): Map<string, number> => {
+        const baseMap = baseValueByPlayer();
+        const cliffMap = tierCliffByPlayer();
+        const pAvailMap = pAvailAtNextByPlayer();
+        const out = new Map<string, number>();
+        for (const row of store.rows()) {
+          const bv = baseMap.get(row.playerId)?.baseValue;
+          if (bv === null || bv === undefined) continue;
+          // Cliff is in BaseValue units (0-100); normalize against bv to get a
+          // 0-1ish multiplier representing the fractional opportunity cost of passing.
+          const cliffRaw = cliffMap.get(row.playerId)?.cliff ?? 0;
+          const cliffNorm = bv > 0 ? Math.min(1, cliffRaw / bv) : 0;
+          // Falling players (low pAvailAtNext but still here now) get a soft bump.
+          const pAvail = pAvailMap.get(row.playerId);
+          const valueDeltaNorm = pAvail === undefined ? 0 : Math.max(0, 1 - pAvail) * 0.2;
+          out.set(row.playerId, bv * (1 + cliffNorm + valueDeltaNorm));
+        }
+        return out;
+      });
+
+      const POSITION_RUN_WINDOW = 6;
+
+      const wcsExplanationByPlayer = computed((): Map<string, string> => {
+        const baseMap = baseValueByPlayer();
+        const cliffMap = tierCliffByPlayer();
+        const pAvailMap = pAvailAtNextByPlayer();
+        const currentPickNumber = store.picks().length + 1;
+
+        // Count positions in the trailing run-window for position-run flagging.
+        const recentPositions: Record<"QB" | "RB" | "WR" | "TE", number> = {
+          QB: 0,
+          RB: 0,
+          WR: 0,
+          TE: 0,
+        };
+        const recent = store
+          .picks()
+          .slice()
+          .sort((a, b) => b.pick_no - a.pick_no)
+          .slice(0, POSITION_RUN_WINDOW);
+        const posByPlayerId = new Map(store.rows().map((r) => [r.playerId, r.position]));
+        for (const pick of recent) {
+          const pos = posByPlayerId.get(pick.player_id);
+          if (pos && pos in recentPositions) {
+            recentPositions[pos as "QB" | "RB" | "WR" | "TE"]++;
+          }
+        }
+
+        const out = new Map<string, string>();
+        for (const row of store.rows()) {
+          const base = baseMap.get(row.playerId);
+          if (!base || base.baseValue === null) continue;
+          const tierInfo = cliffMap.get(row.playerId);
+          const explanation = generateExplanation({
+            baseValue: base.baseValue,
+            baseValueDivergence: base.divergence,
+            pAvailAtNext: pAvailMap.get(row.playerId) ?? null,
+            tierCliffScore: tierInfo?.cliff ?? null,
+            nextTierMeanBaseValue: tierInfo?.nextMean ?? null,
+            thisTierMeanBaseValue: tierInfo?.thisMean ?? null,
+            tier: tierInfo?.tier ?? null,
+            adpDelta: row.adpDelta,
+            adpMean: row.adpMean,
+            currentPickNumber,
+            age: row.age,
+            position: row.position,
+            positionRunCount: recentPositions[row.position] ?? 0,
+            positionRunWindow: POSITION_RUN_WINDOW,
+          });
+          if (explanation) out.set(row.playerId, explanation);
+        }
+        return out;
+      });
+
+      return {
+        baseValueByPlayer,
+        pAvailAtNextByPlayer,
+        tierCliffByPlayer,
+        weightedCompositeByPlayer,
+        wcsExplanationByPlayer,
+        /**
+         * Player rows with WCS-pipeline fields back-filled. Drives the
+         * weighted-composite sort and any UI surface that needs the new signals.
+         */
+        enrichedRows: computed((): DraftPlayerRow[] => {
+          const baseMap = baseValueByPlayer();
+          const cliffMap = tierCliffByPlayer();
+          const pAvailMap = pAvailAtNextByPlayer();
+          const wcsMap = weightedCompositeByPlayer();
+          return store.rows().map((row) => {
+            const base = baseMap.get(row.playerId);
+            return {
+              ...row,
+              baseValue: base?.baseValue ?? null,
+              baseValueDivergence: base?.divergence ?? null,
+              pAvailAtNext: pAvailMap.get(row.playerId) ?? null,
+              tierCliffScore: cliffMap.get(row.playerId)?.cliff ?? null,
+              weightedCompositeScore: wcsMap.get(row.playerId) ?? null,
+            };
+          });
+        }),
+      };
+    },
+  ),
+
   // Second withComputed block — can access userRosterId and userNextPickNumber from the first block.
   withComputed((store, appStore = inject(AppStore)) => ({
     /**
@@ -334,7 +548,7 @@ export const DraftStore = signalStore(
       const atRiskThreshold = userNextPick !== null ? userNextPick : null;
       const goingSoonThreshold = currentPickNumber + 2; // within next 3 picks
 
-      return [...store.rows()]
+      return [...store.enrichedRows()]
         .filter((row) => selected.has(row.position))
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !neededOnly || neededPositions.has(row.position))
@@ -369,7 +583,7 @@ export const DraftStore = signalStore(
       );
 
       return store
-        .rows()
+        .enrichedRows()
         .filter((row) => selected.has(row.position))
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
@@ -415,7 +629,7 @@ export const DraftStore = signalStore(
       const atRiskThreshold = currentPickNumber + picksUntilMyTurn;
 
       const sortedRows = store
-        .rows()
+        .enrichedRows()
         .filter((row) => selected.has(row.position))
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
@@ -489,7 +703,7 @@ export const DraftStore = signalStore(
       );
 
       return store
-        .rows()
+        .enrichedRows()
         .filter((row) => selected.has(row.position))
         .filter((row) => !store.rookiesOnly() || row.rookie)
         .filter((row) => !picked.has(row.playerId))
@@ -529,7 +743,7 @@ export const DraftStore = signalStore(
           .map((pick) => pick.player_id),
       );
 
-      return store.rows().filter((row) => myPickIds.has(row.playerId));
+      return store.enrichedRows().filter((row) => myPickIds.has(row.playerId));
     }),
 
     pickBoard: computed(() => [...store.picks()].sort((a, b) => a.pick_no - b.pick_no)),
@@ -578,7 +792,7 @@ export const DraftStore = signalStore(
         return candidate.sleeperRank < current.sleeperRank;
       };
 
-      for (const row of store.rows()) {
+      for (const row of store.enrichedRows()) {
         if (
           picked.has(row.playerId) ||
           !positionsToShowSet.has(row.position) ||
@@ -654,6 +868,8 @@ export const DraftStore = signalStore(
       ktc = inject(KtcRatingService),
       flock = inject(FlockRatingService),
       fpAdp = inject(FantasyProsAdpService),
+      fc = inject(FantasyCalcService),
+      ffc = inject(FfcAdpService),
       storage = inject(StorageService),
       playerNorm = inject(PlayerNormalizationService),
     ) => {
@@ -734,6 +950,9 @@ export const DraftStore = signalStore(
         flockLookup: Map<string, FlockPlayer>,
         currentSeason: number,
         fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
+        fcLookup: Map<string, FantasyCalcPlayer> = new Map(),
+        fcSleeperLookup: Map<string, FantasyCalcPlayer> = new Map(),
+        ffcLookup: Map<string, FfcAdpPlayer> = new Map(),
       ): DraftPlayerRow[] =>
         playerNorm.buildPlayerRows(
           playersById,
@@ -742,7 +961,30 @@ export const DraftStore = signalStore(
           currentSeason,
           undefined,
           fpAdpLookup,
+          fcLookup,
+          fcSleeperLookup,
+          ffcLookup,
         );
+
+      // Pick the FantasyCalc + FFC variants that match the active league format.
+      // Phase 1 covers redraft / superflex / dynasty; rookie drafts fall back to dynasty
+      // values (FC has no rookie-only feed) and the rookie ADP set.
+      const pickFcFormat = (
+        isSuperflex: boolean,
+        isRookie: boolean,
+      ): "1qb-dynasty" | "superflex-dynasty" | "1qb-redraft" | "superflex-redraft" => {
+        if (isRookie) return isSuperflex ? "superflex-dynasty" : "1qb-dynasty";
+        return isSuperflex ? "superflex-redraft" : "1qb-redraft";
+      };
+
+      const pickFfcFormat = (
+        isSuperflex: boolean,
+        isRookie: boolean,
+      ): "half-ppr" | "ppr" | "standard" | "superflex" | "dynasty" | "rookie" => {
+        if (isRookie) return "rookie";
+        if (isSuperflex) return "superflex";
+        return "ppr";
+      };
 
       const normalizePicks = (
         draft: SleeperDraft,
@@ -810,6 +1052,7 @@ export const DraftStore = signalStore(
           "adpDelta",
           "valueGap",
           "fpAdpRank",
+          "weightedComposite",
         ];
         return valid.includes(saved as DraftSortSource)
           ? (saved as DraftSortSource)
@@ -844,16 +1087,29 @@ export const DraftStore = signalStore(
             ? (selectedLeague.roster_positions ?? []).includes("SUPER_FLEX")
             : false;
 
-        const [playersById, ktcPlayers, flockPlayers, flockRookies, fpAdpPlayers] =
-          await firstValueFrom(
-            forkJoin([
-              sleeper.getAllPlayers(),
-              ktc.fetchPlayers(isSuperflex),
-              flock.fetchPlayers(isSuperflex),
-              flock.fetchRookies(isSuperflex),
-              isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings(),
-            ]),
-          );
+        const isRookieDraft = isSleeperRookieDraft(draft);
+        const fcFormat = pickFcFormat(isSuperflex, isRookieDraft);
+        const ffcFormat = pickFfcFormat(isSuperflex, isRookieDraft);
+
+        const [
+          playersById,
+          ktcPlayers,
+          flockPlayers,
+          flockRookies,
+          fpAdpPlayers,
+          fcPlayers,
+          ffcPlayers,
+        ] = await firstValueFrom(
+          forkJoin([
+            sleeper.getAllPlayers(),
+            ktc.fetchPlayers(isSuperflex),
+            flock.fetchPlayers(isSuperflex),
+            flock.fetchRookies(isSuperflex),
+            isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings(),
+            fc.getValues(fcFormat),
+            ffc.getAdp(ffcFormat),
+          ]),
+        );
 
         const playerNameMap = Object.entries(playersById).reduce<Record<string, string>>(
           (acc, [id, player]) => {
@@ -869,7 +1125,6 @@ export const DraftStore = signalStore(
         );
 
         const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-        const isRookieDraft = isSleeperRookieDraft(draft);
         const flockLookup = isRookieDraft
           ? new Map([
               ...flock.buildNameLookup(flockRookies),
@@ -877,7 +1132,19 @@ export const DraftStore = signalStore(
             ])
           : flock.buildNameLookup(flockPlayers);
         const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
-        const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season), fpAdpLookup);
+        const fcLookup = fc.buildNameLookup(fcPlayers);
+        const fcSleeperLookup = fc.buildSleeperIdLookup(fcPlayers);
+        const ffcLookup = ffc.buildNameLookup(ffcPlayers);
+        const rows = mapRows(
+          playersById,
+          ktcLookup,
+          flockLookup,
+          Number(season),
+          fpAdpLookup,
+          fcLookup,
+          fcSleeperLookup,
+          ffcLookup,
+        );
 
         let rosterDisplayNames: Record<string, string> = {};
         let rosterAvatarIds: Record<string, string | null> = {};
@@ -1035,6 +1302,11 @@ export const DraftStore = signalStore(
           const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes(
             "SUPER_FLEX",
           );
+          // FC/FFC format depends on whether this is a rookie draft; fetch the
+          // full suite optimistically using redraft/ppr as defaults and re-fetch
+          // later only if the resolved draft is a rookie draft.
+          const initialFcFormat = pickFcFormat(isSuperflex, false);
+          const initialFfcFormat = pickFfcFormat(isSuperflex, false);
           const [
             rosters,
             users,
@@ -1044,6 +1316,8 @@ export const DraftStore = signalStore(
             flockRookies,
             drafts,
             fpAdpPlayers,
+            fcPlayersInitial,
+            ffcPlayersInitial,
           ] = await firstValueFrom(
             forkJoin([
               sleeper.getLeagueRosters(leagueId),
@@ -1054,6 +1328,8 @@ export const DraftStore = signalStore(
               flock.fetchRookies(isSuperflex),
               sleeper.getLeagueDrafts(leagueId),
               isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings(),
+              fc.getValues(initialFcFormat),
+              ffc.getAdp(initialFfcFormat),
             ]),
           );
 
@@ -1082,7 +1358,27 @@ export const DraftStore = signalStore(
               ])
             : flock.buildNameLookup(flockPlayers);
           const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
-          const rows = mapRows(playersById, ktcLookup, flockLookup, Number(season), fpAdpLookup);
+
+          // Swap to rookie-format FC/FFC data if we discovered this is a rookie draft.
+          const fcFormat = pickFcFormat(isSuperflex, isRookieDraft);
+          const ffcFormat = pickFfcFormat(isSuperflex, isRookieDraft);
+          const [fcPlayers, ffcPlayers] =
+            fcFormat === initialFcFormat && ffcFormat === initialFfcFormat
+              ? [fcPlayersInitial, ffcPlayersInitial]
+              : await firstValueFrom(forkJoin([fc.getValues(fcFormat), ffc.getAdp(ffcFormat)]));
+          const fcLookup = fc.buildNameLookup(fcPlayers);
+          const fcSleeperLookup = fc.buildSleeperIdLookup(fcPlayers);
+          const ffcLookup = ffc.buildNameLookup(ffcPlayers);
+          const rows = mapRows(
+            playersById,
+            ktcLookup,
+            flockLookup,
+            Number(season),
+            fpAdpLookup,
+            fcLookup,
+            fcSleeperLookup,
+            ffcLookup,
+          );
 
           const starredPlayerIds = (() => {
             const parsed = storage.getItem<string[]>(starStorageKey(leagueId));

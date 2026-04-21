@@ -8,7 +8,8 @@ export type DraftSortSource =
   | "combinedPositionalTier"
   | "adpDelta"
   | "valueGap"
-  | "fpAdpRank";
+  | "fpAdpRank"
+  | "weightedComposite";
 
 /** Sort comparator keyed on DraftSortSource. Lower return = higher priority. */
 export function sortBySortSource(
@@ -64,6 +65,13 @@ export function sortBySortSource(
       if (aRank !== bRank) return aRank - bRank;
       break;
     }
+    case "weightedComposite": {
+      // Descending: highest WCS first. Nulls (no consensus data) sort last.
+      const aWcs = a.weightedCompositeScore ?? -Infinity;
+      const bWcs = b.weightedCompositeScore ?? -Infinity;
+      if (aWcs !== bWcs) return bWcs - aWcs;
+      break;
+    }
   }
 
   // Tiebreak: sleeperRank
@@ -89,6 +97,8 @@ export function rankForSortSource(row: DraftPlayerRow, src: DraftSortSource): nu
       return row.valueGap;
     case "fpAdpRank":
       return row.fpAdpRank;
+    case "weightedComposite":
+      return row.weightedCompositeScore === null ? null : Math.round(row.weightedCompositeScore);
   }
 }
 
@@ -113,6 +123,9 @@ export function positionalRankForSortSource(
     case "valueGap":
       return null;
     case "fpAdpRank":
+      return null;
+    case "weightedComposite":
+      // WCS is a whole-pool score; positional-rank is not meaningful.
       return null;
   }
 }

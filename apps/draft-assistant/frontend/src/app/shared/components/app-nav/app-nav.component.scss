@@ -88,7 +88,7 @@
 
 // ── League block ──────────────────────────────────────
 .nav-league {
-  margin: 0 0.625rem;
+  margin: 0.625rem;
   padding: 0.75rem 0.875rem;
   border-radius: 0.75rem;
   background: color-mix(in srgb, var(--primary) 6%, transparent);
@@ -148,7 +148,7 @@
 
 // ── Settings footer ───────────────────────────────────
 .nav-footer {
-  margin-top: auto;
+  // margin-top: auto;
   padding: 0.875rem 0.625rem 1rem;
   border-top: 1px solid var(--outline-variant);
   flex-shrink: 0;

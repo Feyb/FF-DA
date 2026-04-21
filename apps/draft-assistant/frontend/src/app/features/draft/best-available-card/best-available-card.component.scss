@@ -67,6 +67,13 @@
   color: rgb(100 116 139);
 }
 
+.best-available-reason {
+  font-size: 0.7rem;
+  color: rgb(71 85 105);
+  font-style: italic;
+  margin-top: 0.125rem;
+}
+
 .best-available-empty {
   font-size: 0.8125rem;
   color: rgb(148 163 184);
@@ -112,6 +119,10 @@ html.dark {
 
   .best-available-empty {
     color: rgb(71 85 105);
+  }
+
+  .best-available-reason {
+    color: rgb(148 163 184);
   }
 
   .availability-badge {

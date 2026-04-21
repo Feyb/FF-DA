@@ -2,9 +2,13 @@ import { Injectable, inject } from "@angular/core";
 import { KtcRatingService } from "../adapters/ktc/ktc-rating.service";
 import { FlockRatingService } from "../adapters/flock/flock-rating.service";
 import { FantasyProsAdpService } from "../adapters/fantasypros/fantasypros-adp.service";
+import { FantasyCalcService } from "../adapters/fantasycalc/fantasycalc.service";
+import { FfcAdpService } from "../adapters/ffc/ffc-adp.service";
 import {
   DraftPlayerRow,
+  FantasyCalcPlayer,
   FantasyProsPlayer,
+  FfcAdpPlayer,
   FlockPlayer,
   KtcPlayer,
   SleeperCatalogPlayer,
@@ -27,6 +31,8 @@ export class PlayerNormalizationService {
   private readonly ktcService = inject(KtcRatingService);
   private readonly flockService = inject(FlockRatingService);
   private readonly fpAdpService = inject(FantasyProsAdpService);
+  private readonly fcService = inject(FantasyCalcService);
+  private readonly ffcService = inject(FfcAdpService);
 
   isActivePlayer(source: SleeperCatalogPlayer): boolean {
     if (source.active === false) return false;
@@ -42,6 +48,9 @@ export class PlayerNormalizationService {
     flockLookup: Map<string, FlockPlayer>,
     currentSeason: number,
     fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
+    fcLookup: Map<string, FantasyCalcPlayer> = new Map(),
+    fcSleeperLookup: Map<string, FantasyCalcPlayer> = new Map(),
+    ffcLookup: Map<string, FfcAdpPlayer> = new Map(),
   ): Omit<DraftPlayerRow, "sleeperRank" | "adpDelta"> {
     const firstName = source.first_name ?? "";
     const lastName = source.last_name ?? "";
@@ -51,6 +60,10 @@ export class PlayerNormalizationService {
     const ktcPlayer = ktcLookup.get(this.ktcService.normalizeName(fullName));
     const flockPlayer = flockLookup.get(this.flockService.normalizeName(fullName));
     const fpAdpPlayer = fpAdpLookup.get(this.fpAdpService.normalizeName(fullName));
+    // FantasyCalc ships sleeperId for most active players; prefer it over name match.
+    const fcPlayer =
+      fcSleeperLookup.get(playerId) ?? fcLookup.get(this.fcService.normalizeName(fullName));
+    const ffcPlayer = ffcLookup.get(this.ffcService.normalizeName(fullName));
 
     const ktcOverallTier = ktcPlayer?.overallTier ?? null;
     const ktcPositionalTier = ktcPlayer?.positionalTier ?? null;
@@ -106,6 +119,15 @@ export class PlayerNormalizationService {
       adpRank,
       valueGap,
       fpAdpRank,
+      fantasyCalcValue: fcPlayer?.value ?? null,
+      fantasyCalcTrend30Day: fcPlayer?.trend30Day ?? null,
+      adpMean: ffcPlayer?.adp ?? null,
+      adpStd: ffcPlayer?.stdev ?? null,
+      baseValue: null,
+      baseValueDivergence: null,
+      pAvailAtNext: null,
+      tierCliffScore: null,
+      weightedCompositeScore: null,
     };
   }
 
@@ -121,13 +143,26 @@ export class PlayerNormalizationService {
     currentSeason: number,
     positions: ActivePositions = DEFAULT_ACTIVE_POSITIONS,
     fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
+    fcLookup: Map<string, FantasyCalcPlayer> = new Map(),
+    fcSleeperLookup: Map<string, FantasyCalcPlayer> = new Map(),
+    ffcLookup: Map<string, FfcAdpPlayer> = new Map(),
   ): DraftPlayerRow[] {
     const positionSet = new Set<string>(positions);
 
     const rawRows = Object.entries(playersById)
       .filter(([, source]) => this.isActivePlayer(source))
       .map(([playerId, source]) =>
-        this.normalizePlayer(playerId, source, ktcLookup, flockLookup, currentSeason, fpAdpLookup),
+        this.normalizePlayer(
+          playerId,
+          source,
+          ktcLookup,
+          flockLookup,
+          currentSeason,
+          fpAdpLookup,
+          fcLookup,
+          fcSleeperLookup,
+          ffcLookup,
+        ),
       )
       .filter((row) => row.fullName.length > 0)
       .filter((row) => positionSet.has(row.position))

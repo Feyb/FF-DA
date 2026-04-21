@@ -38,6 +38,10 @@
                   Best Available: Tier {{ entry.lowestAvailableTier }}
                 </span>
               }
+              @let reason = wcsExplanation(entry);
+              @if (reason) {
+                <span class="best-available-reason">{{ reason }}</span>
+              }
             </div>
             <span class="availability-badge" [class.at-risk]="entry.availabilityRisk === 'at-risk'">
               {{ entry.availabilityRisk === "at-risk" ? "At Risk" : "Safe" }}

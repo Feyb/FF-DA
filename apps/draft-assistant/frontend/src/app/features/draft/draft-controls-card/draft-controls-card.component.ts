@@ -94,6 +94,7 @@ export class DraftControlsCardComponent implements OnInit {
     { value: "averageRank", label: "Flock Average Rank" },
   ];
   protected readonly sortSources: Array<{ value: DraftSortSource; label: string }> = [
+    { value: "weightedComposite", label: "Weighted Composite (WCS)" },
     { value: "combinedTier", label: "Combined Tier" },
     { value: "ktcRank", label: "KTC Rank" },
     { value: "flockRank", label: "Flock Rank" },

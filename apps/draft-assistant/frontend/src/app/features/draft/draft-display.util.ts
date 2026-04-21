@@ -18,6 +18,8 @@ export function sortSourceRankLabel(source: DraftSortSource): string {
       return "Value Gap";
     case "fpAdpRank":
       return "FP ADP";
+    case "weightedComposite":
+      return "WCS";
   }
 }
 
@@ -40,6 +42,8 @@ export function sortSourceShortLabel(source: DraftSortSource): string {
       return "Gap";
     case "fpAdpRank":
       return "FP";
+    case "weightedComposite":
+      return "WCS";
   }
 }
 
