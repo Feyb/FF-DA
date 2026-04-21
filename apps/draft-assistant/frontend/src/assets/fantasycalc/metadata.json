@@ -1,5 +1,46 @@
 {
   "source": "api.fantasycalc.com",
-  "generatedAt": "2026-04-20T05:08:55.483Z",
-  "formats": {}
+  "generatedAt": "2026-04-21T13:00:24.665Z",
+  "formats": {
+    "1qb-dynasty": {
+      "output": "values-1qb-dynasty.json",
+      "count": 458,
+      "params": {
+        "isDynasty": "true",
+        "numQbs": "1",
+        "numTeams": "12",
+        "ppr": "0.5"
+      }
+    },
+    "superflex-dynasty": {
+      "output": "values-superflex-dynasty.json",
+      "count": 458,
+      "params": {
+        "isDynasty": "true",
+        "numQbs": "2",
+        "numTeams": "12",
+        "ppr": "0.5"
+      }
+    },
+    "1qb-redraft": {
+      "output": "values-1qb-redraft.json",
+      "count": 197,
+      "params": {
+        "isDynasty": "false",
+        "numQbs": "1",
+        "numTeams": "12",
+        "ppr": "0.5"
+      }
+    },
+    "superflex-redraft": {
+      "output": "values-superflex-redraft.json",
+      "count": 198,
+      "params": {
+        "isDynasty": "false",
+        "numQbs": "2",
+        "numTeams": "12",
+        "ppr": "0.5"
+      }
+    }
+  }
 }

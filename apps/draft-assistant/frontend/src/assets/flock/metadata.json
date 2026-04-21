@@ -1,15 +1,15 @@
 {
   "source": "flockfantasy.com",
-  "generatedAt": "2026-04-17T07:31:03.715Z",
+  "generatedAt": "2026-04-21T13:00:09.787Z",
   "formats": {
     "1qb": {
       "output": "players-1qb.json",
-      "count": 404,
+      "count": 403,
       "url": "https://api.flockfantasy.com/rankings?format=ONEQB&pickType=hybrid&year=2025&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=1QB"
     },
     "superflex": {
       "output": "players-superflex.json",
-      "count": 404,
+      "count": 403,
       "url": "https://api.flockfantasy.com/rankings?format=SUPERFLEX&pickType=hybrid&year=2025&deltaRankType=overall&deltaFormat=DYNASTY&deltaSubformat=SUPERFLEX"
     },
     "rookies-1qb": {
