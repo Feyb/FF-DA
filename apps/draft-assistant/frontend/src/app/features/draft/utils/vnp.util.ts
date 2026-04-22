@@ -10,10 +10,11 @@
  *   VNP(i) = (Proj(i) − E[Proj at pos(i) at nextPick]) / scale
  *
  * E[Proj at pos, at nextPick] is approximated as the projection of the
- * best-surviving player (by ADP), where survival = Φ((nextPick - μ_j)/σ_j) < 0.5.
+ * highest-projection player at that position whose
+ * `pAvailFn(nextPickN, adpMean, adpStd) >= 0.5` (i.e. more likely than not
+ * to still be on the board at the user's next pick).
  *
- * The signal fires a "big VONA drop" explanation when VNP > 0.3·σ_pos AND
- * pAvailAtNext < 0.4.
+ * The explanation template fires when `vnp > 0.3` AND `pAvailAtNext < 0.4`.
  */
 
 export interface VnpPlayer {
