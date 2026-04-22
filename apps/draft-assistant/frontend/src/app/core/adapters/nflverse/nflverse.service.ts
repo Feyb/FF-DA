@@ -91,7 +91,7 @@ export class NflverseService {
   private readonly http = inject(HttpClient);
 
   private load<T>(path: string): Observable<Map<string, T>> {
-    return this.http.get<AssetEnvelope<T>>(`/assets/nflverse/${path}`).pipe(
+    return this.http.get<AssetEnvelope<T>>(`assets/nflverse/${path}`).pipe(
       map((envelope) => {
         const m = new Map<string, T>();
         for (const p of envelope.players) {
