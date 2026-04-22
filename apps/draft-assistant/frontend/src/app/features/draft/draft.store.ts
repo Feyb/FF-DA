@@ -50,10 +50,12 @@ import {
   rankForSortSource,
   sortBySortSource,
 } from "./draft-sort.util";
+import { DraftMode, DRAFT_MODE_LABELS, NEED_WEIGHTS, SOURCE_WEIGHTS } from "./config/mode-weights";
 
 export type DraftPositionFilter = "QB" | "RB" | "WR" | "TE";
 export type DraftSourceMode = "league" | "direct";
-export type { DraftSortSource, DraftValueSource };
+export type { DraftMode, DraftSortSource, DraftValueSource };
+export { DRAFT_MODE_LABELS };
 
 export { positionalRankForSortSource, rankForSortSource };
 
@@ -121,6 +123,8 @@ interface DraftState {
   neededPositionsOnly: boolean;
   /** Active tier-drop alerts (REQ-TD-01 to REQ-TD-07). */
   tierDropAlerts: TierDropAlert[];
+  /** Draft mode controls source weights, ContextMod severity, and NeedMultiplier params. */
+  draftMode: DraftMode;
 }
 
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
@@ -196,6 +200,7 @@ export const DraftStore = signalStore(
     searchQuery: "",
     neededPositionsOnly: false,
     tierDropAlerts: [],
+    draftMode: "startup" as DraftMode,
   }),
   withComputed((store, appStore = inject(AppStore)) => ({
     selectedDraft: computed(
@@ -243,35 +248,26 @@ export const DraftStore = signalStore(
     }),
   })),
 
-  // Weighted Composite Score pipeline (Phase 1). Isolated from the legacy
-  // combinedTier-based recommendations so it can be reasoned about and rolled
-  // back independently. Runs before the general player-row computeds so they
-  // can consume enrichedRows (which back-fills baseValue / pAvail / cliff / WCS).
+  // Weighted Composite Score pipeline. Runs before the general player-row
+  // computeds so enrichedRows (back-filled WCS fields) is available downstream.
   //
   // Pipeline:
-  //   1. ConsensusAggregator.aggregate(rows) → BaseValue (0-100, position-normalized).
-  //   2. SurvivalService.pAvailableAt(userNextPick) per row using ADP Normal(mean, std).
-  //   3. computeTierCliff(rows + pAvail) → expected loss-of-waiting per player.
-  //   4. WCS = baseValue × (1 + tierCliffNorm + valueDeltaNorm), where valueDelta
-  //      is a soft (1 - pAvailAtNext) bonus so falling players get nudged up.
+  //   1. BaseValue — mode-weighted z-mean consensus across up to 5 sources, 0-100.
+  //   2. pAvailAtNext — ADP Normal CDF survival probability.
+  //   3. TierCliff — Jenks-clustered expected loss-of-waiting.
+  //   4. NeedMultiplier — roster-aware position need, clamped [0.5, 1.6].
+  //   5. RunHeat — trailing-window position-run signal, [-0.1, +0.2].
+  //   6. WCS = BaseValue × ContextMod(stub=1) × NeedMult × (1 + cliff + valueDelta + runHeat).
   withComputed(
     (
       store,
       aggregator = inject(ConsensusAggregatorService),
       survival = inject(SurvivalService),
+      appStore = inject(AppStore),
     ) => {
-      // Per-source weights for the consensus aggregator. Sums need not equal 1 —
-      // weights are renormalized per-player after dropping missing sources.
-      const SOURCE_WEIGHTS: Record<string, number> = {
-        ktc: 1.0,
-        flock: 1.0,
-        fantasycalc: 1.0,
-        fpAdp: 0.7,
-        ffcAdp: 0.7,
-      };
-
       const baseValueByPlayer = computed(
         (): Map<string, { baseValue: number | null; divergence: number | null }> => {
+          const weights = SOURCE_WEIGHTS[store.draftMode()];
           const inputs: ConsensusInput[] = [];
           for (const row of store.rows()) {
             const sources: ConsensusInput["sources"] = [];
@@ -284,7 +280,7 @@ export const DraftStore = signalStore(
             if (sources.length === 0) continue;
             inputs.push({ playerId: row.playerId, position: row.position, sources });
           }
-          const consensus = aggregator.aggregate(inputs, { weights: SOURCE_WEIGHTS });
+          const consensus = aggregator.aggregate(inputs, { weights });
           const out = new Map<string, { baseValue: number | null; divergence: number | null }>();
           for (const [pid, c] of consensus) {
             out.set(pid, { baseValue: c.baseValue, divergence: c.divergence });
@@ -341,47 +337,116 @@ export const DraftStore = signalStore(
         },
       );
 
-      const weightedCompositeByPlayer = computed((): Map<string, number> => {
-        const baseMap = baseValueByPlayer();
-        const cliffMap = tierCliffByPlayer();
-        const pAvailMap = pAvailAtNextByPlayer();
+      // NeedMultiplier: roster-aware position need score per player.
+      // Formula: clamp(1 + α·unfilledGap − β·stackedPenalty, 0.5, 1.6)
+      // StackSynergy (γ) and ByeCluster (δ) are Phase 3 additions; defaulting to 0 here.
+      const needMultiplierByPlayer = computed((): Map<string, number> => {
+        const mode = store.draftMode();
+        const { alpha, beta } = NEED_WEIGHTS[mode];
+        const league = appStore.selectedLeague();
+        const rosterPositions = league?.roster_positions ?? [];
+        const { configuredByPos, filledByPos } = buildRosterFillInfo(
+          rosterPositions,
+          store.picks(),
+          store.userRosterId(),
+          store.rows(),
+        );
         const out = new Map<string, number>();
         for (const row of store.rows()) {
-          const bv = baseMap.get(row.playerId)?.baseValue;
-          if (bv === null || bv === undefined) continue;
-          // Cliff is in BaseValue units (0-100); normalize against bv to get a
-          // 0-1ish multiplier representing the fractional opportunity cost of passing.
-          const cliffRaw = cliffMap.get(row.playerId)?.cliff ?? 0;
-          const cliffNorm = bv > 0 ? Math.min(1, cliffRaw / bv) : 0;
-          // Falling players (low pAvailAtNext but still here now) get a soft bump.
-          const pAvail = pAvailMap.get(row.playerId);
-          const valueDeltaNorm = pAvail === undefined ? 0 : Math.max(0, 1 - pAvail) * 0.2;
-          out.set(row.playerId, bv * (1 + cliffNorm + valueDeltaNorm));
+          const pos = row.position;
+          const configured = configuredByPos[pos] ?? 0;
+          if (configured === 0) {
+            out.set(row.playerId, 1.0);
+            continue;
+          }
+          const filled = filledByPos[pos] ?? 0;
+          // UnfilledStarterGap: how far below the required starters we are.
+          const unfilledGap = Math.max(0, configured - filled) / configured;
+          // StackedPenalty: how far above (configured + 1 bench) we are.
+          const stackedPenalty = Math.max(0, filled - (configured + 1)) / configured;
+          const raw = 1 + alpha * unfilledGap - beta * stackedPenalty;
+          out.set(row.playerId, Math.max(0.5, Math.min(1.6, raw)));
         }
         return out;
       });
 
       const POSITION_RUN_WINDOW = 6;
+      // Expected fraction of picks at each position in a typical round.
+      const EXPECTED_RUN_RATE: Record<string, number> = {
+        WR: 0.25, RB: 0.20, QB: 0.10, TE: 0.10,
+      };
 
-      const wcsExplanationByPlayer = computed((): Map<string, string> => {
-        const baseMap = baseValueByPlayer();
-        const cliffMap = tierCliffByPlayer();
-        const pAvailMap = pAvailAtNextByPlayer();
-        const currentPickNumber = store.picks().length + 1;
-
-        // Count positions in the trailing run-window for position-run flagging.
-        const recentPositions: Record<"QB" | "RB" | "WR" | "TE", number> = {
-          QB: 0,
-          RB: 0,
-          WR: 0,
-          TE: 0,
-        };
+      // RunHeat: soft signal for when a position run is actively happening.
+      // tanh(((count - expected) * 0.7) / 1.5), clamped to [-0.1, +0.2].
+      const runHeatByPlayer = computed((): Map<string, number> => {
+        const posByPlayerId = new Map(store.rows().map((r) => [r.playerId, r.position]));
+        const counts: Record<string, number> = { QB: 0, RB: 0, WR: 0, TE: 0 };
         const recent = store
           .picks()
           .slice()
           .sort((a, b) => b.pick_no - a.pick_no)
           .slice(0, POSITION_RUN_WINDOW);
+        for (const pick of recent) {
+          const pos = posByPlayerId.get(pick.player_id);
+          if (typeof pos === "string" && pos in counts) counts[pos]++;
+        }
+        const out = new Map<string, number>();
+        for (const row of store.rows()) {
+          const pos = row.position;
+          const count = counts[pos] ?? 0;
+          const expected = (EXPECTED_RUN_RATE[pos] ?? 0.20) * POSITION_RUN_WINDOW;
+          const heat = Math.tanh(((count - expected) * 0.7) / 1.5);
+          out.set(row.playerId, Math.max(-0.1, Math.min(0.2, heat)));
+        }
+        return out;
+      });
+
+      const weightedCompositeByPlayer = computed((): Map<string, number> => {
+        const baseMap = baseValueByPlayer();
+        const cliffMap = tierCliffByPlayer();
+        const pAvailMap = pAvailAtNextByPlayer();
+        const needMap = needMultiplierByPlayer();
+        const runMap = runHeatByPlayer();
+        const out = new Map<string, number>();
+        for (const row of store.rows()) {
+          const bv = baseMap.get(row.playerId)?.baseValue;
+          if (bv === null || bv === undefined) continue;
+          // Cliff: normalize to [0,1] relative to baseValue.
+          const cliffRaw = cliffMap.get(row.playerId)?.cliff ?? 0;
+          const cliffNorm = bv > 0 ? Math.min(1, cliffRaw / bv) : 0;
+          // Falling players (low pAvailAtNext but still here now) get a soft bump.
+          const pAvail = pAvailMap.get(row.playerId);
+          const valueDeltaNorm = pAvail === undefined ? 0 : Math.max(0, 1 - pAvail) * 0.2;
+          const runHeat = runMap.get(row.playerId) ?? 0;
+          const needMult = needMap.get(row.playerId) ?? 1.0;
+          // ContextMod stub = 1.0; Phase 2 replaces with age × capital × efficiency.
+          const contextMod = 1.0;
+          out.set(
+            row.playerId,
+            bv * contextMod * needMult * (1 + cliffNorm + valueDeltaNorm + runHeat),
+          );
+        }
+        return out;
+      });
+
+      const wcsExplanationByPlayer = computed((): Map<string, string> => {
+        const baseMap = baseValueByPlayer();
+        const cliffMap = tierCliffByPlayer();
+        const pAvailMap = pAvailAtNextByPlayer();
+        const needMap = needMultiplierByPlayer();
+        const currentPickNumber = store.picks().length + 1;
+
+        // Re-use the per-position run counts computed by runHeatByPlayer.
+        // Recompute inline here (cheap) to avoid coupling to the run heat Map.
+        const recentPositions: Record<"QB" | "RB" | "WR" | "TE", number> = {
+          QB: 0, RB: 0, WR: 0, TE: 0,
+        };
         const posByPlayerId = new Map(store.rows().map((r) => [r.playerId, r.position]));
+        const recent = store
+          .picks()
+          .slice()
+          .sort((a, b) => b.pick_no - a.pick_no)
+          .slice(0, POSITION_RUN_WINDOW);
         for (const pick of recent) {
           const pos = posByPlayerId.get(pick.player_id);
           if (pos && pos in recentPositions) {
@@ -409,6 +474,8 @@ export const DraftStore = signalStore(
             position: row.position,
             positionRunCount: recentPositions[row.position] ?? 0,
             positionRunWindow: POSITION_RUN_WINDOW,
+            needMultiplier: needMap.get(row.playerId) ?? 1.0,
+            draftMode: store.draftMode(),
           });
           if (explanation) out.set(row.playerId, explanation);
         }
@@ -419,6 +486,8 @@ export const DraftStore = signalStore(
         baseValueByPlayer,
         pAvailAtNextByPlayer,
         tierCliffByPlayer,
+        needMultiplierByPlayer,
+        runHeatByPlayer,
         weightedCompositeByPlayer,
         wcsExplanationByPlayer,
         /**
@@ -1509,6 +1578,9 @@ export const DraftStore = signalStore(
             draftSource: source,
             error: null,
           });
+        },
+        setDraftMode(draftMode: DraftMode): void {
+          patchState(store, { draftMode });
         },
         setTierSource(tierSource: TierSource): void {
           patchState(store, { tierSource });

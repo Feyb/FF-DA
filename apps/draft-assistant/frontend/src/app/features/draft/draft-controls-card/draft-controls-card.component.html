@@ -122,6 +122,15 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field appearance="outline">
+      <mat-label>Draft mode</mat-label>
+      <mat-select [ngModel]="store.draftMode()" (ngModelChange)="store.setDraftMode($event)">
+        @for (mode of draftModes; track mode.value) {
+          <mat-option [value]="mode.value">{{ mode.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
     <div class="controls-actions">
       <button matButton (click)="refreshDraft()">Refresh</button>
       <button matButton color="warn" (click)="resetSession()" title="Clear draft session data">

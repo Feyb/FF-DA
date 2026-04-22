@@ -1,0 +1,60 @@
+/**
+ * Fetch nflverse combine data (athletic testing).
+ *
+ * Source: github.com/nflverse/nflverse-data/releases/download/combine/combine.csv
+ * Output: src/assets/nflverse/combine.json
+ * Usage: node scripts/fetch-nflverse-combine.mjs
+ */
+
+import { mkdir, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const OUTPUT_DIR = resolve(__dirname, "../src/assets/nflverse");
+const OUTPUT_FILE = resolve(OUTPUT_DIR, "combine.json");
+
+const URL =
+  "https://github.com/nflverse/nflverse-data/releases/download/combine/combine.csv";
+
+const NUMERIC = ["forty", "vertical", "broad_jump", "bench", "cone", "shuttle", "season"];
+
+function parseCsv(text) {
+  const lines = text.split("\n");
+  const headers = lines[0].split(",").map((h) => h.trim().replace(/^"|"$/g, ""));
+  return lines.slice(1).filter(Boolean).map((line) => {
+    const values = line.split(",").map((v) => v.trim().replace(/^"|"$/g, ""));
+    const row = {};
+    headers.forEach((h, i) => { row[h] = values[i] ?? ""; });
+    return row;
+  });
+}
+
+async function main() {
+  const res = await fetch(URL);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const rows = parseCsv(await res.text());
+
+  const byPlayer = new Map();
+  for (const row of rows) {
+    const id = row.gsis_id ?? row.player_id;
+    if (!id) continue;
+    // Keep most recent combine season per player.
+    const season = Number(row.season ?? 0);
+    const existing = byPlayer.get(id);
+    if (existing && existing.season >= season) continue;
+    const entry = { player_id: id, player_name: row.player_name ?? "", position: row.pos ?? row.position ?? null, season };
+    for (const f of NUMERIC) {
+      const v = Number(row[f]);
+      entry[f] = Number.isFinite(v) ? v : null;
+    }
+    byPlayer.set(id, entry);
+  }
+
+  const output = { generatedAt: new Date().toISOString(), players: [...byPlayer.values()] };
+  await mkdir(OUTPUT_DIR, { recursive: true });
+  await writeFile(OUTPUT_FILE, JSON.stringify(output, null, 2), "utf8");
+  console.log(`Wrote ${byPlayer.size} players → ${OUTPUT_FILE}`);
+}
+
+main().catch((err) => { console.error(err); process.exit(1); });

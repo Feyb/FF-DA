@@ -29,6 +29,8 @@ import {
 import { SleeperDraft } from "../../../core/models";
 import { AppStore } from "../../../core/state/app.store";
 import {
+  DRAFT_MODE_LABELS,
+  DraftMode,
   DraftPositionFilter,
   DraftSortSource,
   DraftSourceMode,
@@ -83,6 +85,9 @@ export class DraftControlsCardComponent implements OnInit {
   private readonly directUrlStorageKey = "draft-assistant:direct-urls";
 
   protected readonly sourceModes: DraftSourceMode[] = ["league", "direct"];
+  protected readonly draftModes: Array<{ value: DraftMode; label: string }> = (
+    Object.entries(DRAFT_MODE_LABELS) as Array<[DraftMode, string]>
+  ).map(([value, label]) => ({ value, label }));
   protected readonly positions: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
   protected readonly tierSources: Array<{ value: TierSource; label: string }> = [
     { value: "average", label: "Average (KTC + Flock)" },
