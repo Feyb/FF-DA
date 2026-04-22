@@ -133,7 +133,8 @@ export function computeTierCliff(
 
     // Jenks returns [] when n <= numClasses, so clamp requested tiers to
     // the pool size — with n players and n tiers, each player is its own tier.
-    const requested = (options.tierCount ?? chooseTierCount)(sortedDesc.length);
+    const rawRequested = (options.tierCount ?? chooseTierCount)(sortedDesc.length);
+    const requested = Math.max(1, Math.floor(isFinite(rawRequested) ? rawRequested : 1));
     const tierCount = Math.min(requested, sortedDesc.length);
     const breakIdxs = jenksBreaks(valuesAsc, tierCount);
 
