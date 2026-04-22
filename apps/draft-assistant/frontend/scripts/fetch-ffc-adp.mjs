@@ -153,7 +153,9 @@ async function run() {
     console.error(
       `[ffc-sync] ${errors.length} format(s) failed: ${errors.map((e) => `${e.key}: ${e.error}`).join(", ")}`,
     );
-    process.exitCode = 1;
+    if (STRICT) {
+      process.exitCode = 1;
+    }
   }
 }
 
