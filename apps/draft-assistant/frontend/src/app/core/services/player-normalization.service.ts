@@ -104,6 +104,7 @@ export class PlayerNormalizationService {
       position,
       team: source.team ?? null,
       age: source.age ?? null,
+      yearsExp: source.years_exp ?? null,
       rookie: ktcPlayer?.rookie ?? source.rookie_year === currentSeason,
       ktcValue: ktcPlayer?.value ?? null,
       ktcRank: ktcPlayer?.rank ?? null,
