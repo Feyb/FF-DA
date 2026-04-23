@@ -17,7 +17,12 @@
  *   - EPA/dropback + CPOE composite (Ben Baldwin / nflfastR)
  */
 
-import type { NflversePlayerStats, NflversePfrStats, NflverseNgsStats, NflverseFfOpportunity } from "../../../core/adapters/nflverse/nflverse.service";
+import type {
+  NflversePlayerStats,
+  NflversePfrStats,
+  NflverseNgsStats,
+  NflverseFfOpportunity,
+} from "../../../core/adapters/nflverse/nflverse.service";
 
 export interface EffScoreInputs {
   playerId: string;
@@ -25,7 +30,7 @@ export interface EffScoreInputs {
   games: number;
   // WR / TE
   wopr?: number;
-  routeRate?: number;  // routes / snap_pct proxy
+  routeRate?: number; // routes / snap_pct proxy
   yprr?: number;
   tprr?: number;
   aDot?: number;
@@ -42,13 +47,20 @@ export interface EffScoreInputs {
   rushEpa?: number;
 }
 
-interface ZEntry { value: number; playerId: string; position: string; }
+interface ZEntry {
+  value: number;
+  playerId: string;
+  position: string;
+}
 
 function zScoreMap(entries: ZEntry[]): Map<string, number> {
   const byPos = new Map<string, ZEntry[]>();
   for (const e of entries) {
     let arr = byPos.get(e.position);
-    if (!arr) { arr = []; byPos.set(e.position, arr); }
+    if (!arr) {
+      arr = [];
+      byPos.set(e.position, arr);
+    }
     arr.push(e);
   }
   const out = new Map<string, number>();
@@ -86,9 +98,7 @@ const MIN_GAMES = 6;
  *
  * Call getEffMultiplier(effScore) to convert to the WCS multiplier.
  */
-export function computeEffScores(
-  inputs: EffScoreInputs[],
-): Map<string, number | null> {
+export function computeEffScores(inputs: EffScoreInputs[]): Map<string, number | null> {
   const qualified = inputs.filter((p) => p.games >= MIN_GAMES);
 
   // Per-metric z-score maps by position.
@@ -116,7 +126,10 @@ export function computeEffScores(
   const result = new Map<string, number | null>();
 
   for (const p of inputs) {
-    if (p.games < MIN_GAMES) { result.set(p.playerId, null); continue; }
+    if (p.games < MIN_GAMES) {
+      result.set(p.playerId, null);
+      continue;
+    }
 
     let score: number | null = null;
     const pos = p.position;
@@ -125,30 +138,30 @@ export function computeEffScores(
       score = weighted([
         [zWopr.get(p.playerId), 0.35],
         [zRouteRate.get(p.playerId), 0.25],
-        [zYprr.get(p.playerId), 0.20],
+        [zYprr.get(p.playerId), 0.2],
         [zTprr.get(p.playerId), 0.15],
         [zADot.get(p.playerId), 0.05],
       ]);
     } else if (pos === "TE") {
       score = weighted([
-        [zRouteRate.get(p.playerId), 0.30],
-        [zTprr.get(p.playerId), 0.30],
-        [zYprr.get(p.playerId), 0.20],
-        [zTargetShare.get(p.playerId), 0.20],
+        [zRouteRate.get(p.playerId), 0.3],
+        [zTprr.get(p.playerId), 0.3],
+        [zYprr.get(p.playerId), 0.2],
+        [zTargetShare.get(p.playerId), 0.2],
       ]);
     } else if (pos === "RB") {
       score = weighted([
         [zWeightedOpp.get(p.playerId), 0.45],
         [zRouteRate.get(p.playerId), 0.25],
         [zSnapPct.get(p.playerId), 0.15],
-        [zYaco.get(p.playerId), 0.10],
+        [zYaco.get(p.playerId), 0.1],
         [zBT.get(p.playerId), 0.05],
       ]);
     } else if (pos === "QB") {
       score = weighted([
-        [zEpa.get(p.playerId), 0.50],
-        [zCpoe.get(p.playerId), 0.30],
-        [zRushEpa.get(p.playerId), 0.20],
+        [zEpa.get(p.playerId), 0.5],
+        [zCpoe.get(p.playerId), 0.3],
+        [zRushEpa.get(p.playerId), 0.2],
       ]);
     }
 
@@ -198,13 +211,12 @@ export function buildEffScoreInputs(
       weightedOpportunity: opp?.weighted_opportunity,
       snapPct: stats?.snap_pct,
       yacoPerAtt: pfr?.yac_a,
-      brokenTacklesPerAtt: pfr?.broken_tackles !== undefined && rushAtt > 0
-        ? pfr.broken_tackles / rushAtt
-        : undefined,
+      brokenTacklesPerAtt:
+        pfr?.broken_tackles !== undefined && rushAtt > 0 ? pfr.broken_tackles / rushAtt : undefined,
       rushingAttempts: rushAtt,
       epaPerDropback: undefined, // EPA requires PBP — placeholder for Phase 2 PBP ETL
       cpoe: ngs?.cpoe,
-      rushEpa: undefined,       // placeholder
+      rushEpa: undefined, // placeholder
     };
   });
 }

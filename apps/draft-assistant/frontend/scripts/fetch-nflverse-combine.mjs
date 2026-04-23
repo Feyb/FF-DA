@@ -14,20 +14,24 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = resolve(__dirname, "../src/assets/nflverse");
 const OUTPUT_FILE = resolve(OUTPUT_DIR, "combine.json");
 
-const URL =
-  "https://github.com/nflverse/nflverse-data/releases/download/combine/combine.csv";
+const URL = "https://github.com/nflverse/nflverse-data/releases/download/combine/combine.csv";
 
 const NUMERIC = ["forty", "vertical", "broad_jump", "bench", "cone", "shuttle", "season"];
 
 function parseCsv(text) {
   const lines = text.split("\n");
   const headers = lines[0].split(",").map((h) => h.trim().replace(/^"|"$/g, ""));
-  return lines.slice(1).filter(Boolean).map((line) => {
-    const values = line.split(",").map((v) => v.trim().replace(/^"|"$/g, ""));
-    const row = {};
-    headers.forEach((h, i) => { row[h] = values[i] ?? ""; });
-    return row;
-  });
+  return lines
+    .slice(1)
+    .filter(Boolean)
+    .map((line) => {
+      const values = line.split(",").map((v) => v.trim().replace(/^"|"$/g, ""));
+      const row = {};
+      headers.forEach((h, i) => {
+        row[h] = values[i] ?? "";
+      });
+      return row;
+    });
 }
 
 async function main() {
@@ -43,7 +47,12 @@ async function main() {
     const season = Number(row.season ?? 0);
     const existing = byPlayer.get(id);
     if (existing && existing.season >= season) continue;
-    const entry = { player_id: id, player_name: row.player_name ?? "", position: row.pos ?? row.position ?? null, season };
+    const entry = {
+      player_id: id,
+      player_name: row.player_name ?? "",
+      position: row.pos ?? row.position ?? null,
+      season,
+    };
     for (const f of NUMERIC) {
       const v = Number(row[f]);
       entry[f] = Number.isFinite(v) ? v : null;
@@ -57,4 +66,7 @@ async function main() {
   console.log(`Wrote ${byPlayer.size} players → ${OUTPUT_FILE}`);
 }
 
-main().catch((err) => { console.error(err); process.exit(1); });
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

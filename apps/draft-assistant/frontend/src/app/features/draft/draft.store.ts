@@ -373,7 +373,10 @@ export const DraftStore = signalStore(
       const POSITION_RUN_WINDOW = 6;
       // Expected fraction of picks at each position in a typical round.
       const EXPECTED_RUN_RATE: Record<string, number> = {
-        WR: 0.25, RB: 0.20, QB: 0.10, TE: 0.10,
+        WR: 0.25,
+        RB: 0.2,
+        QB: 0.1,
+        TE: 0.1,
       };
 
       // RunHeat: soft signal for when a position run is actively happening.
@@ -394,7 +397,7 @@ export const DraftStore = signalStore(
         for (const row of store.rows()) {
           const pos = row.position;
           const count = counts[pos] ?? 0;
-          const expected = (EXPECTED_RUN_RATE[pos] ?? 0.20) * POSITION_RUN_WINDOW;
+          const expected = (EXPECTED_RUN_RATE[pos] ?? 0.2) * POSITION_RUN_WINDOW;
           const heat = Math.tanh(((count - expected) * 0.7) / 1.5);
           out.set(row.playerId, Math.max(-0.1, Math.min(0.2, heat)));
         }
@@ -439,7 +442,10 @@ export const DraftStore = signalStore(
         // Re-use the per-position run counts computed by runHeatByPlayer.
         // Recompute inline here (cheap) to avoid coupling to the run heat Map.
         const recentPositions: Record<"QB" | "RB" | "WR" | "TE", number> = {
-          QB: 0, RB: 0, WR: 0, TE: 0,
+          QB: 0,
+          RB: 0,
+          WR: 0,
+          TE: 0,
         };
         const posByPlayerId = new Map(store.rows().map((r) => [r.playerId, r.position]));
         const recent = store

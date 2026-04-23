@@ -49,10 +49,7 @@ export function computeVnp(
 
   for (const pos of positions) {
     const pool = players.filter(
-      (p) =>
-        p.position === pos &&
-        p.projection !== null &&
-        p.adpMean !== null,
+      (p) => p.position === pos && p.projection !== null && p.adpMean !== null,
     );
 
     // Sort by projection descending.

@@ -15,31 +15,31 @@ export type DraftMode = "startup" | "rookie" | "redraft";
  */
 export const SOURCE_WEIGHTS: Record<DraftMode, Record<string, number>> = {
   startup: {
-    ktc: 0.30,
-    flock: 0.20,           // veteran rank (flock main)
+    ktc: 0.3,
+    flock: 0.2, // veteran rank (flock main)
     flockRookie: 0.05,
     fantasycalc: 0.25,
-    fpAdp: 0.20,
-    ffcAdp: 0.00,
+    fpAdp: 0.2,
+    ffcAdp: 0.0,
     projection: 0.05,
   },
   rookie: {
-    ktc: 0.20,
-    flock: 0.00,
+    ktc: 0.2,
+    flock: 0.0,
     flockRookie: 0.45,
     fantasycalc: 0.15,
-    fpAdp: 0.10,
-    ffcAdp: 0.00,
-    projection: 0.10,
+    fpAdp: 0.1,
+    ffcAdp: 0.0,
+    projection: 0.1,
   },
   redraft: {
     ktc: 0.05,
-    flock: 0.20,
+    flock: 0.2,
     flockRookie: 0.05,
     fantasycalc: 0.15,
     fpAdp: 0.05,
-    ffcAdp: 0.00,
-    projection: 0.50,
+    ffcAdp: 0.0,
+    projection: 0.5,
   },
 };
 
@@ -54,9 +54,9 @@ export const NEED_WEIGHTS: Record<
   DraftMode,
   { alpha: number; beta: number; gamma: number; delta: number }
 > = {
-  startup:  { alpha: 0.25, beta: 0.30, gamma: 0.05, delta: 0.00 },
-  rookie:   { alpha: 0.15, beta: 0.10, gamma: 0.00, delta: 0.00 },
-  redraft:  { alpha: 0.35, beta: 0.20, gamma: 0.08, delta: 0.05 },
+  startup: { alpha: 0.25, beta: 0.3, gamma: 0.05, delta: 0.0 },
+  rookie: { alpha: 0.15, beta: 0.1, gamma: 0.0, delta: 0.0 },
+  redraft: { alpha: 0.35, beta: 0.2, gamma: 0.08, delta: 0.05 },
 };
 
 /**
@@ -67,13 +67,13 @@ export const NEED_WEIGHTS: Record<
  */
 export const AGE_MULT_EXPONENT: Record<DraftMode, number> = {
   startup: 1.0,
-  rookie:  0.5,
+  rookie: 0.5,
   redraft: 0.25,
 };
 
 /** Human-readable labels for the mode selector UI. */
 export const DRAFT_MODE_LABELS: Record<DraftMode, string> = {
   startup: "Startup / Dynasty",
-  rookie:  "Rookie Draft",
+  rookie: "Rookie Draft",
   redraft: "Redraft / Win-now",
 };
