@@ -37,7 +37,14 @@ function parseCsv(text) {
 
 async function main() {
   const res = await fetch(URL);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  if (!res.ok) {
+    console.warn(`Skip ${URL} (${res.status})`);
+    const output = { generatedAt: new Date().toISOString(), players: [] };
+    await mkdir(OUTPUT_DIR, { recursive: true });
+    await writeFile(OUTPUT_FILE, JSON.stringify(output, null, 2), "utf8");
+    console.log(`Wrote 0 players → ${OUTPUT_FILE}`);
+    return;
+  }
   const rows = parseCsv(await res.text());
 
   const byPlayer = new Map();
