@@ -161,11 +161,7 @@ export function generateExplanation(
     const youngThreshold = YOUNG_AGE_BY_POS[signals.position];
     const riskThreshold = AGE_RISK_BY_POS[signals.position];
 
-    if (
-      mode === "redraft" &&
-      signals.age >= PRIME_WINDOW_MIN &&
-      signals.age <= PRIME_WINDOW_MAX
-    ) {
+    if (mode === "redraft" && signals.age >= PRIME_WINDOW_MIN && signals.age <= PRIME_WINDOW_MAX) {
       // #10 Prime window — redraft mode only
       clauses.push({
         magnitude: 9,
@@ -187,11 +183,7 @@ export function generateExplanation(
   }
 
   // #5 Elite NFL draft capital (rookie, R1-R2)
-  if (
-    signals.nflRound !== null &&
-    signals.nflRound !== undefined &&
-    signals.nflRound <= 2
-  ) {
+  if (signals.nflRound !== null && signals.nflRound !== undefined && signals.nflRound <= 2) {
     clauses.push({
       magnitude: (3 - signals.nflRound) * 12,
       text: `🏈 Elite NFL draft capital (Round ${signals.nflRound})`,
@@ -222,9 +214,8 @@ export function generateExplanation(
     signals.position === "RB"
   ) {
     const d = signals.effDisplayStats;
-    const detail = d?.weightedOpportunity !== undefined
-      ? ` · ${d.weightedOpportunity.toFixed(1)} wtd opp`
-      : "";
+    const detail =
+      d?.weightedOpportunity !== undefined ? ` · ${d.weightedOpportunity.toFixed(1)} wtd opp` : "";
     clauses.push({
       magnitude: signals.effScore * 8,
       text: `🏋 Elite volume${detail}`,
@@ -239,7 +230,8 @@ export function generateExplanation(
     signals.position === "QB"
   ) {
     const d = signals.effDisplayStats;
-    const cpoeStr = d?.cpoe !== undefined ? ` · ${d.cpoe > 0 ? "+" : ""}${d.cpoe.toFixed(1)} CPOE` : "";
+    const cpoeStr =
+      d?.cpoe !== undefined ? ` · ${d.cpoe > 0 ? "+" : ""}${d.cpoe.toFixed(1)} CPOE` : "";
     clauses.push({
       magnitude: signals.effScore * 8,
       text: `🎯 Elite accuracy${cpoeStr}`,

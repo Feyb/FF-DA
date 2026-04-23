@@ -23,6 +23,7 @@
     "start": "ng serve",
     "start-sync": "pnpm run rankings:sync && ng serve",
     "build": "pnpm run rankings:sync && ng build",
+    "build:ci": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "oxlint",

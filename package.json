@@ -8,6 +8,7 @@
     "draft-assistant:start": "pnpm --filter @ff/draft-assistant-frontend run start",
     "draft-assistant:start-sync": "pnpm --filter @ff/draft-assistant-frontend run start-sync",
     "draft-assistant:build": "pnpm --filter @ff/draft-assistant-frontend run build",
+    "draft-assistant:build:ci": "pnpm --filter @ff/draft-assistant-frontend run build:ci",
     "draft-assistant:lint": "pnpm --filter @ff/draft-assistant-frontend run lint",
     "draft-assistant:lint:fix": "pnpm --filter @ff/draft-assistant-frontend run lint:fix",
     "draft-assistant:fmt": "pnpm --filter @ff/draft-assistant-frontend run fmt",
