@@ -46,7 +46,7 @@ jobs:
         run: pnpm draft-assistant:fmt:check
 
       - name: Build project
-        run: pnpm draft-assistant:build --base-href /FF-DA/
+        run: pnpm draft-assistant:build:ci --base-href /FF-DA/
 
       - name: Verify Pages artifact contents
         run: |
