@@ -22,12 +22,17 @@ const YEARS = [CURRENT_YEAR, CURRENT_YEAR - 1];
 function parseCsv(text) {
   const lines = text.split("\n");
   const headers = lines[0].split(",").map((h) => h.trim().replace(/^"|"$/g, ""));
-  return lines.slice(1).filter(Boolean).map((line) => {
-    const values = line.split(",").map((v) => v.trim().replace(/^"|"$/g, ""));
-    const row = {};
-    headers.forEach((h, i) => { row[h] = values[i] ?? ""; });
-    return row;
-  });
+  return lines
+    .slice(1)
+    .filter(Boolean)
+    .map((line) => {
+      const values = line.split(",").map((v) => v.trim().replace(/^"|"$/g, ""));
+      const row = {};
+      headers.forEach((h, i) => {
+        row[h] = values[i] ?? "";
+      });
+      return row;
+    });
 }
 
 async function main() {
@@ -37,7 +42,10 @@ async function main() {
     const url = `${BASE}/roster_${year}.csv`;
     try {
       const res = await fetch(url);
-      if (!res.ok) { console.warn(`Skip ${url} (${res.status})`); continue; }
+      if (!res.ok) {
+        console.warn(`Skip ${url} (${res.status})`);
+        continue;
+      }
       const rows = parseCsv(await res.text());
       for (const row of rows) {
         const id = row.gsis_id;
@@ -71,4 +79,7 @@ async function main() {
   console.log(`Wrote ${byPlayer.size} players → ${OUTPUT_FILE}`);
 }
 
-main().catch((err) => { console.error(err); process.exit(1); });
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

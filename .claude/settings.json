@@ -9,7 +9,7 @@
             "if": "Bash(git commit *)",
             "statusMessage": "Running lint & format checks...",
             "timeout": 120,
-            "command": "cd /home/user/FF-DA; test -d apps/draft-assistant/frontend/node_modules || exit 0; pnpm --filter @ff/draft-assistant-frontend run fmt 2>&1; pnpm --filter @ff/draft-assistant-frontend run lint:fix 2>&1; git add -u apps/draft-assistant/frontend/; pnpm --filter @ff/draft-assistant-frontend run fmt:check 2>&1 && pnpm --filter @ff/draft-assistant-frontend run lint 2>&1"
+            "command": "cd \"$(git rev-parse --show-toplevel)\" || exit 1; test -d apps/draft-assistant/frontend/node_modules || exit 0; staged_files=$(mktemp); trap 'rm -f \"$staged_files\"' EXIT; git diff --name-only --cached -- apps/draft-assistant/frontend/ > \"$staged_files\"; pnpm --filter @ff/draft-assistant-frontend run fmt 2>&1; pnpm --filter @ff/draft-assistant-frontend run lint:fix 2>&1; while IFS= read -r file; do test -e \"$file\" && git add -- \"$file\"; done < \"$staged_files\"; pnpm --filter @ff/draft-assistant-frontend run fmt:check 2>&1 && pnpm --filter @ff/draft-assistant-frontend run lint 2>&1"
           }
         ]
       }

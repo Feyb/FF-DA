@@ -29,12 +29,17 @@ const FIELDS = ["routes", "yprr", "tprr", "ybc_a", "yac_a", "broken_tackles", "d
 function parseCsv(text) {
   const lines = text.split("\n");
   const headers = lines[0].split(",").map((h) => h.trim().replace(/^"|"$/g, ""));
-  return lines.slice(1).filter(Boolean).map((line) => {
-    const values = line.split(",").map((v) => v.trim().replace(/^"|"$/g, ""));
-    const row = {};
-    headers.forEach((h, i) => { row[h] = values[i] ?? ""; });
-    return row;
-  });
+  return lines
+    .slice(1)
+    .filter(Boolean)
+    .map((line) => {
+      const values = line.split(",").map((v) => v.trim().replace(/^"|"$/g, ""));
+      const row = {};
+      headers.forEach((h, i) => {
+        row[h] = values[i] ?? "";
+      });
+      return row;
+    });
 }
 
 async function main() {
@@ -45,16 +50,20 @@ async function main() {
       const url = `${BASE}/pfr_advstats_season_${suffix}_${year}.csv`;
       try {
         const res = await fetch(url);
-        if (!res.ok) { console.warn(`Skip ${url} (${res.status})`); continue; }
+        if (!res.ok) {
+          console.warn(`Skip ${url} (${res.status})`);
+          continue;
+        }
         const rows = parseCsv(await res.text());
         for (const row of rows) {
           if (!row.player_id) continue;
           const season = Number(row.season ?? year);
           const existing = byPlayer.get(row.player_id);
           if (existing && existing.season > season) continue;
-          const entry = existing && existing.season === season
-            ? existing
-            : { player_id: row.player_id, season };
+          const entry =
+            existing && existing.season === season
+              ? existing
+              : { player_id: row.player_id, season };
           for (const f of FIELDS) {
             if (row[f] !== undefined && row[f] !== "") entry[f] = Number(row[f]);
           }
@@ -73,4 +82,7 @@ async function main() {
   console.log(`Wrote ${byPlayer.size} players → ${OUTPUT_FILE}`);
 }
 
-main().catch((err) => { console.error(err); process.exit(1); });
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

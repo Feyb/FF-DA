@@ -44,7 +44,7 @@ export function contextModFor(inputs: ContextModInputs, mode: DraftMode): number
   // SchemeFit stub: 1.0 until Phase 3 populates the OC tendency map.
   const schemeMult =
     inputs.schemeFit !== null && inputs.schemeFit !== undefined
-      ? 1 + 0.10 * Math.max(-1, Math.min(1, inputs.schemeFit))
+      ? 1 + 0.1 * Math.max(-1, Math.min(1, inputs.schemeFit))
       : 1.0;
 
   return ageMult * capMult * effMult * schemeMult;

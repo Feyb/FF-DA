@@ -21,15 +21,15 @@ const OUTPUT_FILE = resolve(OUTPUT_DIR, "espn-depth.json");
 
 // All 32 NFL team IDs (ESPN internal IDs, stable).
 const TEAM_IDS = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-  11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-  33, 34,
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+  28, 29, 30, 33, 34,
 ];
 
 const BASE = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams";
 
-function delay(ms) { return new Promise((r) => setTimeout(r, ms)); }
+function delay(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
 
 async function fetchTeam(teamId) {
   const url = `${BASE}/${teamId}/roster`;
@@ -76,4 +76,7 @@ async function main() {
   console.log(`Wrote → ${OUTPUT_FILE}`);
 }
 
-main().catch((err) => { console.error(err); process.exit(1); });
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
