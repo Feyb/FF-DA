@@ -80,6 +80,8 @@ export interface DraftPlayerRow {
   position: "QB" | "RB" | "WR" | "TE";
   team: string | null;
   age: number | null;
+  /** Years of NFL experience from Sleeper catalog. 0 = rookie season. */
+  yearsExp: number | null;
   rookie: boolean;
   ktcValue: number | null;
   ktcRank: number | null;

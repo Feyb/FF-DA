@@ -1,4 +1,5 @@
 import { computed, effect, inject } from "@angular/core";
+import { toSignal } from "@angular/core/rxjs-interop";
 import {
   patchState,
   signalStore,
@@ -38,8 +39,12 @@ import {
   ConsensusInput,
 } from "../../core/services/consensus-aggregator.service";
 import { SurvivalService } from "../../core/services/survival.service";
+import { NflverseService } from "../../core/adapters/nflverse/nflverse.service";
 import { computeTierCliff, TierCliffPlayer } from "./tier-cliff.util";
 import { generateExplanation } from "./score-explanation.util";
+import { buildEffScoreInputs, computeEffScores } from "./utils/efficiency-score.util";
+import { buildContextModMap, ContextModInputs } from "./utils/context-mod.util";
+import { computeVnp, VnpPlayer } from "./utils/vnp.util";
 import { toErrorMessage } from "../../core/utils/error.util";
 import { togglePositionFilter } from "../../core/utils/position-filter.util";
 import { toMapById } from "../../core/utils/array-mapping.util";
@@ -257,14 +262,26 @@ export const DraftStore = signalStore(
   //   3. TierCliff — Jenks-clustered expected loss-of-waiting.
   //   4. NeedMultiplier — roster-aware position need, clamped [0.5, 1.6].
   //   5. RunHeat — trailing-window position-run signal, [-0.1, +0.2].
-  //   6. WCS = BaseValue × ContextMod(stub=1) × NeedMult × (1 + cliff + valueDelta + runHeat).
+  //   6. EffScore — position-specific nflverse composite (WOPR/YPRR/TPRR/EPA/CPOE).
+  //   7. ContextMod — AgeMult × CapitalMult × EffMult × SchemeFit(stub=1).
+  //   8. VNP — Value over Next Pick via ADP survival.
+  //   9. WCS = BaseValue × ContextMod × NeedMult × (1 + cliff + valueDelta + runHeat + vnp).
   withComputed(
     (
       store,
       aggregator = inject(ConsensusAggregatorService),
       survival = inject(SurvivalService),
       appStore = inject(AppStore),
+      nflverse = inject(NflverseService),
     ) => {
+      // Nflverse data signals — load once, shareReplay(1) inside the service.
+      const playerStatsMap = toSignal(nflverse.playerStats$, {
+        initialValue: new Map(),
+      });
+      const pfrStatsMap = toSignal(nflverse.pfrAdvStats$, { initialValue: new Map() });
+      const ngsStatsMap = toSignal(nflverse.ngsStats$, { initialValue: new Map() });
+      const ffOppMap = toSignal(nflverse.ffOpportunity$, { initialValue: new Map() });
+      const draftPicksMap = toSignal(nflverse.draftPicks$, { initialValue: new Map() });
       const baseValueByPlayer = computed(
         (): Map<string, { baseValue: number | null; divergence: number | null }> => {
           const weights = SOURCE_WEIGHTS[store.draftMode()];
@@ -404,29 +421,83 @@ export const DraftStore = signalStore(
         return out;
       });
 
+      // EffScore: position-specific composite from nflverse data (WOPR/YPRR/etc.).
+      // Returns null for players with < 6 games (insufficient sample).
+      const effScoreByPlayer = computed((): Map<string, number | null> => {
+        const rows = store.rows();
+        if (rows.length === 0) return new Map();
+        const positions = new Map(rows.map((r) => [r.playerId, r.position]));
+        const inputs = buildEffScoreInputs(
+          rows.map((r) => r.playerId),
+          positions,
+          playerStatsMap(),
+          pfrStatsMap(),
+          ngsStatsMap(),
+          ffOppMap(),
+        );
+        return computeEffScores(inputs);
+      });
+
+      // ContextMod: AgeMult × CapitalMult × EffMult × SchemeFit(stub=1.0).
+      const contextModByPlayer = computed((): Map<string, number> => {
+        const effMap = effScoreByPlayer();
+        const picksMap = draftPicksMap();
+        const mode = store.draftMode();
+        const inputs: ContextModInputs[] = store.rows().map((row) => ({
+          playerId: row.playerId,
+          position: row.position,
+          age: row.age,
+          nflRound: picksMap.get(row.playerId)?.round ?? null,
+          yearsExp: row.yearsExp,
+          effScore: effMap.get(row.playerId) ?? null,
+        }));
+        return buildContextModMap(inputs, mode);
+      });
+
+      // VNP: Value over Next Pick — how much better this player is vs what's
+      // likely still available at the user's next pick.
+      const vnpByPlayer = computed((): Map<string, number> => {
+        const baseMap = baseValueByPlayer();
+        const nextPickN = store.userNextPickNumber();
+        if (nextPickN === null) return new Map();
+        const undrafted: VnpPlayer[] = store
+          .rows()
+          .filter((r) => !store.pickedPlayerIds().has(r.playerId))
+          .map((r) => ({
+            playerId: r.playerId,
+            position: r.position,
+            projection: baseMap.get(r.playerId)?.baseValue ?? null,
+            adpMean: r.adpMean,
+            adpStd: r.adpStd,
+          }));
+        const pAvailFn = (pickN: number, mean: number, std: number): number =>
+          survival.pAvailableAt(pickN, mean, std);
+        return computeVnp(undrafted, nextPickN, pAvailFn);
+      });
+
       const weightedCompositeByPlayer = computed((): Map<string, number> => {
         const baseMap = baseValueByPlayer();
         const cliffMap = tierCliffByPlayer();
         const pAvailMap = pAvailAtNextByPlayer();
         const needMap = needMultiplierByPlayer();
         const runMap = runHeatByPlayer();
+        const ctxMap = contextModByPlayer();
+        const vnpMap = vnpByPlayer();
         const out = new Map<string, number>();
         for (const row of store.rows()) {
           const bv = baseMap.get(row.playerId)?.baseValue;
           if (bv === null || bv === undefined) continue;
-          // Cliff: normalize to [0,1] relative to baseValue.
           const cliffRaw = cliffMap.get(row.playerId)?.cliff ?? 0;
           const cliffNorm = bv > 0 ? Math.min(1, cliffRaw / bv) : 0;
-          // Falling players (low pAvailAtNext but still here now) get a soft bump.
           const pAvail = pAvailMap.get(row.playerId);
           const valueDeltaNorm = pAvail === undefined ? 0 : Math.max(0, 1 - pAvail) * 0.2;
           const runHeat = runMap.get(row.playerId) ?? 0;
+          const vnp = vnpMap.get(row.playerId) ?? 0;
           const needMult = needMap.get(row.playerId) ?? 1.0;
-          // ContextMod stub = 1.0; Phase 2 replaces with age × capital × efficiency.
-          const contextMod = 1.0;
+          const contextMod = ctxMap.get(row.playerId) ?? 1.0;
           out.set(
             row.playerId,
-            bv * contextMod * needMult * (1 + cliffNorm + valueDeltaNorm + runHeat),
+            bv * contextMod * needMult * (1 + cliffNorm + valueDeltaNorm + runHeat + vnp),
           );
         }
         return out;
@@ -437,6 +508,9 @@ export const DraftStore = signalStore(
         const cliffMap = tierCliffByPlayer();
         const pAvailMap = pAvailAtNextByPlayer();
         const needMap = needMultiplierByPlayer();
+        const effMap = effScoreByPlayer();
+        const vnpMap = vnpByPlayer();
+        const picksMap = draftPicksMap();
         const currentPickNumber = store.picks().length + 1;
 
         // Re-use the per-position run counts computed by runHeatByPlayer.
@@ -465,6 +539,8 @@ export const DraftStore = signalStore(
           const base = baseMap.get(row.playerId);
           if (!base || base.baseValue === null) continue;
           const tierInfo = cliffMap.get(row.playerId);
+          const effScore = effMap.get(row.playerId) ?? null;
+          const playerStats = playerStatsMap().get(row.playerId);
           const explanation = generateExplanation({
             baseValue: base.baseValue,
             baseValueDivergence: base.divergence,
@@ -482,6 +558,18 @@ export const DraftStore = signalStore(
             positionRunWindow: POSITION_RUN_WINDOW,
             needMultiplier: needMap.get(row.playerId) ?? 1.0,
             draftMode: store.draftMode(),
+            nflRound: picksMap.get(row.playerId)?.round ?? null,
+            effScore,
+            effDisplayStats:
+              effScore !== null
+                ? {
+                    wopr: playerStats?.wopr,
+                    cpoe: ngsStatsMap().get(row.playerId)?.cpoe,
+                    weightedOpportunity: ffOppMap().get(row.playerId)?.weighted_opportunity,
+                    yprr: pfrStatsMap().get(row.playerId)?.yprr,
+                  }
+                : null,
+            vnp: vnpMap.get(row.playerId) ?? null,
           });
           if (explanation) out.set(row.playerId, explanation);
         }
@@ -494,6 +582,9 @@ export const DraftStore = signalStore(
         tierCliffByPlayer,
         needMultiplierByPlayer,
         runHeatByPlayer,
+        effScoreByPlayer,
+        contextModByPlayer,
+        vnpByPlayer,
         weightedCompositeByPlayer,
         wcsExplanationByPlayer,
         /**

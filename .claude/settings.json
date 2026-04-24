@@ -10,6 +10,13 @@
             "statusMessage": "Running lint & format checks...",
             "timeout": 120,
             "command": "cd \"$(git rev-parse --show-toplevel)\" || exit 1; test -d apps/draft-assistant/frontend/node_modules || exit 0; staged_files=$(mktemp); trap 'rm -f \"$staged_files\"' EXIT; git diff --name-only --cached -- apps/draft-assistant/frontend/ > \"$staged_files\"; pnpm --filter @ff/draft-assistant-frontend run fmt 2>&1; pnpm --filter @ff/draft-assistant-frontend run lint:fix 2>&1; while IFS= read -r file; do test -e \"$file\" && git add -- \"$file\"; done < \"$staged_files\"; pnpm --filter @ff/draft-assistant-frontend run fmt:check 2>&1 && pnpm --filter @ff/draft-assistant-frontend run lint 2>&1"
+          },
+          {
+            "type": "command",
+            "if": "Bash(git push *)",
+            "statusMessage": "Syncing data assets...",
+            "timeout": 600,
+            "command": "cd \"$(git rev-parse --show-toplevel)\" || exit 0; test -d apps/draft-assistant/frontend/node_modules || exit 0; sync_failed=0; for s in ktc:sync flock:sync fp:sync fc:sync ffc:sync sleeper:stats:sync nflverse:player-stats:sync nflverse:pfr:sync nflverse:ngs:sync nflverse:ff-opp:sync nflverse:draft-picks:sync nflverse:combine:sync nflverse:rosters:sync espn:rosters:sync; do pnpm --filter @ff/draft-assistant-frontend run \"$s\" 2>&1 || sync_failed=1; done; if test \"$sync_failed\" -eq 0; then git diff --quiet -- apps/draft-assistant/frontend/src/assets/ || { git add apps/draft-assistant/frontend/src/assets/ && git commit -m \"chore: refresh data assets before push\"; }; else git restore apps/draft-assistant/frontend/src/assets/ 2>/dev/null || true; fi; exit 0"
           }
         ]
       }
