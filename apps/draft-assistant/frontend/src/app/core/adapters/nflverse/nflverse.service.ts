@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { map, Observable, shareReplay } from "rxjs";
+import { catchError, map, Observable, of, shareReplay } from "rxjs";
 
 /** Slim nflverse player-stats record (seasonal totals, most recent season). */
 export interface NflversePlayerStats {
@@ -99,6 +99,7 @@ export class NflverseService {
         }
         return m;
       }),
+      catchError(() => of(new Map<string, T>())),
       shareReplay(1),
     );
   }
