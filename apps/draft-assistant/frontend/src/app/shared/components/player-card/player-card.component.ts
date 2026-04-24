@@ -39,6 +39,13 @@ export class PlayerCardComponent {
   readonly adpDelta = input<number | null>(null);
   readonly valueGap = input<number | null>(null);
 
+  /** WCS (Weighted Composite Score) value; shown as a colored pill badge. */
+  readonly wcsScore = input<number | null>(null);
+  /** Positional rank from the active sort source (e.g. 12 → "WR12"). */
+  readonly positionRank = input<number | null>(null);
+  /** True when the player is a current-year rookie. */
+  readonly isRookie = input<boolean>(false);
+
   // ── Star / bookmark ───────────────────────────────────────────────────────────
   readonly showStar = input<boolean>(false);
   readonly starred = input<boolean>(false);
@@ -99,6 +106,19 @@ export class PlayerCardComponent {
     if (delta > 1) return "adp-value";
     if (delta < -1) return "adp-reach";
     return "adp-neutral";
+  });
+
+  protected readonly wcsDisplay = computed((): string | null => {
+    const s = this.wcsScore();
+    return s !== null ? String(Math.round(s)) : null;
+  });
+
+  protected readonly wcsColorClass = computed((): string => {
+    const s = this.wcsScore();
+    if (s === null) return "";
+    if (s >= 70) return "wcs-high";
+    if (s >= 40) return "wcs-mid";
+    return "wcs-low";
   });
 
   protected readonly valueGapClass = computed((): string => {

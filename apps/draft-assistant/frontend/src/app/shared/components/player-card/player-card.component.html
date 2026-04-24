@@ -15,6 +15,9 @@
     <div class="player-meta">
       <span class="player-name" [class.player-name--drafted]="isDrafted()">
         {{ player().fullName }}
+        @if (isRookie() && !isDrafted()) {
+          <span class="rookie-badge" title="Current-year rookie">R</span>
+        }
         @if (!isDrafted() && isGoingSoon()) {
           <span class="going-soon-badge" title="Expected to be picked very soon">⚠ Going Soon</span>
         }
@@ -23,24 +26,27 @@
         <span class="pos-badge pos-badge--{{ player().position.toLowerCase() }}">
           {{ player().position }}
         </span>
+        @if (positionRank() !== null) {
+          <span class="pos-rank">{{ player().position }}{{ positionRank() }}</span>
+        }
         <span class="sub-sep">·</span>
         {{ player().team ?? "FA" }}
         @if (player().age !== null) {
           <span class="sub-sep">·</span>
-          Age {{ player().age }}
+          {{ player().age }}y
         }
       </span>
     </div>
 
     <div class="card-badges">
-      @if (player().combinedTier !== null && player().combinedTier !== undefined) {
-        <span class="tier-badge" title="Combined Tier (KTC + Flock)">
-          CT:{{ player().combinedTier }}
+      @if (wcsDisplay()) {
+        <span class="wcs-badge" [ngClass]="wcsColorClass()" title="Weighted Composite Score">
+          {{ wcsDisplay() }}
         </span>
       }
-      @if (player().overallTier !== null && player().overallTier !== undefined) {
-        <span class="tier-badge tier-badge--secondary" title="KTC Overall Tier">
-          T:{{ player().overallTier }}
+      @if (player().combinedTier !== null && player().combinedTier !== undefined) {
+        <span class="tier-badge" title="Combined Tier (KTC + Flock)">
+          T{{ player().combinedTier }}
         </span>
       }
       @if (rank() !== null) {

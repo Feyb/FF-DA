@@ -2,7 +2,7 @@
   <div class="section-header">
     <h2>Best Available</h2>
     <app-tier-legend />
-    <span class="section-hint">Top undrafted per position · ordered by need</span>
+    <span class="section-hint">Top undrafted per position · by need</span>
   </div>
   @if (store.bestAvailableByPosition().length === 0) {
     <p class="empty-copy">No recommendation candidates right now.</p>
@@ -13,41 +13,73 @@
           class="best-available-entry"
           [ngClass]="entry.player?.combinedTier ?? null | tierColor"
         >
-          <span class="best-available-pos">{{ entry.position }}</span>
+          <!-- Position accent bar -->
+          <span
+            class="pos-accent pos-accent--{{ entry.position.toLowerCase() }}"
+            aria-hidden="true"
+          ></span>
+
           @if (entry.player) {
-            @let rank = bestAvailableRank(entry);
-            <div class="best-available-info">
-              <span class="best-available-name">{{ entry.player.fullName }}</span>
-              <span class="best-available-meta">
-                Tier {{ entry.player.combinedTier ?? "N/A" }}
-                @if (rank !== null) {
-                  · #{{ rank }} ({{ sortSourceRankLabel() }})
-                }
+            <!-- Avatar -->
+            <img
+              class="ba-avatar"
+              [src]="playerHeadshotUrl(entry.player.playerId)"
+              [alt]="entry.player.fullName"
+              loading="lazy"
+              (error)="onImageError($event)"
+            />
+
+            <!-- Player info -->
+            <div class="ba-info">
+              <div class="ba-name-row">
+                <span class="pos-badge pos-badge--{{ entry.position.toLowerCase() }}">{{
+                  entry.position
+                }}</span>
+                <span class="ba-name">{{ entry.player.fullName }}</span>
                 @if (entry.player.adpDelta !== null) {
-                  · ADP
-                  <span [ngClass]="adpDeltaClass(entry.player.adpDelta)">{{
-                    adpDeltaLabel(entry.player.adpDelta)
-                  }}</span>
+                  <span class="adp-delta" [ngClass]="adpDeltaClass(entry.player.adpDelta)">
+                    {{ adpDeltaLabel(entry.player.adpDelta) }}
+                  </span>
                 }
-                @if (entry.player.fpAdpRank !== null) {
-                  · FP ADP #{{ entry.player.fpAdpRank }}
+              </div>
+              <div class="ba-meta">
+                @let rank = bestAvailableRank(entry);
+                @if (entry.player.combinedTier !== null) {
+                  <span class="ba-meta-chip">T{{ entry.player.combinedTier }}</span>
                 }
-              </span>
-              @if (entry.lowestAvailableTier !== null) {
-                <span class="best-available-tier-line">
-                  Best Available: Tier {{ entry.lowestAvailableTier }}
-                </span>
-              }
+                @if (rank !== null) {
+                  <span class="ba-meta-chip">#{{ rank }} {{ sortSourceShortLabel() }}</span>
+                }
+                @if (entry.player.team) {
+                  <span class="ba-meta-chip ba-team">{{ entry.player.team }}</span>
+                }
+                @if (entry.player.age !== null) {
+                  <span class="ba-meta-chip">{{ entry.player.age }}y</span>
+                }
+              </div>
               @let reason = wcsExplanation(entry);
               @if (reason) {
-                <span class="best-available-reason">{{ reason }}</span>
+                <span class="ba-reason">{{ reason }}</span>
               }
             </div>
-            <span class="availability-badge" [class.at-risk]="entry.availabilityRisk === 'at-risk'">
-              {{ entry.availabilityRisk === "at-risk" ? "At Risk" : "Safe" }}
-            </span>
+
+            <!-- Right column: WCS + availability -->
+            <div class="ba-right">
+              @if (wcsDisplay(entry)) {
+                <span
+                  class="wcs-badge"
+                  [ngClass]="wcsColorClass(entry)"
+                  title="Weighted Composite Score"
+                >
+                  {{ wcsDisplay(entry) }}
+                </span>
+              }
+              @if (entry.availabilityRisk === "at-risk") {
+                <span class="availability-badge at-risk">At Risk</span>
+              }
+            </div>
           } @else {
-            <span class="best-available-empty">None available</span>
+            <span class="ba-empty">None available</span>
           }
         </div>
       }
