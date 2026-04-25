@@ -92,6 +92,10 @@ export interface DraftPlayerRow {
   flockAveragePositionalTier: number | null;
   flockAveragePositionalRank: number | null;
   averageRank: number | null;
+  /** Flock prospect/rookie-only rank (from the separate rookies asset). Null for veterans. */
+  flockRookieRank: number | null;
+  /** Flock prospect/rookie-only average tier. Null for veterans. */
+  flockRookieTier: number | null;
   sleeperRank: number;
   /** Sum of KTC overall tier + Flock average tier (lower = better). */
   combinedTier: number | null;
