@@ -48,8 +48,8 @@ export class BestAvailableCardComponent {
   protected wcsColorClass(entry: BestAvailableEntry): string {
     const score = entry.player?.weightedCompositeScore ?? null;
     if (score === null) return "";
-    if (score >= 70) return "wcs-high";
-    if (score >= 40) return "wcs-mid";
+    if (score >= 90) return "wcs-high";
+    if (score >= 55) return "wcs-mid";
     return "wcs-low";
   }
 

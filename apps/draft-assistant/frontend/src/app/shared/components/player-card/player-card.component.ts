@@ -116,8 +116,8 @@ export class PlayerCardComponent {
   protected readonly wcsColorClass = computed((): string => {
     const s = this.wcsScore();
     if (s === null) return "";
-    if (s >= 70) return "wcs-high";
-    if (s >= 40) return "wcs-mid";
+    if (s >= 90) return "wcs-high";
+    if (s >= 55) return "wcs-mid";
     return "wcs-low";
   });
 
