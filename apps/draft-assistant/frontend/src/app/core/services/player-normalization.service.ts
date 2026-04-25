@@ -59,8 +59,9 @@ export class PlayerNormalizationService {
     const position = (source.position ?? "") as DraftPlayerRow["position"];
 
     const ktcPlayer = ktcLookup.get(this.ktcService.normalizeName(fullName));
-    const flockPlayer = flockLookup.get(this.flockService.normalizeName(fullName));
-    const flockRookiePlayer = flockRookieLookup.get(this.flockService.normalizeName(fullName));
+    const flockKey = this.flockService.normalizeName(fullName);
+    const flockPlayer = flockLookup.get(flockKey);
+    const flockRookiePlayer = flockRookieLookup.get(flockKey);
     const fpAdpPlayer = fpAdpLookup.get(this.fpAdpService.normalizeName(fullName));
     // FantasyCalc ships sleeperId for most active players; prefer it over name match.
     const fcPlayer =

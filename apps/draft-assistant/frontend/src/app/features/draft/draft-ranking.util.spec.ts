@@ -54,12 +54,32 @@ describe("draft-ranking.util", () => {
       expect(resolveDraftTier(row, "flock")).toBe(4);
     });
 
+    it("uses rookie flock tier when veteran flock tier is null", () => {
+      const row = buildRow({
+        positionalTier: 4,
+        flockAveragePositionalTier: null,
+        flockAverageTier: null,
+        flockRookieTier: 1,
+      });
+      expect(resolveDraftTier(row, "flock")).toBe(1);
+    });
+
+    it("prefers veteran flock tier over rookie flock tier when both are present", () => {
+      const row = buildRow({
+        flockAveragePositionalTier: null,
+        flockAverageTier: 3,
+        flockRookieTier: 1,
+      });
+      expect(resolveDraftTier(row, "flock")).toBe(3);
+    });
+
     it("returns MAX_SAFE_INTEGER when no tier data is available", () => {
       const row = buildRow({
         positionalTier: null,
         overallTier: null,
         flockAveragePositionalTier: null,
         flockAverageTier: null,
+        flockRookieTier: null,
       });
       expect(resolveDraftTier(row, "flock")).toBe(Number.MAX_SAFE_INTEGER);
     });
@@ -81,8 +101,18 @@ describe("draft-ranking.util", () => {
       expect(resolveDraftValue(row, "averageRank")).toBe(-12);
     });
 
-    it("falls back to ktcValue when averageRank is unavailable", () => {
-      const row = buildRow({ averageRank: null, ktcValue: 2500 });
+    it("falls back to rookie rank when veteran averageRank is null", () => {
+      const row = buildRow({ averageRank: null, flockRookieRank: 5, ktcValue: 2500 });
+      expect(resolveDraftValue(row, "averageRank")).toBe(-5);
+    });
+
+    it("prefers veteran averageRank over rookie rank when both are present", () => {
+      const row = buildRow({ averageRank: 12, flockRookieRank: 5, ktcValue: 2500 });
+      expect(resolveDraftValue(row, "averageRank")).toBe(-12);
+    });
+
+    it("falls back to ktcValue when both averageRank and rookie rank are unavailable", () => {
+      const row = buildRow({ averageRank: null, flockRookieRank: null, ktcValue: 2500 });
       expect(resolveDraftValue(row, "averageRank")).toBe(2500);
     });
   });
