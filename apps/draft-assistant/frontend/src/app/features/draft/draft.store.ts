@@ -136,6 +136,12 @@ interface DraftState {
 
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
 const BEST_AVAILABLE_POSITIONS: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
+const DRAFT_MODE_STORAGE_KEY = "draftAssistant.draftMode";
+const VALID_DRAFT_MODES: DraftMode[] = ["startup", "rookie", "redraft"];
+
+function isDraftMode(value: unknown): value is DraftMode {
+  return VALID_DRAFT_MODES.includes(value as DraftMode);
+}
 
 /** Compute how many picks until the user's turn (0 = user's pick now). */
 function calcPicksUntilMyTurn(currentPickNumber: number, userSlot: number, teams: number): number {
@@ -1067,8 +1073,6 @@ export const DraftStore = signalStore(
         `draftAssistant.sortSource.${leagueId}`;
       const positionsStorageKey = (leagueId: string): string =>
         `draftAssistant.positions.${leagueId}`;
-      const DRAFT_MODE_STORAGE_KEY = "draftAssistant.draftMode";
-
       const stopPolling = (): void => {
         if (pollHandle !== null) {
           clearInterval(pollHandle);
@@ -1799,10 +1803,9 @@ export const DraftStore = signalStore(
 
     return {
       onInit(): void {
-        const savedMode = storage.getRawItem("draftAssistant.draftMode");
-        const validModes: DraftMode[] = ["startup", "rookie", "redraft"];
-        if (validModes.includes(savedMode as DraftMode)) {
-          storeWithMethods.setDraftMode(savedMode as DraftMode);
+        const savedMode = storage.getRawItem(DRAFT_MODE_STORAGE_KEY);
+        if (isDraftMode(savedMode)) {
+          storeWithMethods.setDraftMode(savedMode);
         }
 
         effect(() => {
