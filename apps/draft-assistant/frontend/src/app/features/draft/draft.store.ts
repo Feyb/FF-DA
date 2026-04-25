@@ -130,6 +130,8 @@ interface DraftState {
   tierDropAlerts: TierDropAlert[];
   /** Draft mode controls source weights, ContextMod severity, and NeedMultiplier params. */
   draftMode: DraftMode;
+  /** Player IDs already on the user's dynasty roster before this draft started. */
+  existingRosterPlayerIds: string[];
 }
 
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
@@ -148,12 +150,13 @@ function calcPicksUntilMyTurn(currentPickNumber: number, userSlot: number, teams
   return teams - pickInRound + nextRoundUserPick;
 }
 
-/** Count configured and filled roster slots from picks. */
+/** Count configured and filled roster slots from existing dynasty players + current draft picks. */
 function buildRosterFillInfo(
   rosterPositions: string[],
   picks: SleeperDraftPick[],
   userRosterId: number | null,
   rows: DraftPlayerRow[],
+  existingRosterPlayerIds: string[],
 ): { configuredByPos: Record<string, number>; filledByPos: Record<string, number> } {
   const configuredByPos: Record<string, number> = {};
   for (const slot of rosterPositions) {
@@ -162,9 +165,19 @@ function buildRosterFillInfo(
   }
   const playerPositionById = new Map(rows.map((row) => [row.playerId, row.position] as const));
   const filledByPos: Record<string, number> = {};
+  const countedIds = new Set<string>();
+  // Seed with players already on the dynasty roster before this draft.
+  for (const playerId of existingRosterPlayerIds) {
+    const pos = playerPositionById.get(playerId) ?? null;
+    if (pos) {
+      filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
+      countedIds.add(playerId);
+    }
+  }
+  // Add players picked in this draft session, skipping keepers already seeded above.
   if (userRosterId !== null) {
     for (const pick of picks) {
-      if (pick.roster_id !== userRosterId) continue;
+      if (pick.roster_id !== userRosterId || countedIds.has(pick.player_id)) continue;
       const pos = playerPositionById.get(pick.player_id) ?? null;
       if (pos) filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
     }
@@ -206,6 +219,7 @@ export const DraftStore = signalStore(
     neededPositionsOnly: false,
     tierDropAlerts: [],
     draftMode: "startup" as DraftMode,
+    existingRosterPlayerIds: [] as string[],
   }),
   withComputed((store, appStore = inject(AppStore)) => ({
     selectedDraft: computed(
@@ -367,6 +381,7 @@ export const DraftStore = signalStore(
           store.picks(),
           store.userRosterId(),
           store.rows(),
+          store.existingRosterPlayerIds(),
         );
         const out = new Map<string, number>();
         for (const row of store.rows()) {
@@ -625,6 +640,7 @@ export const DraftStore = signalStore(
         store.picks(),
         store.userRosterId(),
         store.rows(),
+        store.existingRosterPlayerIds(),
       );
 
       const positionOrder = ["QB", "RB", "WR", "TE", "FLEX", "SUPER_FLEX", "K", "DEF"];
@@ -690,6 +706,7 @@ export const DraftStore = signalStore(
           store.picks(),
           store.userRosterId(),
           store.rows(),
+          store.existingRosterPlayerIds(),
         );
         const flexEligiblePositions: DraftPositionFilter[] = ["RB", "WR", "TE"];
         const superFlexEligiblePositions: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
@@ -990,6 +1007,7 @@ export const DraftStore = signalStore(
         store.picks(),
         store.userRosterId(),
         store.rows(),
+        store.existingRosterPlayerIds(),
       );
 
       // Use FLEX-aware remaining calculation for need priority (RB/WR/TE eligible for FLEX,
@@ -1501,6 +1519,9 @@ export const DraftStore = signalStore(
 
           const rosterDisplayNames = mapRosterDisplayNames(rosters, users);
           const rosterAvatarIds = mapRosterAvatarIds(rosters, users);
+          const userId = appStore.user()?.user_id ?? null;
+          const userRoster = userId ? (rosters.find((r) => r.owner_id === userId) ?? null) : null;
+          const existingRosterPlayerIds = userRoster?.players ?? [];
           const ktcLookup = ktc.buildNameLookup(ktcPlayers);
           const selectedDraftId = chooseDraftId(leagueId, drafts);
 
@@ -1567,6 +1588,7 @@ export const DraftStore = signalStore(
             sortSource: loadSortSource(leagueId),
             selectedPositions: loadSavedPositions(leagueId),
             lastUpdatedAt: Date.now(),
+            existingRosterPlayerIds,
           });
 
           if (selectedDraftId) {
@@ -1599,6 +1621,7 @@ export const DraftStore = signalStore(
           rows: [],
           starredPlayerIds: [],
           lastUpdatedAt: null,
+          existingRosterPlayerIds: [],
         });
       };
 
