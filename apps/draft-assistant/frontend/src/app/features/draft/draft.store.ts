@@ -304,6 +304,8 @@ export const DraftStore = signalStore(
             const sources: ConsensusInput["sources"] = [];
             if (row.ktcRank !== null) sources.push({ source: "ktc", rank: row.ktcRank });
             if (row.averageRank !== null) sources.push({ source: "flock", rank: row.averageRank });
+            if (row.flockRookieRank !== null)
+              sources.push({ source: "flockRookie", rank: row.flockRookieRank });
             if (row.fantasyCalcValue !== null)
               sources.push({ source: "fantasycalc", value: row.fantasyCalcValue });
             if (row.fpAdpRank !== null) sources.push({ source: "fpAdp", rank: row.fpAdpRank });
@@ -1137,6 +1139,7 @@ export const DraftStore = signalStore(
         fcLookup: Map<string, FantasyCalcPlayer> = new Map(),
         fcSleeperLookup: Map<string, FantasyCalcPlayer> = new Map(),
         ffcLookup: Map<string, FfcAdpPlayer> = new Map(),
+        flockRookieLookup: Map<string, FlockPlayer> = new Map(),
       ): DraftPlayerRow[] =>
         playerNorm.buildPlayerRows(
           playersById,
@@ -1148,6 +1151,7 @@ export const DraftStore = signalStore(
           fcLookup,
           fcSleeperLookup,
           ffcLookup,
+          flockRookieLookup,
         );
 
       // Pick the FantasyCalc + FFC variants that match the active league format.
@@ -1309,12 +1313,8 @@ export const DraftStore = signalStore(
         );
 
         const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-        const flockLookup = isRookieDraft
-          ? new Map([
-              ...flock.buildNameLookup(flockRookies),
-              ...flock.buildNameLookup(flockPlayers),
-            ])
-          : flock.buildNameLookup(flockPlayers);
+        const flockLookup = flock.buildNameLookup(flockPlayers);
+        const flockRookieLookup = flock.buildNameLookup(flockRookies);
         const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
         const fcLookup = fc.buildNameLookup(fcPlayers);
         const fcSleeperLookup = fc.buildSleeperIdLookup(fcPlayers);
@@ -1328,6 +1328,7 @@ export const DraftStore = signalStore(
           fcLookup,
           fcSleeperLookup,
           ffcLookup,
+          flockRookieLookup,
         );
 
         let rosterDisplayNames: Record<string, string> = {};
@@ -1538,12 +1539,8 @@ export const DraftStore = signalStore(
           }
 
           const isRookieDraft = selectedDraft ? isSleeperRookieDraft(selectedDraft) : false;
-          const flockLookup = isRookieDraft
-            ? new Map([
-                ...flock.buildNameLookup(flockRookies),
-                ...flock.buildNameLookup(flockPlayers),
-              ])
-            : flock.buildNameLookup(flockPlayers);
+          const flockLookup = flock.buildNameLookup(flockPlayers);
+          const flockRookieLookup = flock.buildNameLookup(flockRookies);
           const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
 
           // Swap to rookie-format FC/FFC data if we discovered this is a rookie draft.
@@ -1565,6 +1562,7 @@ export const DraftStore = signalStore(
             fcLookup,
             fcSleeperLookup,
             ffcLookup,
+            flockRookieLookup,
           );
 
           const starredPlayerIds = (() => {
