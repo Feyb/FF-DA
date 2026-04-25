@@ -1067,6 +1067,7 @@ export const DraftStore = signalStore(
         `draftAssistant.sortSource.${leagueId}`;
       const positionsStorageKey = (leagueId: string): string =>
         `draftAssistant.positions.${leagueId}`;
+      const DRAFT_MODE_STORAGE_KEY = "draftAssistant.draftMode";
 
       const stopPolling = (): void => {
         if (pollHandle !== null) {
@@ -1701,6 +1702,7 @@ export const DraftStore = signalStore(
         },
         setDraftMode(draftMode: DraftMode): void {
           patchState(store, { draftMode });
+          storage.setRawItem(DRAFT_MODE_STORAGE_KEY, draftMode);
         },
         setTierSource(tierSource: TierSource): void {
           patchState(store, { tierSource });
@@ -1787,15 +1789,22 @@ export const DraftStore = signalStore(
       };
     },
   ),
-  withHooks((store, appStore = inject(AppStore)) => {
+  withHooks((store, appStore = inject(AppStore), storage = inject(StorageService)) => {
     let previousLeagueId: string | null = null;
     const storeWithMethods = store as typeof store & {
       loadForSelectedLeague: () => Promise<void>;
       stopPolling: () => void;
+      setDraftMode: (mode: DraftMode) => void;
     };
 
     return {
       onInit(): void {
+        const savedMode = storage.getRawItem("draftAssistant.draftMode");
+        const validModes: DraftMode[] = ["startup", "rookie", "redraft"];
+        if (validModes.includes(savedMode as DraftMode)) {
+          storeWithMethods.setDraftMode(savedMode as DraftMode);
+        }
+
         effect(() => {
           const leagueId = appStore.selectedLeague()?.league_id ?? null;
           if (leagueId === previousLeagueId) {
