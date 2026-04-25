@@ -73,6 +73,17 @@ export class DraftPlayerListComponent {
     return rankForSortSource(row, this.store.sortSource());
   }
 
+  protected rowPositionalRank(row: DraftPlayerRow): number | null {
+    switch (this.store.sortSource()) {
+      case "ktcRank":
+        return row.ktcPositionalRank ?? null;
+      case "flockRank":
+        return row.flockAveragePositionalRank ?? null;
+      default:
+        return null;
+    }
+  }
+
   protected tierColorClass(row: DraftPlayerDisplayRow): string {
     return row.isDrafted ? "" : getTierColorClass(row.combinedTier);
   }
