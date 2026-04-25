@@ -165,15 +165,19 @@ function buildRosterFillInfo(
   }
   const playerPositionById = new Map(rows.map((row) => [row.playerId, row.position] as const));
   const filledByPos: Record<string, number> = {};
+  const countedIds = new Set<string>();
   // Seed with players already on the dynasty roster before this draft.
   for (const playerId of existingRosterPlayerIds) {
     const pos = playerPositionById.get(playerId) ?? null;
-    if (pos) filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
+    if (pos) {
+      filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
+      countedIds.add(playerId);
+    }
   }
-  // Add players picked in this draft session.
+  // Add players picked in this draft session, skipping keepers already seeded above.
   if (userRosterId !== null) {
     for (const pick of picks) {
-      if (pick.roster_id !== userRosterId) continue;
+      if (pick.roster_id !== userRosterId || countedIds.has(pick.player_id)) continue;
       const pos = playerPositionById.get(pick.player_id) ?? null;
       if (pos) filledByPos[pos] = (filledByPos[pos] ?? 0) + 1;
     }
