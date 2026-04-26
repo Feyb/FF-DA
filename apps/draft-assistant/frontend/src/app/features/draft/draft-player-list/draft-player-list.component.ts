@@ -66,7 +66,7 @@ export class DraftPlayerListComponent {
   });
   protected readonly userNextPickNumber = computed(() => this.store.userNextPickNumber());
 
-  protected rowCombinedTier(row: DraftPlayerRow): number | null {
+  protected rowResolvedTier(row: DraftPlayerRow): number | null {
     const resolved = resolveDraftTier(row, this.store.tierSource());
     return resolved === Number.MAX_SAFE_INTEGER ? null : resolved;
   }
@@ -88,7 +88,7 @@ export class DraftPlayerListComponent {
 
   protected tierColorClass(row: DraftPlayerDisplayRow): string {
     if (row.isDrafted) return "";
-    return getTierColorClass(this.rowCombinedTier(row));
+    return getTierColorClass(this.rowResolvedTier(row));
   }
 
   protected sortSourceRankLabel(): string {
@@ -105,10 +105,10 @@ export class DraftPlayerListComponent {
   ): boolean {
     if (undraftedIndex === 0) return true;
     const currentTier = undraftedRows[undraftedIndex]
-      ? this.rowCombinedTier(undraftedRows[undraftedIndex])
+      ? this.rowResolvedTier(undraftedRows[undraftedIndex])
       : null;
     const previousTier = undraftedRows[undraftedIndex - 1]
-      ? this.rowCombinedTier(undraftedRows[undraftedIndex - 1])
+      ? this.rowResolvedTier(undraftedRows[undraftedIndex - 1])
       : null;
     return currentTier !== previousTier;
   }
@@ -138,7 +138,7 @@ export class DraftPlayerListComponent {
   }
 
   protected tierDividerLabel(row: DraftPlayerRow): string {
-    const tier = this.rowCombinedTier(row);
+    const tier = this.rowResolvedTier(row);
     return tier === null ? "Un-tiered" : `Tier ${tier}`;
   }
 
