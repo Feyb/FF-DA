@@ -8,7 +8,8 @@ import {
   withMethods,
   withState,
 } from "@ngrx/signals";
-import { forkJoin, firstValueFrom } from "rxjs";
+import { forkJoin, firstValueFrom, of } from "rxjs";
+import { catchError } from "rxjs/operators";
 import { KtcRatingService } from "../../core/adapters/ktc/ktc-rating.service";
 import { isSleeperRookieDraft } from "../../core/adapters/sleeper/sleeper-draft.util";
 import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
@@ -293,10 +294,25 @@ export const DraftStore = signalStore(
       survival = inject(SurvivalService),
       appStore = inject(AppStore),
       nflverse = inject(NflverseService),
+      sleeperService = inject(SleeperService),
     ) => {
       // Nflverse data signals — load once, shareReplay(1) inside the service.
       const playerStatsMap = toSignal(nflverse.playerStats$, {
         initialValue: new Map(),
+      });
+
+      // Sleeper trending adds — top 100 most-added players in last 24 h.
+      // catchError so a Sleeper outage never crashes the WCS pipeline.
+      const trendingRaw = toSignal(
+        sleeperService.getTrendingPlayers("add", 100).pipe(catchError(() => of([]))),
+        { initialValue: [] as { player_id: string; count: number }[] },
+      );
+      const trendingTopTenMap = computed((): Map<string, number> => {
+        const out = new Map<string, number>();
+        for (const { player_id, count } of trendingRaw().slice(0, 10)) {
+          out.set(player_id, count);
+        }
+        return out;
       });
       const pfrStatsMap = toSignal(nflverse.pfrAdvStats$, { initialValue: new Map() });
       const ngsStatsMap = toSignal(nflverse.ngsStats$, { initialValue: new Map() });
@@ -557,6 +573,23 @@ export const DraftStore = signalStore(
           }
         }
 
+        // #12 StackSynergy — map each NFL team to the QB name on the user's roster.
+        const rowByPlayerId = new Map(store.rows().map((r) => [r.playerId, r]));
+        const userQbByTeam = new Map<string, string>();
+        const userRosterId = store.userRosterId();
+        for (const pid of store.existingRosterPlayerIds()) {
+          const r = rowByPlayerId.get(pid);
+          if (r?.position === "QB" && r.team) userQbByTeam.set(r.team, r.fullName);
+        }
+        if (userRosterId !== null) {
+          for (const pick of store.picks()) {
+            if (pick.roster_id !== userRosterId || !pick.player_id) continue;
+            const r = rowByPlayerId.get(pick.player_id);
+            if (r?.position === "QB" && r.team) userQbByTeam.set(r.team, r.fullName);
+          }
+        }
+        const trendingMap = trendingTopTenMap();
+
         const out = new Map<string, string>();
         for (const row of store.rows()) {
           const base = baseMap.get(row.playerId);
@@ -564,6 +597,8 @@ export const DraftStore = signalStore(
           const tierInfo = cliffMap.get(row.playerId);
           const effScore = effMap.get(row.playerId) ?? null;
           const playerStats = playerStatsMap().get(row.playerId);
+          const stackSynergyQbName =
+            row.position !== "QB" && row.team ? (userQbByTeam.get(row.team) ?? null) : null;
           const explanation = generateExplanation({
             baseValue: base.baseValue,
             baseValueDivergence: base.divergence,
@@ -593,6 +628,9 @@ export const DraftStore = signalStore(
                   }
                 : null,
             vnp: vnpMap.get(row.playerId) ?? null,
+            stackSynergyQbName,
+            trendingAdds: trendingMap.get(row.playerId) ?? null,
+            injuryStatus: row.injuryStatus,
           });
           if (explanation) out.set(row.playerId, explanation);
         }

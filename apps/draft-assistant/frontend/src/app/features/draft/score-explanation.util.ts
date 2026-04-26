@@ -64,6 +64,12 @@ export interface ExplanationSignals {
   } | null;
   /** VNP score (Value over Next Pick). */
   vnp?: number | null;
+  /** QB name on the user's roster that shares this player's team (pass-catchers only). */
+  stackSynergyQbName?: string | null;
+  /** Number of Sleeper adds for this player in the last 24 h (null = not in top-100). */
+  trendingAdds?: number | null;
+  /** Active Sleeper injury designation string (e.g. "Questionable", "Out", "IR"). */
+  injuryStatus?: string | null;
 }
 
 export interface ExplanationOptions {
@@ -271,6 +277,37 @@ export function generateExplanation(
     clauses.push({
       magnitude: signals.baseValueDivergence * 5,
       text: `🎭 Splits rankings: sources disagree, market is undervaluing`,
+    });
+  }
+
+  // #12 QB stack synergy
+  if (signals.stackSynergyQbName && signals.position !== "QB") {
+    clauses.push({
+      magnitude: 11,
+      text: `🔗 QB stack with ${signals.stackSynergyQbName} (on your roster)`,
+    });
+  }
+
+  // #17 Sleeper trending adds
+  if (signals.trendingAdds !== null && signals.trendingAdds !== undefined) {
+    clauses.push({
+      magnitude: 14,
+      text: `🔥 Trending: +${signals.trendingAdds.toLocaleString()} adds in last 24h`,
+    });
+  }
+
+  // #21 Injury designation
+  if (signals.injuryStatus) {
+    const statusLower = signals.injuryStatus.toLowerCase();
+    const magnitude =
+      statusLower === "out" || statusLower === "ir" || statusLower === "pup"
+        ? 20
+        : statusLower === "doubtful"
+          ? 15
+          : 10;
+    clauses.push({
+      magnitude,
+      text: `🏥 ${signals.injuryStatus}`,
     });
   }
 

@@ -52,4 +52,13 @@ export class SleeperService {
   getDraftPicks(draftId: string): Observable<SleeperDraftPick[]> {
     return this.http.get<SleeperDraftPick[]>(`${BASE}/draft/${draftId}/picks`);
   }
+
+  getTrendingPlayers(
+    type: "add" | "drop" = "add",
+    limit = 100,
+  ): Observable<{ player_id: string; count: number }[]> {
+    return this.http.get<{ player_id: string; count: number }[]>(
+      `${BASE}/players/nfl/trending/${type}?limit=${limit}`,
+    );
+  }
 }

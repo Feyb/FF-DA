@@ -101,4 +101,80 @@ describe("score-explanation.util", () => {
     const withoutValue = generateExplanation(buildSignals({ baseValueDivergence: 1.0 }));
     expect(withoutValue).not.toContain("Splits rankings");
   });
+
+  describe("template #12 — QB stack synergy", () => {
+    it("fires for a WR whose team QB is on the user roster", () => {
+      const out = generateExplanation(
+        buildSignals({ position: "WR", stackSynergyQbName: "P. Mahomes" }),
+      );
+      expect(out).toContain("QB stack with P. Mahomes");
+    });
+
+    it("does not fire for a QB (self-stack guard)", () => {
+      const out = generateExplanation(
+        buildSignals({ position: "QB", stackSynergyQbName: "P. Mahomes" }),
+      );
+      expect(out).not.toContain("QB stack");
+    });
+
+    it("does not fire when stackSynergyQbName is null", () => {
+      const out = generateExplanation(buildSignals({ stackSynergyQbName: null }));
+      expect(out).not.toContain("QB stack");
+    });
+  });
+
+  describe("template #17 — Sleeper trending adds", () => {
+    it("fires when trendingAdds is non-null", () => {
+      const out = generateExplanation(buildSignals({ trendingAdds: 4500 }));
+      expect(out).toContain("Trending");
+      expect(out).toContain("4,500");
+    });
+
+    it("does not fire when trendingAdds is null", () => {
+      const out = generateExplanation(buildSignals({ trendingAdds: null }));
+      expect(out).not.toContain("Trending");
+    });
+  });
+
+  describe("template #21 — injury designation", () => {
+    it("fires with magnitude 20 for Out status", () => {
+      const out = generateExplanation(buildSignals({ injuryStatus: "Out" }));
+      expect(out).toContain("🏥 Out");
+    });
+
+    it("fires with magnitude 20 for IR status", () => {
+      const out = generateExplanation(buildSignals({ injuryStatus: "IR" }));
+      expect(out).toContain("🏥 IR");
+    });
+
+    it("fires with magnitude 15 for Doubtful status", () => {
+      const out = generateExplanation(buildSignals({ injuryStatus: "Doubtful" }));
+      expect(out).toContain("🏥 Doubtful");
+    });
+
+    it("fires with magnitude 10 for Questionable status", () => {
+      const out = generateExplanation(buildSignals({ injuryStatus: "Questionable" }));
+      expect(out).toContain("🏥 Questionable");
+    });
+
+    it("does not fire when injuryStatus is null", () => {
+      const out = generateExplanation(buildSignals({ injuryStatus: null }));
+      expect(out).not.toContain("🏥");
+    });
+
+    it("injury (Out) takes precedence over lower-magnitude clauses", () => {
+      // Out magnitude=20 should beat position-run magnitude ~20 and young-age magnitude=8
+      const out = generateExplanation(
+        buildSignals({
+          injuryStatus: "Out",
+          position: "RB",
+          age: 22,
+          positionRunCount: 4,
+          positionRunWindow: 6,
+        }),
+        { maxClauses: 1 },
+      );
+      expect(out).toContain("🏥 Out");
+    });
+  });
 });

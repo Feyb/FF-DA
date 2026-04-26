@@ -135,6 +135,7 @@ export class PlayerNormalizationService {
       pAvailAtNext: null,
       tierCliffScore: null,
       weightedCompositeScore: null,
+      injuryStatus: source.injury_status ?? null,
     };
   }
 
