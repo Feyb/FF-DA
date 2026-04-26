@@ -24,6 +24,8 @@ function buildRow(overrides: Partial<DraftPlayerRow> = {}): DraftPlayerRow {
     flockAveragePositionalTier: 2,
     flockAveragePositionalRank: 3,
     averageRank: 12,
+    flockRookieRank: null,
+    flockRookieTier: null,
     sleeperRank: 20,
     combinedTier: 3,
     combinedPositionalTier: 2,

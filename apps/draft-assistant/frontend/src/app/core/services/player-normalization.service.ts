@@ -51,6 +51,7 @@ export class PlayerNormalizationService {
     fcLookup: Map<string, FantasyCalcPlayer> = new Map(),
     fcSleeperLookup: Map<string, FantasyCalcPlayer> = new Map(),
     ffcLookup: Map<string, FfcAdpPlayer> = new Map(),
+    flockRookieLookup: Map<string, FlockPlayer> = new Map(),
   ): Omit<DraftPlayerRow, "sleeperRank" | "adpDelta"> {
     const firstName = source.first_name ?? "";
     const lastName = source.last_name ?? "";
@@ -58,7 +59,9 @@ export class PlayerNormalizationService {
     const position = (source.position ?? "") as DraftPlayerRow["position"];
 
     const ktcPlayer = ktcLookup.get(this.ktcService.normalizeName(fullName));
-    const flockPlayer = flockLookup.get(this.flockService.normalizeName(fullName));
+    const flockKey = this.flockService.normalizeName(fullName);
+    const flockPlayer = flockLookup.get(flockKey);
+    const flockRookiePlayer = flockRookieLookup.get(flockKey);
     const fpAdpPlayer = fpAdpLookup.get(this.fpAdpService.normalizeName(fullName));
     // FantasyCalc ships sleeperId for most active players; prefer it over name match.
     const fcPlayer =
@@ -115,6 +118,8 @@ export class PlayerNormalizationService {
       flockAveragePositionalTier: flockPositionalTier,
       flockAveragePositionalRank: flockPositionalRank,
       averageRank: flockAverageRank,
+      flockRookieRank: flockRookiePlayer?.averageRank ?? null,
+      flockRookieTier: flockRookiePlayer?.averageTier ?? null,
       combinedTier,
       combinedPositionalTier,
       adpRank,
@@ -147,6 +152,7 @@ export class PlayerNormalizationService {
     fcLookup: Map<string, FantasyCalcPlayer> = new Map(),
     fcSleeperLookup: Map<string, FantasyCalcPlayer> = new Map(),
     ffcLookup: Map<string, FfcAdpPlayer> = new Map(),
+    flockRookieLookup: Map<string, FlockPlayer> = new Map(),
   ): DraftPlayerRow[] {
     const positionSet = new Set<string>(positions);
 
@@ -163,6 +169,7 @@ export class PlayerNormalizationService {
           fcLookup,
           fcSleeperLookup,
           ffcLookup,
+          flockRookieLookup,
         ),
       )
       .filter((row) => row.fullName.length > 0)
