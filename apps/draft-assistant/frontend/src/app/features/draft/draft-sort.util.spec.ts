@@ -14,6 +14,7 @@ function buildRow(overrides: Partial<DraftPlayerRow> = {}): DraftPlayerRow {
     position: "QB",
     team: "KC",
     age: 25,
+    yearsExp: null,
     rookie: false,
     ktcValue: 1000,
     ktcRank: 10,
@@ -42,6 +43,7 @@ function buildRow(overrides: Partial<DraftPlayerRow> = {}): DraftPlayerRow {
     pAvailAtNext: null,
     tierCliffScore: null,
     weightedCompositeScore: null,
+    injuryStatus: null,
     ...overrides,
   };
 }

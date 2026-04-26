@@ -147,6 +147,8 @@ export interface DraftPlayerRow {
   tierCliffScore: number | null;
   /** Final Weighted Composite Score (Phase 1 simplified form); higher = better. */
   weightedCompositeScore: number | null;
+  /** Injury designation from Sleeper catalog (e.g. "Questionable", "Out", "IR"). Null when healthy. */
+  injuryStatus: string | null;
 }
 
 export interface DraftRecommendation {
