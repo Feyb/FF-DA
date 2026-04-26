@@ -14,6 +14,7 @@ import { DraftPlayerRow, SleeperPlayerStats } from "../../../core/models";
 import { DraftPlayerDisplayRow, DraftStore, rankForSortSource } from "../draft.store";
 import { sortSourceRankLabel, sortSourceShortLabel } from "../draft-display.util";
 import { getTierColorClass } from "../../../shared/pipes/tier-color.pipe";
+import { resolveDraftTier } from "../draft-ranking.util";
 import { SleeperStatsService } from "../../../core/adapters/sleeper/sleeper-stats.service";
 import { AppStore } from "../../../core/state/app.store";
 import { PlayerCardComponent } from "../../../shared/components/player-card";
@@ -66,7 +67,8 @@ export class DraftPlayerListComponent {
   protected readonly userNextPickNumber = computed(() => this.store.userNextPickNumber());
 
   protected rowCombinedTier(row: DraftPlayerRow): number | null {
-    return row.combinedTier;
+    const resolved = resolveDraftTier(row, this.store.tierSource());
+    return resolved === Number.MAX_SAFE_INTEGER ? null : resolved;
   }
 
   protected rowRank(row: DraftPlayerRow): number | null {
@@ -85,7 +87,8 @@ export class DraftPlayerListComponent {
   }
 
   protected tierColorClass(row: DraftPlayerDisplayRow): string {
-    return row.isDrafted ? "" : getTierColorClass(row.combinedTier);
+    if (row.isDrafted) return "";
+    return getTierColorClass(this.rowCombinedTier(row));
   }
 
   protected sortSourceRankLabel(): string {
