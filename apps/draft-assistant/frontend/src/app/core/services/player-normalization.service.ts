@@ -78,18 +78,19 @@ export class PlayerNormalizationService {
     const fpAdpRank = fpAdpPlayer?.adpRank ?? null;
 
     // SRS §3.1: combinedTier = sum of all available source tiers (lower = better).
-    // When only one source has data the missing source contributes 0 to the sum, so
-    // single-source players will sort ahead of dual-source players with the same
-    // individual tier.  This is intentional: a player recognised by at least one
-    // high-quality source is still considered preferable to an unranked player.
+    // For prospects absent from veteran Flock rankings, fall back to rookie Flock tier.
+    const flockRookieTierVal = flockRookiePlayer?.averageTier ?? null;
+    const effectiveFlockTier = flockTier ?? flockRookieTierVal;
     const combinedTier =
-      ktcOverallTier !== null || flockTier !== null
-        ? (ktcOverallTier ?? 0) + (flockTier ?? 0)
+      ktcOverallTier !== null || effectiveFlockTier !== null
+        ? (ktcOverallTier ?? 0) + (effectiveFlockTier ?? 0)
         : null;
 
+    const flockRookiePositionalTierVal = flockRookiePlayer?.averagePositionalTier ?? null;
+    const effectiveFlockPositionalTier = flockPositionalTier ?? flockRookiePositionalTierVal;
     const combinedPositionalTier =
-      ktcPositionalTier !== null || flockPositionalTier !== null
-        ? (ktcPositionalTier ?? 0) + (flockPositionalTier ?? 0)
+      ktcPositionalTier !== null || effectiveFlockPositionalTier !== null
+        ? (ktcPositionalTier ?? 0) + (effectiveFlockPositionalTier ?? 0)
         : null;
 
     // ADP: use flockAverageRank as proxy for Sleeper ADP (REQ-DS-05 / REQ-ADP-01).
