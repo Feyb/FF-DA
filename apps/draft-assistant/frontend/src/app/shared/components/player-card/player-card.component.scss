@@ -44,6 +44,7 @@
 .card-inner {
   flex: 1;
   min-width: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -675,8 +676,18 @@ html.dark {
 }
 
 // ── Responsive ────────────────────────────────────────────────────────────────
-@media (max-width: 480px) {
-  .pills-row {
+@media (max-width: 640px) {
+  // Collapse header to 3 columns: hide WCS badge to free space for player name.
+  .card-header {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .card-badges {
+    display: none;
+  }
+
+  .pills-row,
+  .player-explanation {
     display: none;
   }
 
