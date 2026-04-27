@@ -1,110 +1,125 @@
 <div class="player-card" [class.player-card--drafted]="isDrafted()" [ngClass]="tierColorClass()">
-  <!-- Position accent bar -->
+  <!-- Vertical position accent bar -->
   <span class="pos-accent" [ngClass]="positionClass()" aria-hidden="true"></span>
 
-  <!-- Header row -->
-  <div class="card-header">
-    <img
-      class="player-avatar"
-      [src]="playerHeadshotUrl(player().playerId)"
-      [alt]="player().fullName"
-      loading="lazy"
-      (error)="onImageError($event)"
-    />
+  <div class="card-inner">
+    <!-- Header row -->
+    <div class="card-header">
+      <img
+        class="player-avatar"
+        [src]="playerHeadshotUrl(player().playerId)"
+        [alt]="player().fullName"
+        loading="lazy"
+        (error)="onImageError($event)"
+      />
 
-    <div class="player-meta">
-      <span class="player-name" [class.player-name--drafted]="isDrafted()">
-        {{ player().fullName }}
-        @if (isRookie() && !isDrafted()) {
-          <span class="rookie-badge" title="Current-year rookie">R</span>
-        }
-        @if (!isDrafted() && isGoingSoon()) {
-          <span class="going-soon-badge" title="Expected to be picked very soon">⚠ Going Soon</span>
-        }
-      </span>
-      <span class="player-sub">
-        <span class="pos-badge pos-badge--{{ player().position.toLowerCase() }}">
-          {{ player().position }}
+      <div class="player-meta">
+        <span class="player-name" [class.player-name--drafted]="isDrafted()">
+          {{ player().fullName }}
+          @if (isRookie() && !isDrafted()) {
+            <span class="rookie-badge" title="Current-year rookie">R</span>
+          }
+          @if (!isDrafted() && injuryBadgeLabel()) {
+            <span
+              class="injury-badge"
+              [ngClass]="injuryBadgeClass()"
+              [title]="injuryStatus() ?? ''"
+              >{{ injuryBadgeLabel() }}</span
+            >
+          }
+          @if (!isDrafted() && trendingAdds() !== null && trendingAdds()! > 0) {
+            <span class="trending-badge" title="Trending up on FantasyCalc">↑</span>
+          }
+          @if (!isDrafted() && isGoingSoon()) {
+            <span class="going-soon-badge" title="Expected to be picked very soon"
+              >⚠ Going Soon</span
+            >
+          }
         </span>
-        @if (positionRank() !== null) {
-          <span class="pos-rank">{{ player().position }}{{ positionRank() }}</span>
-        }
-        <span class="sub-sep">·</span>
-        {{ player().team ?? "FA" }}
-        @if (player().age !== null) {
+        <span class="player-sub">
+          <span class="pos-badge pos-badge--{{ player().position.toLowerCase() }}">
+            {{ player().position }}
+          </span>
+          @if (positionRank() !== null) {
+            <span class="pos-rank">{{ player().position }}{{ positionRank() }}</span>
+          }
           <span class="sub-sep">·</span>
-          {{ player().age }}y
+          {{ player().team ?? "FA" }}
+          @if (player().age !== null) {
+            <span class="sub-sep">·</span>
+            {{ player().age }}y
+          }
+        </span>
+      </div>
+
+      <div class="card-badges">
+        @if (wcsDisplay()) {
+          <span class="wcs-badge" [ngClass]="wcsColorClass()" title="Weighted Composite Score">
+            {{ wcsDisplay() }}
+          </span>
         }
-      </span>
+        @if (player().combinedTier !== null && player().combinedTier !== undefined) {
+          <span class="tier-badge" title="Combined Tier (KTC + Flock)">
+            T{{ player().combinedTier }}
+          </span>
+        }
+        @if (rank() !== null) {
+          <span class="rank-badge">
+            @if (rankLabel()) {
+              <span class="rank-source">{{ rankLabel() }}</span>
+            }
+            #{{ rank() }}
+          </span>
+        }
+        @if (adpDeltaLabel()) {
+          <span class="adp-delta" [ngClass]="adpDeltaClass()" title="ADP Delta">
+            {{ adpDeltaLabel() }}
+          </span>
+        }
+        @if (valueGap() !== null) {
+          <span
+            class="vg-dot"
+            [ngClass]="valueGapClass()"
+            title="Value gap between KTC and Flock tiers"
+          >
+            @if (valueGap() === 0) {
+              ✓
+            } @else {
+              ●
+            }
+          </span>
+        }
+      </div>
+
+      <div class="card-actions">
+        @if (!isDrafted() && availabilityRisk() === "at-risk") {
+          <span class="availability-badge at-risk">At Risk</span>
+        }
+        @if (showStar() && !isDrafted()) {
+          <button
+            type="button"
+            mat-icon-button
+            class="star-btn"
+            [class.star-btn--active]="starred()"
+            (click)="onStarClick()"
+            [attr.aria-label]="starred() ? 'Unstar player' : 'Star player'"
+          >
+            <mat-icon>{{ starred() ? "star" : "star_border" }}</mat-icon>
+          </button>
+        }
+      </div>
     </div>
 
-    <div class="card-badges">
-      @if (wcsDisplay()) {
-        <span class="wcs-badge" [ngClass]="wcsColorClass()" title="Weighted Composite Score">
-          {{ wcsDisplay() }}
-        </span>
-      }
-      @if (player().combinedTier !== null && player().combinedTier !== undefined) {
-        <span class="tier-badge" title="Combined Tier (KTC + Flock)">
-          T{{ player().combinedTier }}
-        </span>
-      }
-      @if (rank() !== null) {
-        <span class="rank-badge">
-          @if (rankLabel()) {
-            <span class="rank-source">{{ rankLabel() }}</span>
-          }
-          #{{ rank() }}
-        </span>
-      }
-      @if (adpDeltaLabel()) {
-        <span class="adp-delta" [ngClass]="adpDeltaClass()" title="ADP Delta">
-          {{ adpDeltaLabel() }}
-        </span>
-      }
-      @if (valueGap() !== null) {
-        <span
-          class="vg-dot"
-          [ngClass]="valueGapClass()"
-          title="Value gap between KTC and Flock tiers"
-        >
-          @if (valueGap() === 0) {
-            ✓
-          } @else {
-            ●
-          }
-        </span>
-      }
-    </div>
-
-    <div class="card-actions">
-      @if (!isDrafted() && availabilityRisk() === "at-risk") {
-        <span class="availability-badge at-risk">At Risk</span>
-      }
-      @if (showStar() && !isDrafted()) {
-        <button
-          type="button"
-          mat-icon-button
-          class="star-btn"
-          [class.star-btn--active]="starred()"
-          (click)="onStarClick()"
-          [attr.aria-label]="starred() ? 'Unstar player' : 'Star player'"
-        >
-          <mat-icon>{{ starred() ? "star" : "star_border" }}</mat-icon>
-        </button>
-      }
-    </div>
+    <!-- Stats row (rendered when season stats are available) -->
+    @if (statChips().length > 0) {
+      <div class="stats-row" [class.stats-row--drafted]="isDrafted()">
+        @for (chip of statChips(); track chip.label) {
+          <span class="stat-chip">
+            <span class="stat-value">{{ chip.value }}</span>
+            <span class="stat-label">{{ chip.label }}</span>
+          </span>
+        }
+      </div>
+    }
   </div>
-
-  <!-- Stats row (rendered when season stats are available) -->
-  @if (statChips().length > 0) {
-    <div class="stats-row" [class.stats-row--drafted]="isDrafted()">
-      @for (chip of statChips(); track chip.label) {
-        <span class="stat-chip">
-          <span class="stat-value">{{ chip.value }}</span>
-          <span class="stat-label">{{ chip.label }}</span>
-        </span>
-      }
-    </div>
-  }
 </div>

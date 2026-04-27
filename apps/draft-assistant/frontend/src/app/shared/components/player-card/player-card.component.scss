@@ -5,7 +5,7 @@
 // ── Card wrapper ───────────────────────────────────────────────────────────────
 .player-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   // Use CSS custom properties set by the global tier classes so they cascade
   // through Angular's emulated encapsulation boundary.  Defaults to the
   // untiered appearance when no tier class is present.
@@ -34,10 +34,18 @@
 // ── Position accent bar (left colored stripe) ─────────────────────────────────
 .pos-accent {
   display: block;
-  height: 3px;
-  width: 100%;
+  width: 4px;
+  align-self: stretch;
   flex-shrink: 0;
   background: rgb(203 213 225); // default / unknown
+}
+
+// ── Card inner (flex column, fills remaining width after accent bar) ──────────
+.card-inner {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .pos-accent-qb {
@@ -282,6 +290,49 @@
   }
 }
 
+// ── Injury badge ──────────────────────────────────────────────────────────────
+.injury-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  border-radius: 999px;
+  padding: 0 0.3125rem;
+  margin-left: 0.25rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.injury-out {
+  background: rgb(254 226 226);
+  border: 1px solid rgb(239 68 68);
+  color: rgb(153 27 27);
+}
+
+.injury-doubtful {
+  background: rgb(255 237 213);
+  border: 1px solid rgb(249 115 22);
+  color: rgb(154 52 18);
+}
+
+.injury-questionable {
+  background: rgb(254 249 195);
+  border: 1px solid rgb(234 179 8);
+  color: rgb(113 63 18);
+}
+
+// ── Trending badge ────────────────────────────────────────────────────────────
+.trending-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: rgb(22 163 74);
+  margin-left: 0.25rem;
+  vertical-align: middle;
+}
+
 // ── Rookie badge ──────────────────────────────────────────────────────────────
 .rookie-badge {
   display: inline-flex;
@@ -462,6 +513,28 @@ html.dark {
     background: rgb(67 20 7);
     border-color: rgb(234 88 12);
     color: rgb(253 186 116);
+  }
+
+  .injury-out {
+    background: rgb(127 29 29);
+    border-color: rgb(220 38 38);
+    color: rgb(252 165 165);
+  }
+
+  .injury-doubtful {
+    background: rgb(67 20 7);
+    border-color: rgb(234 88 12);
+    color: rgb(253 186 116);
+  }
+
+  .injury-questionable {
+    background: rgb(66 32 6);
+    border-color: rgb(202 138 4);
+    color: rgb(252 211 77);
+  }
+
+  .trending-badge {
+    color: rgb(74 222 128);
   }
 
   .rookie-badge {

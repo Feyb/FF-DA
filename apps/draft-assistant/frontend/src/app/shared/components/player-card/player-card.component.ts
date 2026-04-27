@@ -45,6 +45,10 @@ export class PlayerCardComponent {
   readonly positionRank = input<number | null>(null);
   /** True when the player is a current-year rookie. */
   readonly isRookie = input<boolean>(false);
+  /** Injury designation string (e.g. "Out", "Questionable", "IR"). */
+  readonly injuryStatus = input<string | null>(null);
+  /** FantasyCalc 30-day value trend; positive = trending up. */
+  readonly trendingAdds = input<number | null>(null);
 
   // ── Star / bookmark ───────────────────────────────────────────────────────────
   readonly showStar = input<boolean>(false);
@@ -119,6 +123,26 @@ export class PlayerCardComponent {
     if (s >= 90) return "wcs-high";
     if (s >= 55) return "wcs-mid";
     return "wcs-low";
+  });
+
+  protected readonly injuryBadgeLabel = computed((): string | null => {
+    const s = this.injuryStatus();
+    if (!s) return null;
+    const u = s.toUpperCase();
+    if (u === "IR") return "IR";
+    if (u === "PUP") return "PUP";
+    if (u === "OUT" || u === "O") return "Out";
+    if (u === "DOUBTFUL" || u === "D") return "Dbt";
+    if (u === "QUESTIONABLE" || u === "Q") return "Q";
+    return s.slice(0, 4);
+  });
+
+  protected readonly injuryBadgeClass = computed((): string => {
+    const u = (this.injuryStatus() ?? "").toUpperCase();
+    if (u === "IR" || u === "PUP" || u === "OUT" || u === "O") return "injury-out";
+    if (u === "DOUBTFUL" || u === "D") return "injury-doubtful";
+    if (u === "QUESTIONABLE" || u === "Q") return "injury-questionable";
+    return u ? "injury-out" : "";
   });
 
   protected readonly valueGapClass = computed((): string => {
