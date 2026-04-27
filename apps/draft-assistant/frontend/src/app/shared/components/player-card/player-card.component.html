@@ -28,7 +28,13 @@
             >
           }
           @if (!isDrafted() && trendingAdds() !== null && trendingAdds()! > 0) {
-            <span class="trending-badge" title="Trending up on FantasyCalc">↑</span>
+            <span
+              class="trending-badge"
+              title="Trending up on FantasyCalc"
+              role="img"
+              aria-label="Trending up on FantasyCalc"
+              >↑</span
+            >
           }
           @if (!isDrafted() && isGoingSoon()) {
             <span class="going-soon-badge" title="Expected to be picked very soon"

@@ -147,7 +147,7 @@ export class PlayerCardComponent {
     if (u === "OUT" || u === "O") return "Out";
     if (u === "DOUBTFUL" || u === "D") return "Dbt";
     if (u === "QUESTIONABLE" || u === "Q") return "Q";
-    return s.slice(0, 4);
+    return null;
   });
 
   protected readonly injuryBadgeClass = computed((): string => {
@@ -155,7 +155,7 @@ export class PlayerCardComponent {
     if (u === "IR" || u === "PUP" || u === "OUT" || u === "O") return "injury-out";
     if (u === "DOUBTFUL" || u === "D") return "injury-doubtful";
     if (u === "QUESTIONABLE" || u === "Q") return "injury-questionable";
-    return u ? "injury-out" : "";
+    return "";
   });
 
   protected readonly valueGapClass = computed((): string => {
