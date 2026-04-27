@@ -53,6 +53,24 @@ export class BestAvailableCardComponent {
     return "wcs-low";
   }
 
+  protected effGradeForPlayer(entry: BestAvailableEntry): string | null {
+    if (!entry.player) return null;
+    const score = this.store.effScoreByPlayer().get(entry.player.playerId);
+    if (score === undefined || score === null) return null;
+    if (score >= 1.5) return "A+";
+    if (score >= 0.75) return "A";
+    if (score >= 0) return "B";
+    if (score >= -0.75) return "C";
+    return "D";
+  }
+
+  protected effGradeClass(grade: string): string {
+    if (grade === "A+" || grade === "A") return "eff-high";
+    if (grade === "B") return "eff-mid";
+    if (grade === "C") return "eff-neutral";
+    return "eff-low";
+  }
+
   protected playerHeadshotUrl(playerId: string): string {
     return `https://sleepercdn.com/content/nfl/players/thumb/${playerId}.jpg`;
   }
