@@ -75,6 +75,7 @@
           [injuryStatus]="player.injuryStatus"
           [trendingAdds]="player.fantasyCalcTrend30Day"
           [effGrade]="effGradeForPlayer(player)"
+          [explanation]="store.wcsExplanationByPlayer().get(player.playerId) ?? null"
           [isDrafted]="player.isDrafted"
           [availabilityRisk]="player.availabilityRisk"
           [isGoingSoon]="player.isGoingSoon"

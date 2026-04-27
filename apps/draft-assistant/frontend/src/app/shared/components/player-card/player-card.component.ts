@@ -51,6 +51,8 @@ export class PlayerCardComponent {
   readonly trendingAdds = input<number | null>(null);
   /** Efficiency letter grade derived from the player's EffScore (A+, A, B, C, D). */
   readonly effGrade = input<string | null>(null);
+  /** WCS explanation text shown below the pills row. */
+  readonly explanation = input<string | null>(null);
 
   // ── Star / bookmark ───────────────────────────────────────────────────────────
   readonly showStar = input<boolean>(false);

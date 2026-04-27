@@ -129,6 +129,11 @@
       </div>
     }
 
+    <!-- WCS explanation text -->
+    @if (!isDrafted() && explanation()) {
+      <p class="player-explanation">{{ explanation() }}</p>
+    }
+
     <!-- Stats row (rendered when season stats are available) -->
     @if (statChips().length > 0) {
       <div class="stats-row" [class.stats-row--drafted]="isDrafted()">

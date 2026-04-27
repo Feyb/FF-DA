@@ -409,6 +409,19 @@
   }
 }
 
+// ── WCS explanation text ──────────────────────────────────────────────────────
+.player-explanation {
+  margin: 0;
+  padding: 0.25rem 0.5rem 0.3125rem;
+  font-size: 0.6875rem;
+  font-style: italic;
+  color: rgb(100 116 139);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-top: 1px solid rgb(226 232 240);
+}
+
 // ── Stats row ─────────────────────────────────────────────────────────────────
 .stats-row {
   display: flex;
@@ -636,6 +649,11 @@ html.dark {
 
   .adp-neutral {
     color: rgb(100 116 139);
+  }
+
+  .player-explanation {
+    color: rgb(71 85 105);
+    border-top-color: rgb(51 65 85);
   }
 
   .stats-row {
