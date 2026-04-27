@@ -58,37 +58,6 @@
             {{ wcsDisplay() }}
           </span>
         }
-        @if (player().combinedTier !== null && player().combinedTier !== undefined) {
-          <span class="tier-badge" title="Combined Tier (KTC + Flock)">
-            T{{ player().combinedTier }}
-          </span>
-        }
-        @if (rank() !== null) {
-          <span class="rank-badge">
-            @if (rankLabel()) {
-              <span class="rank-source">{{ rankLabel() }}</span>
-            }
-            #{{ rank() }}
-          </span>
-        }
-        @if (adpDeltaLabel()) {
-          <span class="adp-delta" [ngClass]="adpDeltaClass()" title="ADP Delta">
-            {{ adpDeltaLabel() }}
-          </span>
-        }
-        @if (valueGap() !== null) {
-          <span
-            class="vg-dot"
-            [ngClass]="valueGapClass()"
-            title="Value gap between KTC and Flock tiers"
-          >
-            @if (valueGap() === 0) {
-              ✓
-            } @else {
-              ●
-            }
-          </span>
-        }
       </div>
 
       <div class="card-actions">
@@ -109,6 +78,56 @@
         }
       </div>
     </div>
+
+    <!-- Labelled mini-pills row -->
+    @if (
+      rank() !== null ||
+      positionRank() !== null ||
+      player().combinedTier !== null ||
+      player().combinedPositionalTier !== null ||
+      effGrade() !== null ||
+      adpDeltaLabel()
+    ) {
+      <div class="pills-row">
+        @if (rank() !== null) {
+          <span class="meta-pill">
+            <span class="pill-label">{{ rankLabel() || "Rank" }}</span>
+            <span class="pill-val">#{{ rank() }}</span>
+          </span>
+        }
+        @if (positionRank() !== null) {
+          <span class="meta-pill">
+            <span class="pill-label">Pos</span>
+            <span class="pill-val">{{ player().position }}{{ positionRank() }}</span>
+          </span>
+        }
+        @if (player().combinedTier !== null && player().combinedTier !== undefined) {
+          <span class="meta-pill">
+            <span class="pill-label">Tier</span>
+            <span class="pill-val">T{{ player().combinedTier }}</span>
+          </span>
+        }
+        @if (
+          player().combinedPositionalTier !== null && player().combinedPositionalTier !== undefined
+        ) {
+          <span class="meta-pill">
+            <span class="pill-label">OvTier</span>
+            <span class="pill-val">T{{ player().combinedPositionalTier }}</span>
+          </span>
+        }
+        @if (effGrade() !== null) {
+          <span class="meta-pill eff-pill" [ngClass]="effGradePillClass()">
+            <span class="pill-label">Eff</span>
+            <span class="pill-val">{{ effGrade() }}</span>
+          </span>
+        }
+        @if (adpDeltaLabel()) {
+          <span class="adp-delta" [ngClass]="adpDeltaClass()" title="ADP Delta">
+            {{ adpDeltaLabel() }}
+          </span>
+        }
+      </div>
+    }
 
     <!-- Stats row (rendered when season stats are available) -->
     @if (statChips().length > 0) {

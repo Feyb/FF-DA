@@ -86,6 +86,16 @@ export class DraftPlayerListComponent {
     }
   }
 
+  protected effGradeForPlayer(row: DraftPlayerRow): string | null {
+    const score = this.store.effScoreByPlayer().get(row.playerId);
+    if (score === undefined || score === null) return null;
+    if (score >= 1.5) return "A+";
+    if (score >= 0.75) return "A";
+    if (score >= 0) return "B";
+    if (score >= -0.75) return "C";
+    return "D";
+  }
+
   protected tierColorClass(row: DraftPlayerDisplayRow): string {
     if (row.isDrafted) return "";
     return getTierColorClass(this.rowResolvedTier(row));

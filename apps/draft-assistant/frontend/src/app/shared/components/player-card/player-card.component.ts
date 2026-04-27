@@ -49,6 +49,8 @@ export class PlayerCardComponent {
   readonly injuryStatus = input<string | null>(null);
   /** FantasyCalc 30-day value trend; positive = trending up. */
   readonly trendingAdds = input<number | null>(null);
+  /** Efficiency letter grade derived from the player's EffScore (A+, A, B, C, D). */
+  readonly effGrade = input<string | null>(null);
 
   // ── Star / bookmark ───────────────────────────────────────────────────────────
   readonly showStar = input<boolean>(false);
@@ -123,6 +125,15 @@ export class PlayerCardComponent {
     if (s >= 90) return "wcs-high";
     if (s >= 55) return "wcs-mid";
     return "wcs-low";
+  });
+
+  protected readonly effGradePillClass = computed((): string => {
+    const g = this.effGrade();
+    if (!g) return "";
+    if (g === "A+" || g === "A") return "eff-high";
+    if (g === "B") return "eff-mid";
+    if (g === "C") return "eff-neutral";
+    return "eff-low";
   });
 
   protected readonly injuryBadgeLabel = computed((): string | null => {
