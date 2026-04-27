@@ -3,7 +3,12 @@ import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { BestAvailableEntry, DraftStore, rankForSortSource } from "../draft.store";
-import { adpDeltaClass, adpDeltaLabel, sortSourceShortLabel } from "../draft-display.util";
+import {
+  adpDeltaClass,
+  adpDeltaLabel,
+  effGradeFromScore,
+  sortSourceShortLabel,
+} from "../draft-display.util";
 import { TierLegendComponent } from "../../../shared/components/tier-legend";
 import { TierColorPipe } from "../../../shared/pipes";
 import { PLAYER_FALLBACK_IMAGE } from "../../../core/constants/images.constants";
@@ -51,6 +56,18 @@ export class BestAvailableCardComponent {
     if (score >= 90) return "wcs-high";
     if (score >= 55) return "wcs-mid";
     return "wcs-low";
+  }
+
+  protected effGradeForPlayer(entry: BestAvailableEntry): string | null {
+    if (!entry.player) return null;
+    return effGradeFromScore(this.store.effScoreByPlayer().get(entry.player.playerId));
+  }
+
+  protected effGradeClass(grade: string): string {
+    if (grade === "A+" || grade === "A") return "eff-high";
+    if (grade === "B") return "eff-mid";
+    if (grade === "C") return "eff-neutral";
+    return "eff-low";
   }
 
   protected playerHeadshotUrl(playerId: string): string {

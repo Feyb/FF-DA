@@ -372,6 +372,7 @@ export interface PlayerCardData {
   overallTier: number | null;
   flockAverageTier: number | null;
   combinedTier?: number | null;
+  combinedPositionalTier?: number | null;
   fpAdpRank?: number | null;
 }
 

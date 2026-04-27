@@ -1,7 +1,11 @@
 /**
- * Fetch nflverse ff_opportunity data (xFP, weighted_opportunity).
+ * Derive ff_opportunity metrics from player_stats_season.csv.
  *
- * Source: github.com/nflverse/nflverse-data/releases/download/ff_opportunity/ff_opportunity.csv
+ * The nflverse ff_opportunity release (ff_opportunity.csv) was deprecated;
+ * weighted_opportunity is now computed as the industry-standard approximation:
+ *   weighted_opportunity = 0.5 × carries + targets   (Scott Barrett formula)
+ *
+ * Source: github.com/nflverse/nflverse-data/releases/download/player_stats/player_stats_season.csv
  * Output: src/assets/nflverse/ff-opportunity.json
  * Usage: node scripts/fetch-nflverse-ff-opportunity.mjs
  */
@@ -15,9 +19,7 @@ const OUTPUT_DIR = resolve(__dirname, "../src/assets/nflverse");
 const OUTPUT_FILE = resolve(OUTPUT_DIR, "ff-opportunity.json");
 
 const URL =
-  "https://github.com/nflverse/nflverse-data/releases/download/ff_opportunity/ff_opportunity.csv";
-
-const NUMERIC = ["season", "xfp", "weighted_opportunity", "wopr_y", "wopr_x", "racr"];
+  "https://github.com/nflverse/nflverse-data/releases/download/player_stats/player_stats_season.csv";
 
 function parseCsv(text) {
   const lines = text.split("\n");
@@ -36,28 +38,37 @@ function parseCsv(text) {
 }
 
 async function main() {
+  console.log(`Fetching ${URL}…`);
   const res = await fetch(URL);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const rows = parseCsv(await res.text());
 
+  // Keep only regular-season rows; pick the most recent season per player.
   const byPlayer = new Map();
   for (const row of rows) {
     if (!row.player_id) continue;
+    if ((row.season_type ?? "REG") !== "REG") continue;
+
     const season = Number(row.season ?? 0);
     const existing = byPlayer.get(row.player_id);
     if (existing && existing.season > season) continue;
-    if (existing && existing.season === season) {
-      // Accumulate season totals.
-      for (const f of ["xfp", "weighted_opportunity"]) {
-        existing[f] = (existing[f] ?? 0) + (Number(row[f]) || 0);
-      }
-      continue;
-    }
-    const entry = { player_id: row.player_id, season };
-    for (const f of NUMERIC) {
-      entry[f] = Number(row[f] ?? 0) || 0;
-    }
-    byPlayer.set(row.player_id, entry);
+
+    const carries = Number(row.carries ?? 0) || 0;
+    const targets = Number(row.targets ?? 0) || 0;
+    const wopr = Number(row.wopr ?? 0) || 0;
+    const xfp = Number(row.fantasy_points_ppr ?? 0) || 0;
+
+    byPlayer.set(row.player_id, {
+      player_id: row.player_id,
+      season,
+      // Standard industry approximation: 0.5 × carries + targets
+      weighted_opportunity: 0.5 * carries + targets,
+      // season-level WOPR (same field as player_stats weekly average)
+      wopr_y: wopr,
+      wopr_x: wopr,
+      racr: Number(row.racr ?? 0) || 0,
+      xfp,
+    });
   }
 
   const output = { generatedAt: new Date().toISOString(), players: [...byPlayer.values()] };

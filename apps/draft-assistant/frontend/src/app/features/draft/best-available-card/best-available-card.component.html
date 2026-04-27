@@ -42,13 +42,26 @@
                   </span>
                 }
               </div>
-              <div class="ba-meta">
+              <div class="ba-pills">
                 @let rank = bestAvailableRank(entry);
-                @if (entry.player.combinedTier !== null) {
-                  <span class="ba-meta-chip">T{{ entry.player.combinedTier }}</span>
-                }
                 @if (rank !== null) {
-                  <span class="ba-meta-chip">#{{ rank }} {{ sortSourceShortLabel() }}</span>
+                  <span class="ba-pill">
+                    <span class="ba-pill-label">{{ sortSourceShortLabel() }}</span>
+                    <span class="ba-pill-val">#{{ rank }}</span>
+                  </span>
+                }
+                @if (entry.player.combinedTier !== null) {
+                  <span class="ba-pill">
+                    <span class="ba-pill-label">Tier</span>
+                    <span class="ba-pill-val">T{{ entry.player.combinedTier }}</span>
+                  </span>
+                }
+                @let effGrade = effGradeForPlayer(entry);
+                @if (effGrade !== null) {
+                  <span class="ba-pill ba-eff-pill" [ngClass]="effGradeClass(effGrade)">
+                    <span class="ba-pill-label">Eff</span>
+                    <span class="ba-pill-val">{{ effGrade }}</span>
+                  </span>
                 }
                 @if (entry.player.team) {
                   <span class="ba-meta-chip ba-team">{{ entry.player.team }}</span>

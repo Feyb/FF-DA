@@ -59,3 +59,26 @@ export function adpDeltaClass(delta: number | null): string {
   if (delta < -1) return "adp-reach";
   return "adp-neutral";
 }
+
+/**
+ * Maps an EffScore z-score to a letter grade.
+ * Returns null when the score is null (< 6 games of data).
+ * Thresholds: A+ ≥ 1.5 · A ≥ 0.75 · B ≥ 0 · C ≥ −0.75 · D < −0.75
+ */
+export function effGradeFromScore(score: number | null | undefined): string | null {
+  if (score === null || score === undefined) return null;
+  if (score >= 1.5) return "A+";
+  if (score >= 0.75) return "A";
+  if (score >= 0) return "B";
+  if (score >= -0.75) return "C";
+  return "D";
+}
+
+/** CSS modifier class for a letter-grade Eff pill. */
+export function effGradePillClass(grade: string | null): string {
+  if (!grade) return "";
+  if (grade === "A+" || grade === "A") return "eff-high";
+  if (grade === "B") return "eff-mid";
+  if (grade === "C") return "eff-neutral";
+  return "eff-low";
+}

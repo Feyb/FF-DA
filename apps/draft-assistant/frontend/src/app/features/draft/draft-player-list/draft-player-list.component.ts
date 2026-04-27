@@ -12,7 +12,11 @@ import { toSignal, toObservable } from "@angular/core/rxjs-interop";
 import { switchMap } from "rxjs";
 import { DraftPlayerRow, SleeperPlayerStats } from "../../../core/models";
 import { DraftPlayerDisplayRow, DraftStore, rankForSortSource } from "../draft.store";
-import { sortSourceRankLabel, sortSourceShortLabel } from "../draft-display.util";
+import {
+  sortSourceRankLabel,
+  sortSourceShortLabel,
+  effGradeFromScore,
+} from "../draft-display.util";
 import { getTierColorClass } from "../../../shared/pipes/tier-color.pipe";
 import { resolveDraftTier } from "../draft-ranking.util";
 import { SleeperStatsService } from "../../../core/adapters/sleeper/sleeper-stats.service";
@@ -84,6 +88,10 @@ export class DraftPlayerListComponent {
       default:
         return null;
     }
+  }
+
+  protected effGradeForPlayer(row: DraftPlayerRow): string | null {
+    return effGradeFromScore(this.store.effScoreByPlayer().get(row.playerId));
   }
 
   protected tierColorClass(row: DraftPlayerDisplayRow): string {
