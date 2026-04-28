@@ -149,6 +149,19 @@ export interface DraftPlayerRow {
   weightedCompositeScore: number | null;
   /** Injury designation from Sleeper catalog (e.g. "Questionable", "Out", "IR"). Null when healthy. */
   injuryStatus: string | null;
+  // Phase 3 — rookie, scheme, and college metrics.
+  /** Rookie Score z-composite (replaces EffScore in rookie mode for yearsExp ≤ 1). Null for veterans. */
+  rookieScore: number | null;
+  /** Scheme Fit in [−1, +1]; positive = player archetype matches team OC tendencies. */
+  schemeFit: number | null;
+  /** College Dominator Rating (target/carry + scoring share) from CFBD. Null when unavailable. */
+  dominatorRating: number | null;
+  /** Age at first 20% Dominator Rating season (lower = earlier breakout). Null when unavailable. */
+  breakoutAge: number | null;
+  /** Relative Athletic Score from NFL combine (0–10). Null when unavailable. */
+  ras: number | null;
+  /** Vacated target share from departing WR/TE on the same team (0–1). Null when unavailable. */
+  landingVacatedTargetPct: number | null;
 }
 
 export interface DraftRecommendation {

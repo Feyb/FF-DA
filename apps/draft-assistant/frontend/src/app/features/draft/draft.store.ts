@@ -46,6 +46,11 @@ import { generateExplanation } from "./score-explanation.util";
 import { buildEffScoreInputs, computeEffScores } from "./utils/efficiency-score.util";
 import { buildContextModMap, ContextModInputs } from "./utils/context-mod.util";
 import { computeVnp, VnpPlayer } from "./utils/vnp.util";
+import {
+  computeRunHeat,
+  countRecentPositionPicks,
+  POSITION_RUN_WINDOW,
+} from "./utils/board-state.util";
 import { toErrorMessage } from "../../core/utils/error.util";
 import { togglePositionFilter } from "../../core/utils/position-filter.util";
 import { toMapById } from "../../core/utils/array-mapping.util";
@@ -426,38 +431,15 @@ export const DraftStore = signalStore(
         return out;
       });
 
-      const POSITION_RUN_WINDOW = 6;
-      // Expected fraction of picks at each position in a typical round.
-      const EXPECTED_RUN_RATE: Record<string, number> = {
-        WR: 0.25,
-        RB: 0.2,
-        QB: 0.1,
-        TE: 0.1,
-      };
-
       // RunHeat: soft signal for when a position run is actively happening.
-      // tanh(((count - expected) * 0.7) / 1.5), clamped to [-0.1, +0.2].
+      // Extracted to board-state.util.ts; tanh-clamped to [-0.1, +0.2].
       const runHeatByPlayer = computed((): Map<string, number> => {
         const posByPlayerId = new Map(store.rows().map((r) => [r.playerId, r.position]));
-        const counts: Record<string, number> = { QB: 0, RB: 0, WR: 0, TE: 0 };
-        const recent = store
-          .picks()
-          .slice()
-          .sort((a, b) => b.pick_no - a.pick_no)
-          .slice(0, POSITION_RUN_WINDOW);
-        for (const pick of recent) {
-          const pos = posByPlayerId.get(pick.player_id);
-          if (typeof pos === "string" && pos in counts) counts[pos]++;
-        }
-        const out = new Map<string, number>();
-        for (const row of store.rows()) {
-          const pos = row.position;
-          const count = counts[pos] ?? 0;
-          const expected = (EXPECTED_RUN_RATE[pos] ?? 0.2) * POSITION_RUN_WINDOW;
-          const heat = Math.tanh(((count - expected) * 0.7) / 1.5);
-          out.set(row.playerId, Math.max(-0.1, Math.min(0.2, heat)));
-        }
-        return out;
+        return computeRunHeat(
+          store.picks(),
+          posByPlayerId,
+          store.rows().map((r) => r.playerId),
+        );
       });
 
       // EffScore: position-specific composite from nflverse data (WOPR/YPRR/etc.).
@@ -552,26 +534,11 @@ export const DraftStore = signalStore(
         const picksMap = draftPicksMap();
         const currentPickNumber = store.picks().length + 1;
 
-        // Re-use the per-position run counts computed by runHeatByPlayer.
-        // Recompute inline here (cheap) to avoid coupling to the run heat Map.
-        const recentPositions: Record<"QB" | "RB" | "WR" | "TE", number> = {
-          QB: 0,
-          RB: 0,
-          WR: 0,
-          TE: 0,
-        };
         const posByPlayerId = new Map(store.rows().map((r) => [r.playerId, r.position]));
-        const recent = store
-          .picks()
-          .slice()
-          .sort((a, b) => b.pick_no - a.pick_no)
-          .slice(0, POSITION_RUN_WINDOW);
-        for (const pick of recent) {
-          const pos = posByPlayerId.get(pick.player_id);
-          if (pos && pos in recentPositions) {
-            recentPositions[pos as "QB" | "RB" | "WR" | "TE"]++;
-          }
-        }
+        const recentPositions = countRecentPositionPicks(store.picks(), posByPlayerId) as Record<
+          "QB" | "RB" | "WR" | "TE",
+          number
+        >;
 
         // #12 StackSynergy — map each NFL team to the QB name on the user's roster.
         const rowByPlayerId = new Map(store.rows().map((r) => [r.playerId, r]));
@@ -666,6 +633,12 @@ export const DraftStore = signalStore(
               pAvailAtNext: pAvailMap.get(row.playerId) ?? null,
               tierCliffScore: cliffMap.get(row.playerId)?.cliff ?? null,
               weightedCompositeScore: wcsMap.get(row.playerId) ?? null,
+              rookieScore: null,
+              schemeFit: null,
+              dominatorRating: null,
+              breakoutAge: null,
+              ras: null,
+              landingVacatedTargetPct: null,
             };
           });
         }),

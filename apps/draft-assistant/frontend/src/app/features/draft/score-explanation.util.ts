@@ -12,9 +12,11 @@
  *   #11 Age risk (declining side)
  *   #14 Bye-week cluster warning (stub — fires when byeWeekCluster=true)
  *   #16 Ranker divergence / splits
+ *   #13 Scheme fit (good or adverse)
+ *   #18 Early breakout age (rookie)
+ *   #19 Elite athleticism / RAS (rookie)
+ *   #20 Vacated targets / landing spot
  *   #22 Win-now bonus (startup mode, prime age)
- *
- * Phase 2 templates (#5-8, #13, #15, #17-21) are added as nflverse data lands.
  */
 
 import type { DraftMode } from "./config/mode-weights";
@@ -70,6 +72,17 @@ export interface ExplanationSignals {
   trendingAdds?: number | null;
   /** Active Sleeper injury designation string (e.g. "Questionable", "Out", "IR"). */
   injuryStatus?: string | null;
+  // Phase 3 signals — optional until CFBD/scheme data lands.
+  /** Scheme fit in [−1, +1]; positive = player archetype matches team OC tendencies. */
+  schemeFit?: number | null;
+  /** Player's team abbreviation (e.g. "KC") for scheme-fit display. */
+  team?: string | null;
+  /** Age at first 20% Dominator Rating season (lower = earlier breakout). */
+  breakoutAge?: number | null;
+  /** Relative Athletic Score from NFL combine (0–10). */
+  ras?: number | null;
+  /** Vacated target share at landing team (0–1). */
+  landingVacatedTargetPct?: number | null;
 }
 
 export interface ExplanationOptions {
@@ -301,7 +314,7 @@ export function generateExplanation(
     const statusLower = signals.injuryStatus.toLowerCase();
     const magnitude =
       statusLower === "out" || statusLower === "ir" || statusLower === "pup"
-        ? 20
+        ? 21
         : statusLower === "doubtful"
           ? 15
           : 10;
@@ -323,6 +336,58 @@ export function generateExplanation(
     clauses.push({
       magnitude: 5,
       text: `💪 Win-now asset: prime age (${signals.age}) and top-tier value`,
+    });
+  }
+
+  // #13 Scheme fit (positive or adverse)
+  if (signals.schemeFit !== null && signals.schemeFit !== undefined) {
+    const teamLabel = signals.team ? ` (${signals.team})` : "";
+    if (signals.schemeFit >= 0.4) {
+      clauses.push({
+        magnitude: signals.schemeFit * 18,
+        text: `🏟️ Scheme fit${teamLabel}: system plays to his strengths`,
+      });
+    } else if (signals.schemeFit <= -0.4) {
+      clauses.push({
+        magnitude: Math.abs(signals.schemeFit) * 14,
+        text: `⚠️ Scheme mismatch${teamLabel}: system works against his archetype`,
+      });
+    }
+  }
+
+  // #18 Early breakout age (rookie)
+  if (
+    signals.breakoutAge !== null &&
+    signals.breakoutAge !== undefined &&
+    signals.breakoutAge <= 19 &&
+    signals.nflRound !== null &&
+    signals.nflRound !== undefined
+  ) {
+    clauses.push({
+      magnitude: (20 - signals.breakoutAge) * 3,
+      text: `⚡ Early breakout (age ${signals.breakoutAge}): elite college production young`,
+    });
+  }
+
+  // #19 Elite athleticism (RAS)
+  if (signals.ras !== null && signals.ras !== undefined && signals.ras >= 8.5) {
+    clauses.push({
+      magnitude: (signals.ras - 8.5) * 10 + 8,
+      text: `🏃 Elite athleticism (RAS ${signals.ras.toFixed(1)}/10)`,
+    });
+  }
+
+  // #20 Vacated targets / landing spot
+  if (
+    signals.landingVacatedTargetPct !== null &&
+    signals.landingVacatedTargetPct !== undefined &&
+    signals.landingVacatedTargetPct >= 0.15
+  ) {
+    const pct = Math.round(signals.landingVacatedTargetPct * 100);
+    const teamLabel = signals.team ? ` at ${signals.team}` : "";
+    clauses.push({
+      magnitude: signals.landingVacatedTargetPct * 80,
+      text: `📬 Vacated targets: ${pct}% target share available${teamLabel}`,
     });
   }
 
