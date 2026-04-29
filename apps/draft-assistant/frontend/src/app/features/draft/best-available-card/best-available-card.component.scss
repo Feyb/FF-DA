@@ -181,15 +181,6 @@
   color: rgb(71 85 105);
 }
 
-.ba-reason {
-  font-size: 0.6875rem;
-  color: rgb(100 116 139);
-  font-style: italic;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .ba-empty {
   grid-column: 2 / -1;
   font-size: 0.8125rem;
@@ -364,10 +355,6 @@ html.dark {
 
   .ba-team {
     color: rgb(100 116 139);
-  }
-
-  .ba-reason {
-    color: rgb(71 85 105);
   }
 
   .ba-empty {

@@ -45,6 +45,7 @@ import { computeTierCliff, TierCliffPlayer } from "./tier-cliff.util";
 import { generateExplanation } from "./score-explanation.util";
 import { buildEffScoreInputs, computeEffScores } from "./utils/efficiency-score.util";
 import { buildContextModMap, ContextModInputs } from "./utils/context-mod.util";
+import { buildSchemeFitMap, SchemeFitInputs } from "./utils/scheme-fit.util";
 import { computeVnp, VnpPlayer } from "./utils/vnp.util";
 import {
   computeRunHeat,
@@ -459,9 +460,25 @@ export const DraftStore = signalStore(
         return computeEffScores(inputs);
       });
 
-      // ContextMod: AgeMult × CapitalMult × EffMult × SchemeFit(stub=1.0).
+      // SchemeFit: positional archetype vs OC tendency profile.
+      const schemeFitByPlayer = computed((): Map<string, number> => {
+        const rows = store.rows();
+        if (rows.length === 0) return new Map();
+        const inputs: SchemeFitInputs[] = rows.map((row) => ({
+          playerId: row.playerId,
+          position: row.position,
+          team: row.team,
+          aDot: null,
+          snapShare: null,
+          depthChartOrder: null,
+        }));
+        return buildSchemeFitMap(inputs);
+      });
+
+      // ContextMod: AgeMult × CapitalMult × EffMult × SchemeFitMult.
       const contextModByPlayer = computed((): Map<string, number> => {
         const effMap = effScoreByPlayer();
+        const schemeMap = schemeFitByPlayer();
         const picksMap = draftPicksMap();
         const mode = store.draftMode();
         const inputs: ContextModInputs[] = store.rows().map((row) => ({
@@ -471,6 +488,7 @@ export const DraftStore = signalStore(
           nflRound: picksMap.get(row.playerId)?.round ?? null,
           yearsExp: row.yearsExp,
           effScore: effMap.get(row.playerId) ?? null,
+          schemeFit: schemeMap.get(row.playerId) ?? null,
         }));
         return buildContextModMap(inputs, mode);
       });
@@ -611,6 +629,7 @@ export const DraftStore = signalStore(
         needMultiplierByPlayer,
         runHeatByPlayer,
         effScoreByPlayer,
+        schemeFitByPlayer,
         contextModByPlayer,
         vnpByPlayer,
         weightedCompositeByPlayer,
@@ -624,6 +643,7 @@ export const DraftStore = signalStore(
           const cliffMap = tierCliffByPlayer();
           const pAvailMap = pAvailAtNextByPlayer();
           const wcsMap = weightedCompositeByPlayer();
+          const schemeMap = schemeFitByPlayer();
           return store.rows().map((row) => {
             const base = baseMap.get(row.playerId);
             return {
@@ -634,7 +654,7 @@ export const DraftStore = signalStore(
               tierCliffScore: cliffMap.get(row.playerId)?.cliff ?? null,
               weightedCompositeScore: wcsMap.get(row.playerId) ?? null,
               rookieScore: null,
-              schemeFit: null,
+              schemeFit: schemeMap.get(row.playerId) ?? null,
               dominatorRating: null,
               breakoutAge: null,
               ras: null,

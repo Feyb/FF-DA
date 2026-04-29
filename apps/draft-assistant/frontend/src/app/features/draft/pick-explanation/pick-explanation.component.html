@@ -1,0 +1,15 @@
+@if (clauses().length > 0) {
+  <div class="pick-explanation">
+    @if (showDivergenceBar()) {
+      <div
+        class="divergence-bar"
+        title="Rankers disagree significantly on this player's value"
+      ></div>
+    }
+    <div class="pe-clauses">
+      @for (clause of clauses(); track clause) {
+        <span class="pe-clause">{{ clause }}</span>
+      }
+    </div>
+  </div>
+}
