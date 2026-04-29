@@ -40,6 +40,12 @@ function buildRow(overrides: Partial<DraftPlayerRow> = {}): DraftPlayerRow {
     tierCliffScore: null,
     weightedCompositeScore: null,
     injuryStatus: null,
+    rookieScore: null,
+    schemeFit: null,
+    dominatorRating: null,
+    breakoutAge: null,
+    ras: null,
+    landingVacatedTargetPct: null,
     ...overrides,
   };
 }

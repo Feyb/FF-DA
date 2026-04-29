@@ -136,6 +136,12 @@ export class PlayerNormalizationService {
       tierCliffScore: null,
       weightedCompositeScore: null,
       injuryStatus: source.injury_status ?? null,
+      rookieScore: null,
+      schemeFit: null,
+      dominatorRating: null,
+      breakoutAge: null,
+      ras: null,
+      landingVacatedTargetPct: null,
     };
   }
 

@@ -12,13 +12,21 @@ import {
 import { TierLegendComponent } from "../../../shared/components/tier-legend";
 import { TierColorPipe } from "../../../shared/pipes";
 import { PLAYER_FALLBACK_IMAGE } from "../../../core/constants/images.constants";
+import { PickExplanationComponent } from "../pick-explanation/pick-explanation.component";
 
 @Component({
   selector: "app-best-available-card",
   templateUrl: "./best-available-card.component.html",
   styleUrl: "./best-available-card.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatCardModule, MatIconModule, TierLegendComponent, TierColorPipe],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatIconModule,
+    TierLegendComponent,
+    TierColorPipe,
+    PickExplanationComponent,
+  ],
 })
 export class BestAvailableCardComponent {
   protected readonly store = inject(DraftStore);
