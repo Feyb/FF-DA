@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T21:03:28.740Z",
+  "generatedAt": "2026-04-29T19:34:11.026Z",
   "players": [
     {
       "player_id": "00-0023459",
@@ -3619,8 +3619,8 @@
       "birth_date": "1994-10-10",
       "years_exp": 8,
       "position": "WR",
-      "team": "PIT",
-      "status": "UFA",
+      "team": "DAL",
+      "status": "ACT",
       "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2026
@@ -5731,8 +5731,8 @@
       "birth_date": "1995-04-03",
       "years_exp": 7,
       "position": "QB",
-      "team": "DAL",
-      "status": "UFA",
+      "team": "CAR",
+      "status": "ACT",
       "depth_chart_position": "QB",
       "depth_chart_order": null,
       "season": 2026
@@ -7806,10 +7806,10 @@
       "full_name": "Jonathan Greenard",
       "birth_date": "1997-05-25",
       "years_exp": 6,
-      "position": "DL",
-      "team": "MIN",
+      "position": "LB",
+      "team": "PHI",
       "status": "ACT",
-      "depth_chart_position": "DE",
+      "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -8936,7 +8936,7 @@
       "years_exp": 6,
       "position": "RB",
       "team": "SEA",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "RB",
       "depth_chart_order": null,
       "season": 2026
@@ -9043,8 +9043,8 @@
       "birth_date": "1998-08-25",
       "years_exp": 6,
       "position": "WR",
-      "team": "NYJ",
-      "status": "UFA",
+      "team": "DAL",
+      "status": "ACT",
       "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2026
@@ -9991,8 +9991,8 @@
       "birth_date": "1998-06-02",
       "years_exp": 5,
       "position": "LB",
-      "team": "SF",
-      "status": "UFA",
+      "team": "DAL",
+      "status": "ACT",
       "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
@@ -11794,30 +11794,6 @@
       "team": "CHI",
       "status": "ACT",
       "depth_chart_position": "SAF",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0037097",
-      "full_name": "Trenton Gill",
-      "birth_date": "1999-01-01",
-      "years_exp": 4,
-      "position": "P",
-      "team": "ATL",
-      "status": "ACT",
-      "depth_chart_position": "P",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0037098",
-      "full_name": "Samori Toure",
-      "birth_date": "1998-03-24",
-      "years_exp": 4,
-      "position": "WR",
-      "team": "NO",
-      "status": "ACT",
-      "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -14204,7 +14180,7 @@
       "years_exp": 4,
       "position": "LB",
       "team": "NYG",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
@@ -15494,18 +15470,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0038397",
-      "full_name": "Evan Hull",
-      "birth_date": "2000-10-26",
-      "years_exp": 3,
-      "position": "RB",
-      "team": "NO",
-      "status": "ACT",
-      "depth_chart_position": "RB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0038398",
       "full_name": "Karl Brooks",
       "birth_date": "2000-05-08",
@@ -16027,7 +15991,7 @@
       "birth_date": "2000-05-20",
       "years_exp": 3,
       "position": "DL",
-      "team": "LV",
+      "team": "NO",
       "status": "ACT",
       "depth_chart_position": "DE",
       "depth_chart_order": null,
@@ -16939,7 +16903,7 @@
       "birth_date": "2000-10-17",
       "years_exp": 3,
       "position": "LB",
-      "team": "SF",
+      "team": "DAL",
       "status": "ACT",
       "depth_chart_position": "LB",
       "depth_chart_order": null,
@@ -17182,18 +17146,6 @@
       "team": "ARI",
       "status": "ACT",
       "depth_chart_position": "CB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0038667",
-      "full_name": "Elijah Cooks",
-      "birth_date": "1998-10-13",
-      "years_exp": 3,
-      "position": "WR",
-      "team": "NO",
-      "status": "ACT",
-      "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -21290,18 +21242,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0039505",
-      "full_name": "John Jiles",
-      "birth_date": "2000-07-08",
-      "years_exp": 2,
-      "position": "WR",
-      "team": "NE",
-      "status": "ACT",
-      "depth_chart_position": "WR",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0039506",
       "full_name": "Alex Johnson",
       "birth_date": "2000-10-11",
@@ -24478,18 +24418,6 @@
       "team": "SEA",
       "status": "ACT",
       "depth_chart_position": "OL",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0040060",
-      "full_name": "Marshall Lang",
-      "birth_date": "2001-10-15",
-      "years_exp": 1,
-      "position": "TE",
-      "team": "NE",
-      "status": "ACT",
-      "depth_chart_position": "TE",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -33206,6 +33134,30 @@
       "season": 2025
     },
     {
+      "player_id": "00-0037097",
+      "full_name": "Trenton Gill",
+      "birth_date": "1999-01-01",
+      "years_exp": 3,
+      "position": "P",
+      "team": "ATL",
+      "status": "INA",
+      "depth_chart_position": "P",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0037098",
+      "full_name": "Samori Toure",
+      "birth_date": "1998-03-24",
+      "years_exp": 3,
+      "position": "WR",
+      "team": "NO",
+      "status": "ACT",
+      "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0037136",
       "full_name": "Mario Goodrich",
       "birth_date": "2000-01-12",
@@ -33878,6 +33830,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0038397",
+      "full_name": "Evan Hull",
+      "birth_date": "2000-10-26",
+      "years_exp": 2,
+      "position": "RB",
+      "team": "NO",
+      "status": "ACT",
+      "depth_chart_position": "RB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0038404",
       "full_name": "Titus Leo",
       "birth_date": "1999-08-26",
@@ -34162,6 +34126,18 @@
       "team": "ARI",
       "status": "CUT",
       "depth_chart_position": "CB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0038667",
+      "full_name": "Elijah Cooks",
+      "birth_date": "1998-10-13",
+      "years_exp": 2,
+      "position": "WR",
+      "team": "NO",
+      "status": "DEV",
+      "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -35090,6 +35066,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0039505",
+      "full_name": "John Jiles",
+      "birth_date": "2000-07-08",
+      "years_exp": 1,
+      "position": "WR",
+      "team": "NE",
+      "status": "DEV",
+      "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0039509",
       "full_name": "Ovie Oghoufo",
       "birth_date": "2000-03-27",
@@ -35734,6 +35722,18 @@
       "team": "BUF",
       "status": "CUT",
       "depth_chart_position": "DB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0040060",
+      "full_name": "Marshall Lang",
+      "birth_date": "2001-10-15",
+      "years_exp": 0,
+      "position": "TE",
+      "team": "NE",
+      "status": "DEV",
+      "depth_chart_position": "TE",
       "depth_chart_order": null,
       "season": 2025
     },
