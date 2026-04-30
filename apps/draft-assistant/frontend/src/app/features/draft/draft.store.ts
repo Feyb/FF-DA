@@ -10,27 +10,17 @@ import {
 } from "@ngrx/signals";
 import { forkJoin, firstValueFrom, of } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { KtcRatingService } from "../../core/adapters/ktc/ktc-rating.service";
 import { isSleeperRookieDraft } from "../../core/adapters/sleeper/sleeper-draft.util";
 import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import {
   DraftPlayerRow,
   DraftRecommendation,
-  FantasyCalcPlayer,
-  FantasyProsPlayer,
-  FfcAdpPlayer,
-  KtcPlayer,
   LeagueRoster,
   LeagueUser,
-  SleeperCatalogPlayer,
   SleeperDraft,
   SleeperDraftPick,
+  TierSource,
 } from "../../core/models";
-import { FlockRatingService } from "../../core/adapters/flock/flock-rating.service";
-import { FantasyProsAdpService } from "../../core/adapters/fantasypros/fantasypros-adp.service";
-import { FantasyCalcService } from "../../core/adapters/fantasycalc/fantasycalc.service";
-import { FfcAdpService } from "../../core/adapters/ffc/ffc-adp.service";
-import { FlockPlayer, TierSource } from "../../core/models";
 import { mapRosterAvatarIds } from "./draft-board-grid/draft-board-grid.util";
 import { AppStore } from "../../core/state/app.store";
 import { StorageService } from "../../core/services/storage.service";
@@ -1088,11 +1078,6 @@ export const DraftStore = signalStore(
       store,
       appStore = inject(AppStore),
       sleeper = inject(SleeperService),
-      ktc = inject(KtcRatingService),
-      flock = inject(FlockRatingService),
-      fpAdp = inject(FantasyProsAdpService),
-      fc = inject(FantasyCalcService),
-      ffc = inject(FfcAdpService),
       storage = inject(StorageService),
       playerNorm = inject(PlayerNormalizationService),
     ) => {
@@ -1164,50 +1149,6 @@ export const DraftStore = signalStore(
           acc[String(roster.roster_id)] = user?.display_name ?? `Roster ${roster.roster_id}`;
           return acc;
         }, {});
-      };
-
-      const mapRows = (
-        playersById: Record<string, SleeperCatalogPlayer>,
-        ktcLookup: Map<string, KtcPlayer>,
-        flockLookup: Map<string, FlockPlayer>,
-        currentSeason: number,
-        fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
-        fcLookup: Map<string, FantasyCalcPlayer> = new Map(),
-        fcSleeperLookup: Map<string, FantasyCalcPlayer> = new Map(),
-        ffcLookup: Map<string, FfcAdpPlayer> = new Map(),
-        flockRookieLookup: Map<string, FlockPlayer> = new Map(),
-      ): DraftPlayerRow[] =>
-        playerNorm.buildPlayerRows(
-          playersById,
-          ktcLookup,
-          flockLookup,
-          currentSeason,
-          undefined,
-          fpAdpLookup,
-          fcLookup,
-          fcSleeperLookup,
-          ffcLookup,
-          flockRookieLookup,
-        );
-
-      // Pick the FantasyCalc + FFC variants that match the active league format.
-      // Phase 1 covers redraft / superflex / dynasty; rookie drafts fall back to dynasty
-      // values (FC has no rookie-only feed) and the rookie ADP set.
-      const pickFcFormat = (
-        isSuperflex: boolean,
-        isRookie: boolean,
-      ): "1qb-dynasty" | "superflex-dynasty" | "1qb-redraft" | "superflex-redraft" => {
-        if (isRookie) return isSuperflex ? "superflex-dynasty" : "1qb-dynasty";
-        return isSuperflex ? "superflex-redraft" : "1qb-redraft";
-      };
-
-      const pickFfcFormat = (
-        isSuperflex: boolean,
-        isRookie: boolean,
-      ): "half-ppr" | "ppr" | "standard" | "superflex" | "dynasty" | "rookie" => {
-        if (isRookie) return "rookie";
-        if (isSuperflex) return "superflex";
-        return "ppr";
       };
 
       const normalizePicks = (
@@ -1312,28 +1253,14 @@ export const DraftStore = signalStore(
             : false;
 
         const isRookieDraft = isSleeperRookieDraft(draft);
-        const fcFormat = pickFcFormat(isSuperflex, isRookieDraft);
-        const ffcFormat = pickFfcFormat(isSuperflex, isRookieDraft);
 
-        const [
-          playersById,
-          ktcPlayers,
-          flockPlayers,
-          flockRookies,
-          fpAdpPlayers,
-          fcPlayers,
-          ffcPlayers,
-        ] = await firstValueFrom(
-          forkJoin([
-            sleeper.getAllPlayers(),
-            ktc.fetchPlayers(isSuperflex),
-            flock.fetchPlayers(isSuperflex),
-            flock.fetchRookies(isSuperflex),
-            isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings(),
-            fc.getValues(fcFormat),
-            ffc.getAdp(ffcFormat),
-          ]),
-        );
+        const [playersById, rows] = await Promise.all([
+          firstValueFrom(sleeper.getAllPlayers()),
+          playerNorm.buildPlayerRows({
+            format: { isSuperflex, isRookie: isRookieDraft },
+            season: Number(season),
+          }),
+        ]);
 
         const playerNameMap = Object.entries(playersById).reduce<Record<string, string>>(
           (acc, [id, player]) => {
@@ -1346,25 +1273,6 @@ export const DraftStore = signalStore(
             return acc;
           },
           {},
-        );
-
-        const ktcLookup = ktc.buildNameLookup(ktcPlayers);
-        const flockLookup = flock.buildNameLookup(flockPlayers);
-        const flockRookieLookup = flock.buildNameLookup(flockRookies);
-        const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
-        const fcLookup = fc.buildNameLookup(fcPlayers);
-        const fcSleeperLookup = fc.buildSleeperIdLookup(fcPlayers);
-        const ffcLookup = ffc.buildNameLookup(ffcPlayers);
-        const rows = mapRows(
-          playersById,
-          ktcLookup,
-          flockLookup,
-          Number(season),
-          fpAdpLookup,
-          fcLookup,
-          fcSleeperLookup,
-          ffcLookup,
-          flockRookieLookup,
         );
 
         let rosterDisplayNames: Record<string, string> = {};
@@ -1523,43 +1431,24 @@ export const DraftStore = signalStore(
           const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes(
             "SUPER_FLEX",
           );
-          // FC/FFC format depends on whether this is a rookie draft; fetch the
-          // full suite optimistically using redraft/ppr as defaults and re-fetch
-          // later only if the resolved draft is a rookie draft.
-          const initialFcFormat = pickFcFormat(isSuperflex, false);
-          const initialFfcFormat = pickFfcFormat(isSuperflex, false);
-          const [
-            rosters,
-            users,
-            playersById,
-            ktcPlayers,
-            flockPlayers,
-            flockRookies,
-            drafts,
-            fpAdpPlayers,
-            fcPlayersInitial,
-            ffcPlayersInitial,
-          ] = await firstValueFrom(
-            forkJoin([
-              sleeper.getLeagueRosters(leagueId),
-              sleeper.getLeagueUsers(leagueId),
-              sleeper.getAllPlayers(),
-              ktc.fetchPlayers(isSuperflex),
-              flock.fetchPlayers(isSuperflex),
-              flock.fetchRookies(isSuperflex),
-              sleeper.getLeagueDrafts(leagueId),
-              isSuperflex ? fpAdp.getSuperflexADPRankings() : fpAdp.get1QBADPRankings(),
-              fc.getValues(initialFcFormat),
-              ffc.getAdp(initialFfcFormat),
-            ]),
-          );
+          // We don't yet know whether this league's primary draft is a rookie draft;
+          // optimistically fetch the redraft variants and re-fetch only if needed once
+          // the resolved draft turns out to be a rookie one.
+          const [rosters, users, drafts, initialRows] = await Promise.all([
+            firstValueFrom(sleeper.getLeagueRosters(leagueId)),
+            firstValueFrom(sleeper.getLeagueUsers(leagueId)),
+            firstValueFrom(sleeper.getLeagueDrafts(leagueId)),
+            playerNorm.buildPlayerRows({
+              format: { isSuperflex, isRookie: false },
+              season: Number(season),
+            }),
+          ]);
 
           const rosterDisplayNames = mapRosterDisplayNames(rosters, users);
           const rosterAvatarIds = mapRosterAvatarIds(rosters, users);
           const userId = appStore.user()?.user_id ?? null;
           const userRoster = userId ? (rosters.find((r) => r.owner_id === userId) ?? null) : null;
           const existingRosterPlayerIds = userRoster?.players ?? [];
-          const ktcLookup = ktc.buildNameLookup(ktcPlayers);
           const selectedDraftId = chooseDraftId(leagueId, drafts);
 
           let selectedDraft: SleeperDraft | null = null;
@@ -1575,31 +1464,13 @@ export const DraftStore = signalStore(
           }
 
           const isRookieDraft = selectedDraft ? isSleeperRookieDraft(selectedDraft) : false;
-          const flockLookup = flock.buildNameLookup(flockPlayers);
-          const flockRookieLookup = flock.buildNameLookup(flockRookies);
-          const fpAdpLookup = fpAdp.buildNameLookup(fpAdpPlayers);
-
-          // Swap to rookie-format FC/FFC data if we discovered this is a rookie draft.
-          const fcFormat = pickFcFormat(isSuperflex, isRookieDraft);
-          const ffcFormat = pickFfcFormat(isSuperflex, isRookieDraft);
-          const [fcPlayers, ffcPlayers] =
-            fcFormat === initialFcFormat && ffcFormat === initialFfcFormat
-              ? [fcPlayersInitial, ffcPlayersInitial]
-              : await firstValueFrom(forkJoin([fc.getValues(fcFormat), ffc.getAdp(ffcFormat)]));
-          const fcLookup = fc.buildNameLookup(fcPlayers);
-          const fcSleeperLookup = fc.buildSleeperIdLookup(fcPlayers);
-          const ffcLookup = ffc.buildNameLookup(ffcPlayers);
-          const rows = mapRows(
-            playersById,
-            ktcLookup,
-            flockLookup,
-            Number(season),
-            fpAdpLookup,
-            fcLookup,
-            fcSleeperLookup,
-            ffcLookup,
-            flockRookieLookup,
-          );
+          // Re-fetch rows with rookie-format ranking sources if the resolved draft is rookie.
+          const rows = isRookieDraft
+            ? await playerNorm.buildPlayerRows({
+                format: { isSuperflex, isRookie: true },
+                season: Number(season),
+              })
+            : initialRows;
 
           const starredPlayerIds = (() => {
             const parsed = storage.getItem<string[]>(starStorageKey(leagueId));

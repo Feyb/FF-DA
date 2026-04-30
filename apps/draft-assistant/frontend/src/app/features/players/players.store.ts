@@ -7,10 +7,8 @@ import {
   withMethods,
   withState,
 } from "@ngrx/signals";
-import { forkJoin, firstValueFrom } from "rxjs";
-import { FlockRatingService } from "../../core/adapters/flock/flock-rating.service";
+import { firstValueFrom } from "rxjs";
 import { KtcRatingService } from "../../core/adapters/ktc/ktc-rating.service";
-import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import { TierSource } from "../../core/models";
 import { AppStore } from "../../core/state/app.store";
 import { PlayerNormalizationService } from "../../core/services/player-normalization.service";
@@ -83,9 +81,7 @@ export const PlayersStore = signalStore(
     (
       store,
       appStore = inject(AppStore),
-      sleeperService = inject(SleeperService),
       ktcService = inject(KtcRatingService),
-      flockService = inject(FlockRatingService),
       playerNorm = inject(PlayerNormalizationService),
     ) => {
       return {
@@ -97,24 +93,15 @@ export const PlayersStore = signalStore(
             const isSuperflex = (selectedLeague?.roster_positions ?? []).includes("SUPER_FLEX");
             const currentSeason = Number(selectedLeague?.season ?? new Date().getFullYear());
 
-            const [allPlayers, ktcPlayers, flockPlayers, metadata] = await firstValueFrom(
-              forkJoin([
-                sleeperService.getAllPlayers(),
-                ktcService.fetchPlayers(isSuperflex),
-                flockService.fetchPlayers(isSuperflex),
-                ktcService.fetchMetadata(),
-              ]),
-            );
-
-            const ktcLookup = ktcService.buildNameLookup(ktcPlayers);
-            const flockLookup = flockService.buildNameLookup(flockPlayers);
-
-            const rows: PlayerRow[] = playerNorm.buildPlayerRows(
-              allPlayers,
-              ktcLookup,
-              flockLookup,
-              currentSeason,
-            );
+            const [rows, ktcPlayers, metadata] = await Promise.all([
+              playerNorm.buildPlayerRows({
+                format: { isSuperflex, isRookie: false },
+                season: currentSeason,
+                sources: ["ktc", "flock"],
+              }),
+              firstValueFrom(ktcService.fetchPlayers(isSuperflex)),
+              firstValueFrom(ktcService.fetchMetadata()),
+            ]);
 
             patchState(store, {
               rows,

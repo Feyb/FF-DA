@@ -1,8 +1,6 @@
 import { effect, inject } from "@angular/core";
 import { patchState, signalStore, withHooks, withMethods, withState } from "@ngrx/signals";
-import { forkJoin, firstValueFrom } from "rxjs";
-import { FantasyProsAdpService } from "../../core/adapters/fantasypros/fantasypros-adp.service";
-import { FlockRatingService } from "../../core/adapters/flock/flock-rating.service";
+import { firstValueFrom } from "rxjs";
 import { KtcRatingService } from "../../core/adapters/ktc/ktc-rating.service";
 import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import {
@@ -61,8 +59,6 @@ export const TeamViewStore = signalStore(
       appStore = inject(AppStore),
       sleeperService = inject(SleeperService),
       ratingService = inject(KtcRatingService),
-      flockService = inject(FlockRatingService),
-      fantasyProsService = inject(FantasyProsAdpService),
       playerNormalizationService = inject(PlayerNormalizationService),
     ) => {
       let rostersCache: LeagueRoster[] = [];
@@ -261,19 +257,17 @@ export const TeamViewStore = signalStore(
           const isSuperflex = (appStore.selectedLeague()?.roster_positions ?? []).includes(
             "SUPER_FLEX",
           );
-          const [rosters, users, playersById, ktcPlayers, flockPlayers, fantasyProsPlayers] =
-            await firstValueFrom(
-              forkJoin([
-                sleeperService.getLeagueRosters(leagueId),
-                sleeperService.getLeagueUsers(leagueId),
-                sleeperService.getAllPlayers(),
-                ratingService.fetchPlayers(isSuperflex),
-                flockService.fetchPlayers(isSuperflex),
-                isSuperflex
-                  ? fantasyProsService.getSuperflexADPRankings()
-                  : fantasyProsService.get1QBADPRankings(),
-              ]),
-            );
+          const [rosters, users, playersById, ktcPlayers, normalizedPlayers] = await Promise.all([
+            firstValueFrom(sleeperService.getLeagueRosters(leagueId)),
+            firstValueFrom(sleeperService.getLeagueUsers(leagueId)),
+            firstValueFrom(sleeperService.getAllPlayers()),
+            firstValueFrom(ratingService.fetchPlayers(isSuperflex)),
+            playerNormalizationService.buildPlayerRows({
+              format: { isSuperflex, isRookie: false },
+              season: Number(season),
+              sources: ["ktc", "flock", "fpAdp"],
+            }),
+          ]);
 
           rostersCache = rosters;
           usersByIdCache = toMapById(users, "user_id");
@@ -281,16 +275,6 @@ export const TeamViewStore = signalStore(
           ktcLookupCache = ratingService.buildNameLookup(ktcPlayers);
           seasonCache = season;
 
-          const flockLookup = flockService.buildNameLookup(flockPlayers);
-          const fantasyProsLookup = fantasyProsService.buildNameLookup(fantasyProsPlayers);
-          const normalizedPlayers = playerNormalizationService.buildPlayerRows(
-            playersByIdCache,
-            ktcLookupCache,
-            flockLookup,
-            Number(season),
-            ["QB", "RB", "WR", "TE"],
-            fantasyProsLookup,
-          );
           normalizedPlayersByIdCache = Object.fromEntries(
             normalizedPlayers.map((player) => [player.playerId, player]),
           ) as Record<string, DraftPlayerRow>;

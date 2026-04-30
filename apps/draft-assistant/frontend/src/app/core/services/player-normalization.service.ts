@@ -1,9 +1,11 @@
 import { Injectable, inject } from "@angular/core";
+import { firstValueFrom, forkJoin, of } from "rxjs";
+import { SleeperService } from "../adapters/sleeper/sleeper.service";
 import { KtcRatingService } from "../adapters/ktc/ktc-rating.service";
 import { FlockRatingService } from "../adapters/flock/flock-rating.service";
 import { FantasyProsAdpService } from "../adapters/fantasypros/fantasypros-adp.service";
-import { FantasyCalcService } from "../adapters/fantasycalc/fantasycalc.service";
-import { FfcAdpService } from "../adapters/ffc/ffc-adp.service";
+import { FantasyCalcFormat, FantasyCalcService } from "../adapters/fantasycalc/fantasycalc.service";
+import { FfcAdpFormat, FfcAdpService } from "../adapters/ffc/ffc-adp.service";
 import {
   DraftPlayerRow,
   FantasyCalcPlayer,
@@ -19,15 +21,43 @@ type ActivePositions = readonly ("QB" | "RB" | "WR" | "TE")[];
 const DEFAULT_ACTIVE_POSITIONS: ActivePositions = ["QB", "RB", "WR", "TE"];
 
 /**
- * Centralised service that maps Sleeper catalog players to the shared
- * `DraftPlayerRow` shape, computing KTC / Flock / FantasyPros lookups,
- * sleeperRank, and applying active-player / position filters.
+ * Identifies which external ranking source should be fetched and merged into
+ * the normalised `DraftPlayerRow`.
+ */
+export type RankingSource = "ktc" | "flock" | "flockRookie" | "fpAdp" | "fc" | "ffc";
+
+const ALL_SOURCES: readonly RankingSource[] = ["ktc", "flock", "flockRookie", "fpAdp", "fc", "ffc"];
+
+/**
+ * Describes the league shape that drives format-specific adapter fetches
+ * (1QB vs Superflex; rookie vs redraft).
+ */
+export interface LeagueFormat {
+  isSuperflex: boolean;
+  isRookie: boolean;
+}
+
+export interface BuildPlayerRowsInput {
+  format: LeagueFormat;
+  season: number;
+  /** Defaults to all sources. Pass a subset to skip fetches the caller does not need. */
+  sources?: readonly RankingSource[];
+  /** Defaults to QB/RB/WR/TE. */
+  positions?: ActivePositions;
+}
+
+/**
+ * Owns the pipeline that turns the Sleeper player catalog into a
+ * `DraftPlayerRow[]`. Internally fetches every ranking adapter required by the
+ * caller's `SourceSet`, builds name/sleeperId lookups, normalises each player,
+ * and computes `sleeperRank` plus `adpDelta`.
  *
- * Used by DraftStore and PlayersStore to eliminate ~150 lines of duplicated
- * normalisation logic.
+ * Callers pass a `LeagueFormat` and the `RankingSource`s they care about; they
+ * never see adapter Maps.
  */
 @Injectable({ providedIn: "root" })
 export class PlayerNormalizationService {
+  private readonly sleeperService = inject(SleeperService);
   private readonly ktcService = inject(KtcRatingService);
   private readonly flockService = inject(FlockRatingService);
   private readonly fpAdpService = inject(FantasyProsAdpService);
@@ -41,17 +71,76 @@ export class PlayerNormalizationService {
     return status === "active";
   }
 
-  normalizePlayer(
+  async buildPlayerRows(input: BuildPlayerRowsInput): Promise<DraftPlayerRow[]> {
+    const { format, season } = input;
+    const sources = input.sources ?? ALL_SOURCES;
+    const positions = input.positions ?? DEFAULT_ACTIVE_POSITIONS;
+    const wants = (s: RankingSource): boolean => sources.includes(s);
+
+    const fcFormat = pickFcFormat(format);
+    const ffcFormat = pickFfcFormat(format);
+
+    const [
+      playersById,
+      ktcPlayers,
+      flockPlayers,
+      flockRookies,
+      fpAdpPlayers,
+      fcPlayers,
+      ffcPlayers,
+    ] = await firstValueFrom(
+      forkJoin([
+        this.sleeperService.getAllPlayers(),
+        wants("ktc") ? this.ktcService.fetchPlayers(format.isSuperflex) : of([] as KtcPlayer[]),
+        wants("flock")
+          ? this.flockService.fetchPlayers(format.isSuperflex)
+          : of([] as FlockPlayer[]),
+        wants("flockRookie")
+          ? this.flockService.fetchRookies(format.isSuperflex)
+          : of([] as FlockPlayer[]),
+        wants("fpAdp")
+          ? format.isSuperflex
+            ? this.fpAdpService.getSuperflexADPRankings()
+            : this.fpAdpService.get1QBADPRankings()
+          : of([] as FantasyProsPlayer[]),
+        wants("fc") ? this.fcService.getValues(fcFormat) : of([] as FantasyCalcPlayer[]),
+        wants("ffc") ? this.ffcService.getAdp(ffcFormat) : of([] as FfcAdpPlayer[]),
+      ]),
+    );
+
+    const ktcLookup = this.ktcService.buildNameLookup(ktcPlayers);
+    const flockLookup = this.flockService.buildNameLookup(flockPlayers);
+    const flockRookieLookup = this.flockService.buildNameLookup(flockRookies);
+    const fpAdpLookup = this.fpAdpService.buildNameLookup(fpAdpPlayers);
+    const fcLookup = this.fcService.buildNameLookup(fcPlayers);
+    const fcSleeperLookup = this.fcService.buildSleeperIdLookup(fcPlayers);
+    const ffcLookup = this.ffcService.buildNameLookup(ffcPlayers);
+
+    return this.assembleRows(
+      playersById,
+      positions,
+      season,
+      ktcLookup,
+      flockLookup,
+      flockRookieLookup,
+      fpAdpLookup,
+      fcLookup,
+      fcSleeperLookup,
+      ffcLookup,
+    );
+  }
+
+  private normalizePlayer(
     playerId: string,
     source: SleeperCatalogPlayer,
+    currentSeason: number,
     ktcLookup: Map<string, KtcPlayer>,
     flockLookup: Map<string, FlockPlayer>,
-    currentSeason: number,
-    fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
-    fcLookup: Map<string, FantasyCalcPlayer> = new Map(),
-    fcSleeperLookup: Map<string, FantasyCalcPlayer> = new Map(),
-    ffcLookup: Map<string, FfcAdpPlayer> = new Map(),
-    flockRookieLookup: Map<string, FlockPlayer> = new Map(),
+    flockRookieLookup: Map<string, FlockPlayer>,
+    fpAdpLookup: Map<string, FantasyProsPlayer>,
+    fcLookup: Map<string, FantasyCalcPlayer>,
+    fcSleeperLookup: Map<string, FantasyCalcPlayer>,
+    ffcLookup: Map<string, FfcAdpPlayer>,
   ): Omit<DraftPlayerRow, "sleeperRank" | "adpDelta"> {
     const firstName = source.first_name ?? "";
     const lastName = source.last_name ?? "";
@@ -150,17 +239,17 @@ export class PlayerNormalizationService {
    * active-player / position filters and computing `sleeperRank` via KTC rank.
    * Also computes `adpDelta` after sleeperRank is assigned (REQ-ADP-02).
    */
-  buildPlayerRows(
+  private assembleRows(
     playersById: Record<string, SleeperCatalogPlayer>,
+    positions: ActivePositions,
+    currentSeason: number,
     ktcLookup: Map<string, KtcPlayer>,
     flockLookup: Map<string, FlockPlayer>,
-    currentSeason: number,
-    positions: ActivePositions = DEFAULT_ACTIVE_POSITIONS,
-    fpAdpLookup: Map<string, FantasyProsPlayer> = new Map(),
-    fcLookup: Map<string, FantasyCalcPlayer> = new Map(),
-    fcSleeperLookup: Map<string, FantasyCalcPlayer> = new Map(),
-    ffcLookup: Map<string, FfcAdpPlayer> = new Map(),
-    flockRookieLookup: Map<string, FlockPlayer> = new Map(),
+    flockRookieLookup: Map<string, FlockPlayer>,
+    fpAdpLookup: Map<string, FantasyProsPlayer>,
+    fcLookup: Map<string, FantasyCalcPlayer>,
+    fcSleeperLookup: Map<string, FantasyCalcPlayer>,
+    ffcLookup: Map<string, FfcAdpPlayer>,
   ): DraftPlayerRow[] {
     const positionSet = new Set<string>(positions);
 
@@ -170,14 +259,14 @@ export class PlayerNormalizationService {
         this.normalizePlayer(
           playerId,
           source,
+          currentSeason,
           ktcLookup,
           flockLookup,
-          currentSeason,
+          flockRookieLookup,
           fpAdpLookup,
           fcLookup,
           fcSleeperLookup,
           ffcLookup,
-          flockRookieLookup,
         ),
       )
       .filter((row) => row.fullName.length > 0)
@@ -206,4 +295,17 @@ export class PlayerNormalizationService {
       return { ...row, sleeperRank, adpDelta };
     });
   }
+}
+
+// Phase 1 covers redraft / superflex / dynasty; rookie drafts fall back to dynasty
+// values (FC has no rookie-only feed) and the rookie ADP set.
+function pickFcFormat(format: LeagueFormat): FantasyCalcFormat {
+  if (format.isRookie) return format.isSuperflex ? "superflex-dynasty" : "1qb-dynasty";
+  return format.isSuperflex ? "superflex-redraft" : "1qb-redraft";
+}
+
+function pickFfcFormat(format: LeagueFormat): FfcAdpFormat {
+  if (format.isRookie) return "rookie";
+  if (format.isSuperflex) return "superflex";
+  return "ppr";
 }
