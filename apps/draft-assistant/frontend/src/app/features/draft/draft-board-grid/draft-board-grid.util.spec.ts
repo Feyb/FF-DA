@@ -6,7 +6,12 @@ import {
   mapRosterAvatarIds,
   pickInRoundFromPickNo,
 } from "./draft-board-grid.util";
-import { LeagueRoster, LeagueUser, SleeperDraftPick } from "../../../core/models";
+import {
+  LeagueRoster,
+  LeagueUser,
+  SleeperDraftPick,
+  SleeperTradedPick,
+} from "../../../core/models";
 
 describe("draft-board-grid.util", () => {
   // ------------------------------------------------------------------ //
@@ -229,6 +234,57 @@ describe("draft-board-grid.util", () => {
     it("returns empty when teams or rounds are 0", () => {
       const emptyDraft = { ...baseDraft, settings: { teams: 0, rounds: 0 } };
       expect(buildGridRows(emptyDraft, [], {}, new Map(), null)).toEqual([]);
+    });
+
+    // ---- isTraded ---- //
+
+    it("flags a cell as isTraded when the traded_picks endpoint includes its round + original roster", () => {
+      const tradedPick: SleeperTradedPick = {
+        season: "2024",
+        round: 1,
+        roster_id: 10, // original owner of slot 1
+        previous_owner_id: 10,
+        owner_id: 20, // now owned by team 2
+      };
+      const rows = buildGridRows(baseDraft, [], {}, new Map(), null, [tradedPick]);
+      // Slot 1 (rosterId 10) round 1 should be traded
+      expect(rows[0].cells[0].isTraded).toBeTrue();
+      // Slot 2 (rosterId 20) round 1 should not be traded
+      expect(rows[0].cells[1].isTraded).toBeFalse();
+    });
+
+    it("flags a drafted pick as isTraded when its roster_id differs from the original slot owner", () => {
+      // Slot 1 originally belongs to roster 10, but the pick was drafted by roster 20
+      const pick: SleeperDraftPick = {
+        pick_no: 1,
+        round: 1,
+        player_id: "p1",
+        roster_id: 20, // traded — now held by roster 20
+        draft_slot: 1,
+      };
+      const rows = buildGridRows(baseDraft, [pick], {}, new Map(), null, []);
+      expect(rows[0].cells[0].isTraded).toBeTrue();
+    });
+
+    it("does not flag a drafted pick as isTraded when roster_id matches the original slot owner", () => {
+      const pick: SleeperDraftPick = {
+        pick_no: 1,
+        round: 1,
+        player_id: "p1",
+        roster_id: 10, // same as slot 1 original owner — not traded
+        draft_slot: 1,
+      };
+      const rows = buildGridRows(baseDraft, [pick], {}, new Map(), null, []);
+      expect(rows[0].cells[0].isTraded).toBeFalse();
+    });
+
+    it("returns isTraded false for all cells when tradedPicks is empty", () => {
+      const rows = buildGridRows(baseDraft, [], {}, new Map(), null, []);
+      for (const row of rows) {
+        for (const cell of row.cells) {
+          expect(cell.isTraded).toBeFalse();
+        }
+      }
     });
   });
 

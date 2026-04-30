@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, input } from "@angular/core";
 import { NgClass, NgStyle } from "@angular/common";
-import { DraftPlayerRow, SleeperDraft, SleeperDraftPick } from "../../../core/models";
+import {
+  DraftPlayerRow,
+  SleeperDraft,
+  SleeperDraftPick,
+  SleeperTradedPick,
+} from "../../../core/models";
 import {
   GridCell,
   GridRow,
@@ -23,6 +28,7 @@ export type { GridCell, GridRow, GridTeamHeader };
 export class DraftBoardGridComponent {
   readonly draft = input.required<SleeperDraft>();
   readonly picks = input<SleeperDraftPick[]>([]);
+  readonly tradedPicks = input<SleeperTradedPick[]>([]);
   readonly rosterDisplayNames = input<Record<string, string>>({});
   readonly rosterAvatarIds = input<Record<string, string | null>>({});
   readonly playerNameMap = input<Record<string, string>>({});
@@ -69,6 +75,7 @@ export class DraftBoardGridComponent {
       this.playerNameMap(),
       this.tierByPlayerId(),
       this.currentUserId(),
+      this.tradedPicks(),
     ),
   );
 

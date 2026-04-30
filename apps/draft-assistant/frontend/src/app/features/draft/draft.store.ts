@@ -19,6 +19,7 @@ import {
   LeagueUser,
   SleeperDraft,
   SleeperDraftPick,
+  SleeperTradedPick,
   TierSource,
 } from "../../core/models";
 import { mapRosterAvatarIds } from "./draft-board-grid/draft-board-grid.util";
@@ -111,6 +112,7 @@ interface DraftState {
   rosterAvatarIds: Record<string, string | null>;
   playerNameMap: Record<string, string>;
   picks: SleeperDraftPick[];
+  tradedPicks: SleeperTradedPick[];
   rows: DraftPlayerRow[];
   selectedPositions: DraftPositionFilter[];
   rookiesOnly: boolean;
@@ -210,6 +212,7 @@ export const DraftStore = signalStore(
     rosterAvatarIds: {},
     playerNameMap: {},
     picks: [],
+    tradedPicks: [] as SleeperTradedPick[],
     rows: [],
     selectedPositions: DEFAULT_POSITIONS,
     rookiesOnly: false,
@@ -1388,8 +1391,12 @@ export const DraftStore = signalStore(
               .map((pick) => pick.player_id),
           );
 
-          const [draft, picks] = await firstValueFrom(
-            forkJoin([sleeper.getDraft(selectedDraftId), sleeper.getDraftPicks(selectedDraftId)]),
+          const [draft, picks, tradedPicks] = await firstValueFrom(
+            forkJoin([
+              sleeper.getDraft(selectedDraftId),
+              sleeper.getDraftPicks(selectedDraftId),
+              sleeper.getTradedDraftPicks(selectedDraftId).pipe(catchError(() => of([]))),
+            ]),
           );
 
           const normalizedPicks = normalizePicks(draft, picks);
@@ -1402,6 +1409,7 @@ export const DraftStore = signalStore(
             draftStatus: draft.status ?? null,
             drafts: upsertDraft(store.drafts(), draft),
             picks: normalizedPicks,
+            tradedPicks,
             staleData: false,
             lastUpdatedAt: Date.now(),
             error: null,
@@ -1425,6 +1433,7 @@ export const DraftStore = signalStore(
           staleData: false,
           selectedLeagueId: leagueId,
           picks: [],
+          tradedPicks: [],
         });
 
         try {
@@ -1453,14 +1462,20 @@ export const DraftStore = signalStore(
 
           let selectedDraft: SleeperDraft | null = null;
           let picks: SleeperDraftPick[] = [];
+          let tradedPicks: SleeperTradedPick[] = [];
           let nextDrafts = drafts;
           if (selectedDraftId) {
-            const [draftDetail, draftPicks] = await firstValueFrom(
-              forkJoin([sleeper.getDraft(selectedDraftId), sleeper.getDraftPicks(selectedDraftId)]),
+            const [draftDetail, draftPicks, draftTradedPicks] = await firstValueFrom(
+              forkJoin([
+                sleeper.getDraft(selectedDraftId),
+                sleeper.getDraftPicks(selectedDraftId),
+                sleeper.getTradedDraftPicks(selectedDraftId).pipe(catchError(() => of([]))),
+              ]),
             );
             selectedDraft = draftDetail;
             nextDrafts = upsertDraft(drafts, draftDetail);
             picks = normalizePicks(draftDetail, draftPicks);
+            tradedPicks = draftTradedPicks;
           }
 
           const isRookieDraft = selectedDraft ? isSleeperRookieDraft(selectedDraft) : false;
@@ -1488,6 +1503,7 @@ export const DraftStore = signalStore(
             rosterAvatarIds,
             rows,
             picks,
+            tradedPicks,
             rookiesOnly: isRookieDraft,
             starredPlayerIds,
             sortSource: loadSortSource(leagueId),
@@ -1523,6 +1539,7 @@ export const DraftStore = signalStore(
           rosterDisplayNames: {},
           rosterAvatarIds: {},
           picks: [],
+          tradedPicks: [],
           rows: [],
           starredPlayerIds: [],
           lastUpdatedAt: null,
@@ -1551,8 +1568,12 @@ export const DraftStore = signalStore(
           });
 
           try {
-            const [draft, picks] = await firstValueFrom(
-              forkJoin([sleeper.getDraft(draftId), sleeper.getDraftPicks(draftId)]),
+            const [draft, picks, tradedPicks] = await firstValueFrom(
+              forkJoin([
+                sleeper.getDraft(draftId),
+                sleeper.getDraftPicks(draftId),
+                sleeper.getTradedDraftPicks(draftId).pipe(catchError(() => of([]))),
+              ]),
             );
             const context = await loadDraftContext(draft, fallbackLeagueId);
 
@@ -1569,6 +1590,7 @@ export const DraftStore = signalStore(
               drafts: nextDrafts,
               draftStatus: draft.status ?? null,
               picks: normalizePicks(draft, picks),
+              tradedPicks,
               rookiesOnly: options?.rookieHint === true ? true : isSleeperRookieDraft(draft),
               starredPlayerIds: context.starredPlayerIds,
               staleData: false,
@@ -1663,6 +1685,7 @@ export const DraftStore = signalStore(
             selectedDraftId: null,
             draftStatus: null,
             picks: [],
+            tradedPicks: [],
             rows: [],
             starredPlayerIds: [],
             sortSource: "combinedTier",

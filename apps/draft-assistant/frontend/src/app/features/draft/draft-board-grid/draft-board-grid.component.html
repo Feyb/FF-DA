@@ -43,6 +43,7 @@
       <span class="legend-item pos-te" role="listitem">TE</span>
       <span class="legend-item legend-current" role="listitem">On clock</span>
       <span class="legend-item legend-mine" role="listitem">My picks</span>
+      <span class="legend-item legend-traded" role="listitem">Traded</span>
     </div>
 
     <!-- Grid rows -->
@@ -54,6 +55,7 @@
             [class.cell-current]="cell.isCurrentPick"
             [class.cell-mine-empty]="cell.isMyTeam && !cell.pick && !cell.isCurrentPick"
             [class.cell-picked]="!!cell.pick"
+            [class.cell-traded]="cell.isTraded"
             [ngClass]="cell.pick ? positionClass(cell.position) : ''"
             [attr.aria-label]="
               cell.pick
