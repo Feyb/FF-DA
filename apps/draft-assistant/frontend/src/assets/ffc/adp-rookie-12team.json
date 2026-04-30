@@ -422,14 +422,14 @@
   {
     "playerName": "Evan Hull",
     "position": "RB",
-    "team": "NO",
+    "team": "FA",
     "adp": 29.3,
     "adpFormatted": "3.05",
     "stdev": 8.2,
     "high": 13,
     "low": 36,
     "timesDrafted": 7,
-    "bye": 11
+    "bye": 0
   },
   {
     "playerName": "Michael Wilson",

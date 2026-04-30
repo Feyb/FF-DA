@@ -398,14 +398,14 @@
   {
     "playerName": "Cam Akers",
     "position": "RB",
-    "team": "SEA",
+    "team": "FA",
     "adp": 29.5,
     "adpFormatted": "3.05",
     "stdev": 2.5,
     "high": 24,
     "low": 34,
     "timesDrafted": 23,
-    "bye": 8
+    "bye": 0
   },
   {
     "playerName": "Patrick Mahomes",
@@ -722,14 +722,14 @@
   {
     "playerName": "Elijah Mitchell",
     "position": "RB",
-    "team": "NE",
+    "team": "FA",
     "adp": 53.9,
     "adpFormatted": "5.06",
     "stdev": 5.7,
     "high": 45,
     "low": 67,
     "timesDrafted": 24,
-    "bye": 14
+    "bye": 0
   },
   {
     "playerName": "Kyler Murray",
@@ -1682,14 +1682,14 @@
   {
     "playerName": "Marquez Valdes-Scantling",
     "position": "WR",
-    "team": "FA",
+    "team": "DAL",
     "adp": 133.5,
     "adpFormatted": "12.02",
     "stdev": 16.5,
     "high": 90,
     "low": 149,
     "timesDrafted": 11,
-    "bye": 0
+    "bye": 10
   },
   {
     "playerName": "Zamir White",

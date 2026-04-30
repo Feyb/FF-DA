@@ -1,7 +1,73 @@
 {
   "source": "fantasyfootballcalculator.com",
-  "generatedAt": "2026-04-23T21:02:01.739Z",
+  "generatedAt": "2026-04-30T06:40:12.468Z",
   "year": "2026",
   "teams": "12",
-  "formats": {}
+  "formats": {
+    "half-ppr": {
+      "output": "adp-half-ppr-12team.json",
+      "count": 143,
+      "url": "https://fantasyfootballcalculator.com/api/v1/adp/half-ppr?teams=12&year=2026",
+      "meta": {
+        "type": "Half-PPR",
+        "teams": 12,
+        "rounds": 15,
+        "total_drafts": 627,
+        "start_date": "2025-09-02",
+        "end_date": "2025-09-03"
+      }
+    },
+    "ppr": {
+      "output": "adp-ppr-12team.json",
+      "count": 170,
+      "url": "https://fantasyfootballcalculator.com/api/v1/adp/ppr?teams=12&year=2026",
+      "meta": {
+        "type": "PPR",
+        "teams": 12,
+        "rounds": 15,
+        "total_drafts": 870,
+        "start_date": "2025-09-03",
+        "end_date": "2025-09-10"
+      }
+    },
+    "standard": {
+      "output": "adp-standard-12team.json",
+      "count": 146,
+      "url": "https://fantasyfootballcalculator.com/api/v1/adp/standard?teams=12&year=2026",
+      "meta": {
+        "type": "Non-PPR",
+        "teams": 12,
+        "rounds": 15,
+        "total_drafts": 518,
+        "start_date": "2025-08-30",
+        "end_date": "2025-09-01"
+      }
+    },
+    "dynasty": {
+      "output": "adp-dynasty-12team.json",
+      "count": 221,
+      "url": "https://fantasyfootballcalculator.com/api/v1/adp/dynasty?teams=12&year=2026",
+      "meta": {
+        "type": "Dynasty",
+        "teams": 12,
+        "rounds": 15,
+        "total_drafts": 511,
+        "start_date": "2022-08-12",
+        "end_date": "2022-09-10"
+      }
+    },
+    "rookie": {
+      "output": "adp-rookie-12team.json",
+      "count": 44,
+      "url": "https://fantasyfootballcalculator.com/api/v1/adp/rookie?teams=12&year=2026",
+      "meta": {
+        "type": "Dynasty Rookie",
+        "teams": 12,
+        "rounds": 15,
+        "total_drafts": 500,
+        "start_date": "2023-08-05",
+        "end_date": "2023-09-15"
+      }
+    }
+  }
 }
