@@ -4,6 +4,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { AppStore } from "../../../core/state/app.store";
 import { DarkModeToggleComponent } from "../dark-mode-toggle";
 import { DensitySettingsComponent } from "../density-settings";
+import { NavIconComponent } from "../nav-icon";
 import { NAV_LINKS, NavLink } from "../../nav-links.constant";
 
 @Component({
@@ -17,6 +18,7 @@ import { NAV_LINKS, NavLink } from "../../nav-links.constant";
     MatIconModule,
     DarkModeToggleComponent,
     DensitySettingsComponent,
+    NavIconComponent,
   ],
 })
 export class BottomNavComponent {

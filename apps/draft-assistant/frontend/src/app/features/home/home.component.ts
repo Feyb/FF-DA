@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { Router } from "@angular/router";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
@@ -44,6 +45,7 @@ export class HomeComponent {
   protected readonly store = inject(HomeStore);
   protected readonly appStore = inject(AppStore);
   private readonly storage = inject(StorageService);
+  private readonly router = inject(Router);
 
   protected readonly usernameControl = new FormControl("");
   protected readonly leagueIdControl = new FormControl("");
@@ -80,6 +82,12 @@ export class HomeComponent {
 
   protected selectLeague(league: League): void {
     this.store.selectLeague(league);
+    const route = this.hasActiveDraft(league) ? "/draft" : "/team";
+    void this.router.navigateByUrl(route);
+  }
+
+  private hasActiveDraft(league: League): boolean {
+    return league.status === "pre_draft" || league.status === "drafting";
   }
 
   protected onSeasonChange(season: string): void {

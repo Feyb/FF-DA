@@ -7,6 +7,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatRadioModule } from "@angular/material/radio";
 import { AppStore, DENSITY_SCALES } from "../../../core/state/app.store";
 import { DarkModeToggleComponent } from "../dark-mode-toggle";
+import { NavIconComponent } from "../nav-icon";
 import { NAV_LINKS, NavLink } from "../../nav-links.constant";
 
 @Component({
@@ -22,6 +23,7 @@ import { NAV_LINKS, NavLink } from "../../nav-links.constant";
     MatMenuModule,
     MatRadioModule,
     DarkModeToggleComponent,
+    NavIconComponent,
   ],
 })
 export class AppNavComponent {

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-30T06:40:41.024Z",
+  "generatedAt": "2026-04-30T13:26:22.166Z",
   "players": [
     {
       "player_id": "00-0023459",
@@ -1015,8 +1015,8 @@
       "birth_date": "1992-02-01",
       "years_exp": 11,
       "position": "RB",
-      "team": "DEN",
-      "status": "UFA",
+      "team": "CLE",
+      "status": "ACT",
       "depth_chart_position": "FB",
       "depth_chart_order": null,
       "season": 2026
@@ -1040,7 +1040,7 @@
       "years_exp": 11,
       "position": "OL",
       "team": "LAC",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "OT",
       "depth_chart_order": null,
       "season": 2026
@@ -4088,7 +4088,7 @@
       "years_exp": 8,
       "position": "OL",
       "team": "NO",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "C",
       "depth_chart_order": null,
       "season": 2026
@@ -7651,8 +7651,8 @@
       "birth_date": "1997-05-01",
       "years_exp": 6,
       "position": "LB",
-      "team": "NE",
-      "status": "UFA",
+      "team": "NO",
+      "status": "ACT",
       "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
@@ -9392,7 +9392,7 @@
       "years_exp": 5,
       "position": "RB",
       "team": "NE",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "RB",
       "depth_chart_order": null,
       "season": 2026
@@ -12355,8 +12355,8 @@
       "birth_date": "2000-09-27",
       "years_exp": 4,
       "position": "DB",
-      "team": "CLE",
-      "status": "UFA",
+      "team": "NO",
+      "status": "ACT",
       "depth_chart_position": "CB",
       "depth_chart_order": null,
       "season": 2026
@@ -13178,6 +13178,18 @@
       "season": 2026
     },
     {
+      "player_id": "00-0037382",
+      "full_name": "Brandon Johnson",
+      "birth_date": "1998-07-26",
+      "years_exp": 4,
+      "position": "WR",
+      "team": "PIT",
+      "status": "ACT",
+      "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
       "player_id": "00-0037384",
       "full_name": "Ja'Quan McMillian",
       "birth_date": "2000-06-04",
@@ -13450,6 +13462,18 @@
       "team": "NO",
       "status": "ACT",
       "depth_chart_position": "P",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0037509",
+      "full_name": "Sincere McCormick",
+      "birth_date": "2000-09-10",
+      "years_exp": 4,
+      "position": "RB",
+      "team": "SF",
+      "status": "ACT",
+      "depth_chart_position": "RB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -20738,18 +20762,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0039420",
-      "full_name": "Jaheim Bell",
-      "birth_date": "2001-06-14",
-      "years_exp": 2,
-      "position": "TE",
-      "team": "PHI",
-      "status": "ACT",
-      "depth_chart_position": "TE",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0039421",
       "full_name": "Levi Drake Rodriguez",
       "birth_date": "2000-08-04",
@@ -20998,18 +21010,6 @@
       "team": "NO",
       "status": "ACT",
       "depth_chart_position": "CB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0039456",
-      "full_name": "John Rhys Plumlee",
-      "birth_date": "2001-01-02",
-      "years_exp": 2,
-      "position": "WR",
-      "team": "PIT",
-      "status": "ACT",
-      "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -23362,6 +23362,18 @@
       "team": "MIA",
       "status": "ACT",
       "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0039881",
+      "full_name": "Patrick McMorris",
+      "birth_date": "2001-10-18",
+      "years_exp": 2,
+      "position": "DB",
+      "team": "SF",
+      "status": "ACT",
+      "depth_chart_position": "SAF",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -33386,18 +33398,6 @@
       "season": 2025
     },
     {
-      "player_id": "00-0037382",
-      "full_name": "Brandon Johnson",
-      "birth_date": "1998-07-26",
-      "years_exp": 3,
-      "position": "WR",
-      "team": "DEN",
-      "status": "DEV",
-      "depth_chart_position": "WR",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
       "player_id": "00-0037383",
       "full_name": "Kana'i Mauga",
       "birth_date": "2000-01-08",
@@ -33490,18 +33490,6 @@
       "team": "NE",
       "status": "CUT",
       "depth_chart_position": "TE",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0037509",
-      "full_name": "Sincere McCormick",
-      "birth_date": "2000-09-10",
-      "years_exp": 3,
-      "position": "RB",
-      "team": "MIN",
-      "status": "DEV",
-      "depth_chart_position": "RB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -34874,6 +34862,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0039420",
+      "full_name": "Jaheim Bell",
+      "birth_date": "2001-06-14",
+      "years_exp": 1,
+      "position": "TE",
+      "team": "PIT",
+      "status": "DEV",
+      "depth_chart_position": "TE",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0039426",
       "full_name": "Matt Lee",
       "birth_date": "2001-06-06",
@@ -34954,6 +34954,18 @@
       "team": "DET",
       "status": "CUT",
       "depth_chart_position": "DB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0039456",
+      "full_name": "John Rhys Plumlee",
+      "birth_date": "2001-01-02",
+      "years_exp": 1,
+      "position": "WR",
+      "team": "PIT",
+      "status": "DEV",
+      "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -35518,18 +35530,6 @@
       "team": "SF",
       "status": "CUT",
       "depth_chart_position": "WR",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0039881",
-      "full_name": "Patrick McMorris",
-      "birth_date": "2001-10-18",
-      "years_exp": 1,
-      "position": "DB",
-      "team": "NYG",
-      "status": "DEV",
-      "depth_chart_position": "SS",
       "depth_chart_order": null,
       "season": 2025
     },

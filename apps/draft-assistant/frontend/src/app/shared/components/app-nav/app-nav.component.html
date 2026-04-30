@@ -15,7 +15,7 @@
           routerLinkActive="nav-item--active"
           [attr.aria-label]="link.label"
         >
-          <mat-icon class="nav-item-icon">{{ link.icon }}</mat-icon>
+          <app-nav-icon class="nav-item-icon" [name]="link.icon" />
           <span class="nav-item-label">{{ link.label }}</span>
         </a>
       </li>
