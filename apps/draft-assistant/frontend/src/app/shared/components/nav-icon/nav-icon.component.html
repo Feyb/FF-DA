@@ -1,0 +1,117 @@
+@switch (name()) {
+  @case ("home") {
+    <svg
+      class="nav-icon-svg nav-icon-home"
+      viewBox="-2 -6 28 30"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <!-- Smoke puffs (animated) -->
+      <g class="nav-icon-smoke" stroke="none" fill="currentColor">
+        <circle class="puff puff-1" cx="17" cy="2" r="1.8" />
+        <circle class="puff puff-2" cx="17" cy="2" r="1.5" />
+        <circle class="puff puff-3" cx="17" cy="2" r="1.2" />
+      </g>
+      <!-- Chimney -->
+      <path d="M15.5 8 L15.5 2.5 L18.5 2.5 L18.5 9.5" />
+      <!-- Roof + body -->
+      <path d="M3 11 L12 4 L21 11 V20 H3 Z" />
+      <!-- Door -->
+      <path d="M10 20 V14 H14 V20" />
+    </svg>
+  }
+  @case ("team") {
+    <svg
+      class="nav-icon-svg nav-icon-team"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <!-- Left figure -->
+      <g class="figure figure-left">
+        <circle cx="5.5" cy="8" r="2" fill="currentColor" stroke="none" />
+        <path d="M2.5 18 V14.5 a3 3 0 0 1 6 0 V18" />
+      </g>
+      <!-- Center figure -->
+      <g class="figure figure-center">
+        <circle cx="12" cy="7" r="2.25" fill="currentColor" stroke="none" />
+        <path d="M8.5 18 V14 a3.5 3.5 0 0 1 7 0 V18" />
+      </g>
+      <!-- Right figure -->
+      <g class="figure figure-right">
+        <circle cx="18.5" cy="8" r="2" fill="currentColor" stroke="none" />
+        <path d="M15.5 18 V14.5 a3 3 0 0 1 6 0 V18" />
+      </g>
+    </svg>
+  }
+  @case ("players") {
+    <svg
+      class="nav-icon-svg nav-icon-players"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <g class="row row-top">
+        <circle cx="5" cy="6" r="1.1" fill="currentColor" stroke="none" />
+        <line x1="9" y1="6" x2="20" y2="6" />
+      </g>
+      <g class="row row-middle">
+        <circle cx="5" cy="12" r="1.1" fill="currentColor" stroke="none" />
+        <line x1="9" y1="12" x2="20" y2="12" />
+      </g>
+      <g class="row row-bottom">
+        <circle cx="5" cy="18" r="1.1" fill="currentColor" stroke="none" />
+        <line x1="9" y1="18" x2="20" y2="18" />
+      </g>
+    </svg>
+  }
+  @case ("football") {
+    <svg
+      class="nav-icon-svg nav-icon-football"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <g class="football-shell">
+        <!-- Football body and panel seams -->
+        <path
+          d="M13.6406 16.3386C18.2731 13.8754 20.8527 9.66717 19.4023 6.93927C17.9518 4.21137 13.0206 3.99676 8.388 6.45994C3.75544 8.92312 1.17582 13.1313 2.62628 15.8592C4.07673 18.5871 9.00799 18.8017 13.6406 16.3386Z"
+          fill="currentColor"
+          fill-opacity="0.12"
+        />
+        <path
+          d="M13.6406 16.3386C18.2731 13.8754 20.8527 9.66717 19.4023 6.93927C17.9518 4.21137 13.0206 3.99676 8.388 6.45994C3.75544 8.92312 1.17582 13.1313 2.62628 15.8592C4.07673 18.5871 9.00799 18.8017 13.6406 16.3386Z"
+        />
+        <g class="football-detail">
+          <path d="M4 11.3521C6.01796 13.0172 7.15298 15.1519 7.40505 17.756" />
+          <path d="M14.6622 4.99995C14.9963 7.75826 16.2133 10.0471 18.3132 11.8665" />
+          <circle cx="5.75" cy="13.75" r="0.28" />
+          <circle cx="8.25" cy="16.05" r="0.28" />
+          <circle cx="15.55" cy="6.85" r="0.28" />
+          <circle cx="17.4" cy="9.65" r="0.28" />
+        </g>
+        <!-- Laces move across the ball's side axis, not toward the tips. -->
+        <g class="football-laces" stroke-width="1">
+          <path d="M7.84473 13.11L14.4668 9.58895" />
+          <path d="M7.85059 11.5217L9.16511 13.994" />
+          <path d="M9.03418 10.5526L10.6304 13.5546" />
+          <path d="M10.3115 9.76013L12.0016 12.9387" />
+          <path d="M11.6826 9.14417L13.2788 12.1462" />
+          <path d="M13.1475 8.70483L14.462 11.1771" />
+        </g>
+      </g>
+    </svg>
+  }
+}
