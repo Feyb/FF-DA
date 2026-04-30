@@ -1395,7 +1395,7 @@ export const DraftStore = signalStore(
             forkJoin([
               sleeper.getDraft(selectedDraftId),
               sleeper.getDraftPicks(selectedDraftId),
-              sleeper.getTradedDraftPicks(selectedDraftId),
+              sleeper.getTradedDraftPicks(selectedDraftId).pipe(catchError(() => of([]))),
             ]),
           );
 
@@ -1469,7 +1469,7 @@ export const DraftStore = signalStore(
               forkJoin([
                 sleeper.getDraft(selectedDraftId),
                 sleeper.getDraftPicks(selectedDraftId),
-                sleeper.getTradedDraftPicks(selectedDraftId),
+                sleeper.getTradedDraftPicks(selectedDraftId).pipe(catchError(() => of([]))),
               ]),
             );
             selectedDraft = draftDetail;
@@ -1572,7 +1572,7 @@ export const DraftStore = signalStore(
               forkJoin([
                 sleeper.getDraft(draftId),
                 sleeper.getDraftPicks(draftId),
-                sleeper.getTradedDraftPicks(draftId),
+                sleeper.getTradedDraftPicks(draftId).pipe(catchError(() => of([]))),
               ]),
             );
             const context = await loadDraftContext(draft, fallbackLeagueId);
