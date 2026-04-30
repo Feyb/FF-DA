@@ -74,6 +74,16 @@ export interface SleeperDraftPick {
   is_keeper?: boolean;
 }
 
+export interface SleeperTradedPick {
+  season: string;
+  round: number;
+  /** Original roster that owned this pick (draft slot owner). */
+  roster_id: number;
+  previous_owner_id: number;
+  /** Current holder of the pick after trades. */
+  owner_id: number;
+}
+
 export interface DraftPlayerRow {
   playerId: string;
   fullName: string;

@@ -5,6 +5,7 @@ import {
   League,
   SleeperDraft,
   SleeperDraftPick,
+  SleeperTradedPick,
   LeagueRoster,
   LeagueUser,
   SleeperCatalogPlayer,
@@ -51,6 +52,10 @@ export class SleeperService {
 
   getDraftPicks(draftId: string): Observable<SleeperDraftPick[]> {
     return this.http.get<SleeperDraftPick[]>(`${BASE}/draft/${draftId}/picks`);
+  }
+
+  getTradedDraftPicks(draftId: string): Observable<SleeperTradedPick[]> {
+    return this.http.get<SleeperTradedPick[]>(`${BASE}/draft/${draftId}/traded_picks`);
   }
 
   getTrendingPlayers(

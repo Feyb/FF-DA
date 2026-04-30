@@ -92,6 +92,12 @@
   color: var(--primary, #4c22bd);
 }
 
+.legend-traded {
+  background: rgba(234, 88, 12, 0.08);
+  border: 1.5px solid #ea580c;
+  color: #c2410c;
+}
+
 // ── Grid rows ────────────────────────────────────────────────────────── //
 
 .board-row {
@@ -126,6 +132,12 @@
   &.cell-mine-empty {
     border: 2px solid var(--primary, #4c22bd);
     background: rgba(76, 34, 189, 0.04);
+  }
+
+  // Traded pick → orange accent border + subtle tint
+  &.cell-traded {
+    border-color: #ea580c;
+    box-shadow: inset 3px 0 0 #ea580c;
   }
 }
 
@@ -268,6 +280,12 @@ html.dark {
     color: #c4b5fd;
   }
 
+  .legend-traded {
+    background: rgba(234, 88, 12, 0.15);
+    border-color: #fb923c;
+    color: #fdba74;
+  }
+
   .board-cell {
     &.cell-current {
       background: rgba(59, 130, 246, 0.15) !important;
@@ -277,6 +295,11 @@ html.dark {
 
     &.cell-mine-empty {
       background: rgba(76, 34, 189, 0.12);
+    }
+
+    &.cell-traded {
+      border-color: #fb923c;
+      box-shadow: inset 3px 0 0 #fb923c;
     }
   }
 }

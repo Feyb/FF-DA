@@ -1,4 +1,10 @@
-import { LeagueRoster, LeagueUser, SleeperDraft, SleeperDraftPick } from "../../../core/models";
+import {
+  LeagueRoster,
+  LeagueUser,
+  SleeperDraft,
+  SleeperDraftPick,
+  SleeperTradedPick,
+} from "../../../core/models";
 import { extractLastName } from "../../../core/utils/player-name.util";
 
 export interface GridTeamHeader {
@@ -27,6 +33,8 @@ export interface GridCell {
   overallTier: number | null;
   isCurrentPick: boolean;
   isMyTeam: boolean;
+  /** True when this pick has been traded away from its original draft slot owner. */
+  isTraded: boolean;
 }
 
 export interface GridRow {
@@ -116,10 +124,10 @@ export const buildGridHeaders = (
  *
  * @param draft               Sleeper draft metadata
  * @param picks               Normalized completed picks
- * @param rosterDisplayNames  roster_id → display name (unused here but kept for symmetry)
  * @param playerNameMap       player_id → full name
  * @param tierByPlayerId      player_id → overall tier (optional, pass empty map if unavailable)
  * @param currentUserId       logged-in user's Sleeper user_id
+ * @param tradedPicks         Traded picks from the Sleeper traded_picks endpoint
  */
 export const buildGridRows = (
   draft: SleeperDraft,
@@ -127,6 +135,7 @@ export const buildGridRows = (
   playerNameMap: Record<string, string>,
   tierByPlayerId: Map<string, number | null>,
   currentUserId: string | null,
+  tradedPicks: SleeperTradedPick[] = [],
 ): GridRow[] => {
   const teams = Number(draft.settings?.["teams"] ?? 0);
   const rounds = Number(draft.settings?.["rounds"] ?? 0);
@@ -145,6 +154,12 @@ export const buildGridRows = (
   const picksByNo = new Map<number, SleeperDraftPick>();
   for (const p of picks) {
     picksByNo.set(p.pick_no, p);
+  }
+
+  // Build a set of "round-originalRosterId" keys for picks that have been traded.
+  const tradedPickKeys = new Set<string>();
+  for (const tp of tradedPicks) {
+    tradedPickKeys.add(`${tp.round}-${tp.roster_id}`);
   }
 
   return Array.from({ length: rounds }, (_, ri) => {
@@ -171,6 +186,15 @@ export const buildGridRows = (
       const tier = playerId ? (tierByPlayerId.get(playerId) ?? null) : null;
       const pickLabel = formatPickLabel(round, pickNo, teams);
 
+      // A pick is traded if it appears in the traded_picks endpoint (keyed by round + original roster)
+      // or if the drafted pick's current roster differs from the original slot owner.
+      const isTraded =
+        (slotRosterId !== null && tradedPickKeys.has(`${round}-${slotRosterId}`)) ||
+        (draftedPick !== null &&
+          slotRosterId !== null &&
+          draftedPick.roster_id !== null &&
+          draftedPick.roster_id !== slotRosterId);
+
       return {
         pickNo,
         round,
@@ -184,6 +208,7 @@ export const buildGridRows = (
         overallTier: tier,
         isCurrentPick: pickNo === nextPickNo,
         isMyTeam: effectiveRosterId !== null && effectiveRosterId === myRosterId,
+        isTraded,
       };
     });
 
