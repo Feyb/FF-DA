@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DecimalPipe } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { BestAvailableEntry, DraftStore, rankForSortSource } from "../draft.store";
@@ -21,6 +21,7 @@ import { PickExplanationComponent } from "../pick-explanation/pick-explanation.c
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
+    DecimalPipe,
     MatCardModule,
     MatIconModule,
     TierLegendComponent,
@@ -86,5 +87,11 @@ export class BestAvailableCardComponent {
     const img = event.target as HTMLImageElement | null;
     if (!img || img.src === this.fallbackImage) return;
     img.src = this.fallbackImage;
+  }
+
+  /** MC survival rate for this entry — only present when tie-break simulation ran. */
+  protected mcSurvivalRate(entry: BestAvailableEntry): number | null {
+    if (!entry.player) return null;
+    return this.store.mcConfidenceByPlayer().get(entry.player.playerId) ?? null;
   }
 }

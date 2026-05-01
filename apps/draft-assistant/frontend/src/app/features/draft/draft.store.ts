@@ -1,5 +1,5 @@
 import { computed, effect, inject } from "@angular/core";
-import { toSignal } from "@angular/core/rxjs-interop";
+import { toObservable, toSignal } from "@angular/core/rxjs-interop";
 import {
   patchState,
   signalStore,
@@ -9,7 +9,7 @@ import {
   withState,
 } from "@ngrx/signals";
 import { forkJoin, firstValueFrom, of } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from "rxjs/operators";
 import { isSleeperRookieDraft } from "../../core/adapters/sleeper/sleeper-draft.util";
 import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import {
@@ -32,6 +32,9 @@ import {
 } from "../../core/services/consensus-aggregator.service";
 import { SurvivalService } from "../../core/services/survival.service";
 import { NflverseService } from "../../core/adapters/nflverse/nflverse.service";
+import { CfbdService, normalizeCfbdName } from "../../core/adapters/cfbd/cfbd.service";
+import { DraftMcService, McSimRequest } from "../../core/services/draft-mc.service";
+import { buildRookieScoreMap, RookieScoreInputs } from "./utils/rookie-score.util";
 import { computeTierCliff, TierCliffPlayer } from "./tier-cliff.util";
 import { generateExplanation } from "./score-explanation.util";
 import { buildEffScoreInputs, computeEffScores } from "./utils/efficiency-score.util";
@@ -293,12 +296,17 @@ export const DraftStore = signalStore(
       survival = inject(SurvivalService),
       appStore = inject(AppStore),
       nflverse = inject(NflverseService),
+      cfbd = inject(CfbdService),
+      mcService = inject(DraftMcService),
       sleeperService = inject(SleeperService),
     ) => {
       // Nflverse data signals — load once, shareReplay(1) inside the service.
       const playerStatsMap = toSignal(nflverse.playerStats$, {
         initialValue: new Map(),
       });
+
+      // CFBD rookie metrics keyed by normalized player name.
+      const cfbdMetricsByName = toSignal(cfbd.rookieMetricsByName$, { initialValue: new Map() });
 
       // Sleeper trending adds — top 100 most-added players in last 24 h.
       // catchError so a Sleeper outage never crashes the WCS pipeline.
@@ -468,6 +476,22 @@ export const DraftStore = signalStore(
         return buildSchemeFitMap(inputs);
       });
 
+      // RookieScore: capital + CFBD composite for yearsExp ≤ 2 in rookie/startup mode.
+      const rookieScoreByPlayer = computed((): Map<string, number | null> => {
+        const rows = store.rows();
+        if (rows.length === 0) return new Map();
+        const cfbdMap = cfbdMetricsByName();
+        const picksMap = draftPicksMap();
+        const inputs: RookieScoreInputs[] = rows.map((row) => ({
+          playerId: row.playerId,
+          position: row.position,
+          nflRound: picksMap.get(row.playerId)?.round ?? null,
+          yearsExp: row.yearsExp,
+          cfbd: cfbdMap.get(normalizeCfbdName(row.fullName)) ?? null,
+        }));
+        return buildRookieScoreMap(inputs);
+      });
+
       // ContextMod: AgeMult × CapitalMult × EffMult × SchemeFitMult.
       const contextModByPlayer = computed((): Map<string, number> => {
         const effMap = effScoreByPlayer();
@@ -615,6 +639,67 @@ export const DraftStore = signalStore(
         return out;
       });
 
+      // MC tie-break: when the top-3 WCS scores are within 2 pts, simulate 1 000
+      // drafts to estimate each player's P(still on board at userNextPick).
+      const mcTriggerSignal = computed((): McSimRequest | null => {
+        const wcsMap = weightedCompositeByPlayer();
+        const nextPickN = store.userNextPickNumber();
+        const currentPickN = store.picks().length;
+        if (nextPickN === null || nextPickN <= currentPickN + 1) return null;
+
+        const draftedIds = new Set(store.picks().map((p) => p.player_id));
+        const rows = store.rows();
+
+        // Exclude already-drafted players from both the candidate set and simulation pool.
+        const undrafted = rows.filter((r) => {
+          if (draftedIds.has(r.playerId)) return false;
+          const wcs = wcsMap.get(r.playerId);
+          return wcs !== null && wcs !== undefined;
+        });
+        undrafted.sort(
+          (a, b) => (wcsMap.get(b.playerId) ?? -Infinity) - (wcsMap.get(a.playerId) ?? -Infinity),
+        );
+
+        const top3 = undrafted.slice(0, 3);
+        if (top3.length < 2) return null;
+
+        const maxWcs = wcsMap.get(top3[0].playerId) ?? 0;
+        const minWcs = wcsMap.get(top3[top3.length - 1].playerId) ?? 0;
+        if (maxWcs - minWcs > 2) return null; // spread too large — static ranking is decisive
+
+        return {
+          players: rows
+            .filter((r) => !draftedIds.has(r.playerId) && r.adpMean !== null)
+            .map((r) => ({ playerId: r.playerId, adpMean: r.adpMean, adpStd: r.adpStd })),
+          currentPickNumber: currentPickN,
+          userNextPickNumber: nextPickN,
+          targetPlayerIds: top3.map((r) => r.playerId),
+          trials: 1000,
+        };
+      });
+
+      const mcReqKey = (req: McSimRequest | null): string =>
+        req === null
+          ? "null"
+          : `${req.currentPickNumber}:${req.userNextPickNumber}:${[...req.targetPlayerIds].sort().join(",")}`;
+
+      const mcConfidenceByPlayer = toSignal(
+        toObservable(mcTriggerSignal).pipe(
+          distinctUntilChanged((a, b) => mcReqKey(a) === mcReqKey(b)),
+          debounceTime(150),
+          switchMap((req) => (req ? mcService.runSimulation(req) : of({ confidence: [] }))),
+          map((result) => {
+            const m = new Map<string, number>();
+            for (const { playerId, survivalRate } of result.confidence) {
+              m.set(playerId, survivalRate);
+            }
+            return m;
+          }),
+          catchError(() => of(new Map<string, number>())),
+        ),
+        { initialValue: new Map<string, number>() },
+      );
+
       return {
         baseValueByPlayer,
         pAvailAtNextByPlayer,
@@ -623,10 +708,12 @@ export const DraftStore = signalStore(
         runHeatByPlayer,
         effScoreByPlayer,
         schemeFitByPlayer,
+        rookieScoreByPlayer,
         contextModByPlayer,
         vnpByPlayer,
         weightedCompositeByPlayer,
         wcsExplanationByPlayer,
+        mcConfidenceByPlayer,
         /**
          * Player rows with WCS-pipeline fields back-filled. Drives the
          * weighted-composite sort and any UI surface that needs the new signals.
@@ -637,8 +724,11 @@ export const DraftStore = signalStore(
           const pAvailMap = pAvailAtNextByPlayer();
           const wcsMap = weightedCompositeByPlayer();
           const schemeMap = schemeFitByPlayer();
+          const rookieMap = rookieScoreByPlayer();
+          const cfbdMap = cfbdMetricsByName();
           return store.rows().map((row) => {
             const base = baseMap.get(row.playerId);
+            const cfbd = cfbdMap.get(normalizeCfbdName(row.fullName)) ?? null;
             return {
               ...row,
               baseValue: base?.baseValue ?? null,
@@ -646,11 +736,11 @@ export const DraftStore = signalStore(
               pAvailAtNext: pAvailMap.get(row.playerId) ?? null,
               tierCliffScore: cliffMap.get(row.playerId)?.cliff ?? null,
               weightedCompositeScore: wcsMap.get(row.playerId) ?? null,
-              rookieScore: null,
+              rookieScore: rookieMap.get(row.playerId) ?? null,
               schemeFit: schemeMap.get(row.playerId) ?? null,
-              dominatorRating: null,
-              breakoutAge: null,
-              ras: null,
+              dominatorRating: cfbd?.dominatorRating ?? null,
+              breakoutAge: cfbd?.breakoutAge ?? null,
+              ras: cfbd?.ras ?? null,
               landingVacatedTargetPct: null,
             };
           });

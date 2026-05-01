@@ -1,0 +1,653 @@
+{
+  "generatedAt": "2026-05-01T00:00:00.000Z",
+  "players": [
+    {
+      "player_name": "Travis Hunter",
+      "season": 2025,
+      "position": "WR",
+      "ras": 9.42,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Tetairoa McMillan",
+      "season": 2025,
+      "position": "WR",
+      "ras": 9.51,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Luther Burden III",
+      "season": 2025,
+      "position": "WR",
+      "ras": 8.3,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Matthew Golden",
+      "season": 2025,
+      "position": "WR",
+      "ras": 9.81,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Emeka Egbuka",
+      "season": 2025,
+      "position": "WR",
+      "ras": 9.15,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Jayden Higgins",
+      "season": 2025,
+      "position": "WR",
+      "ras": 8.64,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Cam Ward",
+      "season": 2025,
+      "position": "QB",
+      "ras": 6.23,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Shedeur Sanders",
+      "season": 2025,
+      "position": "QB",
+      "ras": 5.82,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Dillon Gabriel",
+      "season": 2025,
+      "position": "QB",
+      "ras": 4.41,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Ashton Jeanty",
+      "season": 2025,
+      "position": "RB",
+      "ras": 8.93,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "TreVeyon Henderson",
+      "season": 2025,
+      "position": "RB",
+      "ras": 9.71,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Quinshon Judkins",
+      "season": 2025,
+      "position": "RB",
+      "ras": 8.18,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Nick Singleton",
+      "season": 2025,
+      "position": "RB",
+      "ras": 9.44,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Dylan Sampson",
+      "season": 2025,
+      "position": "RB",
+      "ras": 8.62,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Tyler Warren",
+      "season": 2025,
+      "position": "TE",
+      "ras": 8.62,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Colston Loveland",
+      "season": 2025,
+      "position": "TE",
+      "ras": 9.04,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Harold Fannin Jr.",
+      "season": 2025,
+      "position": "TE",
+      "ras": 7.93,
+      "dominator_rating": null,
+      "breakout_age": null,
+      "yptpa": null
+    },
+    {
+      "player_name": "Marvin Harrison Jr.",
+      "season": 2024,
+      "position": "WR",
+      "ras": 8.84,
+      "dominator_rating": 0.36,
+      "breakout_age": 19,
+      "yptpa": 1.91
+    },
+    {
+      "player_name": "Rome Odunze",
+      "season": 2024,
+      "position": "WR",
+      "ras": 8.71,
+      "dominator_rating": 0.29,
+      "breakout_age": 20,
+      "yptpa": 1.72
+    },
+    {
+      "player_name": "Malik Nabers",
+      "season": 2024,
+      "position": "WR",
+      "ras": 9.71,
+      "dominator_rating": 0.34,
+      "breakout_age": 19,
+      "yptpa": 1.85
+    },
+    {
+      "player_name": "Brian Thomas Jr.",
+      "season": 2024,
+      "position": "WR",
+      "ras": 9.96,
+      "dominator_rating": 0.31,
+      "breakout_age": 20,
+      "yptpa": 1.78
+    },
+    {
+      "player_name": "Ladd McConkey",
+      "season": 2024,
+      "position": "WR",
+      "ras": 8.52,
+      "dominator_rating": 0.27,
+      "breakout_age": 20,
+      "yptpa": 1.65
+    },
+    {
+      "player_name": "Xavier Legette",
+      "season": 2024,
+      "position": "WR",
+      "ras": 9.82,
+      "dominator_rating": 0.25,
+      "breakout_age": 21,
+      "yptpa": 1.59
+    },
+    {
+      "player_name": "Keon Coleman",
+      "season": 2024,
+      "position": "WR",
+      "ras": 8.33,
+      "dominator_rating": 0.26,
+      "breakout_age": 20,
+      "yptpa": 1.55
+    },
+    {
+      "player_name": "Adonai Mitchell",
+      "season": 2024,
+      "position": "WR",
+      "ras": 9.9,
+      "dominator_rating": 0.28,
+      "breakout_age": 20,
+      "yptpa": 1.62
+    },
+    {
+      "player_name": "Caleb Williams",
+      "season": 2024,
+      "position": "QB",
+      "ras": 5.95,
+      "dominator_rating": 0.29,
+      "breakout_age": 19,
+      "yptpa": 1.71
+    },
+    {
+      "player_name": "Jayden Daniels",
+      "season": 2024,
+      "position": "QB",
+      "ras": 9.38,
+      "dominator_rating": 0.3,
+      "breakout_age": 20,
+      "yptpa": 1.88
+    },
+    {
+      "player_name": "Drake Maye",
+      "season": 2024,
+      "position": "QB",
+      "ras": 9.65,
+      "dominator_rating": 0.31,
+      "breakout_age": 19,
+      "yptpa": 1.79
+    },
+    {
+      "player_name": "Bo Nix",
+      "season": 2024,
+      "position": "QB",
+      "ras": 6.81,
+      "dominator_rating": 0.24,
+      "breakout_age": 20,
+      "yptpa": 1.68
+    },
+    {
+      "player_name": "Michael Penix Jr.",
+      "season": 2024,
+      "position": "QB",
+      "ras": 5.52,
+      "dominator_rating": 0.26,
+      "breakout_age": 21,
+      "yptpa": 1.75
+    },
+    {
+      "player_name": "Bucky Irving",
+      "season": 2024,
+      "position": "RB",
+      "ras": 9.39,
+      "dominator_rating": 0.29,
+      "breakout_age": 19,
+      "yptpa": null
+    },
+    {
+      "player_name": "Jonathon Brooks",
+      "season": 2024,
+      "position": "RB",
+      "ras": 8.85,
+      "dominator_rating": 0.32,
+      "breakout_age": 20,
+      "yptpa": null
+    },
+    {
+      "player_name": "Blake Corum",
+      "season": 2024,
+      "position": "RB",
+      "ras": 6.31,
+      "dominator_rating": 0.33,
+      "breakout_age": 20,
+      "yptpa": null
+    },
+    {
+      "player_name": "Ray Davis",
+      "season": 2024,
+      "position": "RB",
+      "ras": 7.43,
+      "dominator_rating": 0.27,
+      "breakout_age": 22,
+      "yptpa": null
+    },
+    {
+      "player_name": "Marshawn Lloyd",
+      "season": 2024,
+      "position": "RB",
+      "ras": 7.14,
+      "dominator_rating": 0.28,
+      "breakout_age": 21,
+      "yptpa": null
+    },
+    {
+      "player_name": "Brock Bowers",
+      "season": 2024,
+      "position": "TE",
+      "ras": 9.06,
+      "dominator_rating": 0.38,
+      "breakout_age": 19,
+      "yptpa": null
+    },
+    {
+      "player_name": "Jaxon Smith-Njigba",
+      "season": 2023,
+      "position": "WR",
+      "ras": 5.25,
+      "dominator_rating": 0.35,
+      "breakout_age": 18,
+      "yptpa": 1.92
+    },
+    {
+      "player_name": "Jordan Addison",
+      "season": 2023,
+      "position": "WR",
+      "ras": 8.3,
+      "dominator_rating": 0.31,
+      "breakout_age": 19,
+      "yptpa": 1.82
+    },
+    {
+      "player_name": "Quentin Johnston",
+      "season": 2023,
+      "position": "WR",
+      "ras": 9.81,
+      "dominator_rating": 0.24,
+      "breakout_age": 20,
+      "yptpa": 1.61
+    },
+    {
+      "player_name": "Rashee Rice",
+      "season": 2023,
+      "position": "WR",
+      "ras": 8.88,
+      "dominator_rating": 0.27,
+      "breakout_age": 20,
+      "yptpa": 1.74
+    },
+    {
+      "player_name": "Tank Dell",
+      "season": 2023,
+      "position": "WR",
+      "ras": 8.63,
+      "dominator_rating": 0.28,
+      "breakout_age": 20,
+      "yptpa": 1.68
+    },
+    {
+      "player_name": "Kayshon Boutte",
+      "season": 2023,
+      "position": "WR",
+      "ras": 9.39,
+      "dominator_rating": 0.22,
+      "breakout_age": 19,
+      "yptpa": 1.55
+    },
+    {
+      "player_name": "Jonathan Mingo",
+      "season": 2023,
+      "position": "WR",
+      "ras": 6.95,
+      "dominator_rating": 0.19,
+      "breakout_age": 21,
+      "yptpa": 1.48
+    },
+    {
+      "player_name": "C.J. Stroud",
+      "season": 2023,
+      "position": "QB",
+      "ras": 4.84,
+      "dominator_rating": 0.28,
+      "breakout_age": 19,
+      "yptpa": 1.82
+    },
+    {
+      "player_name": "Bryce Young",
+      "season": 2023,
+      "position": "QB",
+      "ras": 2.93,
+      "dominator_rating": 0.32,
+      "breakout_age": 19,
+      "yptpa": 1.95
+    },
+    {
+      "player_name": "Anthony Richardson",
+      "season": 2023,
+      "position": "QB",
+      "ras": 9.96,
+      "dominator_rating": 0.21,
+      "breakout_age": 20,
+      "yptpa": 1.51
+    },
+    {
+      "player_name": "Will Levis",
+      "season": 2023,
+      "position": "QB",
+      "ras": 9.02,
+      "dominator_rating": 0.24,
+      "breakout_age": 21,
+      "yptpa": 1.58
+    },
+    {
+      "player_name": "Jahmyr Gibbs",
+      "season": 2023,
+      "position": "RB",
+      "ras": 9.64,
+      "dominator_rating": 0.34,
+      "breakout_age": 19,
+      "yptpa": null
+    },
+    {
+      "player_name": "Bijan Robinson",
+      "season": 2023,
+      "position": "RB",
+      "ras": 8.45,
+      "dominator_rating": 0.38,
+      "breakout_age": 19,
+      "yptpa": null
+    },
+    {
+      "player_name": "Roschon Johnson",
+      "season": 2023,
+      "position": "RB",
+      "ras": 7.83,
+      "dominator_rating": 0.25,
+      "breakout_age": 21,
+      "yptpa": null
+    },
+    {
+      "player_name": "Sam LaPorta",
+      "season": 2023,
+      "position": "TE",
+      "ras": 8.94,
+      "dominator_rating": 0.27,
+      "breakout_age": 20,
+      "yptpa": null
+    },
+    {
+      "player_name": "Dalton Kincaid",
+      "season": 2023,
+      "position": "TE",
+      "ras": 7.81,
+      "dominator_rating": 0.24,
+      "breakout_age": 21,
+      "yptpa": null
+    },
+    {
+      "player_name": "Garrett Wilson",
+      "season": 2022,
+      "position": "WR",
+      "ras": 9.01,
+      "dominator_rating": 0.32,
+      "breakout_age": 19,
+      "yptpa": 1.88
+    },
+    {
+      "player_name": "Jameson Williams",
+      "season": 2022,
+      "position": "WR",
+      "ras": 9.97,
+      "dominator_rating": 0.28,
+      "breakout_age": 19,
+      "yptpa": 1.72
+    },
+    {
+      "player_name": "Drake London",
+      "season": 2022,
+      "position": "WR",
+      "ras": 4.72,
+      "dominator_rating": 0.29,
+      "breakout_age": 19,
+      "yptpa": 1.65
+    },
+    {
+      "player_name": "Chris Olave",
+      "season": 2022,
+      "position": "WR",
+      "ras": 6.35,
+      "dominator_rating": 0.27,
+      "breakout_age": 19,
+      "yptpa": 1.78
+    },
+    {
+      "player_name": "Treylon Burks",
+      "season": 2022,
+      "position": "WR",
+      "ras": 9.17,
+      "dominator_rating": 0.25,
+      "breakout_age": 20,
+      "yptpa": 1.59
+    },
+    {
+      "player_name": "Jahan Dotson",
+      "season": 2022,
+      "position": "WR",
+      "ras": 8.65,
+      "dominator_rating": 0.26,
+      "breakout_age": 19,
+      "yptpa": 1.71
+    },
+    {
+      "player_name": "George Pickens",
+      "season": 2022,
+      "position": "WR",
+      "ras": 8.78,
+      "dominator_rating": 0.23,
+      "breakout_age": 19,
+      "yptpa": 1.61
+    },
+    {
+      "player_name": "Christian Watson",
+      "season": 2022,
+      "position": "WR",
+      "ras": 9.93,
+      "dominator_rating": 0.22,
+      "breakout_age": 20,
+      "yptpa": 1.54
+    },
+    {
+      "player_name": "Romeo Doubs",
+      "season": 2022,
+      "position": "WR",
+      "ras": 8.9,
+      "dominator_rating": 0.24,
+      "breakout_age": 20,
+      "yptpa": 1.63
+    },
+    {
+      "player_name": "Wan'Dale Robinson",
+      "season": 2022,
+      "position": "WR",
+      "ras": 8.18,
+      "dominator_rating": 0.21,
+      "breakout_age": 20,
+      "yptpa": 1.58
+    },
+    {
+      "player_name": "Alec Pierce",
+      "season": 2022,
+      "position": "WR",
+      "ras": 9.5,
+      "dominator_rating": 0.2,
+      "breakout_age": 21,
+      "yptpa": 1.52
+    },
+    {
+      "player_name": "Kenny Pickett",
+      "season": 2022,
+      "position": "QB",
+      "ras": 7.02,
+      "dominator_rating": 0.24,
+      "breakout_age": 21,
+      "yptpa": 1.65
+    },
+    {
+      "player_name": "Sam Howell",
+      "season": 2022,
+      "position": "QB",
+      "ras": 6.19,
+      "dominator_rating": 0.22,
+      "breakout_age": 20,
+      "yptpa": 1.71
+    },
+    {
+      "player_name": "Malik Willis",
+      "season": 2022,
+      "position": "QB",
+      "ras": 9.18,
+      "dominator_rating": 0.21,
+      "breakout_age": 21,
+      "yptpa": 1.42
+    },
+    {
+      "player_name": "Breece Hall",
+      "season": 2022,
+      "position": "RB",
+      "ras": 9.57,
+      "dominator_rating": 0.36,
+      "breakout_age": 19,
+      "yptpa": null
+    },
+    {
+      "player_name": "Isaiah Spiller",
+      "season": 2022,
+      "position": "RB",
+      "ras": 6.43,
+      "dominator_rating": 0.27,
+      "breakout_age": 20,
+      "yptpa": null
+    },
+    {
+      "player_name": "Rachaad White",
+      "season": 2022,
+      "position": "RB",
+      "ras": 8.37,
+      "dominator_rating": 0.23,
+      "breakout_age": 22,
+      "yptpa": null
+    },
+    {
+      "player_name": "Tyler Allgeier",
+      "season": 2022,
+      "position": "RB",
+      "ras": 7.64,
+      "dominator_rating": 0.29,
+      "breakout_age": 21,
+      "yptpa": null
+    },
+    {
+      "player_name": "Isaiah Likely",
+      "season": 2022,
+      "position": "TE",
+      "ras": 8.26,
+      "dominator_rating": 0.26,
+      "breakout_age": 21,
+      "yptpa": null
+    },
+    {
+      "player_name": "Trey McBride",
+      "season": 2022,
+      "position": "TE",
+      "ras": 9.62,
+      "dominator_rating": 0.22,
+      "breakout_age": 21,
+      "yptpa": null
+    }
+  ]
+}
