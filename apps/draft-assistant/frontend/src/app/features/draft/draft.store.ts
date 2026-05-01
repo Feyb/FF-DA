@@ -32,6 +32,8 @@ import {
 } from "../../core/services/consensus-aggregator.service";
 import { SurvivalService } from "../../core/services/survival.service";
 import { NflverseService } from "../../core/adapters/nflverse/nflverse.service";
+import { CfbdService, normalizeCfbdName } from "../../core/adapters/cfbd/cfbd.service";
+import { buildRookieScoreMap, RookieScoreInputs } from "./utils/rookie-score.util";
 import { computeTierCliff, TierCliffPlayer } from "./tier-cliff.util";
 import { generateExplanation } from "./score-explanation.util";
 import { buildEffScoreInputs, computeEffScores } from "./utils/efficiency-score.util";
@@ -293,12 +295,16 @@ export const DraftStore = signalStore(
       survival = inject(SurvivalService),
       appStore = inject(AppStore),
       nflverse = inject(NflverseService),
+      cfbd = inject(CfbdService),
       sleeperService = inject(SleeperService),
     ) => {
       // Nflverse data signals — load once, shareReplay(1) inside the service.
       const playerStatsMap = toSignal(nflverse.playerStats$, {
         initialValue: new Map(),
       });
+
+      // CFBD rookie metrics keyed by normalized player name.
+      const cfbdMetricsByName = toSignal(cfbd.rookieMetricsByName$, { initialValue: new Map() });
 
       // Sleeper trending adds — top 100 most-added players in last 24 h.
       // catchError so a Sleeper outage never crashes the WCS pipeline.
@@ -468,6 +474,22 @@ export const DraftStore = signalStore(
         return buildSchemeFitMap(inputs);
       });
 
+      // RookieScore: capital + CFBD composite for yearsExp ≤ 2 in rookie/startup mode.
+      const rookieScoreByPlayer = computed((): Map<string, number | null> => {
+        const rows = store.rows();
+        if (rows.length === 0) return new Map();
+        const cfbdMap = cfbdMetricsByName();
+        const picksMap = draftPicksMap();
+        const inputs: RookieScoreInputs[] = rows.map((row) => ({
+          playerId: row.playerId,
+          position: row.position,
+          nflRound: picksMap.get(row.playerId)?.round ?? null,
+          yearsExp: row.yearsExp,
+          cfbd: cfbdMap.get(normalizeCfbdName(row.fullName)) ?? null,
+        }));
+        return buildRookieScoreMap(inputs);
+      });
+
       // ContextMod: AgeMult × CapitalMult × EffMult × SchemeFitMult.
       const contextModByPlayer = computed((): Map<string, number> => {
         const effMap = effScoreByPlayer();
@@ -623,6 +645,7 @@ export const DraftStore = signalStore(
         runHeatByPlayer,
         effScoreByPlayer,
         schemeFitByPlayer,
+        rookieScoreByPlayer,
         contextModByPlayer,
         vnpByPlayer,
         weightedCompositeByPlayer,
@@ -637,8 +660,11 @@ export const DraftStore = signalStore(
           const pAvailMap = pAvailAtNextByPlayer();
           const wcsMap = weightedCompositeByPlayer();
           const schemeMap = schemeFitByPlayer();
+          const rookieMap = rookieScoreByPlayer();
+          const cfbdMap = cfbdMetricsByName();
           return store.rows().map((row) => {
             const base = baseMap.get(row.playerId);
+            const cfbd = cfbdMap.get(normalizeCfbdName(row.fullName)) ?? null;
             return {
               ...row,
               baseValue: base?.baseValue ?? null,
@@ -646,11 +672,11 @@ export const DraftStore = signalStore(
               pAvailAtNext: pAvailMap.get(row.playerId) ?? null,
               tierCliffScore: cliffMap.get(row.playerId)?.cliff ?? null,
               weightedCompositeScore: wcsMap.get(row.playerId) ?? null,
-              rookieScore: null,
+              rookieScore: rookieMap.get(row.playerId) ?? null,
               schemeFit: schemeMap.get(row.playerId) ?? null,
-              dominatorRating: null,
-              breakoutAge: null,
-              ras: null,
+              dominatorRating: cfbd?.dominatorRating ?? null,
+              breakoutAge: cfbd?.breakoutAge ?? null,
+              ras: cfbd?.ras ?? null,
               landingVacatedTargetPct: null,
             };
           });
