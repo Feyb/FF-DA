@@ -27,16 +27,17 @@ function normPdf(x: number, mean: number, sd: number): number {
   return Math.exp(-0.5 * z * z);
 }
 
-function weightedSample(ids: string[], weights: number[]): string | null {
+/** Returns the sampled index, or -1 when all weights are zero. */
+function weightedSampleIndex(weights: number[]): number {
   let total = 0;
   for (const w of weights) total += w;
-  if (total <= 0) return null;
+  if (total <= 0) return -1;
   let r = Math.random() * total;
-  for (let i = 0; i < ids.length; i++) {
+  for (let i = 0; i < weights.length; i++) {
     r -= weights[i];
-    if (r <= 0) return ids[i];
+    if (r <= 0) return i;
   }
-  return ids[ids.length - 1];
+  return weights.length - 1;
 }
 
 function estimateSigma(adpMean: number): number {
@@ -51,13 +52,21 @@ function runSimulation(req: McSimRequest): McSimResult {
   const { players, currentPickNumber, userNextPickNumber, targetPlayerIds, trials } = req;
 
   // Pre-cache sigmas and filter to players with ADP data.
+  // Treat adpStd <= 0 or non-finite as missing to avoid division-by-zero in normPdf.
   const playerData: { id: string; mean: number; sigma: number }[] = players
     .filter((p) => p.adpMean !== null)
     .map((p) => ({
       id: p.playerId,
       mean: p.adpMean!,
-      sigma: p.adpStd ?? estimateSigma(p.adpMean!),
+      sigma:
+        p.adpStd !== null && p.adpStd > 0 && isFinite(p.adpStd)
+          ? p.adpStd
+          : estimateSigma(p.adpMean!),
     }));
+
+  // Precompute id→index map once so inner loops avoid O(n) indexOf scans.
+  const idToIdx = new Map<string, number>(playerData.map((p, i) => [p.id, i]));
+  const targetIndices = targetPlayerIds.map((id) => idToIdx.get(id) ?? -1);
 
   const survived = new Map<string, number>(targetPlayerIds.map((id) => [id, 0]));
   const picksToSimulate = userNextPickNumber - currentPickNumber - 1;
@@ -65,7 +74,6 @@ function runSimulation(req: McSimRequest): McSimResult {
   for (let t = 0; t < trials; t++) {
     // Track available players using a boolean flag array (faster than Set removals).
     const available = Array.from<boolean>({ length: playerData.length }).fill(true);
-    const ids = playerData.map((p) => p.id);
 
     for (let pickOffset = 0; pickOffset < picksToSimulate; pickOffset++) {
       const pickN = currentPickNumber + 1 + pickOffset;
@@ -75,17 +83,15 @@ function runSimulation(req: McSimRequest): McSimResult {
         available[i] ? normPdf(pickN, p.mean, p.sigma) : 0,
       );
 
-      const chosenId = weightedSample(ids, weights);
-      if (chosenId) {
-        const idx = ids.indexOf(chosenId);
-        if (idx >= 0) available[idx] = false;
-      }
+      const idx = weightedSampleIndex(weights);
+      if (idx >= 0) available[idx] = false;
     }
 
     // Check which target players survived to userNextPickNumber.
-    for (const id of targetPlayerIds) {
-      const idx = ids.indexOf(id);
+    for (let i = 0; i < targetPlayerIds.length; i++) {
+      const idx = targetIndices[i];
       if (idx < 0 || available[idx]) {
+        const id = targetPlayerIds[i];
         survived.set(id, (survived.get(id) ?? 0) + 1);
       }
     }

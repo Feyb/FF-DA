@@ -15,17 +15,9 @@
  */
 
 import { getCapitalMult } from "../capital-mult";
+import { type CfbdMetrics } from "../../../core/adapters/cfbd/cfbd.service";
 
-export interface CfbdMetrics {
-  /** Dominator Rating (college target/carry share × scoring share). 0–1 typical range. */
-  dominatorRating: number | null;
-  /** Age at first 20% Dominator Rating season (lower = earlier breakout). */
-  breakoutAge: number | null;
-  /** Yards per team pass attempt in final college season. */
-  yptpa: number | null;
-  /** Relative Athletic Score — composite of combine metrics, 0–10. */
-  ras: number | null;
-}
+export type { CfbdMetrics };
 
 export interface RookieScoreInputs {
   playerId: string;

@@ -8,9 +8,11 @@
  * RAS (Relative Athletic Score) is computed from raw combine measurements using
  * position-specific population means/SDs derived from the 2000-2024 draft class.
  *
- * CollegeFootballData-sourced fields (dominator_rating, breakout_age, yptpa) require
- * CFBD_API_KEY in the environment. When the key is absent those fields are omitted and
- * the score falls back to capital-only mode inside rookie-score.util.ts.
+ * CollegeFootballData-sourced fields require CFBD_API_KEY in the environment.
+ * When the key is absent those fields are written as null and the score falls back
+ * to capital-only mode inside rookie-score.util.ts.
+ * Currently fetched via API: dominator_rating (approximated from /player/usage total).
+ * Not yet fetched: breakout_age, yptpa (remain null until a suitable CFBD endpoint is wired).
  */
 
 import { readFile, mkdir, writeFile } from "node:fs/promises";
@@ -108,7 +110,9 @@ async function fetchCfbdJson(path) {
 }
 
 /**
- * Fetch dominator_rating, breakout_age, yptpa from CFBD API for recent draft classes.
+ * Fetch CFBD metrics for recent draft classes via the CFBD API.
+ * Currently populates dominatorRating only (via /player/usage total usage share).
+ * breakoutAge and yptpa remain null until dedicated CFBD endpoints are wired.
  * Returns Map<normName, { dominatorRating, breakoutAge, yptpa }> or empty Map on error.
  */
 async function fetchCfbdMetrics(seasons) {
@@ -144,6 +148,13 @@ async function main() {
   const skillPlayers = raw.players.filter(
     (p) => SKILL_POSITIONS.has(p.position) && Number(p.season ?? 0) >= 2010,
   );
+
+  if (skillPlayers.length === 0) {
+    console.error(
+      "combine.json contains no skill-position players — aborting to prevent overwriting asset with empty data.",
+    );
+    process.exit(1);
+  }
 
   // Optional CFBD enrichment (requires API key).
   const currentYear = new Date().getFullYear();

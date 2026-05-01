@@ -9,7 +9,7 @@ import {
   withState,
 } from "@ngrx/signals";
 import { forkJoin, firstValueFrom, of } from "rxjs";
-import { catchError, map, switchMap } from "rxjs/operators";
+import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from "rxjs/operators";
 import { isSleeperRookieDraft } from "../../core/adapters/sleeper/sleeper-draft.util";
 import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import {
@@ -647,8 +647,12 @@ export const DraftStore = signalStore(
         const currentPickN = store.picks().length;
         if (nextPickN === null || nextPickN <= currentPickN + 1) return null;
 
+        const draftedIds = new Set(store.picks().map((p) => p.player_id));
         const rows = store.rows();
+
+        // Exclude already-drafted players from both the candidate set and simulation pool.
         const undrafted = rows.filter((r) => {
+          if (draftedIds.has(r.playerId)) return false;
           const wcs = wcsMap.get(r.playerId);
           return wcs !== null && wcs !== undefined;
         });
@@ -665,7 +669,7 @@ export const DraftStore = signalStore(
 
         return {
           players: rows
-            .filter((r) => r.adpMean !== null)
+            .filter((r) => !draftedIds.has(r.playerId) && r.adpMean !== null)
             .map((r) => ({ playerId: r.playerId, adpMean: r.adpMean, adpStd: r.adpStd })),
           currentPickNumber: currentPickN,
           userNextPickNumber: nextPickN,
@@ -674,8 +678,15 @@ export const DraftStore = signalStore(
         };
       });
 
+      const mcReqKey = (req: McSimRequest | null): string =>
+        req === null
+          ? "null"
+          : `${req.currentPickNumber}:${req.userNextPickNumber}:${[...req.targetPlayerIds].sort().join(",")}`;
+
       const mcConfidenceByPlayer = toSignal(
         toObservable(mcTriggerSignal).pipe(
+          distinctUntilChanged((a, b) => mcReqKey(a) === mcReqKey(b)),
+          debounceTime(150),
           switchMap((req) => (req ? mcService.runSimulation(req) : of({ confidence: [] }))),
           map((result) => {
             const m = new Map<string, number>();

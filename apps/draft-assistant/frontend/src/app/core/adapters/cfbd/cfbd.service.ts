@@ -1,7 +1,18 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { catchError, map, Observable, of, shareReplay } from "rxjs";
-import { type CfbdMetrics } from "../../../features/draft/utils/rookie-score.util";
+
+/** Collegiate metrics used by rookie-score.util.ts. Defined here to avoid a core→feature dependency. */
+export interface CfbdMetrics {
+  /** Dominator Rating (college target/carry share × scoring share). 0–1 typical range. */
+  dominatorRating: number | null;
+  /** Age at first 20% Dominator Rating season (lower = earlier breakout). */
+  breakoutAge: number | null;
+  /** Yards per team pass attempt in final college season. */
+  yptpa: number | null;
+  /** Relative Athletic Score — composite of combine metrics, 0–10. */
+  ras: number | null;
+}
 
 interface CfbdAssetPlayer {
   player_name: string;
