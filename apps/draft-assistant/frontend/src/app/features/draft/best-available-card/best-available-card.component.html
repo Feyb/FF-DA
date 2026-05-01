@@ -76,7 +76,7 @@
               />
             </div>
 
-            <!-- Right column: WCS + availability -->
+            <!-- Right column: WCS + MC confidence + availability -->
             <div class="ba-right">
               @if (wcsDisplay(entry)) {
                 <span
@@ -85,6 +85,19 @@
                   title="Weighted Composite Score"
                 >
                   {{ wcsDisplay(entry) }}
+                </span>
+              }
+              @let mcRate = mcSurvivalRate(entry);
+              @if (mcRate !== null) {
+                <span
+                  class="mc-badge"
+                  [title]="
+                    'MC: ' +
+                    (mcRate * 100 | number: '1.0-0') +
+                    '% chance still available at your next pick (1k simulations)'
+                  "
+                >
+                  {{ mcRate * 100 | number: "1.0-0" }}%
                 </span>
               }
               @if (entry.availabilityRisk === "at-risk") {

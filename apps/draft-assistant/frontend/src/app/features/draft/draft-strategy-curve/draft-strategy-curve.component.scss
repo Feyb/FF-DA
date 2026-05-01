@@ -1,0 +1,138 @@
+.sc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.sc-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto auto auto;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 1.4rem;
+}
+
+.sc-pos {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-radius: 0.2rem;
+  padding: 0.0625rem 0.25rem;
+  text-align: center;
+  background: rgb(226 232 240);
+  color: rgb(51 65 85);
+
+  &--qb {
+    background: rgb(254 226 226);
+    color: rgb(185 28 28);
+  }
+  &--rb {
+    background: rgb(220 252 231);
+    color: rgb(22 101 52);
+  }
+  &--wr {
+    background: rgb(219 234 254);
+    color: rgb(29 78 216);
+  }
+  &--te {
+    background: rgb(255 237 213);
+    color: rgb(154 52 18);
+  }
+}
+
+.sc-name {
+  font-size: 0.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgb(30 41 59);
+  min-width: 0;
+}
+
+.sc-bar-wrap {
+  width: 3rem;
+  height: 0.375rem;
+  background: rgb(241 245 249);
+  border-radius: 999px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sc-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: rgb(148 163 184);
+  transition: width 0.3s ease;
+
+  &--qb {
+    background: rgb(239 68 68);
+  }
+  &--rb {
+    background: rgb(34 197 94);
+  }
+  &--wr {
+    background: rgb(59 130 246);
+  }
+  &--te {
+    background: rgb(249 115 22);
+  }
+}
+
+.sc-wcs {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgb(71 85 105);
+  min-width: 1.5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.sc-mc {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: rgb(29 78 216);
+  min-width: 1.75rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+// ── Dark mode ─────────────────────────────────────────────────────────────────
+html.dark {
+  .sc-pos {
+    background: rgb(51 65 85);
+    color: rgb(148 163 184);
+
+    &--qb {
+      background: rgb(127 29 29);
+      color: rgb(252 165 165);
+    }
+    &--rb {
+      background: rgb(20 83 45);
+      color: rgb(134 239 172);
+    }
+    &--wr {
+      background: rgb(30 58 138);
+      color: rgb(147 197 253);
+    }
+    &--te {
+      background: rgb(67 20 7);
+      color: rgb(253 186 116);
+    }
+  }
+
+  .sc-name {
+    color: rgb(203 213 225);
+  }
+
+  .sc-bar-wrap {
+    background: rgb(30 41 59);
+  }
+
+  .sc-wcs {
+    color: rgb(100 116 139);
+  }
+
+  .sc-mc {
+    color: rgb(147 197 253);
+  }
+}

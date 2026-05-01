@@ -14,13 +14,20 @@ import {
 import { SleeperDraft } from "../../../core/models";
 import { AppStore } from "../../../core/state/app.store";
 import { DraftStore, DraftSourceMode, PositionalNeedEntry } from "../draft.store";
+import { DraftStrategyCurveComponent } from "../draft-strategy-curve/draft-strategy-curve.component";
 
 @Component({
   selector: "app-draft-sidebar",
   templateUrl: "./draft-sidebar.component.html",
   styleUrl: "./draft-sidebar.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatCardModule, MatChipsModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatChipsModule,
+    MatIconModule,
+    DraftStrategyCurveComponent,
+  ],
 })
 export class DraftSidebarComponent {
   protected readonly store = inject(DraftStore);

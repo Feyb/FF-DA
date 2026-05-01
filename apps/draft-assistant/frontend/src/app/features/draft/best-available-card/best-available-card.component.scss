@@ -268,6 +268,19 @@
   }
 }
 
+// ── MC tie-break confidence ───────────────────────────────────────────────────
+.mc-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.0625rem 0.3125rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  background: rgb(219 234 254);
+  color: rgb(29 78 216);
+  text-transform: uppercase;
+}
+
 .availability-badge {
   font-size: 0.65rem;
   font-weight: 600;
@@ -404,6 +417,11 @@ html.dark {
   .availability-badge.at-risk {
     background: rgb(127 29 29);
     color: rgb(252 165 165);
+  }
+
+  .mc-badge {
+    background: rgb(30 58 138);
+    color: rgb(147 197 253);
   }
 
   .adp-value {

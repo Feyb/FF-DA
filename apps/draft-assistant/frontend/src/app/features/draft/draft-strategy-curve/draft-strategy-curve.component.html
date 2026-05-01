@@ -1,0 +1,20 @@
+@if (curveEntries().length > 0) {
+  <div class="sc-list">
+    @for (entry of curveEntries(); track entry.playerId) {
+      <div class="sc-row">
+        <span class="sc-pos sc-pos--{{ entry.position.toLowerCase() }}">{{ entry.position }}</span>
+        <span class="sc-name">{{ entry.name }}</span>
+        <div class="sc-bar-wrap">
+          <div
+            class="sc-bar sc-bar--{{ entry.position.toLowerCase() }}"
+            [style.width.%]="entry.barPct"
+          ></div>
+        </div>
+        <span class="sc-wcs">{{ entry.wcs }}</span>
+        @if (entry.mcRate !== null) {
+          <span class="sc-mc">{{ entry.mcRate * 100 | number: "1.0-0" }}%</span>
+        }
+      </div>
+    }
+  </div>
+}

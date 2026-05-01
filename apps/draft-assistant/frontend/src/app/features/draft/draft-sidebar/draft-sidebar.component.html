@@ -74,6 +74,14 @@
     }
   </mat-card>
 
+  <mat-card class="curve-card" appearance="outlined">
+    <div class="section-header">
+      <h2>Value Board</h2>
+      <span class="section-hint">Top 12 available · WCS</span>
+    </div>
+    <app-draft-strategy-curve />
+  </mat-card>
+
   @if (store.selectedDraft(); as selectedDraft) {
     <mat-card class="summary-card" appearance="outlined">
       <p class="summary-title">Current Draft Status</p>

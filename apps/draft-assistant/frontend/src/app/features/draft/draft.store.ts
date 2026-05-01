@@ -1,5 +1,5 @@
 import { computed, effect, inject } from "@angular/core";
-import { toSignal } from "@angular/core/rxjs-interop";
+import { toObservable, toSignal } from "@angular/core/rxjs-interop";
 import {
   patchState,
   signalStore,
@@ -9,7 +9,7 @@ import {
   withState,
 } from "@ngrx/signals";
 import { forkJoin, firstValueFrom, of } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { catchError, map, switchMap } from "rxjs/operators";
 import { isSleeperRookieDraft } from "../../core/adapters/sleeper/sleeper-draft.util";
 import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import {
@@ -33,6 +33,7 @@ import {
 import { SurvivalService } from "../../core/services/survival.service";
 import { NflverseService } from "../../core/adapters/nflverse/nflverse.service";
 import { CfbdService, normalizeCfbdName } from "../../core/adapters/cfbd/cfbd.service";
+import { DraftMcService, McSimRequest } from "../../core/services/draft-mc.service";
 import { buildRookieScoreMap, RookieScoreInputs } from "./utils/rookie-score.util";
 import { computeTierCliff, TierCliffPlayer } from "./tier-cliff.util";
 import { generateExplanation } from "./score-explanation.util";
@@ -296,6 +297,7 @@ export const DraftStore = signalStore(
       appStore = inject(AppStore),
       nflverse = inject(NflverseService),
       cfbd = inject(CfbdService),
+      mcService = inject(DraftMcService),
       sleeperService = inject(SleeperService),
     ) => {
       // Nflverse data signals — load once, shareReplay(1) inside the service.
@@ -637,6 +639,56 @@ export const DraftStore = signalStore(
         return out;
       });
 
+      // MC tie-break: when the top-3 WCS scores are within 2 pts, simulate 1 000
+      // drafts to estimate each player's P(still on board at userNextPick).
+      const mcTriggerSignal = computed((): McSimRequest | null => {
+        const wcsMap = weightedCompositeByPlayer();
+        const nextPickN = store.userNextPickNumber();
+        const currentPickN = store.picks().length;
+        if (nextPickN === null || nextPickN <= currentPickN + 1) return null;
+
+        const rows = store.rows();
+        const undrafted = rows.filter((r) => {
+          const wcs = wcsMap.get(r.playerId);
+          return wcs !== null && wcs !== undefined;
+        });
+        undrafted.sort(
+          (a, b) => (wcsMap.get(b.playerId) ?? -Infinity) - (wcsMap.get(a.playerId) ?? -Infinity),
+        );
+
+        const top3 = undrafted.slice(0, 3);
+        if (top3.length < 2) return null;
+
+        const maxWcs = wcsMap.get(top3[0].playerId) ?? 0;
+        const minWcs = wcsMap.get(top3[top3.length - 1].playerId) ?? 0;
+        if (maxWcs - minWcs > 2) return null; // spread too large — static ranking is decisive
+
+        return {
+          players: rows
+            .filter((r) => r.adpMean !== null)
+            .map((r) => ({ playerId: r.playerId, adpMean: r.adpMean, adpStd: r.adpStd })),
+          currentPickNumber: currentPickN,
+          userNextPickNumber: nextPickN,
+          targetPlayerIds: top3.map((r) => r.playerId),
+          trials: 1000,
+        };
+      });
+
+      const mcConfidenceByPlayer = toSignal(
+        toObservable(mcTriggerSignal).pipe(
+          switchMap((req) => (req ? mcService.runSimulation(req) : of({ confidence: [] }))),
+          map((result) => {
+            const m = new Map<string, number>();
+            for (const { playerId, survivalRate } of result.confidence) {
+              m.set(playerId, survivalRate);
+            }
+            return m;
+          }),
+          catchError(() => of(new Map<string, number>())),
+        ),
+        { initialValue: new Map<string, number>() },
+      );
+
       return {
         baseValueByPlayer,
         pAvailAtNextByPlayer,
@@ -650,6 +702,7 @@ export const DraftStore = signalStore(
         vnpByPlayer,
         weightedCompositeByPlayer,
         wcsExplanationByPlayer,
+        mcConfidenceByPlayer,
         /**
          * Player rows with WCS-pipeline fields back-filled. Drives the
          * weighted-composite sort and any UI surface that needs the new signals.
