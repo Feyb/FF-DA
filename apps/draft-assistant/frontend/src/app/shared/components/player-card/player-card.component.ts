@@ -59,6 +59,8 @@ export class PlayerCardComponent {
   readonly starred = input<boolean>(false);
 
   readonly starToggle = output<string>();
+  /** Emits the player's Sleeper ID when the card body is clicked (not the star button). */
+  readonly cardClick = output<string>();
 
   // ── Internal ──────────────────────────────────────────────────────────────────
   protected readonly fallbackImage = PLAYER_FALLBACK_IMAGE;
@@ -176,7 +178,12 @@ export class PlayerCardComponent {
     img.src = this.fallbackImage;
   }
 
-  protected onStarClick(): void {
+  protected onStarClick(event: Event): void {
+    event.stopPropagation();
     this.starToggle.emit(this.player().playerId);
+  }
+
+  protected onCardClick(): void {
+    this.cardClick.emit(this.player().playerId);
   }
 }

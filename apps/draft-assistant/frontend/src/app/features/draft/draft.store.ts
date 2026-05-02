@@ -134,6 +134,8 @@ interface DraftState {
   draftMode: DraftMode;
   /** Player IDs already on the user's dynasty roster before this draft started. */
   existingRosterPlayerIds: string[];
+  /** Sleeper player ID currently shown in the detail drawer; null = closed. */
+  selectedDetailPlayerId: string | null;
 }
 
 const DEFAULT_POSITIONS: DraftPositionFilter[] = ["QB", "RB", "WR", "TE"];
@@ -229,6 +231,7 @@ export const DraftStore = signalStore(
     tierDropAlerts: [],
     draftMode: "startup" as DraftMode,
     existingRosterPlayerIds: [] as string[],
+    selectedDetailPlayerId: null as string | null,
   }),
   withComputed((store, appStore = inject(AppStore)) => ({
     selectedDraft: computed(
@@ -325,6 +328,16 @@ export const DraftStore = signalStore(
       const ngsStatsMap = toSignal(nflverse.ngsStats$, { initialValue: new Map() });
       const ffOppMap = toSignal(nflverse.ffOpportunity$, { initialValue: new Map() });
       const draftPicksMap = toSignal(nflverse.draftPicks$, { initialValue: new Map() });
+      const rostersMap = toSignal(nflverse.rosters$, { initialValue: new Map() });
+
+      // Bridge: normalized full_name → GSIS player_id (for player-detail drawer nflverse lookups).
+      const nflverseGsisIdByName = computed((): Map<string, string> => {
+        const m = new Map<string, string>();
+        for (const r of rostersMap().values()) {
+          if (r.full_name) m.set(normalizeCfbdName(r.full_name), r.player_id);
+        }
+        return m;
+      });
       const baseValueByPlayer = computed(
         (): Map<string, { baseValue: number | null; divergence: number | null }> => {
           const weights = SOURCE_WEIGHTS[store.draftMode()];
@@ -714,6 +727,11 @@ export const DraftStore = signalStore(
         weightedCompositeByPlayer,
         wcsExplanationByPlayer,
         mcConfidenceByPlayer,
+        playerStatsMap,
+        pfrStatsMap,
+        ngsStatsMap,
+        ffOppMap,
+        nflverseGsisIdByName,
         /**
          * Player rows with WCS-pipeline fields back-filled. Drives the
          * weighted-composite sort and any UI surface that needs the new signals.
@@ -1802,6 +1820,10 @@ export const DraftStore = signalStore(
           patchState(store, {
             tierDropAlerts: store.tierDropAlerts().filter((a) => a.id !== id),
           });
+        },
+        /** Open the player detail drawer for the given Sleeper player ID; null closes it. */
+        selectDetailPlayer(id: string | null): void {
+          patchState(store, { selectedDetailPlayerId: id });
         },
       };
     },

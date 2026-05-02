@@ -12,6 +12,8 @@
         <div
           class="best-available-entry"
           [ngClass]="entry.player?.combinedTier ?? null | tierColor"
+          (click)="entry.player && store.selectDetailPlayer(entry.player.playerId)"
+          [class.ba-entry--clickable]="!!entry.player"
         >
           <!-- Position accent bar -->
           <span

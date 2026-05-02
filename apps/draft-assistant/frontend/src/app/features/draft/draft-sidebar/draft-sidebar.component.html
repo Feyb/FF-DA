@@ -38,7 +38,10 @@
       } @else {
         <div class="roster-list">
           @for (row of store.myRosterRows(); track row.playerId) {
-            <div class="roster-row">
+            <div
+              class="roster-row roster-row--clickable"
+              (click)="store.selectDetailPlayer(row.playerId)"
+            >
               <span class="roster-pos-badge" [ngClass]="'pos-' + row.position.toLowerCase()">{{
                 row.position
               }}</span>

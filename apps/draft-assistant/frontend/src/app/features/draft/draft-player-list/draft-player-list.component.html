@@ -84,6 +84,7 @@
           [showStar]="true"
           [starred]="isStarred(player.playerId)"
           (starToggle)="toggleStar($event)"
+          (cardClick)="store.selectDetailPlayer($event)"
         />
       }
     </div>
