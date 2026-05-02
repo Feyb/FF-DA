@@ -230,3 +230,75 @@
   color: var(--mat-sys-on-surface-variant, #888);
   margin: 0.25rem 0 0;
 }
+
+// ── Dark mode ─────────────────────────────────────────────────────────────────
+
+html.dark {
+  .drawer-panel {
+    background: rgb(15 13 19);
+    border-left-color: rgb(30 41 59);
+  }
+
+  .drawer-header,
+  .drawer-section {
+    border-bottom-color: rgb(30 41 59);
+  }
+
+  .drawer-section-title,
+  .stat-label,
+  .drawer-sub,
+  .drawer-empty {
+    color: rgb(100 116 139);
+  }
+
+  .drawer-name,
+  .stat-val {
+    color: rgb(226 232 240);
+  }
+
+  .wcs-highlight {
+    color: rgb(129 140 248);
+  }
+
+  .adp-std {
+    color: rgb(71 85 105);
+  }
+
+  .pos-badge--qb {
+    background: rgb(127 29 29);
+    color: rgb(252 165 165);
+  }
+  .pos-badge--rb {
+    background: rgb(20 83 45);
+    color: rgb(134 239 172);
+  }
+  .pos-badge--wr {
+    background: rgb(30 58 138);
+    color: rgb(147 197 253);
+  }
+  .pos-badge--te {
+    background: rgb(120 53 15);
+    color: rgb(253 186 116);
+  }
+
+  .injury-out {
+    background: rgb(127 29 29);
+    color: rgb(252 165 165);
+  }
+  .injury-doubtful {
+    background: rgb(120 53 15);
+    color: rgb(253 186 116);
+  }
+  .injury-q {
+    background: rgb(113 63 18);
+    color: rgb(253 224 71);
+  }
+  .injury-other {
+    background: rgb(30 41 59);
+    color: rgb(148 163 184);
+  }
+
+  .drawer-placeholder {
+    color: rgb(71 85 105);
+  }
+}
