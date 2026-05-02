@@ -40,7 +40,11 @@
           @for (row of store.myRosterRows(); track row.playerId) {
             <div
               class="roster-row roster-row--clickable"
+              role="button"
+              tabindex="0"
               (click)="store.selectDetailPlayer(row.playerId)"
+              (keydown.enter)="store.selectDetailPlayer(row.playerId)"
+              (keydown.space)="store.selectDetailPlayer(row.playerId)"
             >
               <span class="roster-pos-badge" [ngClass]="'pos-' + row.position.toLowerCase()">{{
                 row.position

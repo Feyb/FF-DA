@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, HostListener, inject } from "@angular/core";
 import { DecimalPipe, NgClass } from "@angular/common";
-import { toSignal } from "@angular/core/rxjs-interop";
+import { toObservable, toSignal } from "@angular/core/rxjs-interop";
+import { switchMap } from "rxjs/operators";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { DraftStore } from "../draft.store";
+import { AppStore } from "../../../core/state/app.store";
 import { SleeperStatsService } from "../../../core/adapters/sleeper/sleeper-stats.service";
 import { normalizeCfbdName } from "../../../core/adapters/cfbd/cfbd.service";
 import { PLAYER_FALLBACK_IMAGE } from "../../../core/constants/images.constants";
-
-const CURRENT_YEAR = new Date().getFullYear();
+import { SleeperPlayerStats } from "../../../core/models";
 
 @Component({
   selector: "app-player-detail-drawer",
@@ -20,13 +21,20 @@ const CURRENT_YEAR = new Date().getFullYear();
 })
 export class PlayerDetailDrawerComponent {
   protected readonly store = inject(DraftStore);
+  private readonly appStore = inject(AppStore);
   private readonly statsService = inject(SleeperStatsService);
 
   protected readonly fallbackImage = PLAYER_FALLBACK_IMAGE;
 
-  private readonly statsMap = toSignal(this.statsService.fetchStats(CURRENT_YEAR), {
-    initialValue: new Map(),
+  private readonly seasonYear = computed(() => {
+    const season = this.appStore.selectedLeague()?.season;
+    return season ? Number(season) : new Date().getUTCFullYear() - 1;
   });
+
+  private readonly statsMap = toSignal(
+    toObservable(this.seasonYear).pipe(switchMap((year) => this.statsService.fetchStats(year))),
+    { initialValue: new Map<string, SleeperPlayerStats>() },
+  );
 
   protected readonly detail = computed(() => {
     const id = this.store.selectedDetailPlayerId();

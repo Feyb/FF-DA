@@ -12,8 +12,12 @@
         <div
           class="best-available-entry"
           [ngClass]="entry.player?.combinedTier ?? null | tierColor"
-          (click)="entry.player && store.selectDetailPlayer(entry.player.playerId)"
           [class.ba-entry--clickable]="!!entry.player"
+          [attr.role]="entry.player ? 'button' : null"
+          [attr.tabindex]="entry.player ? 0 : null"
+          (click)="entry.player && store.selectDetailPlayer(entry.player.playerId)"
+          (keydown.enter)="entry.player && store.selectDetailPlayer(entry.player.playerId)"
+          (keydown.space)="entry.player && store.selectDetailPlayer(entry.player.playerId)"
         >
           <!-- Position accent bar -->
           <span

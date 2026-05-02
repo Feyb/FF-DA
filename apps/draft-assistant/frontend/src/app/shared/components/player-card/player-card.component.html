@@ -1,11 +1,12 @@
 <div
   class="player-card"
   [class.player-card--drafted]="isDrafted()"
+  [class.player-card--clickable]="clickable()"
   [ngClass]="tierColorClass()"
+  [attr.role]="clickable() ? 'button' : null"
+  [attr.tabindex]="clickable() ? 0 : null"
   (click)="onCardClick()"
-  role="button"
-  tabindex="0"
-  style="cursor: pointer"
+  (keydown)="onCardKeydown($event)"
 >
   <!-- Vertical position accent bar -->
   <span class="pos-accent" [ngClass]="positionClass()" aria-hidden="true"></span>
