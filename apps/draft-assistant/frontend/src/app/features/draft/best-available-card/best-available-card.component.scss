@@ -40,6 +40,13 @@
   border-radius: 0.5rem;
   padding: 0.5rem 0.625rem 0.5rem 0;
   background: var(--tier-card-bg, #fff);
+
+  &.ba-entry--clickable {
+    cursor: pointer;
+    &:hover {
+      background: var(--mat-sys-surface-variant, #f8fafc);
+    }
+  }
   overflow: hidden;
 }
 

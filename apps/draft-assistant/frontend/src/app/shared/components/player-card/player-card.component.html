@@ -1,4 +1,13 @@
-<div class="player-card" [class.player-card--drafted]="isDrafted()" [ngClass]="tierColorClass()">
+<div
+  class="player-card"
+  [class.player-card--drafted]="isDrafted()"
+  [class.player-card--clickable]="clickable()"
+  [ngClass]="tierColorClass()"
+  [attr.role]="clickable() ? 'button' : null"
+  [attr.tabindex]="clickable() ? 0 : null"
+  (click)="onCardClick()"
+  (keydown)="onCardKeydown($event)"
+>
   <!-- Vertical position accent bar -->
   <span class="pos-accent" [ngClass]="positionClass()" aria-hidden="true"></span>
 
@@ -76,7 +85,7 @@
             mat-icon-button
             class="star-btn"
             [class.star-btn--active]="starred()"
-            (click)="onStarClick()"
+            (click)="onStarClick($event)"
             [attr.aria-label]="starred() ? 'Unstar player' : 'Star player'"
           >
             <mat-icon>{{ starred() ? "star" : "star_border" }}</mat-icon>

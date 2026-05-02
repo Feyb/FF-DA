@@ -24,7 +24,7 @@ export interface McSimResult {
 
 function normPdf(x: number, mean: number, sd: number): number {
   const z = (x - mean) / sd;
-  return Math.exp(-0.5 * z * z);
+  return Math.exp(-0.5 * z * z) / (sd * Math.sqrt(2 * Math.PI));
 }
 
 /** Returns the sampled index, or -1 when all weights are zero. */

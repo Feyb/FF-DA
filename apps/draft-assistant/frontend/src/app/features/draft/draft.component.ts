@@ -15,6 +15,7 @@ import { BestAvailableCardComponent } from "./best-available-card/best-available
 import { DraftPlayerListComponent } from "./draft-player-list/draft-player-list.component";
 import { DraftTierAlertsComponent } from "./draft-tier-alerts/draft-tier-alerts.component";
 import { DraftSidebarComponent } from "./draft-sidebar/draft-sidebar.component";
+import { PlayerDetailDrawerComponent } from "./player-detail-drawer/player-detail-drawer.component";
 import { getSleeperDraftTypeLabel } from "../../core/adapters/sleeper/sleeper-draft.util";
 
 @Component({
@@ -37,6 +38,7 @@ import { getSleeperDraftTypeLabel } from "../../core/adapters/sleeper/sleeper-dr
     DraftPlayerListComponent,
     DraftTierAlertsComponent,
     DraftSidebarComponent,
+    PlayerDetailDrawerComponent,
   ],
 })
 export class DraftComponent {

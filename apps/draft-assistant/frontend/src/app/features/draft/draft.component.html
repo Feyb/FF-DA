@@ -92,4 +92,9 @@
       </div>
     }
   }
+
+  @if (store.selectedDetailPlayerId()) {
+    <div class="drawer-backdrop" (click)="store.selectDetailPlayer(null)" aria-hidden="true"></div>
+  }
+  <app-player-detail-drawer />
 </section>

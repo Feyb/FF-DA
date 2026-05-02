@@ -83,7 +83,9 @@
           [valueGap]="player.valueGap"
           [showStar]="true"
           [starred]="isStarred(player.playerId)"
+          [clickable]="true"
           (starToggle)="toggleStar($event)"
+          (cardClick)="store.selectDetailPlayer($event)"
         />
       }
     </div>

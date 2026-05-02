@@ -150,6 +150,13 @@
   padding: 0.25rem 0;
   border-bottom: 1px solid rgb(241 245 249);
   font-size: 0.8125rem;
+
+  &.roster-row--clickable {
+    cursor: pointer;
+    &:hover {
+      background: var(--mat-sys-surface-variant, #f8fafc);
+    }
+  }
 }
 
 .roster-pos-badge {

@@ -1,0 +1,297 @@
+<div class="drawer-panel">
+  @if (detail(); as d) {
+    <!-- ── Header ───────────────────────────────────────────────────── -->
+    <div class="drawer-header">
+      <img
+        class="drawer-avatar"
+        [src]="headshotUrl(d.row.playerId)"
+        [alt]="d.row.fullName"
+        loading="lazy"
+        (error)="onImageError($event)"
+      />
+      <div class="drawer-player-meta">
+        <span class="drawer-name">{{ d.row.fullName }}</span>
+        <div class="drawer-sub">
+          <span class="pos-badge pos-badge--{{ d.row.position.toLowerCase() }}">{{
+            d.row.position
+          }}</span>
+          @if (d.row.team) {
+            <span>{{ d.row.team }}</span>
+          }
+          @if (d.row.age) {
+            <span>· {{ d.row.age }}y</span>
+          }
+          @if (d.row.yearsExp !== null) {
+            <span>· {{ d.row.yearsExp === 0 ? "Rookie" : d.row.yearsExp + " yr exp" }}</span>
+          }
+          @if (d.row.injuryStatus) {
+            <span class="injury-pill" [ngClass]="injuryClass(d.row.injuryStatus)">{{
+              d.row.injuryStatus
+            }}</span>
+          }
+        </div>
+      </div>
+      <button
+        type="button"
+        mat-icon-button
+        class="drawer-close-btn"
+        (click)="close()"
+        aria-label="Close player detail"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <!-- ── Consensus Rankings ────────────────────────────────────────── -->
+    <section class="drawer-section">
+      <h3 class="drawer-section-title">Consensus Rankings</h3>
+      <table class="stat-table">
+        <tbody>
+          <tr>
+            <td class="stat-label">KTC Value</td>
+            <td class="stat-val">{{ fmtNum(d.row.ktcValue) }}</td>
+            <td class="stat-label">KTC Rank</td>
+            <td class="stat-val">{{ d.row.ktcRank !== null ? "#" + d.row.ktcRank : "—" }}</td>
+          </tr>
+          <tr>
+            <td class="stat-label">KTC Pos Rank</td>
+            <td class="stat-val">
+              {{
+                d.row.ktcPositionalRank !== null ? d.row.position + d.row.ktcPositionalRank : "—"
+              }}
+            </td>
+            <td class="stat-label">KTC Tier</td>
+            <td class="stat-val">
+              {{ d.row.overallTier !== null ? "T" + d.row.overallTier : "—" }}
+            </td>
+          </tr>
+          <tr>
+            <td class="stat-label">Flock Rank</td>
+            <td class="stat-val">
+              {{ d.row.averageRank !== null ? "#" + d.row.averageRank : "—" }}
+            </td>
+            <td class="stat-label">Flock Tier</td>
+            <td class="stat-val">
+              {{ d.row.flockAverageTier !== null ? "T" + d.row.flockAverageTier : "—" }}
+            </td>
+          </tr>
+          <tr>
+            <td class="stat-label">Flock Pos Rank</td>
+            <td class="stat-val">
+              {{
+                d.row.flockAveragePositionalRank !== null
+                  ? d.row.position + d.row.flockAveragePositionalRank
+                  : "—"
+              }}
+            </td>
+            <td class="stat-label">Flock Pos Tier</td>
+            <td class="stat-val">
+              {{
+                d.row.flockAveragePositionalTier !== null
+                  ? "T" + d.row.flockAveragePositionalTier
+                  : "—"
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td class="stat-label">FantasyCalc</td>
+            <td class="stat-val">{{ fmtNum(d.row.fantasyCalcValue) }}</td>
+            <td class="stat-label">FC 30d</td>
+            <td class="stat-val" [ngClass]="trendClass(d.row.fantasyCalcTrend30Day)">
+              {{ trendLabel(d.row.fantasyCalcTrend30Day) }}
+            </td>
+          </tr>
+          <tr>
+            <td class="stat-label">FantasyPros ADP</td>
+            <td class="stat-val">{{ d.row.fpAdpRank !== null ? "#" + d.row.fpAdpRank : "—" }}</td>
+            <td class="stat-label">FFC ADP</td>
+            <td class="stat-val">
+              @if (d.row.adpMean !== null) {
+                {{ fmtNum(d.row.adpMean, 1) }}
+                @if (d.row.adpStd !== null) {
+                  <span class="adp-std">±{{ fmtNum(d.row.adpStd, 1) }}</span>
+                }
+              } @else {
+                —
+              }
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ── WCS Breakdown ─────────────────────────────────────────────── -->
+    <section class="drawer-section">
+      <h3 class="drawer-section-title">WCS Breakdown</h3>
+      <table class="stat-table">
+        <tbody>
+          <tr>
+            <td class="stat-label">Base Value</td>
+            <td class="stat-val">{{ fmtNum(d.row.baseValue, 1) }}</td>
+            <td class="stat-label">Final WCS</td>
+            <td class="stat-val wcs-highlight">{{ fmtNum(d.row.weightedCompositeScore, 1) }}</td>
+          </tr>
+          <tr>
+            <td class="stat-label">Context Mod</td>
+            <td class="stat-val">{{ fmtNum(d.contextMod, 3) }}</td>
+            <td class="stat-label">Need Mult</td>
+            <td class="stat-val">{{ fmtNum(d.needMult, 3) }}</td>
+          </tr>
+          <tr>
+            <td class="stat-label">Tier Cliff</td>
+            <td class="stat-val">{{ fmtNum(d.row.tierCliffScore, 3) }}</td>
+            <td class="stat-label">pAvail@Next</td>
+            <td class="stat-val">
+              {{ d.row.pAvailAtNext !== null ? fmtPct(d.row.pAvailAtNext) : "—" }}
+            </td>
+          </tr>
+          <tr>
+            <td class="stat-label">Run Heat</td>
+            <td class="stat-val">{{ fmtNum(d.runHeat, 3) }}</td>
+            <td class="stat-label">VNP</td>
+            <td class="stat-val">{{ fmtNum(d.vnp, 3) }}</td>
+          </tr>
+          <tr>
+            <td class="stat-label">MC Survival</td>
+            <td class="stat-val">{{ d.mc !== null ? fmtPct(d.mc) : "—" }}</td>
+            <td class="stat-label">Base Divergence</td>
+            <td class="stat-val">{{ fmtNum(d.row.baseValueDivergence, 1) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ── Season Stats ──────────────────────────────────────────────── -->
+    <section class="drawer-section">
+      <h3 class="drawer-section-title">
+        Season Stats ({{ store.enrichedRows().length > 0 ? "most recent" : "…" }})
+      </h3>
+      @if (d.seasonStats) {
+        <table class="stat-table">
+          <tbody>
+            @if (d.row.position !== "QB") {
+              <tr>
+                <td class="stat-label">Targets</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.tar) }}</td>
+                <td class="stat-label">Receptions</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.rec) }}</td>
+              </tr>
+              <tr>
+                <td class="stat-label">Rec Yds</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.rec_yd) }}</td>
+                <td class="stat-label">Rec TDs</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.rec_td) }}</td>
+              </tr>
+              <tr>
+                <td class="stat-label">Rush Att</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.rush_att) }}</td>
+                <td class="stat-label">Rush Yds</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.rush_yd) }}</td>
+              </tr>
+              <tr>
+                <td class="stat-label">Rush TDs</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.rush_td) }}</td>
+                <td class="stat-label">Snap%</td>
+                <td class="stat-val">{{ fmtPct(d.seasonStats.snap_pct) }}</td>
+              </tr>
+            } @else {
+              <tr>
+                <td class="stat-label">Pass Yds</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.pass_yd) }}</td>
+                <td class="stat-label">Pass TDs</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.pass_td) }}</td>
+              </tr>
+              <tr>
+                <td class="stat-label">INTs</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.pass_int) }}</td>
+                <td class="stat-label">Cmp%</td>
+                <td class="stat-val">
+                  @if (d.seasonStats.pass_att > 0) {
+                    {{ fmtPct(d.seasonStats.pass_cmp / d.seasonStats.pass_att) }}
+                  } @else {
+                    —
+                  }
+                </td>
+              </tr>
+              <tr>
+                <td class="stat-label">Rush Yds</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.rush_yd) }}</td>
+                <td class="stat-label">Rush TDs</td>
+                <td class="stat-val">{{ fmtNum(d.seasonStats.rush_td) }}</td>
+              </tr>
+              <tr>
+                <td class="stat-label">Snap%</td>
+                <td class="stat-val">{{ fmtPct(d.seasonStats.snap_pct) }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        <p class="drawer-empty">No season stats available.</p>
+      }
+    </section>
+
+    <!-- ── Advanced Metrics ──────────────────────────────────────────── -->
+    <section class="drawer-section">
+      <h3 class="drawer-section-title">Advanced Metrics</h3>
+      <table class="stat-table">
+        <tbody>
+          <tr>
+            <td class="stat-label">WOPR</td>
+            <td class="stat-val">{{ fmtNum(d.nflStats?.wopr, 3) }}</td>
+            <td class="stat-label">Air Yds%</td>
+            <td class="stat-val">{{ fmtNum(d.nflStats?.air_yards_share, 3) }}</td>
+          </tr>
+          <tr>
+            <td class="stat-label">YPRR</td>
+            <td class="stat-val">{{ fmtNum(d.pfrStats?.yprr, 2) }}</td>
+            <td class="stat-label">TPRR</td>
+            <td class="stat-val">{{ fmtNum(d.pfrStats?.tprr, 3) }}</td>
+          </tr>
+          <tr>
+            <td class="stat-label">CPOE</td>
+            <td class="stat-val">{{ fmtNum(d.ngsStats?.cpoe, 1) }}</td>
+            <td class="stat-label">Wtd Opp</td>
+            <td class="stat-val">{{ fmtNum(d.ffOpp?.weighted_opportunity, 1) }}</td>
+          </tr>
+          <tr>
+            <td class="stat-label">EffScore</td>
+            <td class="stat-val" [ngClass]="effGradeClass(d.eff)">{{ fmtNum(d.eff, 2) }}</td>
+            <td class="stat-label">Eff Grade</td>
+            <td class="stat-val" [ngClass]="effGradeClass(d.eff)">{{ effGradeLabel(d.eff) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ── College Metrics ───────────────────────────────────────────── -->
+    <section class="drawer-section">
+      <h3 class="drawer-section-title">College Metrics</h3>
+      <table class="stat-table">
+        <tbody>
+          <tr>
+            <td class="stat-label">RAS</td>
+            <td class="stat-val">{{ fmtNum(d.row.ras, 2) }}</td>
+            <td class="stat-label">Dominator %</td>
+            <td class="stat-val">
+              {{ d.row.dominatorRating !== null ? fmtPct(d.row.dominatorRating) : "—" }}
+            </td>
+          </tr>
+          <tr>
+            <td class="stat-label">Breakout Age</td>
+            <td class="stat-val">{{ fmtNum(d.row.breakoutAge, 1) }}</td>
+            <td class="stat-label">Rookie Score</td>
+            <td class="stat-val">{{ fmtNum(d.row.rookieScore, 1) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  } @else {
+    <div class="drawer-placeholder">
+      <mat-icon>person</mat-icon>
+      <p>Select a player to view details.</p>
+    </div>
+  }
+</div>

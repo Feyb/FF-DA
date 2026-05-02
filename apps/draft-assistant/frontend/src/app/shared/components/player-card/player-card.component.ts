@@ -58,7 +58,12 @@ export class PlayerCardComponent {
   readonly showStar = input<boolean>(false);
   readonly starred = input<boolean>(false);
 
+  /** When true, the whole card acts as a button and emits cardClick on click / Enter / Space. */
+  readonly clickable = input<boolean>(false);
+
   readonly starToggle = output<string>();
+  /** Emits the player's Sleeper ID when the card is clicked (only when clickable=true). */
+  readonly cardClick = output<string>();
 
   // ── Internal ──────────────────────────────────────────────────────────────────
   protected readonly fallbackImage = PLAYER_FALLBACK_IMAGE;
@@ -176,7 +181,20 @@ export class PlayerCardComponent {
     img.src = this.fallbackImage;
   }
 
-  protected onStarClick(): void {
+  protected onStarClick(event: Event): void {
+    event.stopPropagation();
     this.starToggle.emit(this.player().playerId);
+  }
+
+  protected onCardClick(): void {
+    if (this.clickable()) this.cardClick.emit(this.player().playerId);
+  }
+
+  protected onCardKeydown(event: KeyboardEvent): void {
+    if (!this.clickable()) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      this.cardClick.emit(this.player().playerId);
+    }
   }
 }
