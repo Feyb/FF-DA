@@ -48,35 +48,73 @@
       <table class="stat-table">
         <tbody>
           <tr>
-            <td class="stat-label">KTC Value</td>
+            <td
+              class="stat-label"
+              matTooltip="KeepTradeCut dynasty value (higher = more valuable)"
+              matTooltipPosition="left"
+            >
+              KTC Value
+            </td>
             <td class="stat-val">{{ fmtNum(d.row.ktcValue) }}</td>
-            <td class="stat-label">KTC Rank</td>
+            <td
+              class="stat-label"
+              matTooltip="Overall rank on KeepTradeCut"
+              matTooltipPosition="left"
+            >
+              KTC Rank
+            </td>
             <td class="stat-val">{{ d.row.ktcRank !== null ? "#" + d.row.ktcRank : "—" }}</td>
           </tr>
           <tr>
-            <td class="stat-label">KTC Pos Rank</td>
+            <td
+              class="stat-label"
+              matTooltip="Positional rank on KeepTradeCut (e.g. WR4)"
+              matTooltipPosition="left"
+            >
+              KTC Pos Rank
+            </td>
             <td class="stat-val">
               {{
                 d.row.ktcPositionalRank !== null ? d.row.position + d.row.ktcPositionalRank : "—"
               }}
             </td>
-            <td class="stat-label">KTC Tier</td>
+            <td
+              class="stat-label"
+              matTooltip="Overall consensus tier (KTC)"
+              matTooltipPosition="left"
+            >
+              KTC Tier
+            </td>
             <td class="stat-val">
               {{ d.row.overallTier !== null ? "T" + d.row.overallTier : "—" }}
             </td>
           </tr>
           <tr>
-            <td class="stat-label">Flock Rank</td>
+            <td
+              class="stat-label"
+              matTooltip="Flock community consensus overall rank"
+              matTooltipPosition="left"
+            >
+              Flock Rank
+            </td>
             <td class="stat-val">
               {{ d.row.averageRank !== null ? "#" + d.row.averageRank : "—" }}
             </td>
-            <td class="stat-label">Flock Tier</td>
+            <td
+              class="stat-label"
+              matTooltip="Flock consensus overall tier"
+              matTooltipPosition="left"
+            >
+              Flock Tier
+            </td>
             <td class="stat-val">
               {{ d.row.flockAverageTier !== null ? "T" + d.row.flockAverageTier : "—" }}
             </td>
           </tr>
           <tr>
-            <td class="stat-label">Flock Pos Rank</td>
+            <td class="stat-label" matTooltip="Flock positional rank" matTooltipPosition="left">
+              Flock Pos Rank
+            </td>
             <td class="stat-val">
               {{
                 d.row.flockAveragePositionalRank !== null
@@ -84,7 +122,9 @@
                   : "—"
               }}
             </td>
-            <td class="stat-label">Flock Pos Tier</td>
+            <td class="stat-label" matTooltip="Flock positional tier" matTooltipPosition="left">
+              Flock Pos Tier
+            </td>
             <td class="stat-val">
               {{
                 d.row.flockAveragePositionalTier !== null
@@ -94,17 +134,37 @@
             </td>
           </tr>
           <tr>
-            <td class="stat-label">FantasyCalc</td>
+            <td class="stat-label" matTooltip="FantasyCalc dynasty value" matTooltipPosition="left">
+              FantasyCalc
+            </td>
             <td class="stat-val">{{ fmtNum(d.row.fantasyCalcValue) }}</td>
-            <td class="stat-label">FC 30d</td>
+            <td
+              class="stat-label"
+              matTooltip="FantasyCalc value change over 30 days"
+              matTooltipPosition="left"
+            >
+              FC 30d
+            </td>
             <td class="stat-val" [ngClass]="trendClass(d.row.fantasyCalcTrend30Day)">
               {{ trendLabel(d.row.fantasyCalcTrend30Day) }}
             </td>
           </tr>
           <tr>
-            <td class="stat-label">FantasyPros ADP</td>
+            <td
+              class="stat-label"
+              matTooltip="FantasyPros average draft position rank"
+              matTooltipPosition="left"
+            >
+              FantasyPros ADP
+            </td>
             <td class="stat-val">{{ d.row.fpAdpRank !== null ? "#" + d.row.fpAdpRank : "—" }}</td>
-            <td class="stat-label">FFC ADP</td>
+            <td
+              class="stat-label"
+              matTooltip="FantasyFootballCalculator ADP (mean ± std dev across drafts)"
+              matTooltipPosition="left"
+            >
+              FFC ADP
+            </td>
             <td class="stat-val">
               @if (d.row.adpMean !== null) {
                 {{ fmtNum(d.row.adpMean, 1) }}
@@ -126,35 +186,95 @@
       <table class="stat-table">
         <tbody>
           <tr>
-            <td class="stat-label">Base Value</td>
+            <td
+              class="stat-label"
+              matTooltip="Consensus-aggregated rank score (input to WCS)"
+              matTooltipPosition="left"
+            >
+              Base Value
+            </td>
             <td class="stat-val">{{ fmtNum(d.row.baseValue, 1) }}</td>
-            <td class="stat-label">Final WCS</td>
+            <td
+              class="stat-label"
+              matTooltip="Weighted Composite Score — the draft recommendation signal"
+              matTooltipPosition="left"
+            >
+              Final WCS
+            </td>
             <td class="stat-val wcs-highlight">{{ fmtNum(d.row.weightedCompositeScore, 1) }}</td>
           </tr>
           <tr>
-            <td class="stat-label">Context Mod</td>
+            <td
+              class="stat-label"
+              matTooltip="Multiplier: age curve × draft capital × efficiency grade"
+              matTooltipPosition="left"
+            >
+              Context Mod
+            </td>
             <td class="stat-val">{{ fmtNum(d.contextMod, 3) }}</td>
-            <td class="stat-label">Need Mult</td>
+            <td
+              class="stat-label"
+              matTooltip="Multiplier: how much your roster needs this position"
+              matTooltipPosition="left"
+            >
+              Need Mult
+            </td>
             <td class="stat-val">{{ fmtNum(d.needMult, 3) }}</td>
           </tr>
           <tr>
-            <td class="stat-label">Tier Cliff</td>
+            <td
+              class="stat-label"
+              matTooltip="Urgency bonus when a tier gap follows this player"
+              matTooltipPosition="left"
+            >
+              Tier Cliff
+            </td>
             <td class="stat-val">{{ fmtNum(d.row.tierCliffScore, 3) }}</td>
-            <td class="stat-label">pAvail@Next</td>
+            <td
+              class="stat-label"
+              matTooltip="ADP-based probability this player is still available at your next pick"
+              matTooltipPosition="left"
+            >
+              pAvail@Next
+            </td>
             <td class="stat-val">
               {{ d.row.pAvailAtNext !== null ? fmtPct(d.row.pAvailAtNext) : "—" }}
             </td>
           </tr>
           <tr>
-            <td class="stat-label">Run Heat</td>
+            <td
+              class="stat-label"
+              matTooltip="Penalty when the same position has been heavily drafted recently"
+              matTooltipPosition="left"
+            >
+              Run Heat
+            </td>
             <td class="stat-val">{{ fmtNum(d.runHeat, 3) }}</td>
-            <td class="stat-label">VNP</td>
+            <td
+              class="stat-label"
+              matTooltip="Value over Next Pick — surplus vs. best alternative at your next turn"
+              matTooltipPosition="left"
+            >
+              VNP
+            </td>
             <td class="stat-val">{{ fmtNum(d.vnp, 3) }}</td>
           </tr>
           <tr>
-            <td class="stat-label">MC Survival</td>
+            <td
+              class="stat-label"
+              matTooltip="Monte Carlo estimate: % chance still on board at your next pick (1 000 sims)"
+              matTooltipPosition="left"
+            >
+              MC Survival
+            </td>
             <td class="stat-val">{{ d.mc !== null ? fmtPct(d.mc) : "—" }}</td>
-            <td class="stat-label">Base Divergence</td>
+            <td
+              class="stat-label"
+              matTooltip="Spread across ranking sources — high = analysts disagree"
+              matTooltipPosition="left"
+            >
+              Base Divergence
+            </td>
             <td class="stat-val">{{ fmtNum(d.row.baseValueDivergence, 1) }}</td>
           </tr>
         </tbody>
@@ -191,7 +311,13 @@
               <tr>
                 <td class="stat-label">Rush TDs</td>
                 <td class="stat-val">{{ fmtNum(d.seasonStats.rush_td) }}</td>
-                <td class="stat-label">Snap%</td>
+                <td
+                  class="stat-label"
+                  matTooltip="Average snap participation rate"
+                  matTooltipPosition="left"
+                >
+                  Snap%
+                </td>
                 <td class="stat-val">{{ fmtPct(d.seasonStats.snap_pct) }}</td>
               </tr>
             } @else {
@@ -220,7 +346,13 @@
                 <td class="stat-val">{{ fmtNum(d.seasonStats.rush_td) }}</td>
               </tr>
               <tr>
-                <td class="stat-label">Snap%</td>
+                <td
+                  class="stat-label"
+                  matTooltip="Average snap participation rate"
+                  matTooltipPosition="left"
+                >
+                  Snap%
+                </td>
                 <td class="stat-val">{{ fmtPct(d.seasonStats.snap_pct) }}</td>
                 <td></td>
                 <td></td>
@@ -239,27 +371,67 @@
       <table class="stat-table">
         <tbody>
           <tr>
-            <td class="stat-label">WOPR</td>
+            <td
+              class="stat-label"
+              matTooltip="Weighted Opportunity Rating: 1.5×target share + air yards share"
+              matTooltipPosition="left"
+            >
+              WOPR
+            </td>
             <td class="stat-val">{{ fmtNum(d.nflStats?.wopr, 3) }}</td>
-            <td class="stat-label">Air Yds%</td>
+            <td
+              class="stat-label"
+              matTooltip="Share of team's total air yards"
+              matTooltipPosition="left"
+            >
+              Air Yds%
+            </td>
             <td class="stat-val">{{ fmtNum(d.nflStats?.air_yards_share, 3) }}</td>
           </tr>
           <tr>
-            <td class="stat-label">YPRR</td>
+            <td class="stat-label" matTooltip="Yards per route run" matTooltipPosition="left">
+              YPRR
+            </td>
             <td class="stat-val">{{ fmtNum(d.pfrStats?.yprr, 2) }}</td>
-            <td class="stat-label">TPRR</td>
+            <td class="stat-label" matTooltip="Targets per route run" matTooltipPosition="left">
+              TPRR
+            </td>
             <td class="stat-val">{{ fmtNum(d.pfrStats?.tprr, 3) }}</td>
           </tr>
           <tr>
-            <td class="stat-label">CPOE</td>
+            <td
+              class="stat-label"
+              matTooltip="Completion % over expected (QBs only)"
+              matTooltipPosition="left"
+            >
+              CPOE
+            </td>
             <td class="stat-val">{{ fmtNum(d.ngsStats?.cpoe, 1) }}</td>
-            <td class="stat-label">Wtd Opp</td>
+            <td
+              class="stat-label"
+              matTooltip="Weighted opportunity: 1.5×targets + rush attempts"
+              matTooltipPosition="left"
+            >
+              Wtd Opp
+            </td>
             <td class="stat-val">{{ fmtNum(d.ffOpp?.weighted_opportunity, 1) }}</td>
           </tr>
           <tr>
-            <td class="stat-label">EffScore</td>
+            <td
+              class="stat-label"
+              matTooltip="Composite efficiency z-score (position-normalized nflverse metrics)"
+              matTooltipPosition="left"
+            >
+              EffScore
+            </td>
             <td class="stat-val" [ngClass]="effGradeClass(d.eff)">{{ fmtNum(d.eff, 2) }}</td>
-            <td class="stat-label">Eff Grade</td>
+            <td
+              class="stat-label"
+              matTooltip="Letter grade derived from EffScore (A+ to D)"
+              matTooltipPosition="left"
+            >
+              Eff Grade
+            </td>
             <td class="stat-val" [ngClass]="effGradeClass(d.eff)">{{ effGradeLabel(d.eff) }}</td>
           </tr>
         </tbody>
@@ -272,17 +444,41 @@
       <table class="stat-table">
         <tbody>
           <tr>
-            <td class="stat-label">RAS</td>
+            <td
+              class="stat-label"
+              matTooltip="Relative Athletic Score (0–10): combine testing vs. historical positional peers"
+              matTooltipPosition="left"
+            >
+              RAS
+            </td>
             <td class="stat-val">{{ fmtNum(d.row.ras, 2) }}</td>
-            <td class="stat-label">Dominator %</td>
+            <td
+              class="stat-label"
+              matTooltip="College target/rush share: % of team's total receiving/rushing production"
+              matTooltipPosition="left"
+            >
+              Dominator %
+            </td>
             <td class="stat-val">
               {{ d.row.dominatorRating !== null ? fmtPct(d.row.dominatorRating) : "—" }}
             </td>
           </tr>
           <tr>
-            <td class="stat-label">Breakout Age</td>
+            <td
+              class="stat-label"
+              matTooltip="Age at first season with ≥20% college dominator rating"
+              matTooltipPosition="left"
+            >
+              Breakout Age
+            </td>
             <td class="stat-val">{{ fmtNum(d.row.breakoutAge, 1) }}</td>
-            <td class="stat-label">Rookie Score</td>
+            <td
+              class="stat-label"
+              matTooltip="Composite: draft capital × CFBD metrics (rookies only)"
+              matTooltipPosition="left"
+            >
+              Rookie Score
+            </td>
             <td class="stat-val">{{ fmtNum(d.row.rookieScore, 1) }}</td>
           </tr>
         </tbody>
