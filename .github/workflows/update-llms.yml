@@ -28,10 +28,18 @@ jobs:
           REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
         run: |
           curl --fail --silent --show-error --location --retry 3 \
-            --get \
-            --data-urlencode "repo=${REPOSITORY_URL}" \
-            "https://gitingest.com/llms.txt" \
+            "https://gitingest.com/api/ingest" \
+            --header "Content-Type: application/json" \
+            --data "{\"input_text\":\"${REPOSITORY_URL}\",\"max_file_size\":51200,\"pattern_type\":\"exclude\",\"pattern\":\"\",\"token\":\"\"}" \
+            --output ingest-response.json
+
+          DIGEST_URL=$(python3 -c 'import json; import sys; print(json.load(open("ingest-response.json"))["digest_url"])')
+
+          curl --fail --silent --show-error --location --retry 3 \
+            "${DIGEST_URL}" \
             --output llms.txt
+
+          rm -f ingest-response.json
 
       - name: Commit refreshed llms.txt
         run: |
