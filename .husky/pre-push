@@ -14,5 +14,5 @@ if [ -z "$node_major" ] || [ "$node_major" -lt 20 ]; then
 	exit 1
 fi
 
-corepack pnpm run draft-assistant:fmt:check
-corepack pnpm run draft-assistant:lint
+corepack pnpm --filter @ff/draft-assistant-frontend run fmt:check
+corepack pnpm --filter @ff/draft-assistant-frontend run lint
