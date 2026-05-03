@@ -1,6 +1,6 @@
 {
   "source": "api.fantasycalc.com",
-  "generatedAt": "2026-04-30T13:25:49.626Z",
+  "generatedAt": "2026-05-03T18:55:32.417Z",
   "formats": {
     "1qb-dynasty": {
       "output": "values-1qb-dynasty.json",
@@ -14,7 +14,7 @@
     },
     "superflex-dynasty": {
       "output": "values-superflex-dynasty.json",
-      "count": 461,
+      "count": 462,
       "params": {
         "isDynasty": "true",
         "numQbs": "2",
@@ -24,7 +24,7 @@
     },
     "1qb-redraft": {
       "output": "values-1qb-redraft.json",
-      "count": 199,
+      "count": 200,
       "params": {
         "isDynasty": "false",
         "numQbs": "1",
