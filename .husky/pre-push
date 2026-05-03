@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+pnpm run draft-assistant:fmt:check
+pnpm run draft-assistant:lint
