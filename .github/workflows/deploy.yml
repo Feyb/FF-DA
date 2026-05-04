@@ -43,7 +43,7 @@ jobs:
         run: pnpm install
 
       - name: Build project
-        run: pnpm draft-assistant:build:ci --base-href /FF-DA/
+        run: pnpm draft-assistant:build:ci
 
       - name: Verify Pages artifact contents
         run: |
