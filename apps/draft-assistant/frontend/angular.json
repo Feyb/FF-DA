@@ -88,6 +88,17 @@
             "styles": ["src/styles.scss"],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/FF-DA/",
+            "branch": "gh-pages",
+            "name": "github-actions[bot]",
+            "email": "github-actions[bot]@users.noreply.github.com",
+            "noDotFiles": false,
+            "noSilent": false
+          }
         }
       }
     }

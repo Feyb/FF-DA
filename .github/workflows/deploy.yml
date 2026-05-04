@@ -7,28 +7,20 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: gh-pages
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
+    name: Build & Deploy to GitHub Pages
     runs-on: ubuntu-latest
-    env:
-      PAGES_ARTIFACT_PATH: apps/draft-assistant/frontend/dist/frontend/browser
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -47,29 +39,10 @@ jobs:
       - name: Check formatting
         run: pnpm draft-assistant:fmt:check
 
-      - name: Build project
-        run: pnpm draft-assistant:build:ci --base-href /FF-DA/
-
-      - name: Verify Pages artifact contents
-        run: |
-          [ -f "$PAGES_ARTIFACT_PATH/index.html" ] || {
-            echo 'Error: Build artifact index.html not found at expected Pages path.'
-            exit 1
-          }
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ${{ env.PAGES_ARTIFACT_PATH }}
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Build & deploy to GitHub Pages (gh-pages branch)
+        # angular-cli-ghpages builds with baseHref=/FF-DA/ (from angular.json deploy options)
+        # then pushes the output to the gh-pages branch.
+        # GH_TOKEN grants the runner write access to push to gh-pages.
+        run: pnpm draft-assistant:deploy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
