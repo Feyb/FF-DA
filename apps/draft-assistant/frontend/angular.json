@@ -53,7 +53,8 @@
                   "maximumError": "20kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/FF-DA/"
             },
             "development": {
               "optimization": false,
