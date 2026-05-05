@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'llms.txt'
+      - 'ingest-response.json'
   workflow_dispatch:
 
 permissions:
