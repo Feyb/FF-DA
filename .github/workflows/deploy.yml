@@ -23,7 +23,7 @@ jobs:
     name: Build Pages Artifact
     runs-on: ubuntu-latest
     env:
-      PAGES_ARTIFACT_PATH: apps/draft-assistant/frontend/dist/frontend/browser
+      PAGES_ARTIFACT_PATH: apps\draft-assistant\frontend\dist\browser
 
     steps:
       - name: Checkout code

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, HostListener, inject } from "@angular/core";
-import { DecimalPipe, NgClass } from "@angular/common";
+import { NgClass } from "@angular/common";
 import { toObservable, toSignal } from "@angular/core/rxjs-interop";
 import { switchMap } from "rxjs/operators";
 import { MatButtonModule } from "@angular/material/button";
@@ -18,7 +18,7 @@ import { SleeperPlayerStats } from "../../../core/models";
   styleUrl: "./player-detail-drawer.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { "[class.open]": "store.selectedDetailPlayerId() !== null" },
-  imports: [NgClass, DecimalPipe, MatButtonModule, MatIconModule, MatTooltipModule],
+  imports: [NgClass, MatButtonModule, MatIconModule, MatTooltipModule],
 })
 export class PlayerDetailDrawerComponent {
   protected readonly store = inject(DraftStore);
