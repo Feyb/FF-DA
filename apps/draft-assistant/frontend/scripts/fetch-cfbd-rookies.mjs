@@ -23,6 +23,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const COMBINE_FILE = resolve(__dirname, "../src/assets/nflverse/combine.json");
 const OUTPUT_DIR = resolve(__dirname, "../src/assets/cfbd");
 const OUTPUT_FILE = resolve(OUTPUT_DIR, "rookie-metrics.json");
+const FALLBACK_OUTPUT_FILE = resolve(__dirname, "../dist/browser/assets/cfbd/rookie-metrics.json");
 
 const CFBD_BASE = "https://api.collegefootballdata.com";
 const API_KEY = process.env.CFBD_API_KEY ?? null;
@@ -96,7 +97,42 @@ function normName(name) {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
+    .replace(/\b(jr|sr|ii|iii|iv|v)\b/g, "")
     .replace(/[^a-z0-9]/g, "");
+}
+
+function playerSeasonKey(name, season) {
+  return `${normName(name)}:${Number(season ?? 0)}`;
+}
+
+async function loadExistingMetrics() {
+  const byPlayerSeason = new Map();
+
+  for (const file of [FALLBACK_OUTPUT_FILE, OUTPUT_FILE]) {
+    try {
+      const raw = JSON.parse(await readFile(file, "utf8"));
+
+      for (const player of raw.players ?? []) {
+        if (!player?.player_name) continue;
+
+        const key = playerSeasonKey(player.player_name, player.season);
+        const existing = byPlayerSeason.get(key);
+        byPlayerSeason.set(key, {
+          dominatorRating: existing?.dominatorRating ?? player.dominator_rating ?? null,
+          breakoutAge: existing?.breakoutAge ?? player.breakout_age ?? null,
+          yptpa: existing?.yptpa ?? player.yptpa ?? null,
+        });
+      }
+    } catch (error) {
+      if (error?.code === "ENOENT") {
+        continue;
+      }
+
+      throw error;
+    }
+  }
+
+  return byPlayerSeason;
 }
 
 // ── Optional CFBD enrichment ────────────────────────────────────────────────
@@ -160,26 +196,28 @@ async function main() {
   const currentYear = new Date().getFullYear();
   const cfbdSeasons = [currentYear - 1, currentYear - 2, currentYear - 3, currentYear - 4];
   const cfbdMap = await fetchCfbdMetrics(cfbdSeasons);
+  const existingMetrics = await loadExistingMetrics();
 
   const byName = new Map();
   for (const p of skillPlayers) {
     const name = p.player_name;
     if (!name) continue;
     const key = normName(name);
-    const existing = byName.get(key);
-    if (existing && existing.season >= Number(p.season ?? 0)) continue;
+    const existingPlayer = byName.get(key);
+    if (existingPlayer && existingPlayer.season >= Number(p.season ?? 0)) continue;
 
     const ras = computeRas(p, p.position);
     const cfbd = cfbdMap.get(key);
+    const existing = existingMetrics.get(playerSeasonKey(name, p.season));
 
     byName.set(key, {
       player_name: name,
       season: Number(p.season ?? 0),
       position: p.position,
       ras: ras !== null ? Math.round(ras * 100) / 100 : null,
-      dominator_rating: cfbd?.dominatorRating ?? null,
-      breakout_age: cfbd?.breakoutAge ?? null,
-      yptpa: cfbd?.yptpa ?? null,
+      dominator_rating: cfbd?.dominatorRating ?? existing?.dominatorRating ?? null,
+      breakout_age: cfbd?.breakoutAge ?? existing?.breakoutAge ?? null,
+      yptpa: cfbd?.yptpa ?? existing?.yptpa ?? null,
     });
   }
 

@@ -29,12 +29,13 @@ interface CfbdAssetEnvelope {
   players: CfbdAssetPlayer[];
 }
 
-/** Normalize a player name for fuzzy lookup (lowercase letters + digits only). */
+/** Normalize a player name for fuzzy lookup across feeds with inconsistent suffixes. */
 export function normalizeCfbdName(name: string): string {
   return name
     .toLowerCase()
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
+    .replace(/\b(jr|sr|ii|iii|iv|v)\b/g, "")
     .replace(/[^a-z0-9]/g, "");
 }
 

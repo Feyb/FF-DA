@@ -98,7 +98,7 @@
     "team": "NYG",
     "rookie": false,
     "age": 22.8,
-    "value": 8132,
+    "value": 8133,
     "rank": 7,
     "positionalRank": 4,
     "overallTier": 3,
@@ -218,7 +218,7 @@
     "team": "ATL",
     "rookie": false,
     "age": 24.8,
-    "value": 7413,
+    "value": 7415,
     "rank": 15,
     "positionalRank": 8,
     "overallTier": 4,
@@ -240,21 +240,6 @@
     "positionalTier": 2
   },
   {
-    "playerName": "Tetairoa McMillan",
-    "playerID": 1771,
-    "slug": "tetairoa-mcmillan-1771",
-    "position": "WR",
-    "positionID": 3,
-    "team": "CAR",
-    "rookie": false,
-    "age": 23.1,
-    "value": 7266,
-    "rank": 17,
-    "positionalRank": 9,
-    "overallTier": 4,
-    "positionalTier": 3
-  },
-  {
     "playerName": "Omarion Hampton",
     "playerID": 1744,
     "slug": "omarion-hampton-1744",
@@ -264,10 +249,25 @@
     "rookie": false,
     "age": 23.1,
     "value": 7264,
-    "rank": 18,
+    "rank": 17,
     "positionalRank": 6,
     "overallTier": 4,
     "positionalTier": 2
+  },
+  {
+    "playerName": "Tetairoa McMillan",
+    "playerID": 1771,
+    "slug": "tetairoa-mcmillan-1771",
+    "position": "WR",
+    "positionID": 3,
+    "team": "CAR",
+    "rookie": false,
+    "age": 23.1,
+    "value": 7262,
+    "rank": 18,
+    "positionalRank": 9,
+    "overallTier": 4,
+    "positionalTier": 3
   },
   {
     "playerName": "2027 Early 1st",
@@ -353,7 +353,7 @@
     "team": "NEP",
     "rookie": false,
     "age": 23.7,
-    "value": 6629,
+    "value": 6630,
     "rank": 24,
     "positionalRank": 2,
     "overallTier": 5,
@@ -413,7 +413,7 @@
     "team": "NOS",
     "rookie": false,
     "age": 25.8,
-    "value": 6387,
+    "value": 6391,
     "rank": 28,
     "positionalRank": 14,
     "overallTier": 6,
@@ -458,7 +458,7 @@
     "team": "TEN",
     "rookie": true,
     "age": 21.3,
-    "value": 6336,
+    "value": 6337,
     "rank": 31,
     "positionalRank": 15,
     "overallTier": 6,
@@ -503,7 +503,7 @@
     "team": "WAS",
     "rookie": false,
     "age": 25.4,
-    "value": 6314,
+    "value": 6312,
     "rank": 34,
     "positionalRank": 3,
     "overallTier": 6,
@@ -638,7 +638,7 @@
     "team": "NOS",
     "rookie": true,
     "age": 21.7,
-    "value": 5999,
+    "value": 5997,
     "rank": 43,
     "positionalRank": 20,
     "overallTier": 6,
@@ -998,7 +998,7 @@
     "team": "BAL",
     "rookie": false,
     "age": 25.6,
-    "value": 5428,
+    "value": 5427,
     "rank": 67,
     "positionalRank": 29,
     "overallTier": 7,
@@ -1020,6 +1020,21 @@
     "positionalTier": 6
   },
   {
+    "playerName": "Cam Skattebo",
+    "playerID": 1745,
+    "slug": "cam-skattebo-1745",
+    "position": "RB",
+    "positionID": 2,
+    "team": "NYG",
+    "rookie": false,
+    "age": 24.2,
+    "value": 5380,
+    "rank": 69,
+    "positionalRank": 20,
+    "overallTier": 7,
+    "positionalTier": 6
+  },
+  {
     "playerName": "Justin Herbert",
     "playerID": 599,
     "slug": "justin-herbert-599",
@@ -1029,25 +1044,10 @@
     "rookie": false,
     "age": 28.2,
     "value": 5378,
-    "rank": 69,
+    "rank": 70,
     "positionalRank": 10,
     "overallTier": 7,
     "positionalTier": 3
-  },
-  {
-    "playerName": "Cam Skattebo",
-    "playerID": 1745,
-    "slug": "cam-skattebo-1745",
-    "position": "RB",
-    "positionID": 2,
-    "team": "NYG",
-    "rookie": false,
-    "age": 24.2,
-    "value": 5377,
-    "rank": 70,
-    "positionalRank": 20,
-    "overallTier": 7,
-    "positionalTier": 6
   },
   {
     "playerName": "2026 Mid 1st",
@@ -1073,7 +1073,7 @@
     "team": "NOS",
     "rookie": false,
     "age": 27.3,
-    "value": 5343,
+    "value": 5346,
     "rank": 72,
     "positionalRank": 21,
     "overallTier": 7,
@@ -1133,10 +1133,10 @@
     "team": "DET",
     "rookie": false,
     "age": 25.3,
-    "value": 5105,
+    "value": 5102,
     "rank": 76,
     "positionalRank": 7,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 3
   },
   {
@@ -1151,7 +1151,7 @@
     "value": 5065,
     "rank": 77,
     "positionalRank": 8,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 3
   },
   {
@@ -1166,7 +1166,7 @@
     "value": 5002,
     "rank": 78,
     "positionalRank": 31,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 8
   },
   {
@@ -1181,7 +1181,7 @@
     "value": 4945,
     "rank": 79,
     "positionalRank": 11,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 4
   },
   {
@@ -1196,7 +1196,7 @@
     "value": 4871,
     "rank": 80,
     "positionalRank": 23,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 7
   },
   {
@@ -1211,7 +1211,7 @@
     "value": 4851,
     "rank": 81,
     "positionalRank": 12,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 4
   },
   {
@@ -1226,7 +1226,7 @@
     "value": 4821,
     "rank": 82,
     "positionalRank": 32,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 9
   },
   {
@@ -1241,7 +1241,7 @@
     "value": 4798,
     "rank": 83,
     "positionalRank": 0,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 0
   },
   {
@@ -1256,7 +1256,7 @@
     "value": 4784,
     "rank": 84,
     "positionalRank": 33,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 9
   },
   {
@@ -1271,7 +1271,7 @@
     "value": 4779,
     "rank": 85,
     "positionalRank": 24,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 7
   },
   {
@@ -1283,10 +1283,10 @@
     "team": "NYJ",
     "rookie": true,
     "age": 21.2,
-    "value": 4774,
+    "value": 4771,
     "rank": 86,
     "positionalRank": 9,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 3
   },
   {
@@ -1301,7 +1301,7 @@
     "value": 4754,
     "rank": 87,
     "positionalRank": 10,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 3
   },
   {
@@ -1316,7 +1316,7 @@
     "value": 4731,
     "rank": 88,
     "positionalRank": 34,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 9
   },
   {
@@ -1331,7 +1331,7 @@
     "value": 4724,
     "rank": 89,
     "positionalRank": 0,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 0
   },
   {
@@ -1346,7 +1346,7 @@
     "value": 4703,
     "rank": 90,
     "positionalRank": 13,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 4
   },
   {
@@ -1361,7 +1361,7 @@
     "value": 4689,
     "rank": 91,
     "positionalRank": 14,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 4
   },
   {
@@ -1376,7 +1376,7 @@
     "value": 4628,
     "rank": 92,
     "positionalRank": 25,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 7
   },
   {
@@ -1391,7 +1391,7 @@
     "value": 4604,
     "rank": 93,
     "positionalRank": 15,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 4
   },
   {
@@ -1406,7 +1406,7 @@
     "value": 4601,
     "rank": 94,
     "positionalRank": 35,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1421,7 +1421,7 @@
     "value": 4580,
     "rank": 95,
     "positionalRank": 0,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 0
   },
   {
@@ -1436,7 +1436,7 @@
     "value": 4552,
     "rank": 96,
     "positionalRank": 36,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1451,7 +1451,7 @@
     "value": 4518,
     "rank": 97,
     "positionalRank": 26,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 7
   },
   {
@@ -1466,7 +1466,7 @@
     "value": 4514,
     "rank": 98,
     "positionalRank": 37,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1481,7 +1481,7 @@
     "value": 4512,
     "rank": 99,
     "positionalRank": 38,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1496,7 +1496,7 @@
     "value": 4476,
     "rank": 100,
     "positionalRank": 39,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1511,7 +1511,7 @@
     "value": 4441,
     "rank": 101,
     "positionalRank": 27,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 7
   },
   {
@@ -1526,7 +1526,7 @@
     "value": 4426,
     "rank": 102,
     "positionalRank": 40,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1541,7 +1541,7 @@
     "value": 4406,
     "rank": 103,
     "positionalRank": 41,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1556,7 +1556,7 @@
     "value": 4402,
     "rank": 104,
     "positionalRank": 16,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 5
   },
   {
@@ -1571,7 +1571,7 @@
     "value": 4401,
     "rank": 105,
     "positionalRank": 42,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1586,7 +1586,7 @@
     "value": 4388,
     "rank": 106,
     "positionalRank": 43,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1601,7 +1601,7 @@
     "value": 4347,
     "rank": 107,
     "positionalRank": 44,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1616,7 +1616,7 @@
     "value": 4335,
     "rank": 108,
     "positionalRank": 45,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1631,7 +1631,7 @@
     "value": 4324,
     "rank": 109,
     "positionalRank": 46,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1646,7 +1646,7 @@
     "value": 4293,
     "rank": 111,
     "positionalRank": 17,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 5
   },
   {
@@ -1661,7 +1661,7 @@
     "value": 4293,
     "rank": 110,
     "positionalRank": 47,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 10
   },
   {
@@ -1676,7 +1676,7 @@
     "value": 4292,
     "rank": 112,
     "positionalRank": 11,
-    "overallTier": 8,
+    "overallTier": 9,
     "positionalTier": 4
   },
   {
@@ -1691,7 +1691,7 @@
     "value": 4226,
     "rank": 113,
     "positionalRank": 28,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 8
   },
   {
@@ -1706,7 +1706,7 @@
     "value": 4220,
     "rank": 114,
     "positionalRank": 29,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 8
   },
   {
@@ -1721,7 +1721,7 @@
     "value": 4189,
     "rank": 115,
     "positionalRank": 30,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 8
   },
   {
@@ -1736,7 +1736,7 @@
     "value": 4185,
     "rank": 116,
     "positionalRank": 48,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 11
   },
   {
@@ -1751,7 +1751,7 @@
     "value": 4159,
     "rank": 117,
     "positionalRank": 12,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 4
   },
   {
@@ -1766,7 +1766,7 @@
     "value": 4156,
     "rank": 118,
     "positionalRank": 18,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 6
   },
   {
@@ -1781,7 +1781,7 @@
     "value": 4138,
     "rank": 119,
     "positionalRank": 49,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 11
   },
   {
@@ -1796,7 +1796,7 @@
     "value": 4137,
     "rank": 120,
     "positionalRank": 50,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 11
   },
   {
@@ -1811,7 +1811,7 @@
     "value": 4130,
     "rank": 121,
     "positionalRank": 51,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 11
   },
   {
@@ -1826,7 +1826,7 @@
     "value": 4114,
     "rank": 122,
     "positionalRank": 52,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 11
   },
   {
@@ -1841,7 +1841,7 @@
     "value": 4096,
     "rank": 123,
     "positionalRank": 0,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 0
   },
   {
@@ -1856,7 +1856,7 @@
     "value": 4085,
     "rank": 124,
     "positionalRank": 0,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 0
   },
   {
@@ -1871,7 +1871,7 @@
     "value": 4025,
     "rank": 125,
     "positionalRank": 53,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 12
   },
   {
@@ -1883,10 +1883,10 @@
     "team": "JAC",
     "rookie": false,
     "age": 23,
-    "value": 4011,
+    "value": 4008,
     "rank": 126,
     "positionalRank": 54,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 12
   },
   {
@@ -1901,7 +1901,7 @@
     "value": 4004,
     "rank": 127,
     "positionalRank": 31,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 9
   },
   {
@@ -1913,10 +1913,10 @@
     "team": "SFO",
     "rookie": false,
     "age": 32.6,
-    "value": 3997,
+    "value": 4000,
     "rank": 128,
     "positionalRank": 13,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 4
   },
   {
@@ -1931,7 +1931,7 @@
     "value": 3982,
     "rank": 129,
     "positionalRank": 32,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 9
   },
   {
@@ -1946,7 +1946,7 @@
     "value": 3981,
     "rank": 130,
     "positionalRank": 33,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 9
   },
   {
@@ -1961,7 +1961,7 @@
     "value": 3959,
     "rank": 131,
     "positionalRank": 14,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 4
   },
   {
@@ -1976,7 +1976,7 @@
     "value": 3947,
     "rank": 132,
     "positionalRank": 15,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 4
   },
   {
@@ -1991,7 +1991,7 @@
     "value": 3944,
     "rank": 133,
     "positionalRank": 19,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 7
   },
   {
@@ -2006,7 +2006,7 @@
     "value": 3936,
     "rank": 134,
     "positionalRank": 55,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 12
   },
   {
@@ -2021,7 +2021,7 @@
     "value": 3889,
     "rank": 135,
     "positionalRank": 20,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 7
   },
   {
@@ -2036,7 +2036,7 @@
     "value": 3887,
     "rank": 136,
     "positionalRank": 21,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 7
   },
   {
@@ -2051,7 +2051,7 @@
     "value": 3870,
     "rank": 137,
     "positionalRank": 22,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 7
   },
   {
@@ -2066,7 +2066,7 @@
     "value": 3857,
     "rank": 138,
     "positionalRank": 56,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 12
   },
   {
@@ -2081,7 +2081,7 @@
     "value": 3817,
     "rank": 139,
     "positionalRank": 34,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 10
   },
   {
@@ -2096,7 +2096,7 @@
     "value": 3810,
     "rank": 140,
     "positionalRank": 0,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 0
   },
   {
@@ -2111,7 +2111,7 @@
     "value": 3791,
     "rank": 141,
     "positionalRank": 0,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 0
   },
   {
@@ -2126,7 +2126,7 @@
     "value": 3780,
     "rank": 142,
     "positionalRank": 23,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 7
   },
   {
@@ -2141,7 +2141,7 @@
     "value": 3779,
     "rank": 143,
     "positionalRank": 57,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 12
   },
   {
@@ -2156,7 +2156,7 @@
     "value": 3759,
     "rank": 144,
     "positionalRank": 35,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 10
   },
   {
@@ -2171,7 +2171,7 @@
     "value": 3756,
     "rank": 145,
     "positionalRank": 58,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 12
   },
   {
@@ -2183,10 +2183,10 @@
     "team": "DEN",
     "rookie": true,
     "age": -1,
-    "value": 3737,
+    "value": 3740,
     "rank": 146,
     "positionalRank": 36,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 10
   },
   {
@@ -2201,7 +2201,7 @@
     "value": 3725,
     "rank": 147,
     "positionalRank": 0,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 0
   },
   {
@@ -2216,7 +2216,7 @@
     "value": 3697,
     "rank": 148,
     "positionalRank": 37,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 10
   },
   {
@@ -2228,10 +2228,10 @@
     "team": "JAC",
     "rookie": false,
     "age": 25.4,
-    "value": 3686,
+    "value": 3683,
     "rank": 149,
     "positionalRank": 16,
-    "overallTier": 9,
+    "overallTier": 10,
     "positionalTier": 5
   },
   {
@@ -2246,7 +2246,7 @@
     "value": 3607,
     "rank": 150,
     "positionalRank": 38,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 11
   },
   {
@@ -2261,7 +2261,7 @@
     "value": 3604,
     "rank": 151,
     "positionalRank": 59,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2276,7 +2276,7 @@
     "value": 3595,
     "rank": 152,
     "positionalRank": 39,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 11
   },
   {
@@ -2291,7 +2291,7 @@
     "value": 3582,
     "rank": 153,
     "positionalRank": 24,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -2306,7 +2306,7 @@
     "value": 3553,
     "rank": 154,
     "positionalRank": 60,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2321,7 +2321,7 @@
     "value": 3552,
     "rank": 155,
     "positionalRank": 61,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2336,7 +2336,7 @@
     "value": 3551,
     "rank": 156,
     "positionalRank": 25,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -2351,7 +2351,7 @@
     "value": 3547,
     "rank": 157,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -2366,7 +2366,7 @@
     "value": 3538,
     "rank": 158,
     "positionalRank": 40,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -2381,7 +2381,7 @@
     "value": 3537,
     "rank": 159,
     "positionalRank": 26,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -2396,7 +2396,7 @@
     "value": 3518,
     "rank": 160,
     "positionalRank": 41,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -2411,7 +2411,7 @@
     "value": 3516,
     "rank": 161,
     "positionalRank": 17,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 6
   },
   {
@@ -2426,7 +2426,7 @@
     "value": 3512,
     "rank": 162,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -2441,7 +2441,7 @@
     "value": 3510,
     "rank": 163,
     "positionalRank": 27,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -2456,7 +2456,7 @@
     "value": 3509,
     "rank": 164,
     "positionalRank": 62,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2471,7 +2471,7 @@
     "value": 3503,
     "rank": 165,
     "positionalRank": 63,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2486,7 +2486,7 @@
     "value": 3478,
     "rank": 166,
     "positionalRank": 42,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -2501,7 +2501,7 @@
     "value": 3467,
     "rank": 167,
     "positionalRank": 43,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -2516,7 +2516,7 @@
     "value": 3461,
     "rank": 168,
     "positionalRank": 44,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -2531,7 +2531,7 @@
     "value": 3452,
     "rank": 169,
     "positionalRank": 64,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2546,7 +2546,7 @@
     "value": 3448,
     "rank": 170,
     "positionalRank": 65,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2561,7 +2561,7 @@
     "value": 3444,
     "rank": 171,
     "positionalRank": 66,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2576,7 +2576,7 @@
     "value": 3429,
     "rank": 172,
     "positionalRank": 67,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2591,7 +2591,7 @@
     "value": 3413,
     "rank": 173,
     "positionalRank": 45,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -2606,7 +2606,7 @@
     "value": 3411,
     "rank": 174,
     "positionalRank": 46,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -2621,7 +2621,7 @@
     "value": 3405,
     "rank": 175,
     "positionalRank": 68,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2636,7 +2636,7 @@
     "value": 3402,
     "rank": 176,
     "positionalRank": 18,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 6
   },
   {
@@ -2651,7 +2651,7 @@
     "value": 3392,
     "rank": 177,
     "positionalRank": 19,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 6
   },
   {
@@ -2666,7 +2666,7 @@
     "value": 3388,
     "rank": 178,
     "positionalRank": 69,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2681,7 +2681,7 @@
     "value": 3361,
     "rank": 180,
     "positionalRank": 71,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2696,7 +2696,7 @@
     "value": 3361,
     "rank": 179,
     "positionalRank": 70,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2711,7 +2711,7 @@
     "value": 3356,
     "rank": 181,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -2726,7 +2726,7 @@
     "value": 3355,
     "rank": 182,
     "positionalRank": 20,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 6
   },
   {
@@ -2741,7 +2741,7 @@
     "value": 3354,
     "rank": 183,
     "positionalRank": 21,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 6
   },
   {
@@ -2756,7 +2756,7 @@
     "value": 3352,
     "rank": 184,
     "positionalRank": 47,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -2771,7 +2771,7 @@
     "value": 3318,
     "rank": 185,
     "positionalRank": 48,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -2786,7 +2786,7 @@
     "value": 3310,
     "rank": 186,
     "positionalRank": 49,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -2801,7 +2801,7 @@
     "value": 3294,
     "rank": 187,
     "positionalRank": 72,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -2816,7 +2816,7 @@
     "value": 3260,
     "rank": 188,
     "positionalRank": 73,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -2831,7 +2831,7 @@
     "value": 3244,
     "rank": 189,
     "positionalRank": 74,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -2846,7 +2846,7 @@
     "value": 3233,
     "rank": 190,
     "positionalRank": 22,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 7
   },
   {
@@ -2861,7 +2861,7 @@
     "value": 3224,
     "rank": 191,
     "positionalRank": 23,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 7
   },
   {
@@ -2876,7 +2876,7 @@
     "value": 3200,
     "rank": 192,
     "positionalRank": 75,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -2891,7 +2891,7 @@
     "value": 3196,
     "rank": 193,
     "positionalRank": 76,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -2906,7 +2906,7 @@
     "value": 3172,
     "rank": 194,
     "positionalRank": 28,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 9
   },
   {
@@ -2921,7 +2921,7 @@
     "value": 3156,
     "rank": 195,
     "positionalRank": 77,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -2936,7 +2936,7 @@
     "value": 3123,
     "rank": 196,
     "positionalRank": 78,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -2951,7 +2951,7 @@
     "value": 3092,
     "rank": 197,
     "positionalRank": 79,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -2966,7 +2966,7 @@
     "value": 3077,
     "rank": 198,
     "positionalRank": 50,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -2981,7 +2981,7 @@
     "value": 3076,
     "rank": 199,
     "positionalRank": 80,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -2996,7 +2996,7 @@
     "value": 3075,
     "rank": 200,
     "positionalRank": 81,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -3011,7 +3011,7 @@
     "value": 3063,
     "rank": 201,
     "positionalRank": 82,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -3026,7 +3026,7 @@
     "value": 3047,
     "rank": 202,
     "positionalRank": 83,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -3041,7 +3041,7 @@
     "value": 3044,
     "rank": 203,
     "positionalRank": 51,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -3056,7 +3056,7 @@
     "value": 3042,
     "rank": 204,
     "positionalRank": 52,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -3071,7 +3071,7 @@
     "value": 3037,
     "rank": 205,
     "positionalRank": 29,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 9
   },
   {
@@ -3086,7 +3086,7 @@
     "value": 3037,
     "rank": 206,
     "positionalRank": 84,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -3101,7 +3101,7 @@
     "value": 3029,
     "rank": 207,
     "positionalRank": 53,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -3116,7 +3116,7 @@
     "value": 3017,
     "rank": 208,
     "positionalRank": 54,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -3131,7 +3131,7 @@
     "value": 3016,
     "rank": 210,
     "positionalRank": 25,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -3146,7 +3146,7 @@
     "value": 3016,
     "rank": 209,
     "positionalRank": 24,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -3161,7 +3161,7 @@
     "value": 2998,
     "rank": 211,
     "positionalRank": 55,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -3176,7 +3176,7 @@
     "value": 2997,
     "rank": 212,
     "positionalRank": 56,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -3191,7 +3191,7 @@
     "value": 2971,
     "rank": 213,
     "positionalRank": 85,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -3206,7 +3206,7 @@
     "value": 2961,
     "rank": 214,
     "positionalRank": 86,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -3221,7 +3221,7 @@
     "value": 2958,
     "rank": 215,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -3236,7 +3236,7 @@
     "value": 2946,
     "rank": 216,
     "positionalRank": 26,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -3251,7 +3251,7 @@
     "value": 2920,
     "rank": 217,
     "positionalRank": 57,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -3266,7 +3266,7 @@
     "value": 2914,
     "rank": 218,
     "positionalRank": 58,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -3278,10 +3278,10 @@
     "team": "NOS",
     "rookie": false,
     "age": 29.6,
-    "value": 2910,
+    "value": 2907,
     "rank": 219,
     "positionalRank": 27,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -3296,7 +3296,7 @@
     "value": 2872,
     "rank": 220,
     "positionalRank": 28,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -3311,7 +3311,7 @@
     "value": 2870,
     "rank": 221,
     "positionalRank": 29,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -3326,7 +3326,7 @@
     "value": 2834,
     "rank": 222,
     "positionalRank": 59,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -3338,10 +3338,10 @@
     "team": "WAS",
     "rookie": false,
     "age": 30.3,
-    "value": 2827,
+    "value": 2830,
     "rank": 223,
     "positionalRank": 87,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3356,7 +3356,7 @@
     "value": 2821,
     "rank": 224,
     "positionalRank": 30,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -3371,7 +3371,7 @@
     "value": 2819,
     "rank": 225,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -3386,7 +3386,7 @@
     "value": 2814,
     "rank": 226,
     "positionalRank": 60,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -3401,7 +3401,7 @@
     "value": 2800,
     "rank": 227,
     "positionalRank": 88,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3416,7 +3416,7 @@
     "value": 2787,
     "rank": 228,
     "positionalRank": 61,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -3431,7 +3431,7 @@
     "value": 2784,
     "rank": 229,
     "positionalRank": 89,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3446,7 +3446,7 @@
     "value": 2777,
     "rank": 230,
     "positionalRank": 31,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -3461,7 +3461,7 @@
     "value": 2775,
     "rank": 231,
     "positionalRank": 90,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3476,7 +3476,7 @@
     "value": 2764,
     "rank": 232,
     "positionalRank": 30,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 10
   },
   {
@@ -3491,7 +3491,7 @@
     "value": 2756,
     "rank": 233,
     "positionalRank": 62,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -3506,7 +3506,7 @@
     "value": 2751,
     "rank": 234,
     "positionalRank": 63,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -3521,7 +3521,7 @@
     "value": 2743,
     "rank": 235,
     "positionalRank": 91,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3536,7 +3536,7 @@
     "value": 2741,
     "rank": 236,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -3551,7 +3551,7 @@
     "value": 2734,
     "rank": 237,
     "positionalRank": 92,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3566,7 +3566,7 @@
     "value": 2731,
     "rank": 238,
     "positionalRank": 93,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3581,7 +3581,7 @@
     "value": 2728,
     "rank": 239,
     "positionalRank": 32,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 8
   },
   {
@@ -3596,7 +3596,7 @@
     "value": 2708,
     "rank": 240,
     "positionalRank": 94,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3611,7 +3611,7 @@
     "value": 2681,
     "rank": 241,
     "positionalRank": 64,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3626,7 +3626,7 @@
     "value": 2679,
     "rank": 242,
     "positionalRank": 95,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3641,7 +3641,7 @@
     "value": 2652,
     "rank": 243,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -3656,7 +3656,7 @@
     "value": 2640,
     "rank": 244,
     "positionalRank": 65,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3671,7 +3671,7 @@
     "value": 2632,
     "rank": 245,
     "positionalRank": 33,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 9
   },
   {
@@ -3686,7 +3686,7 @@
     "value": 2625,
     "rank": 246,
     "positionalRank": 66,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -3701,7 +3701,7 @@
     "value": 2624,
     "rank": 247,
     "positionalRank": 34,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 9
   },
   {
@@ -3716,7 +3716,7 @@
     "value": 2620,
     "rank": 248,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -3731,7 +3731,7 @@
     "value": 2619,
     "rank": 250,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -3746,7 +3746,7 @@
     "value": 2619,
     "rank": 249,
     "positionalRank": 35,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 9
   },
   {
@@ -3761,7 +3761,7 @@
     "value": 2584,
     "rank": 251,
     "positionalRank": 96,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3776,7 +3776,7 @@
     "value": 2580,
     "rank": 252,
     "positionalRank": 97,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3791,7 +3791,7 @@
     "value": 2572,
     "rank": 253,
     "positionalRank": 98,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3806,7 +3806,7 @@
     "value": 2560,
     "rank": 254,
     "positionalRank": 67,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3821,7 +3821,7 @@
     "value": 2559,
     "rank": 255,
     "positionalRank": 36,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 9
   },
   {
@@ -3836,7 +3836,7 @@
     "value": 2556,
     "rank": 256,
     "positionalRank": 99,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3851,7 +3851,7 @@
     "value": 2541,
     "rank": 257,
     "positionalRank": 68,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3866,7 +3866,7 @@
     "value": 2538,
     "rank": 258,
     "positionalRank": 100,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3881,7 +3881,7 @@
     "value": 2536,
     "rank": 259,
     "positionalRank": 69,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3896,7 +3896,7 @@
     "value": 2530,
     "rank": 260,
     "positionalRank": 70,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3911,7 +3911,7 @@
     "value": 2527,
     "rank": 261,
     "positionalRank": 101,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3926,7 +3926,7 @@
     "value": 2522,
     "rank": 262,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -3941,7 +3941,7 @@
     "value": 2520,
     "rank": 263,
     "positionalRank": 71,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3956,7 +3956,7 @@
     "value": 2515,
     "rank": 264,
     "positionalRank": 102,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3971,7 +3971,7 @@
     "value": 2507,
     "rank": 265,
     "positionalRank": 72,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -3986,7 +3986,7 @@
     "value": 2482,
     "rank": 266,
     "positionalRank": 103,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -4001,7 +4001,7 @@
     "value": 2473,
     "rank": 267,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -4016,7 +4016,7 @@
     "value": 2465,
     "rank": 268,
     "positionalRank": 73,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -4031,7 +4031,7 @@
     "value": 2460,
     "rank": 269,
     "positionalRank": 37,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 10
   },
   {
@@ -4046,7 +4046,7 @@
     "value": 2457,
     "rank": 270,
     "positionalRank": 74,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -4061,7 +4061,7 @@
     "value": 2434,
     "rank": 271,
     "positionalRank": 75,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -4076,7 +4076,7 @@
     "value": 2430,
     "rank": 272,
     "positionalRank": 76,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -4091,7 +4091,7 @@
     "value": 2384,
     "rank": 273,
     "positionalRank": 31,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 11
   },
   {
@@ -4106,7 +4106,7 @@
     "value": 2355,
     "rank": 274,
     "positionalRank": 38,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 11
   },
   {
@@ -4121,7 +4121,7 @@
     "value": 2315,
     "rank": 275,
     "positionalRank": 77,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -4136,7 +4136,7 @@
     "value": 2310,
     "rank": 276,
     "positionalRank": 32,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 11
   },
   {
@@ -4151,7 +4151,7 @@
     "value": 2298,
     "rank": 277,
     "positionalRank": 33,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 11
   },
   {
@@ -4166,7 +4166,7 @@
     "value": 2280,
     "rank": 278,
     "positionalRank": 34,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 11
   },
   {
@@ -4181,7 +4181,7 @@
     "value": 2275,
     "rank": 279,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -4196,7 +4196,7 @@
     "value": 2271,
     "rank": 281,
     "positionalRank": 39,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -4211,7 +4211,7 @@
     "value": 2271,
     "rank": 280,
     "positionalRank": 78,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -4226,7 +4226,7 @@
     "value": 2269,
     "rank": 282,
     "positionalRank": 104,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -4241,7 +4241,7 @@
     "value": 2244,
     "rank": 283,
     "positionalRank": 105,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -4256,7 +4256,7 @@
     "value": 2243,
     "rank": 284,
     "positionalRank": 40,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -4271,7 +4271,7 @@
     "value": 2234,
     "rank": 285,
     "positionalRank": 106,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -4286,7 +4286,7 @@
     "value": 2227,
     "rank": 286,
     "positionalRank": 35,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 11
   },
   {
@@ -4301,7 +4301,7 @@
     "value": 2207,
     "rank": 287,
     "positionalRank": 107,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -4316,7 +4316,7 @@
     "value": 2206,
     "rank": 288,
     "positionalRank": 36,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 11
   },
   {
@@ -4331,7 +4331,7 @@
     "value": 2192,
     "rank": 289,
     "positionalRank": 108,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -4346,7 +4346,7 @@
     "value": 2187,
     "rank": 290,
     "positionalRank": 109,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -4361,7 +4361,7 @@
     "value": 2177,
     "rank": 291,
     "positionalRank": 41,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -4376,7 +4376,7 @@
     "value": 2170,
     "rank": 292,
     "positionalRank": 79,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4391,7 +4391,7 @@
     "value": 2169,
     "rank": 293,
     "positionalRank": 42,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -4406,7 +4406,7 @@
     "value": 2162,
     "rank": 294,
     "positionalRank": 43,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -4421,7 +4421,7 @@
     "value": 2141,
     "rank": 295,
     "positionalRank": 44,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -4436,7 +4436,7 @@
     "value": 2134,
     "rank": 296,
     "positionalRank": 110,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4451,7 +4451,7 @@
     "value": 2116,
     "rank": 297,
     "positionalRank": 111,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4466,7 +4466,7 @@
     "value": 2109,
     "rank": 298,
     "positionalRank": 112,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4481,7 +4481,7 @@
     "value": 2106,
     "rank": 299,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -4496,7 +4496,7 @@
     "value": 2102,
     "rank": 300,
     "positionalRank": 113,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4511,7 +4511,7 @@
     "value": 2088,
     "rank": 301,
     "positionalRank": 114,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4526,7 +4526,7 @@
     "value": 2074,
     "rank": 302,
     "positionalRank": 80,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -4541,7 +4541,7 @@
     "value": 2066,
     "rank": 303,
     "positionalRank": 115,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4556,7 +4556,7 @@
     "value": 2062,
     "rank": 304,
     "positionalRank": 81,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -4571,7 +4571,7 @@
     "value": 2058,
     "rank": 305,
     "positionalRank": 116,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4586,7 +4586,7 @@
     "value": 2052,
     "rank": 306,
     "positionalRank": 117,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4601,7 +4601,7 @@
     "value": 2024,
     "rank": 307,
     "positionalRank": 118,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4616,7 +4616,7 @@
     "value": 2019,
     "rank": 308,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -4631,7 +4631,7 @@
     "value": 1996,
     "rank": 309,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -4646,7 +4646,7 @@
     "value": 1993,
     "rank": 310,
     "positionalRank": 119,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4661,7 +4661,7 @@
     "value": 1980,
     "rank": 311,
     "positionalRank": 120,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4676,7 +4676,7 @@
     "value": 1969,
     "rank": 312,
     "positionalRank": 45,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -4691,7 +4691,7 @@
     "value": 1968,
     "rank": 313,
     "positionalRank": 82,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -4706,7 +4706,7 @@
     "value": 1961,
     "rank": 314,
     "positionalRank": 121,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4721,7 +4721,7 @@
     "value": 1957,
     "rank": 315,
     "positionalRank": 83,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -4736,7 +4736,7 @@
     "value": 1946,
     "rank": 316,
     "positionalRank": 122,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4751,7 +4751,7 @@
     "value": 1944,
     "rank": 317,
     "positionalRank": 123,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4766,7 +4766,7 @@
     "value": 1923,
     "rank": 318,
     "positionalRank": 124,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4781,7 +4781,7 @@
     "value": 1918,
     "rank": 319,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -4796,7 +4796,7 @@
     "value": 1899,
     "rank": 320,
     "positionalRank": 84,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -4811,7 +4811,7 @@
     "value": 1892,
     "rank": 321,
     "positionalRank": 85,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -4826,7 +4826,7 @@
     "value": 1891,
     "rank": 322,
     "positionalRank": 125,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4841,7 +4841,7 @@
     "value": 1889,
     "rank": 323,
     "positionalRank": 126,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4856,7 +4856,7 @@
     "value": 1872,
     "rank": 324,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -4871,7 +4871,7 @@
     "value": 1869,
     "rank": 325,
     "positionalRank": 127,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4886,7 +4886,7 @@
     "value": 1865,
     "rank": 326,
     "positionalRank": 86,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -4901,7 +4901,7 @@
     "value": 1862,
     "rank": 327,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -4916,7 +4916,7 @@
     "value": 1856,
     "rank": 328,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -4931,7 +4931,7 @@
     "value": 1853,
     "rank": 329,
     "positionalRank": 128,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -4946,7 +4946,7 @@
     "value": 1851,
     "rank": 330,
     "positionalRank": 46,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -4961,7 +4961,7 @@
     "value": 1850,
     "rank": 331,
     "positionalRank": 37,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 12
   },
   {
@@ -4976,7 +4976,7 @@
     "value": 1831,
     "rank": 332,
     "positionalRank": 87,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -4991,7 +4991,7 @@
     "value": 1825,
     "rank": 333,
     "positionalRank": 88,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -5006,7 +5006,7 @@
     "value": 1823,
     "rank": 334,
     "positionalRank": 129,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -5021,7 +5021,7 @@
     "value": 1818,
     "rank": 335,
     "positionalRank": 130,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -5036,7 +5036,7 @@
     "value": 1817,
     "rank": 336,
     "positionalRank": 47,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -5051,7 +5051,7 @@
     "value": 1801,
     "rank": 337,
     "positionalRank": 131,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -5066,7 +5066,7 @@
     "value": 1799,
     "rank": 338,
     "positionalRank": 132,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -5081,7 +5081,7 @@
     "value": 1786,
     "rank": 339,
     "positionalRank": 89,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -5096,7 +5096,7 @@
     "value": 1780,
     "rank": 340,
     "positionalRank": 133,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -5111,7 +5111,7 @@
     "value": 1759,
     "rank": 341,
     "positionalRank": 48,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -5126,7 +5126,7 @@
     "value": 1742,
     "rank": 342,
     "positionalRank": 90,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -5141,7 +5141,7 @@
     "value": 1741,
     "rank": 343,
     "positionalRank": 91,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -5156,7 +5156,7 @@
     "value": 1724,
     "rank": 344,
     "positionalRank": 49,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -5171,7 +5171,7 @@
     "value": 1723,
     "rank": 345,
     "positionalRank": 134,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5186,7 +5186,7 @@
     "value": 1714,
     "rank": 346,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -5201,7 +5201,7 @@
     "value": 1698,
     "rank": 347,
     "positionalRank": 135,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5216,7 +5216,7 @@
     "value": 1672,
     "rank": 348,
     "positionalRank": 50,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -5231,7 +5231,7 @@
     "value": 1671,
     "rank": 349,
     "positionalRank": 38,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -5246,7 +5246,7 @@
     "value": 1669,
     "rank": 350,
     "positionalRank": 136,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5261,7 +5261,7 @@
     "value": 1667,
     "rank": 351,
     "positionalRank": 51,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -5276,7 +5276,7 @@
     "value": 1661,
     "rank": 352,
     "positionalRank": 92,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 23
   },
   {
@@ -5291,7 +5291,7 @@
     "value": 1644,
     "rank": 353,
     "positionalRank": 137,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5306,7 +5306,7 @@
     "value": 1642,
     "rank": 354,
     "positionalRank": 93,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 23
   },
   {
@@ -5321,7 +5321,7 @@
     "value": 1635,
     "rank": 355,
     "positionalRank": 138,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5336,7 +5336,7 @@
     "value": 1608,
     "rank": 356,
     "positionalRank": 94,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 23
   },
   {
@@ -5351,7 +5351,7 @@
     "value": 1605,
     "rank": 357,
     "positionalRank": 139,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5366,7 +5366,7 @@
     "value": 1591,
     "rank": 358,
     "positionalRank": 52,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -5381,7 +5381,7 @@
     "value": 1584,
     "rank": 360,
     "positionalRank": 95,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 23
   },
   {
@@ -5396,7 +5396,7 @@
     "value": 1584,
     "rank": 359,
     "positionalRank": 140,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5411,7 +5411,7 @@
     "value": 1580,
     "rank": 361,
     "positionalRank": 96,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 23
   },
   {
@@ -5426,7 +5426,7 @@
     "value": 1578,
     "rank": 362,
     "positionalRank": 141,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5441,7 +5441,7 @@
     "value": 1568,
     "rank": 363,
     "positionalRank": 53,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -5456,7 +5456,7 @@
     "value": 1557,
     "rank": 364,
     "positionalRank": 39,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -5471,7 +5471,7 @@
     "value": 1549,
     "rank": 365,
     "positionalRank": 142,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5486,7 +5486,7 @@
     "value": 1540,
     "rank": 366,
     "positionalRank": 54,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -5501,7 +5501,7 @@
     "value": 1523,
     "rank": 367,
     "positionalRank": 40,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -5516,7 +5516,7 @@
     "value": 1522,
     "rank": 368,
     "positionalRank": 97,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 24
   },
   {
@@ -5531,7 +5531,7 @@
     "value": 1516,
     "rank": 369,
     "positionalRank": 143,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5546,7 +5546,7 @@
     "value": 1512,
     "rank": 370,
     "positionalRank": 144,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5561,7 +5561,7 @@
     "value": 1510,
     "rank": 371,
     "positionalRank": 55,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -5576,7 +5576,7 @@
     "value": 1501,
     "rank": 372,
     "positionalRank": 145,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5591,7 +5591,7 @@
     "value": 1496,
     "rank": 373,
     "positionalRank": 146,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5606,7 +5606,7 @@
     "value": 1488,
     "rank": 374,
     "positionalRank": 147,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5621,7 +5621,7 @@
     "value": 1485,
     "rank": 375,
     "positionalRank": 98,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 24
   },
   {
@@ -5636,7 +5636,7 @@
     "value": 1478,
     "rank": 376,
     "positionalRank": 99,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 24
   },
   {
@@ -5651,7 +5651,7 @@
     "value": 1466,
     "rank": 377,
     "positionalRank": 100,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 24
   },
   {
@@ -5666,7 +5666,7 @@
     "value": 1465,
     "rank": 378,
     "positionalRank": 148,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -5681,7 +5681,7 @@
     "value": 1461,
     "rank": 379,
     "positionalRank": 101,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 24
   },
   {
@@ -5696,7 +5696,7 @@
     "value": 1458,
     "rank": 380,
     "positionalRank": 41,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -5711,7 +5711,7 @@
     "value": 1451,
     "rank": 381,
     "positionalRank": 56,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -5726,7 +5726,7 @@
     "value": 1450,
     "rank": 382,
     "positionalRank": 57,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 16
   },
   {
@@ -5741,7 +5741,7 @@
     "value": 1447,
     "rank": 383,
     "positionalRank": 42,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -5756,7 +5756,7 @@
     "value": 1438,
     "rank": 384,
     "positionalRank": 43,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -5771,7 +5771,7 @@
     "value": 1428,
     "rank": 385,
     "positionalRank": 0,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 0
   },
   {
@@ -5786,7 +5786,7 @@
     "value": 1402,
     "rank": 386,
     "positionalRank": 44,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 13
   },
   {
@@ -5801,7 +5801,7 @@
     "value": 1401,
     "rank": 387,
     "positionalRank": 149,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -5816,7 +5816,7 @@
     "value": 1399,
     "rank": 388,
     "positionalRank": 102,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -5831,7 +5831,7 @@
     "value": 1390,
     "rank": 389,
     "positionalRank": 150,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -5846,7 +5846,7 @@
     "value": 1384,
     "rank": 390,
     "positionalRank": 151,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -5861,7 +5861,7 @@
     "value": 1374,
     "rank": 391,
     "positionalRank": 152,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -5876,7 +5876,7 @@
     "value": 1367,
     "rank": 392,
     "positionalRank": 103,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -5891,7 +5891,7 @@
     "value": 1362,
     "rank": 393,
     "positionalRank": 104,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -5906,7 +5906,7 @@
     "value": 1353,
     "rank": 394,
     "positionalRank": 58,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -5921,7 +5921,7 @@
     "value": 1349,
     "rank": 395,
     "positionalRank": 105,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -5936,7 +5936,7 @@
     "value": 1330,
     "rank": 396,
     "positionalRank": 153,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -5951,7 +5951,7 @@
     "value": 1329,
     "rank": 398,
     "positionalRank": 60,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -5966,7 +5966,7 @@
     "value": 1329,
     "rank": 397,
     "positionalRank": 59,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -5981,7 +5981,7 @@
     "value": 1327,
     "rank": 399,
     "positionalRank": 154,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -5996,7 +5996,7 @@
     "value": 1323,
     "rank": 400,
     "positionalRank": 155,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -6011,7 +6011,7 @@
     "value": 1320,
     "rank": 401,
     "positionalRank": 156,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -6026,7 +6026,7 @@
     "value": 1319,
     "rank": 402,
     "positionalRank": 157,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -6041,7 +6041,7 @@
     "value": 1291,
     "rank": 403,
     "positionalRank": 45,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 14
   },
   {
@@ -6056,7 +6056,7 @@
     "value": 1291,
     "rank": 404,
     "positionalRank": 158,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -6071,7 +6071,7 @@
     "value": 1290,
     "rank": 405,
     "positionalRank": 106,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6086,7 +6086,7 @@
     "value": 1271,
     "rank": 406,
     "positionalRank": 159,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -6101,7 +6101,7 @@
     "value": 1264,
     "rank": 407,
     "positionalRank": 107,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6116,7 +6116,7 @@
     "value": 1259,
     "rank": 408,
     "positionalRank": 108,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6131,7 +6131,7 @@
     "value": 1246,
     "rank": 409,
     "positionalRank": 109,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6146,7 +6146,7 @@
     "value": 1227,
     "rank": 410,
     "positionalRank": 61,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -6161,7 +6161,7 @@
     "value": 1212,
     "rank": 411,
     "positionalRank": 160,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -6176,7 +6176,7 @@
     "value": 1206,
     "rank": 412,
     "positionalRank": 110,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6191,7 +6191,7 @@
     "value": 1203,
     "rank": 413,
     "positionalRank": 111,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6206,7 +6206,7 @@
     "value": 1186,
     "rank": 414,
     "positionalRank": 62,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -6221,7 +6221,7 @@
     "value": 1171,
     "rank": 415,
     "positionalRank": 161,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -6236,7 +6236,7 @@
     "value": 1169,
     "rank": 416,
     "positionalRank": 112,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6251,7 +6251,7 @@
     "value": 1168,
     "rank": 417,
     "positionalRank": 63,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -6266,7 +6266,7 @@
     "value": 1162,
     "rank": 419,
     "positionalRank": 163,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -6281,7 +6281,7 @@
     "value": 1162,
     "rank": 418,
     "positionalRank": 162,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -6296,7 +6296,7 @@
     "value": 1161,
     "rank": 420,
     "positionalRank": 64,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -6311,7 +6311,7 @@
     "value": 1157,
     "rank": 421,
     "positionalRank": 164,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -6326,7 +6326,7 @@
     "value": 1149,
     "rank": 422,
     "positionalRank": 113,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6341,7 +6341,7 @@
     "value": 1147,
     "rank": 423,
     "positionalRank": 165,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -6356,7 +6356,7 @@
     "value": 1139,
     "rank": 425,
     "positionalRank": 46,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -6371,7 +6371,7 @@
     "value": 1139,
     "rank": 424,
     "positionalRank": 65,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -6386,7 +6386,7 @@
     "value": 1137,
     "rank": 426,
     "positionalRank": 166,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -6401,7 +6401,7 @@
     "value": 1133,
     "rank": 427,
     "positionalRank": 47,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -6416,7 +6416,7 @@
     "value": 1131,
     "rank": 428,
     "positionalRank": 167,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -6431,7 +6431,7 @@
     "value": 1127,
     "rank": 429,
     "positionalRank": 168,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -6446,7 +6446,7 @@
     "value": 1118,
     "rank": 430,
     "positionalRank": 169,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 22
   },
   {
@@ -6461,7 +6461,7 @@
     "value": 1118,
     "rank": 431,
     "positionalRank": 114,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6476,7 +6476,7 @@
     "value": 1116,
     "rank": 432,
     "positionalRank": 115,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6491,7 +6491,7 @@
     "value": 1101,
     "rank": 433,
     "positionalRank": 48,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -6506,7 +6506,7 @@
     "value": 1084,
     "rank": 434,
     "positionalRank": 49,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -6521,7 +6521,7 @@
     "value": 1075,
     "rank": 435,
     "positionalRank": 66,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -6536,7 +6536,7 @@
     "value": 1070,
     "rank": 436,
     "positionalRank": 116,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6551,7 +6551,7 @@
     "value": 1063,
     "rank": 437,
     "positionalRank": 170,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 23
   },
   {
@@ -6566,7 +6566,7 @@
     "value": 1063,
     "rank": 438,
     "positionalRank": 171,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 23
   },
   {
@@ -6581,7 +6581,7 @@
     "value": 1062,
     "rank": 439,
     "positionalRank": 172,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 23
   },
   {
@@ -6596,7 +6596,7 @@
     "value": 1037,
     "rank": 440,
     "positionalRank": 67,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -6611,7 +6611,7 @@
     "value": 1032,
     "rank": 441,
     "positionalRank": 173,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 23
   },
   {
@@ -6626,7 +6626,7 @@
     "value": 1029,
     "rank": 442,
     "positionalRank": 117,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6641,7 +6641,7 @@
     "value": 1013,
     "rank": 443,
     "positionalRank": 50,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -6656,7 +6656,7 @@
     "value": 1010,
     "rank": 444,
     "positionalRank": 174,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 23
   },
   {
@@ -6671,7 +6671,7 @@
     "value": 989,
     "rank": 445,
     "positionalRank": 118,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6686,7 +6686,7 @@
     "value": 984,
     "rank": 446,
     "positionalRank": 119,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6701,7 +6701,7 @@
     "value": 970,
     "rank": 447,
     "positionalRank": 51,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 15
   },
   {
@@ -6716,7 +6716,7 @@
     "value": 968,
     "rank": 448,
     "positionalRank": 120,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6731,7 +6731,7 @@
     "value": 967,
     "rank": 449,
     "positionalRank": 68,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -6746,7 +6746,7 @@
     "value": 966,
     "rank": 450,
     "positionalRank": 121,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6761,7 +6761,7 @@
     "value": 963,
     "rank": 451,
     "positionalRank": 122,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6776,7 +6776,7 @@
     "value": 961,
     "rank": 452,
     "positionalRank": 123,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6791,7 +6791,7 @@
     "value": 945,
     "rank": 453,
     "positionalRank": 175,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 24
   },
   {
@@ -6806,7 +6806,7 @@
     "value": 941,
     "rank": 454,
     "positionalRank": 124,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6821,7 +6821,7 @@
     "value": 919,
     "rank": 455,
     "positionalRank": 176,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 24
   },
   {
@@ -6836,7 +6836,7 @@
     "value": 895,
     "rank": 458,
     "positionalRank": 69,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -6851,7 +6851,7 @@
     "value": 895,
     "rank": 457,
     "positionalRank": 126,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6866,7 +6866,7 @@
     "value": 875,
     "rank": 459,
     "positionalRank": 127,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6881,7 +6881,7 @@
     "value": 852,
     "rank": 461,
     "positionalRank": 128,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6896,7 +6896,7 @@
     "value": 844,
     "rank": 462,
     "positionalRank": 129,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6911,7 +6911,7 @@
     "value": 828,
     "rank": 463,
     "positionalRank": 177,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -6926,7 +6926,7 @@
     "value": 823,
     "rank": 464,
     "positionalRank": 178,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -6941,7 +6941,7 @@
     "value": 802,
     "rank": 465,
     "positionalRank": 70,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -6956,7 +6956,7 @@
     "value": 799,
     "rank": 467,
     "positionalRank": 130,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -6971,7 +6971,7 @@
     "value": 787,
     "rank": 468,
     "positionalRank": 180,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -6986,7 +6986,7 @@
     "value": 775,
     "rank": 471,
     "positionalRank": 182,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -7001,7 +7001,7 @@
     "value": 747,
     "rank": 473,
     "positionalRank": 184,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -7016,7 +7016,7 @@
     "value": 731,
     "rank": 475,
     "positionalRank": 133,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -7031,7 +7031,7 @@
     "value": 715,
     "rank": 476,
     "positionalRank": 134,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -7046,7 +7046,7 @@
     "value": 697,
     "rank": 478,
     "positionalRank": 135,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -7061,7 +7061,7 @@
     "value": 686,
     "rank": 481,
     "positionalRank": 136,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 26
   },
   {
@@ -7076,7 +7076,7 @@
     "value": 631,
     "rank": 484,
     "positionalRank": 71,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -7091,7 +7091,7 @@
     "value": 627,
     "rank": 485,
     "positionalRank": 53,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -7106,7 +7106,7 @@
     "value": 626,
     "rank": 487,
     "positionalRank": 54,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -7121,7 +7121,7 @@
     "value": 624,
     "rank": 488,
     "positionalRank": 73,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -7136,7 +7136,7 @@
     "value": 623,
     "rank": 493,
     "positionalRank": 56,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -7151,7 +7151,7 @@
     "value": 622,
     "rank": 496,
     "positionalRank": 139,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 27
   },
   {
@@ -7166,7 +7166,7 @@
     "value": 620,
     "rank": 498,
     "positionalRank": 57,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -7181,7 +7181,7 @@
     "value": 620,
     "rank": 499,
     "positionalRank": 190,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -7196,7 +7196,7 @@
     "value": 618,
     "rank": 501,
     "positionalRank": 191,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -7211,7 +7211,7 @@
     "value": 614,
     "rank": 503,
     "positionalRank": 140,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 27
   },
   {
@@ -7226,7 +7226,7 @@
     "value": 613,
     "rank": 504,
     "positionalRank": 193,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -7241,7 +7241,7 @@
     "value": 610,
     "rank": 508,
     "positionalRank": 59,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -7256,7 +7256,7 @@
     "value": 604,
     "rank": 510,
     "positionalRank": 60,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 17
   },
   {
@@ -7271,7 +7271,7 @@
     "value": 603,
     "rank": 511,
     "positionalRank": 197,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -7286,7 +7286,7 @@
     "value": 576,
     "rank": 518,
     "positionalRank": 201,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -7301,7 +7301,7 @@
     "value": 559,
     "rank": 520,
     "positionalRank": 202,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 25
   },
   {
@@ -7316,7 +7316,7 @@
     "value": 556,
     "rank": 521,
     "positionalRank": 81,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -7331,7 +7331,7 @@
     "value": 542,
     "rank": 523,
     "positionalRank": 61,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -7346,7 +7346,7 @@
     "value": 526,
     "rank": 525,
     "positionalRank": 62,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 18
   },
   {
@@ -7361,7 +7361,7 @@
     "value": 472,
     "rank": 534,
     "positionalRank": 63,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 19
   },
   {
@@ -7376,7 +7376,7 @@
     "value": 409,
     "rank": 549,
     "positionalRank": 64,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -7391,7 +7391,7 @@
     "value": 403,
     "rank": 551,
     "positionalRank": 65,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -7406,7 +7406,7 @@
     "value": 386,
     "rank": 555,
     "positionalRank": 66,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 20
   },
   {
@@ -7421,7 +7421,7 @@
     "value": 273,
     "rank": 636,
     "positionalRank": 76,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -7436,7 +7436,7 @@
     "value": 258,
     "rank": 638,
     "positionalRank": 78,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -7451,7 +7451,7 @@
     "value": 255,
     "rank": 639,
     "positionalRank": 79,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -7466,7 +7466,7 @@
     "value": 242,
     "rank": 646,
     "positionalRank": 81,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -7481,7 +7481,7 @@
     "value": 136,
     "rank": 739,
     "positionalRank": 99,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   },
   {
@@ -7496,7 +7496,7 @@
     "value": 98,
     "rank": 749,
     "positionalRank": 106,
-    "overallTier": 10,
+    "overallTier": 11,
     "positionalTier": 21
   }
 ]

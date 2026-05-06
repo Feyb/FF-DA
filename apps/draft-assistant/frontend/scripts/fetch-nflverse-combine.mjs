@@ -18,6 +18,23 @@ const URL = "https://github.com/nflverse/nflverse-data/releases/download/combine
 
 const NUMERIC = ["forty", "vertical", "broad_jump", "bench", "cone", "shuttle", "season"];
 
+function makeFallbackId(row) {
+  const season = row.season ?? row.draft_year ?? "unknown";
+  const name = (row.player_name ?? "unknown")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  const school = (row.school ?? "unknown")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `combine:${season}:${name}:${school}`;
+}
+
 function parseCsv(text) {
   const lines = text.split("\n");
   const headers = lines[0].split(",").map((h) => h.trim().replace(/^"|"$/g, ""));
@@ -41,10 +58,11 @@ async function main() {
 
   const byPlayer = new Map();
   for (const row of rows) {
-    const id = row.gsis_id ?? row.player_id;
+    const id =
+      row.gsis_id ?? row.player_id ?? row.pfr_id ?? row.cfb_id ?? makeFallbackId(row);
     if (!id) continue;
     // Keep most recent combine season per player.
-    const season = Number(row.season ?? 0);
+    const season = Number(row.season ?? row.draft_year ?? 0);
     const existing = byPlayer.get(id);
     if (existing && existing.season >= season) continue;
     const entry = {
@@ -54,7 +72,8 @@ async function main() {
       season,
     };
     for (const f of NUMERIC) {
-      const v = Number(row[f]);
+      const rawValue = row[f];
+      const v = rawValue === "" || rawValue === undefined || rawValue === null ? NaN : Number(rawValue);
       entry[f] = Number.isFinite(v) ? v : null;
     }
     byPlayer.set(id, entry);
