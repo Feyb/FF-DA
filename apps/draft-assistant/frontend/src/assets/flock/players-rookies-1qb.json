@@ -10,7 +10,7 @@
     "Mason Dodd": "2026-04-26 16:07:30.952",
     "Davis Mattek": "2026-04-26 20:04:11.557",
     "Avery Huffman": "2026-04-28 19:50:53.932",
-    "Corey Buschlen": "2026-05-01 19:56:57.542",
+    "Corey Buschlen": "2026-05-04 12:06:03.496",
     "Zach Savage": "2026-04-27 12:12:34.959"
   },
   "data": [
@@ -158,8 +158,8 @@
         "Zach Savage": 1
       },
       "averagePositionalRank": 1,
-      "rankDelta": 1,
-      "initialRank": 3,
+      "rankDelta": 0,
+      "initialRank": 2,
       "finalRank": 2
     },
     {
@@ -232,8 +232,8 @@
         "Zach Savage": 2
       },
       "averagePositionalRank": 2,
-      "rankDelta": 1,
-      "initialRank": 4,
+      "rankDelta": 0,
+      "initialRank": 3,
       "finalRank": 3
     },
     {
@@ -306,8 +306,8 @@
         "Zach Savage": 3
       },
       "averagePositionalRank": 3,
-      "rankDelta": -1,
-      "initialRank": 3,
+      "rankDelta": 0,
+      "initialRank": 4,
       "finalRank": 4
     },
     {
@@ -380,8 +380,8 @@
         "Zach Savage": 2
       },
       "averagePositionalRank": 2,
-      "rankDelta": 3,
-      "initialRank": 8,
+      "rankDelta": 0,
+      "initialRank": 5,
       "finalRank": 5
     },
     {
@@ -528,8 +528,8 @@
         "Zach Savage": 1
       },
       "averagePositionalRank": 1,
-      "rankDelta": -1,
-      "initialRank": 6,
+      "rankDelta": 0,
+      "initialRank": 7,
       "finalRank": 7
     },
     {
@@ -676,8 +676,8 @@
         "Zach Savage": 1
       },
       "averagePositionalRank": 1,
-      "rankDelta": 1,
-      "initialRank": 12,
+      "rankDelta": 0,
+      "initialRank": 11,
       "finalRank": 11
     },
     {
@@ -750,8 +750,8 @@
         "Zach Savage": 2
       },
       "averagePositionalRank": 2,
-      "rankDelta": 1,
-      "initialRank": 12,
+      "rankDelta": 0,
+      "initialRank": 11,
       "finalRank": 11
     },
     {
@@ -972,8 +972,8 @@
         "Zach Savage": 8
       },
       "averagePositionalRank": 7,
-      "rankDelta": 3,
-      "initialRank": 17,
+      "rankDelta": 0,
+      "initialRank": 14,
       "finalRank": 14
     },
     {
@@ -1046,8 +1046,8 @@
         "Zach Savage": 7
       },
       "averagePositionalRank": 8,
-      "rankDelta": 3,
-      "initialRank": 20,
+      "rankDelta": 0,
+      "initialRank": 17,
       "finalRank": 17
     },
     {
@@ -1120,8 +1120,8 @@
         "Zach Savage": 9
       },
       "averagePositionalRank": 9,
-      "rankDelta": 2,
-      "initialRank": 19,
+      "rankDelta": 0,
+      "initialRank": 17,
       "finalRank": 17
     },
     {
@@ -1194,8 +1194,8 @@
         "Zach Savage": 12
       },
       "averagePositionalRank": 10,
-      "rankDelta": -4,
-      "initialRank": 14,
+      "rankDelta": 0,
+      "initialRank": 18,
       "finalRank": 18
     },
     {
@@ -1268,8 +1268,8 @@
         "Zach Savage": 4
       },
       "averagePositionalRank": 4,
-      "rankDelta": 3,
-      "initialRank": 21,
+      "rankDelta": 0,
+      "initialRank": 18,
       "finalRank": 18
     },
     {
@@ -1342,8 +1342,8 @@
         "Zach Savage": 3
       },
       "averagePositionalRank": 3,
-      "rankDelta": 3,
-      "initialRank": 21,
+      "rankDelta": 0,
+      "initialRank": 18,
       "finalRank": 18
     },
     {
@@ -1416,8 +1416,8 @@
         "Zach Savage": 2
       },
       "averagePositionalRank": 2,
-      "rankDelta": 7,
-      "initialRank": 25,
+      "rankDelta": 0,
+      "initialRank": 18,
       "finalRank": 18
     },
     {
@@ -1638,8 +1638,8 @@
         "Zach Savage": 18
       },
       "averagePositionalRank": 13,
-      "rankDelta": -3,
-      "initialRank": 21,
+      "rankDelta": 0,
+      "initialRank": 24,
       "finalRank": 24
     },
     {
@@ -1712,8 +1712,8 @@
         "Zach Savage": 9
       },
       "averagePositionalRank": 5,
-      "rankDelta": -5,
-      "initialRank": 20,
+      "rankDelta": 0,
+      "initialRank": 25,
       "finalRank": 25
     },
     {
@@ -1747,8 +1747,8 @@
         "Nathan Schmidt": 18,
         "Mason Dodd": 15,
         "Avery Huffman": 19,
-        "Davis Mattek": 53,
         "Corey Buschlen": 25,
+        "Davis Mattek": 53,
         "Zach Savage": 36
       },
       "overallTiers": {
@@ -1757,8 +1757,8 @@
         "Nathan Schmidt": 1,
         "Mason Dodd": 5,
         "Avery Huffman": 8,
-        "Davis Mattek": 5,
         "Corey Buschlen": 7,
+        "Davis Mattek": 5,
         "Zach Savage": 7
       },
       "positionalTiers": {
@@ -1767,8 +1767,8 @@
         "Nathan Schmidt": 1,
         "Mason Dodd": 7,
         "Avery Huffman": 7,
-        "Davis Mattek": 4,
         "Corey Buschlen": 3,
+        "Davis Mattek": 4,
         "Zach Savage": 3
       },
       "weeklyOverallRanks": {},
@@ -1786,8 +1786,8 @@
         "Zach Savage": 6
       },
       "averagePositionalRank": 4,
-      "rankDelta": 10,
-      "initialRank": 36,
+      "rankDelta": 0,
+      "initialRank": 26,
       "finalRank": 26
     },
     {
@@ -1821,8 +1821,8 @@
         "Nathan Schmidt": 26,
         "Mason Dodd": 21,
         "Avery Huffman": 26,
-        "Davis Mattek": 49,
         "Corey Buschlen": 26,
+        "Davis Mattek": 49,
         "Zach Savage": 16
       },
       "overallTiers": {
@@ -1831,8 +1831,8 @@
         "Nathan Schmidt": 1,
         "Mason Dodd": 6,
         "Avery Huffman": 8,
-        "Davis Mattek": 5,
         "Corey Buschlen": 7,
+        "Davis Mattek": 5,
         "Zach Savage": 5
       },
       "positionalTiers": {
@@ -1841,8 +1841,8 @@
         "Nathan Schmidt": 1,
         "Mason Dodd": 3,
         "Avery Huffman": 6,
-        "Davis Mattek": 5,
         "Corey Buschlen": 6,
+        "Davis Mattek": 5,
         "Zach Savage": 3
       },
       "weeklyOverallRanks": {},
@@ -1860,9 +1860,9 @@
         "Zach Savage": 10
       },
       "averagePositionalRank": 14,
-      "rankDelta": 4,
-      "initialRank": 32,
-      "finalRank": 28
+      "rankDelta": 0,
+      "initialRank": 26,
+      "finalRank": 26
     },
     {
       "playerId": 13270,
@@ -1934,8 +1934,8 @@
         "Zach Savage": 16
       },
       "averagePositionalRank": 15,
-      "rankDelta": -6,
-      "initialRank": 21,
+      "rankDelta": 0,
+      "initialRank": 27,
       "finalRank": 27
     },
     {
@@ -2008,8 +2008,8 @@
         "Zach Savage": 6
       },
       "averagePositionalRank": 6,
-      "rankDelta": -6,
-      "initialRank": 22,
+      "rankDelta": 0,
+      "initialRank": 28,
       "finalRank": 28
     },
     {
@@ -2082,8 +2082,8 @@
         "Zach Savage": 7
       },
       "averagePositionalRank": 7,
-      "rankDelta": 9,
-      "initialRank": 39,
+      "rankDelta": 0,
+      "initialRank": 30,
       "finalRank": 30
     },
     {
@@ -2156,8 +2156,8 @@
         "Zach Savage": 7
       },
       "averagePositionalRank": 5,
-      "rankDelta": -2,
-      "initialRank": 30,
+      "rankDelta": 0,
+      "initialRank": 32,
       "finalRank": 32
     },
     {
@@ -2230,8 +2230,8 @@
         "Zach Savage": 8
       },
       "averagePositionalRank": 8,
-      "rankDelta": -11,
-      "initialRank": 21,
+      "rankDelta": 0,
+      "initialRank": 32,
       "finalRank": 32
     },
     {
@@ -2304,8 +2304,8 @@
         "Zach Savage": 10
       },
       "averagePositionalRank": 9,
-      "rankDelta": 3,
-      "initialRank": 35,
+      "rankDelta": 0,
+      "initialRank": 32,
       "finalRank": 32
     },
     {
@@ -2374,9 +2374,9 @@
         "Zach Savage": 5
       },
       "averagePositionalRank": 10,
-      "rankDelta": 8,
-      "initialRank": 39,
-      "finalRank": 31
+      "rankDelta": 0,
+      "initialRank": 32,
+      "finalRank": 32
     },
     {
       "playerId": 13280,
@@ -2448,8 +2448,8 @@
         "Zach Savage": 11
       },
       "averagePositionalRank": 16,
-      "rankDelta": 4,
-      "initialRank": 36,
+      "rankDelta": 0,
+      "initialRank": 32,
       "finalRank": 32
     },
     {
@@ -2482,9 +2482,9 @@
         "Sammy Stacks": 33,
         "Nathan Schmidt": 36,
         "Mason Dodd": 24,
+        "Corey Buschlen": 29,
         "Avery Huffman": 38,
         "Davis Mattek": 51,
-        "Corey Buschlen": 29,
         "Zach Savage": 32
       },
       "overallTiers": {
@@ -2492,9 +2492,9 @@
         "Sammy Stacks": 6,
         "Nathan Schmidt": 1,
         "Mason Dodd": 7,
+        "Corey Buschlen": 7,
         "Avery Huffman": 9,
         "Davis Mattek": 5,
-        "Corey Buschlen": 7,
         "Zach Savage": 7
       },
       "positionalTiers": {
@@ -2502,9 +2502,9 @@
         "Sammy Stacks": 1,
         "Nathan Schmidt": 1,
         "Mason Dodd": 7,
+        "Corey Buschlen": 4,
         "Avery Huffman": 7,
         "Davis Mattek": 4,
-        "Corey Buschlen": 4,
         "Zach Savage": 3
       },
       "weeklyOverallRanks": {},
@@ -2522,9 +2522,9 @@
         "Zach Savage": 4
       },
       "averagePositionalRank": 6,
-      "rankDelta": 5,
-      "initialRank": 37,
-      "finalRank": 32
+      "rankDelta": 0,
+      "initialRank": 33,
+      "finalRank": 33
     },
     {
       "playerId": 13276,
@@ -2592,8 +2592,8 @@
         "Zach Savage": 17
       },
       "averagePositionalRank": 17,
-      "rankDelta": -6,
-      "initialRank": 27,
+      "rankDelta": 0,
+      "initialRank": 33,
       "finalRank": 33
     },
     {
@@ -2662,9 +2662,9 @@
         "Zach Savage": 15
       },
       "averagePositionalRank": 18,
-      "rankDelta": 11,
-      "initialRank": 48,
-      "finalRank": 37
+      "rankDelta": 0,
+      "initialRank": 34,
+      "finalRank": 34
     },
     {
       "playerId": 13236,
@@ -2736,9 +2736,9 @@
         "Zach Savage": 4
       },
       "averagePositionalRank": 3,
-      "rankDelta": 2,
-      "initialRank": 37,
-      "finalRank": 35
+      "rankDelta": 0,
+      "initialRank": 36,
+      "finalRank": 36
     },
     {
       "playerId": 13284,
@@ -2771,8 +2771,8 @@
         "Nathan Schmidt": 37,
         "Mason Dodd": 44,
         "Davis Mattek": 22,
-        "Avery Huffman": 39,
         "Corey Buschlen": 34,
+        "Avery Huffman": 39,
         "Zach Savage": 43
       },
       "overallTiers": {
@@ -2781,8 +2781,8 @@
         "Nathan Schmidt": 1,
         "Mason Dodd": 9,
         "Davis Mattek": 4,
-        "Avery Huffman": 9,
         "Corey Buschlen": 8,
+        "Avery Huffman": 9,
         "Zach Savage": 8
       },
       "positionalTiers": {
@@ -2791,8 +2791,8 @@
         "Nathan Schmidt": 1,
         "Mason Dodd": 9,
         "Davis Mattek": 4,
-        "Avery Huffman": 8,
         "Corey Buschlen": 6,
+        "Avery Huffman": 8,
         "Zach Savage": 7
       },
       "weeklyOverallRanks": {},
@@ -2810,9 +2810,9 @@
         "Zach Savage": 20
       },
       "averagePositionalRank": 19,
-      "rankDelta": -5,
-      "initialRank": 31,
-      "finalRank": 36
+      "rankDelta": 0,
+      "initialRank": 37,
+      "finalRank": 37
     },
     {
       "playerId": 13331,
@@ -2884,8 +2884,8 @@
         "Zach Savage": 11
       },
       "averagePositionalRank": 11,
-      "rankDelta": -6,
-      "initialRank": 31,
+      "rankDelta": 0,
+      "initialRank": 37,
       "finalRank": 37
     },
     {
@@ -2958,8 +2958,8 @@
         "Zach Savage": 3
       },
       "averagePositionalRank": 4,
-      "rankDelta": 5,
-      "initialRank": 45,
+      "rankDelta": 0,
+      "initialRank": 40,
       "finalRank": 40
     },
     {
@@ -3016,9 +3016,9 @@
         "Zach Savage": 22
       },
       "averagePositionalRank": 20,
-      "rankDelta": 4,
-      "initialRank": 40,
-      "finalRank": 36
+      "rankDelta": 0,
+      "initialRank": 42,
+      "finalRank": 42
     },
     {
       "playerId": 13370,
@@ -3050,8 +3050,8 @@
         "Danny McKinnon": 37,
         "Nathan Schmidt": 42,
         "Mason Dodd": 42,
-        "Davis Mattek": 34,
         "Corey Buschlen": 52,
+        "Davis Mattek": 34,
         "Zach Savage": 46
       },
       "overallTiers": {
@@ -3059,8 +3059,8 @@
         "Danny McKinnon": 9,
         "Nathan Schmidt": 1,
         "Mason Dodd": 9,
-        "Davis Mattek": 4,
         "Corey Buschlen": 10,
+        "Davis Mattek": 4,
         "Zach Savage": 8
       },
       "positionalTiers": {
@@ -3068,8 +3068,8 @@
         "Danny McKinnon": 3,
         "Nathan Schmidt": 1,
         "Mason Dodd": 10,
-        "Davis Mattek": 4,
         "Corey Buschlen": 5,
+        "Davis Mattek": 4,
         "Zach Savage": 8
       },
       "weeklyOverallRanks": {},
@@ -3086,9 +3086,9 @@
         "Zach Savage": 12
       },
       "averagePositionalRank": 12,
-      "rankDelta": -2,
-      "initialRank": 39,
-      "finalRank": 41
+      "rankDelta": 0,
+      "initialRank": 42,
+      "finalRank": 42
     },
     {
       "playerId": 13294,
@@ -3156,9 +3156,9 @@
         "Zach Savage": 19
       },
       "averagePositionalRank": 21,
-      "rankDelta": 1,
-      "initialRank": 44,
-      "finalRank": 43
+      "rankDelta": 0,
+      "initialRank": 42,
+      "finalRank": 42
     },
     {
       "playerId": 13314,
@@ -3214,8 +3214,8 @@
         "Corey Buschlen": 8
       },
       "averagePositionalRank": 7,
-      "rankDelta": 7,
-      "initialRank": 31,
+      "rankDelta": 0,
+      "initialRank": 24,
       "finalRank": 24
     },
     {
@@ -3280,8 +3280,8 @@
         "Corey Buschlen": 20
       },
       "averagePositionalRank": 22,
-      "rankDelta": 1,
-      "initialRank": 45,
+      "rankDelta": 0,
+      "initialRank": 44,
       "finalRank": 44
     },
     {
@@ -3338,8 +3338,8 @@
         "Corey Buschlen": 13
       },
       "averagePositionalRank": 23,
-      "rankDelta": 6,
-      "initialRank": 28,
+      "rankDelta": 0,
+      "initialRank": 22,
       "finalRank": 22
     },
     {
@@ -3371,8 +3371,8 @@
         "Sammy Stacks": 42,
         "Nathan Schmidt": 51,
         "Mason Dodd": 47,
-        "Davis Mattek": 37,
         "Corey Buschlen": 54,
+        "Davis Mattek": 37,
         "Avery Huffman": 45,
         "Zach Savage": 41
       },
@@ -3380,8 +3380,8 @@
         "Sammy Stacks": 7,
         "Nathan Schmidt": 1,
         "Mason Dodd": 9,
-        "Davis Mattek": 4,
         "Corey Buschlen": 10,
+        "Davis Mattek": 4,
         "Avery Huffman": 10,
         "Zach Savage": 8
       },
@@ -3389,8 +3389,8 @@
         "Sammy Stacks": 1,
         "Nathan Schmidt": 1,
         "Mason Dodd": 6,
-        "Davis Mattek": 4,
         "Corey Buschlen": 3,
+        "Davis Mattek": 4,
         "Avery Huffman": 7,
         "Zach Savage": 3
       },
@@ -3408,8 +3408,8 @@
         "Zach Savage": 6
       },
       "averagePositionalRank": 5,
-      "rankDelta": 4,
-      "initialRank": 49,
+      "rankDelta": 0,
+      "initialRank": 45,
       "finalRank": 45
     },
     {
@@ -3458,9 +3458,9 @@
         "Mason Dodd": 9
       },
       "averagePositionalRank": 8,
-      "rankDelta": null,
-      "initialRank": null,
-      "finalRank": null
+      "rankDelta": 0,
+      "initialRank": 46,
+      "finalRank": 46
     },
     {
       "playerId": 13334,
@@ -3485,14 +3485,14 @@
       "jerseyNumber": null,
       "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13334_marlin-klein.webp",
       "weight": "250",
-      "averageRank": 46,
-      "overallAverageRank": 46,
+      "averageRank": 45.83,
+      "overallAverageRank": 45.83,
       "overallRanks": {
         "Sammy Stacks": 45,
         "Nathan Schmidt": 39,
         "Mason Dodd": 39,
         "Avery Huffman": 43,
-        "Corey Buschlen": 75,
+        "Corey Buschlen": 74,
         "Zach Savage": 35
       },
       "overallTiers": {
@@ -3524,9 +3524,9 @@
         "Zach Savage": 5
       },
       "averagePositionalRank": 9,
-      "rankDelta": 10,
-      "initialRank": 64,
-      "finalRank": 54
+      "rankDelta": 0,
+      "initialRank": 46,
+      "finalRank": 46
     },
     {
       "playerId": 13526,
@@ -3556,20 +3556,20 @@
       "overallRanks": {
         "Sammy Stacks": 54,
         "Danny McKinnon": 44,
-        "Davis Mattek": 32,
-        "Corey Buschlen": 55
+        "Corey Buschlen": 55,
+        "Davis Mattek": 32
       },
       "overallTiers": {
         "Sammy Stacks": 8,
         "Danny McKinnon": 10,
-        "Davis Mattek": 4,
-        "Corey Buschlen": 10
+        "Corey Buschlen": 10,
+        "Davis Mattek": 4
       },
       "positionalTiers": {
         "Sammy Stacks": 1,
         "Danny McKinnon": 6,
-        "Davis Mattek": 4,
-        "Corey Buschlen": 7
+        "Corey Buschlen": 7,
+        "Davis Mattek": 4
       },
       "weeklyOverallRanks": {},
       "previousYearPprAverage": null,
@@ -3582,9 +3582,9 @@
         "Corey Buschlen": 26
       },
       "averagePositionalRank": 24,
-      "rankDelta": -2,
-      "initialRank": 42,
-      "finalRank": 44
+      "rankDelta": 0,
+      "initialRank": 46,
+      "finalRank": 46
     },
     {
       "playerId": 13233,
@@ -3648,9 +3648,9 @@
         "Zach Savage": 5
       },
       "averagePositionalRank": 6,
-      "rankDelta": 2,
-      "initialRank": 41,
-      "finalRank": 39
+      "rankDelta": 0,
+      "initialRank": 40,
+      "finalRank": 40
     },
     {
       "playerId": 13333,
@@ -3714,9 +3714,9 @@
         "Zach Savage": 8
       },
       "averagePositionalRank": 10,
-      "rankDelta": -15,
-      "initialRank": 34,
-      "finalRank": 49
+      "rankDelta": 0,
+      "initialRank": 48,
+      "finalRank": 48
     },
     {
       "playerId": 13283,
@@ -3768,8 +3768,8 @@
         "Zach Savage": 21
       },
       "averagePositionalRank": 25,
-      "rankDelta": 4,
-      "initialRank": 28,
+      "rankDelta": 0,
+      "initialRank": 24,
       "finalRank": 24
     },
     {
@@ -3838,8 +3838,8 @@
         "Corey Buschlen": 5
       },
       "averagePositionalRank": 7,
-      "rankDelta": -4,
-      "initialRank": 44,
+      "rankDelta": 0,
+      "initialRank": 48,
       "finalRank": 48
     },
     {
@@ -3869,20 +3869,20 @@
       "overallAverageRank": 48.5,
       "overallRanks": {
         "Sammy Stacks": 49,
-        "Davis Mattek": 43,
         "Corey Buschlen": 53,
+        "Davis Mattek": 43,
         "Zach Savage": 49
       },
       "overallTiers": {
         "Sammy Stacks": 8,
-        "Davis Mattek": 5,
         "Corey Buschlen": 10,
+        "Davis Mattek": 5,
         "Zach Savage": 8
       },
       "positionalTiers": {
         "Sammy Stacks": 1,
-        "Davis Mattek": 5,
         "Corey Buschlen": 5,
+        "Davis Mattek": 5,
         "Zach Savage": 8
       },
       "weeklyOverallRanks": {},
@@ -3896,9 +3896,9 @@
         "Zach Savage": 13
       },
       "averagePositionalRank": 13,
-      "rankDelta": 2,
-      "initialRank": 50,
-      "finalRank": 48
+      "rankDelta": 0,
+      "initialRank": 49,
+      "finalRank": 49
     },
     {
       "playerId": 13319,
@@ -3962,9 +3962,9 @@
         "Corey Buschlen": 7
       },
       "averagePositionalRank": 11,
-      "rankDelta": 11,
-      "initialRank": 56,
-      "finalRank": 45
+      "rankDelta": 0,
+      "initialRank": 49,
+      "finalRank": 49
     },
     {
       "playerId": 13378,
@@ -4012,9 +4012,9 @@
         "Sammy Stacks": 25
       },
       "averagePositionalRank": 26,
-      "rankDelta": null,
-      "initialRank": null,
-      "finalRank": null
+      "rankDelta": 0,
+      "initialRank": 50,
+      "finalRank": 50
     },
     {
       "playerId": 13260,
@@ -4070,8 +4070,8 @@
         "Corey Buschlen": 15
       },
       "averagePositionalRank": 14,
-      "rankDelta": -4,
-      "initialRank": 37,
+      "rankDelta": 0,
+      "initialRank": 41,
       "finalRank": 41
     },
     {
@@ -4124,8 +4124,8 @@
         "Corey Buschlen": 14
       },
       "averagePositionalRank": 15,
-      "rankDelta": -7,
-      "initialRank": 45,
+      "rankDelta": 0,
+      "initialRank": 52,
       "finalRank": 52
     },
     {
@@ -4186,8 +4186,8 @@
         "Corey Buschlen": 8
       },
       "averagePositionalRank": 8,
-      "rankDelta": -5,
-      "initialRank": 39,
+      "rankDelta": 0,
+      "initialRank": 44,
       "finalRank": 44
     },
     {
@@ -4217,18 +4217,18 @@
       "overallAverageRank": 55.33,
       "overallRanks": {
         "Sammy Stacks": 55,
-        "Corey Buschlen": 56,
-        "Davis Mattek": 55
+        "Davis Mattek": 55,
+        "Corey Buschlen": 56
       },
       "overallTiers": {
         "Sammy Stacks": 8,
-        "Corey Buschlen": 10,
-        "Davis Mattek": 5
+        "Davis Mattek": 5,
+        "Corey Buschlen": 10
       },
       "positionalTiers": {
         "Sammy Stacks": 1,
-        "Corey Buschlen": 7,
-        "Davis Mattek": 5
+        "Davis Mattek": 5,
+        "Corey Buschlen": 7
       },
       "weeklyOverallRanks": {},
       "previousYearPprAverage": null,
@@ -4240,8 +4240,8 @@
         "Corey Buschlen": 27
       },
       "averagePositionalRank": 27,
-      "rankDelta": 4,
-      "initialRank": 59,
+      "rankDelta": 0,
+      "initialRank": 55,
       "finalRank": 55
     },
     {
@@ -4298,8 +4298,8 @@
         "Corey Buschlen": 25
       },
       "averagePositionalRank": 28,
-      "rankDelta": 1,
-      "initialRank": 45,
+      "rankDelta": 0,
+      "initialRank": 44,
       "finalRank": 44
     },
     {
@@ -4352,8 +4352,8 @@
         "Corey Buschlen": 16
       },
       "averagePositionalRank": 16,
-      "rankDelta": 6,
-      "initialRank": 30,
+      "rankDelta": 0,
+      "initialRank": 24,
       "finalRank": 24
     },
     {
@@ -4402,8 +4402,54 @@
         "Corey Buschlen": 10
       },
       "averagePositionalRank": 12,
-      "rankDelta": 12,
-      "initialRank": 69,
+      "rankDelta": 0,
+      "initialRank": 57,
+      "finalRank": 57
+    },
+    {
+      "playerId": 13376,
+      "underdogId": "21a8a12a-b349-4462-8236-47342d6f8e8a",
+      "playerName": "Kaden Wetjen",
+      "position": "WR",
+      "team": "PIT",
+      "teamColor": "000000",
+      "isDraftPick": false,
+      "pickType": null,
+      "draftPickParent": null,
+      "autoGenerated": false,
+      "age": 24,
+      "dob": "3/9/2002",
+      "experience": 0,
+      "draftYear": 2026,
+      "college": "Iowa",
+      "fantasyCalcId": null,
+      "height": "69",
+      "isRookie": true,
+      "isActive": true,
+      "jerseyNumber": null,
+      "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13376_kaden-wetjen.webp",
+      "weight": "196",
+      "averageRank": 57,
+      "overallAverageRank": 57,
+      "overallRanks": {
+        "Sammy Stacks": 57
+      },
+      "overallTiers": {
+        "Sammy Stacks": 8
+      },
+      "positionalTiers": {
+        "Sammy Stacks": 1
+      },
+      "weeklyOverallRanks": {},
+      "previousYearPprAverage": null,
+      "averageTier": 10,
+      "averagePositionalTier": 7,
+      "positionalRanks": {
+        "Sammy Stacks": 29
+      },
+      "averagePositionalRank": 29,
+      "rankDelta": 0,
+      "initialRank": 57,
       "finalRank": 57
     },
     {
@@ -4448,55 +4494,9 @@
         "Danny McKinnon": 13
       },
       "averagePositionalRank": 13,
-      "rankDelta": 42,
-      "initialRank": 71,
+      "rankDelta": 0,
+      "initialRank": 29,
       "finalRank": 29
-    },
-    {
-      "playerId": 13376,
-      "underdogId": "21a8a12a-b349-4462-8236-47342d6f8e8a",
-      "playerName": "Kaden Wetjen",
-      "position": "WR",
-      "team": "PIT",
-      "teamColor": "000000",
-      "isDraftPick": false,
-      "pickType": null,
-      "draftPickParent": null,
-      "autoGenerated": false,
-      "age": 24,
-      "dob": "3/9/2002",
-      "experience": 0,
-      "draftYear": 2026,
-      "college": "Iowa",
-      "fantasyCalcId": null,
-      "height": "69",
-      "isRookie": true,
-      "isActive": true,
-      "jerseyNumber": null,
-      "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13376_kaden-wetjen.webp",
-      "weight": "196",
-      "averageRank": 57,
-      "overallAverageRank": 57,
-      "overallRanks": {
-        "Sammy Stacks": 57
-      },
-      "overallTiers": {
-        "Sammy Stacks": 8
-      },
-      "positionalTiers": {
-        "Sammy Stacks": 1
-      },
-      "weeklyOverallRanks": {},
-      "previousYearPprAverage": null,
-      "averageTier": 10,
-      "averagePositionalTier": 7,
-      "positionalRanks": {
-        "Sammy Stacks": 29
-      },
-      "averagePositionalRank": 29,
-      "rankDelta": null,
-      "initialRank": null,
-      "finalRank": null
     },
     {
       "playerId": 13330,
@@ -4548,8 +4548,8 @@
         "Corey Buschlen": 19
       },
       "averagePositionalRank": 17,
-      "rankDelta": 6,
-      "initialRank": 35,
+      "rankDelta": 0,
+      "initialRank": 29,
       "finalRank": 29
     },
     {
@@ -4598,8 +4598,8 @@
         "Sammy Stacks": 11
       },
       "averagePositionalRank": 14,
-      "rankDelta": 9,
-      "initialRank": 48,
+      "rankDelta": 0,
+      "initialRank": 39,
       "finalRank": 39
     },
     {
@@ -4648,8 +4648,8 @@
         "Corey Buschlen": 11
       },
       "averagePositionalRank": 15,
-      "rankDelta": 8,
-      "initialRank": 69,
+      "rankDelta": 0,
+      "initialRank": 61,
       "finalRank": 61
     },
     {
@@ -4702,59 +4702,9 @@
         "Corey Buschlen": 29
       },
       "averagePositionalRank": 30,
-      "rankDelta": 4,
-      "initialRank": 60,
-      "finalRank": 56
-    },
-    {
-      "playerId": 13372,
-      "underdogId": null,
-      "playerName": "Malik Benson",
-      "position": "WR",
-      "team": "LV",
-      "teamColor": "C8C7C7",
-      "isDraftPick": false,
-      "pickType": null,
-      "draftPickParent": null,
-      "autoGenerated": false,
-      "age": 23,
-      "dob": "10/17/2002",
-      "experience": 0,
-      "draftYear": 2026,
-      "college": "Oregon",
-      "fantasyCalcId": null,
-      "height": "73",
-      "isRookie": true,
-      "isActive": true,
-      "jerseyNumber": 19,
-      "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13372_malik-benson.webp",
-      "weight": "195",
-      "averageRank": 62,
-      "overallAverageRank": 62,
-      "overallRanks": {
-        "Sammy Stacks": 74,
-        "Corey Buschlen": 50
-      },
-      "overallTiers": {
-        "Sammy Stacks": 9,
-        "Corey Buschlen": 10
-      },
-      "positionalTiers": {
-        "Sammy Stacks": 1,
-        "Corey Buschlen": 7
-      },
-      "weeklyOverallRanks": {},
-      "previousYearPprAverage": null,
-      "averageTier": 11,
-      "averagePositionalTier": 7,
-      "positionalRanks": {
-        "Sammy Stacks": 35,
-        "Corey Buschlen": 24
-      },
-      "averagePositionalRank": 31,
-      "rankDelta": 10,
-      "initialRank": 60,
-      "finalRank": 50
+      "rankDelta": 0,
+      "initialRank": 62,
+      "finalRank": 62
     },
     {
       "playerId": 13304,
@@ -4796,15 +4746,65 @@
       "weeklyOverallRanks": {},
       "previousYearPprAverage": null,
       "averageTier": 11,
-      "averagePositionalTier": 8,
+      "averagePositionalTier": 7,
       "positionalRanks": {
         "Sammy Stacks": 28,
         "Corey Buschlen": 30
       },
+      "averagePositionalRank": 31,
+      "rankDelta": 0,
+      "initialRank": 62,
+      "finalRank": 62
+    },
+    {
+      "playerId": 13372,
+      "underdogId": null,
+      "playerName": "Malik Benson",
+      "position": "WR",
+      "team": "LV",
+      "teamColor": "C8C7C7",
+      "isDraftPick": false,
+      "pickType": null,
+      "draftPickParent": null,
+      "autoGenerated": false,
+      "age": 23,
+      "dob": "10/17/2002",
+      "experience": 0,
+      "draftYear": 2026,
+      "college": "Oregon",
+      "fantasyCalcId": null,
+      "height": "73",
+      "isRookie": true,
+      "isActive": true,
+      "jerseyNumber": 19,
+      "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13372_malik-benson.webp",
+      "weight": "195",
+      "averageRank": 62,
+      "overallAverageRank": 62,
+      "overallRanks": {
+        "Sammy Stacks": 74,
+        "Corey Buschlen": 50
+      },
+      "overallTiers": {
+        "Sammy Stacks": 9,
+        "Corey Buschlen": 10
+      },
+      "positionalTiers": {
+        "Sammy Stacks": 1,
+        "Corey Buschlen": 7
+      },
+      "weeklyOverallRanks": {},
+      "previousYearPprAverage": null,
+      "averageTier": 11,
+      "averagePositionalTier": 8,
+      "positionalRanks": {
+        "Sammy Stacks": 35,
+        "Corey Buschlen": 24
+      },
       "averagePositionalRank": 32,
-      "rankDelta": 27,
-      "initialRank": 95,
-      "finalRank": 68
+      "rankDelta": 0,
+      "initialRank": 62,
+      "finalRank": 62
     },
     {
       "playerId": 13282,
@@ -4829,12 +4829,12 @@
       "jerseyNumber": null,
       "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13282_deion-burks.webp",
       "weight": "",
-      "averageRank": 63,
-      "overallAverageRank": 63,
+      "averageRank": 62.67,
+      "overallAverageRank": 62.67,
       "overallRanks": {
         "Sammy Stacks": 66,
         "Nathan Schmidt": 47,
-        "Corey Buschlen": 76
+        "Corey Buschlen": 75
       },
       "overallTiers": {
         "Sammy Stacks": 9,
@@ -4856,8 +4856,8 @@
         "Corey Buschlen": 33
       },
       "averagePositionalRank": 33,
-      "rankDelta": -20,
-      "initialRank": 43,
+      "rankDelta": 0,
+      "initialRank": 63,
       "finalRank": 63
     },
     {
@@ -4906,8 +4906,8 @@
         "Corey Buschlen": 17
       },
       "averagePositionalRank": 18,
-      "rankDelta": 10,
-      "initialRank": 36,
+      "rankDelta": 0,
+      "initialRank": 26,
       "finalRank": 26
     },
     {
@@ -4956,8 +4956,8 @@
         "Corey Buschlen": 18
       },
       "averagePositionalRank": 19,
-      "rankDelta": 4,
-      "initialRank": 48,
+      "rankDelta": 0,
+      "initialRank": 44,
       "finalRank": 44
     },
     {
@@ -4983,12 +4983,12 @@
       "jerseyNumber": 46,
       "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13310_michael-trigg.webp",
       "weight": "240",
-      "averageRank": 66.33,
-      "overallAverageRank": 66.33,
+      "averageRank": 66,
+      "overallAverageRank": 66,
       "overallRanks": {
         "Sammy Stacks": 77,
         "Danny McKinnon": 51,
-        "Corey Buschlen": 71
+        "Corey Buschlen": 70
       },
       "overallTiers": {
         "Sammy Stacks": 9,
@@ -5010,8 +5010,8 @@
         "Corey Buschlen": 13
       },
       "averagePositionalRank": 16,
-      "rankDelta": 2,
-      "initialRank": 30,
+      "rankDelta": 0,
+      "initialRank": 28,
       "finalRank": 28
     },
     {
@@ -5037,11 +5037,11 @@
       "jerseyNumber": null,
       "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13381_lewis-bond.webp",
       "weight": "190",
-      "averageRank": 66.5,
-      "overallAverageRank": 66.5,
+      "averageRank": 66,
+      "overallAverageRank": 66,
       "overallRanks": {
         "Sammy Stacks": 52,
-        "Corey Buschlen": 81
+        "Corey Buschlen": 80
       },
       "overallTiers": {
         "Sammy Stacks": 8,
@@ -5060,9 +5060,59 @@
         "Corey Buschlen": 36
       },
       "averagePositionalRank": 34,
-      "rankDelta": -1,
-      "initialRank": 66,
-      "finalRank": 67
+      "rankDelta": 1,
+      "initialRank": 67,
+      "finalRank": 66
+    },
+    {
+      "playerId": 13258,
+      "underdogId": null,
+      "playerName": "Robert Henry Jr.",
+      "position": "RB",
+      "team": "WAS",
+      "teamColor": "5A1414",
+      "isDraftPick": false,
+      "pickType": null,
+      "draftPickParent": null,
+      "autoGenerated": false,
+      "age": null,
+      "dob": "12/31/2001",
+      "experience": 0,
+      "draftYear": null,
+      "college": "UTSA",
+      "fantasyCalcId": null,
+      "height": "69",
+      "isRookie": true,
+      "isActive": true,
+      "jerseyNumber": null,
+      "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13258_robert-henry-jr.webp",
+      "weight": "205",
+      "averageRank": 68.5,
+      "overallAverageRank": 68.5,
+      "overallRanks": {
+        "Sammy Stacks": 65,
+        "Corey Buschlen": 72
+      },
+      "overallTiers": {
+        "Sammy Stacks": 9,
+        "Corey Buschlen": 12
+      },
+      "positionalTiers": {
+        "Sammy Stacks": 1,
+        "Corey Buschlen": 7
+      },
+      "weeklyOverallRanks": {},
+      "previousYearPprAverage": null,
+      "averageTier": 11,
+      "averagePositionalTier": 6,
+      "positionalRanks": {
+        "Sammy Stacks": 17,
+        "Corey Buschlen": 20
+      },
+      "averagePositionalRank": 20,
+      "rankDelta": 0,
+      "initialRank": 46,
+      "finalRank": 46
     },
     {
       "playerId": 13321,
@@ -5106,7 +5156,7 @@
       },
       "weeklyOverallRanks": {},
       "previousYearPprAverage": null,
-      "averageTier": 11,
+      "averageTier": 12,
       "averagePositionalTier": 5,
       "positionalRanks": {
         "Danny McKinnon": 14,
@@ -5114,105 +5164,9 @@
         "Corey Buschlen": 12
       },
       "averagePositionalRank": 17,
-      "rankDelta": 8,
-      "initialRank": 72,
-      "finalRank": 64
-    },
-    {
-      "playerId": 13258,
-      "underdogId": null,
-      "playerName": "Robert Henry Jr.",
-      "position": "RB",
-      "team": "WAS",
-      "teamColor": "5A1414",
-      "isDraftPick": false,
-      "pickType": null,
-      "draftPickParent": null,
-      "autoGenerated": false,
-      "age": null,
-      "dob": "12/31/2001",
-      "experience": 0,
-      "draftYear": null,
-      "college": "UTSA",
-      "fantasyCalcId": null,
-      "height": "69",
-      "isRookie": true,
-      "isActive": true,
-      "jerseyNumber": null,
-      "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13258_robert-henry-jr.webp",
-      "weight": "205",
-      "averageRank": 69,
-      "overallAverageRank": 69,
-      "overallRanks": {
-        "Sammy Stacks": 65,
-        "Corey Buschlen": 73
-      },
-      "overallTiers": {
-        "Sammy Stacks": 9,
-        "Corey Buschlen": 12
-      },
-      "positionalTiers": {
-        "Sammy Stacks": 1,
-        "Corey Buschlen": 7
-      },
-      "weeklyOverallRanks": {},
-      "previousYearPprAverage": null,
-      "averageTier": 12,
-      "averagePositionalTier": 6,
-      "positionalRanks": {
-        "Sammy Stacks": 17,
-        "Corey Buschlen": 21
-      },
-      "averagePositionalRank": 20,
-      "rankDelta": 8,
-      "initialRank": 54,
-      "finalRank": 46
-    },
-    {
-      "playerId": 13263,
-      "underdogId": "1fa7ec90-f724-49cd-a5d0-9d9b65a53a37",
-      "playerName": "Chip Trayanum",
-      "position": "RB",
-      "team": null,
-      "teamColor": null,
-      "isDraftPick": false,
-      "pickType": null,
-      "draftPickParent": null,
-      "autoGenerated": false,
-      "age": null,
-      "dob": null,
-      "experience": null,
-      "draftYear": 2026,
-      "college": "Toledo",
-      "fantasyCalcId": null,
-      "height": "5'11",
-      "isRookie": true,
-      "isActive": true,
-      "jerseyNumber": null,
-      "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13263_chip-trayanum.webp",
-      "weight": "227",
-      "averageRank": 70,
-      "overallAverageRank": 70,
-      "overallRanks": {
-        "Corey Buschlen": 70
-      },
-      "overallTiers": {
-        "Corey Buschlen": 12
-      },
-      "positionalTiers": {
-        "Corey Buschlen": 7
-      },
-      "weeklyOverallRanks": {},
-      "previousYearPprAverage": null,
-      "averageTier": 12,
-      "averagePositionalTier": 6,
-      "positionalRanks": {
-        "Corey Buschlen": 20
-      },
-      "averagePositionalRank": 21,
-      "rankDelta": 12,
-      "initialRank": 82,
-      "finalRank": 70
+      "rankDelta": 0,
+      "initialRank": 69,
+      "finalRank": 69
     },
     {
       "playerId": 13377,
@@ -5260,9 +5214,9 @@
         "Corey Buschlen": 28
       },
       "averagePositionalRank": 35,
-      "rankDelta": 12,
-      "initialRank": 76,
-      "finalRank": 64
+      "rankDelta": 0,
+      "initialRank": 70,
+      "finalRank": 70
     },
     {
       "playerId": 13292,
@@ -5287,11 +5241,11 @@
       "jerseyNumber": 19,
       "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13292_josh-cameron.webp",
       "weight": "224",
-      "averageRank": 72,
-      "overallAverageRank": 72,
+      "averageRank": 71.5,
+      "overallAverageRank": 71.5,
       "overallRanks": {
         "Sammy Stacks": 72,
-        "Corey Buschlen": 72
+        "Corey Buschlen": 71
       },
       "overallTiers": {
         "Sammy Stacks": 9,
@@ -5310,8 +5264,8 @@
         "Corey Buschlen": 31
       },
       "averagePositionalRank": 36,
-      "rankDelta": 5,
-      "initialRank": 53,
+      "rankDelta": 0,
+      "initialRank": 48,
       "finalRank": 48
     },
     {
@@ -5337,11 +5291,11 @@
       "jerseyNumber": 84,
       "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13373_emmanuel-henderson-jr.webp",
       "weight": "190",
-      "averageRank": 74.5,
-      "overallAverageRank": 74.5,
+      "averageRank": 74,
+      "overallAverageRank": 74,
       "overallRanks": {
         "Sammy Stacks": 75,
-        "Corey Buschlen": 74
+        "Corey Buschlen": 73
       },
       "overallTiers": {
         "Sammy Stacks": 9,
@@ -5360,8 +5314,8 @@
         "Corey Buschlen": 32
       },
       "averagePositionalRank": 37,
-      "rankDelta": 5,
-      "initialRank": 79,
+      "rankDelta": 1,
+      "initialRank": 75,
       "finalRank": 74
     },
     {
@@ -5387,10 +5341,10 @@
       "jerseyNumber": null,
       "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13361_jalon-daniels.webp",
       "weight": "220",
-      "averageRank": 77,
-      "overallAverageRank": 77,
+      "averageRank": 76,
+      "overallAverageRank": 76,
       "overallRanks": {
-        "Corey Buschlen": 77
+        "Corey Buschlen": 76
       },
       "overallTiers": {
         "Corey Buschlen": 12
@@ -5406,9 +5360,9 @@
         "Corey Buschlen": 9
       },
       "averagePositionalRank": 9,
-      "rankDelta": -2,
-      "initialRank": 75,
-      "finalRank": 77
+      "rankDelta": 1,
+      "initialRank": 77,
+      "finalRank": 76
     },
     {
       "playerId": 13293,
@@ -5433,10 +5387,10 @@
       "jerseyNumber": null,
       "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13293_eric-rivers.webp",
       "weight": "180",
-      "averageRank": 78,
-      "overallAverageRank": 78,
+      "averageRank": 77,
+      "overallAverageRank": 77,
       "overallRanks": {
-        "Corey Buschlen": 78
+        "Corey Buschlen": 77
       },
       "overallTiers": {
         "Corey Buschlen": 12
@@ -5452,9 +5406,9 @@
         "Corey Buschlen": 34
       },
       "averagePositionalRank": 38,
-      "rankDelta": -15,
-      "initialRank": 63,
-      "finalRank": 78
+      "rankDelta": 1,
+      "initialRank": 78,
+      "finalRank": 77
     },
     {
       "playerId": 13238,
@@ -5479,10 +5433,10 @@
       "jerseyNumber": null,
       "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13238_diego-pavia.webp",
       "weight": "207",
-      "averageRank": 79,
-      "overallAverageRank": 79,
+      "averageRank": 78,
+      "overallAverageRank": 78,
       "overallRanks": {
-        "Corey Buschlen": 79
+        "Corey Buschlen": 78
       },
       "overallTiers": {
         "Corey Buschlen": 12
@@ -5498,9 +5452,9 @@
         "Corey Buschlen": 10
       },
       "averagePositionalRank": 10,
-      "rankDelta": -9,
-      "initialRank": 31,
-      "finalRank": 40
+      "rankDelta": 1,
+      "initialRank": 40,
+      "finalRank": 39
     },
     {
       "playerId": 13374,
@@ -5525,10 +5479,10 @@
       "jerseyNumber": null,
       "picture": "https://flock-player-college-images.s3.us-east-2.amazonaws.com/13374_chase-roberts.webp",
       "weight": "210",
-      "averageRank": 80,
-      "overallAverageRank": 80,
+      "averageRank": 79,
+      "overallAverageRank": 79,
       "overallRanks": {
-        "Corey Buschlen": 80
+        "Corey Buschlen": 79
       },
       "overallTiers": {
         "Corey Buschlen": 12
@@ -5544,9 +5498,9 @@
         "Corey Buschlen": 35
       },
       "averagePositionalRank": 39,
-      "rankDelta": -16,
-      "initialRank": 64,
-      "finalRank": 80
+      "rankDelta": 1,
+      "initialRank": 80,
+      "finalRank": 79
     },
     {
       "playerId": 13388,
@@ -5590,9 +5544,9 @@
         "Sammy Stacks": 15
       },
       "averagePositionalRank": 18,
-      "rankDelta": null,
-      "initialRank": null,
-      "finalRank": null
+      "rankDelta": 0,
+      "initialRank": 80,
+      "finalRank": 80
     },
     {
       "playerId": 13386,
@@ -5636,9 +5590,9 @@
         "Sammy Stacks": 16
       },
       "averagePositionalRank": 19,
-      "rankDelta": null,
-      "initialRank": null,
-      "finalRank": null
+      "rankDelta": 0,
+      "initialRank": 81,
+      "finalRank": 81
     }
   ]
 }

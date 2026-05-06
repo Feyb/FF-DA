@@ -1,6 +1,6 @@
 {
   "source": "flockfantasy.com",
-  "generatedAt": "2026-05-03T18:55:29.974Z",
+  "generatedAt": "2026-05-06T07:13:40.577Z",
   "formats": {
     "1qb": {
       "output": "players-1qb.json",
@@ -14,12 +14,12 @@
     },
     "rookies-1qb": {
       "output": "players-rookies-1qb.json",
-      "count": 89,
+      "count": 88,
       "url": "https://api.flockfantasy.com/rankings?format=PROSPECTS&pickType=hybrid&year=2026"
     },
     "rookies-sf": {
       "output": "players-rookies-sf.json",
-      "count": 89,
+      "count": 88,
       "url": "https://api.flockfantasy.com/rankings?format=PROSPECTS_SF&pickType=hybrid&year=2026"
     }
   }

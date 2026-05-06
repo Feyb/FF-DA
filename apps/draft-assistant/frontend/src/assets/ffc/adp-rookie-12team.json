@@ -410,14 +410,14 @@
   {
     "playerName": "Jake Haener",
     "position": "QB",
-    "team": "KC",
+    "team": "FA",
     "adp": 29.2,
     "adpFormatted": "3.05",
     "stdev": 5.3,
     "high": 25,
     "low": 36,
     "timesDrafted": 4,
-    "bye": 10
+    "bye": 0
   },
   {
     "playerName": "Evan Hull",
