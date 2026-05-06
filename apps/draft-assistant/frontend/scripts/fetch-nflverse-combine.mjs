@@ -58,8 +58,7 @@ async function main() {
 
   const byPlayer = new Map();
   for (const row of rows) {
-    const id =
-      row.gsis_id ?? row.player_id ?? row.pfr_id ?? row.cfb_id ?? makeFallbackId(row);
+    const id = row.gsis_id ?? row.player_id ?? row.pfr_id ?? row.cfb_id ?? makeFallbackId(row);
     if (!id) continue;
     // Keep most recent combine season per player.
     const season = Number(row.season ?? row.draft_year ?? 0);
@@ -73,7 +72,8 @@ async function main() {
     };
     for (const f of NUMERIC) {
       const rawValue = row[f];
-      const v = rawValue === "" || rawValue === undefined || rawValue === null ? NaN : Number(rawValue);
+      const v =
+        rawValue === "" || rawValue === undefined || rawValue === null ? NaN : Number(rawValue);
       entry[f] = Number.isFinite(v) ? v : null;
     }
     byPlayer.set(id, entry);
