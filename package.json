@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "husky",
+    "format:staged": "lint-staged --concurrent false",
     "draft-assistant:sync": "pnpm --filter @ff/draft-assistant-frontend run rankings:sync",
     "draft-assistant:start": "pnpm --filter @ff/draft-assistant-frontend run start",
     "draft-assistant:start-sync": "pnpm --filter @ff/draft-assistant-frontend run start-sync",
@@ -15,12 +16,18 @@
     "draft-assistant:fmt": "pnpm --filter @ff/draft-assistant-frontend run fmt",
     "draft-assistant:fmt:check": "pnpm --filter @ff/draft-assistant-frontend run fmt:check"
   },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "oxfmt": "^0.45.0",
+    "oxlint": "^1.15.0"
+  },
   "lint-staged": {
-    "apps/draft-assistant/frontend/**/*.{ts,js}": [
+    "**/*.{ts,tsx,js,jsx,mjs,cjs}": [
       "oxfmt",
       "oxlint --fix"
     ],
-    "apps/draft-assistant/frontend/**/*.{json,html,scss,css}": [
+    "**/*.{json,html,scss,css,md,yml,yaml}": [
       "oxfmt"
     ]
   },
@@ -28,11 +35,5 @@
     "node": ">=20",
     "pnpm": ">=9"
   },
-  "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017",
-  "devDependencies": {
-    "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
-    "oxfmt": "^0.45.0",
-    "oxlint": "^1.15.0"
-  }
+  "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
 }

@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+repo_root="$(git rev-parse --show-toplevel 2>/dev/null)"
+if [ -n "$repo_root" ]; then
+	cd "$repo_root" || exit 1
+fi
+
 export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
 if [ -s "$NVM_DIR/nvm.sh" ]; then
 	# Load nvm in non-interactive git hook shells and switch to .nvmrc version.
@@ -7,11 +12,10 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
 	nvm use --silent >/dev/null 2>&1 || true
 fi
 
-node_major="$(node -p "process.versions.node.split('.')[0]" 2>/dev/null)"
-if [ -z "$node_major" ] || [ "$node_major" -lt 20 ]; then
-	echo "[husky] Node.js 20+ is required for pre-commit checks (current: $(node -v 2>/dev/null || echo 'not found'))."
+if ! node -e "const [major, minor] = process.versions.node.split('.').map(Number); process.exit(Number.isNaN(major) || Number.isNaN(minor) || !((major === 20 && minor >= 19) || (major === 22 && minor >= 12) || major > 22) ? 1 : 0)" 2>/dev/null; then
+	echo "[husky] Node.js 20.19+ or 22.12+ is required for pre-commit checks (current: $(node -v 2>/dev/null || echo 'not found'))."
 	echo "[husky] Run: nvm use 20 (or upgrade Node), then run pnpm install and retry commit."
 	exit 1
 fi
 
-corepack pnpm exec lint-staged
+pnpm run format:staged
