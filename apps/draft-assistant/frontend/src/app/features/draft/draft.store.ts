@@ -412,12 +412,49 @@ export const DraftStore = signalStore(
         },
       );
 
+      // Maps NFL team code → QB name on the user's current roster (existing + session picks).
+      // Shared between NeedMultiplier (γ stack-synergy) and wcsExplanationByPlayer (#12 template).
+      const userQbByTeam = computed((): Map<string, string> => {
+        const rowByPlayerId = new Map(store.rows().map((r) => [r.playerId, r]));
+        const out = new Map<string, string>();
+        for (const pid of store.existingRosterPlayerIds()) {
+          const r = rowByPlayerId.get(pid);
+          if (r?.position === "QB" && r.team) out.set(r.team, r.fullName);
+        }
+        const userRosterId = store.userRosterId();
+        if (userRosterId !== null) {
+          for (const pick of store.picks()) {
+            if (pick.roster_id !== userRosterId || !pick.player_id) continue;
+            const r = rowByPlayerId.get(pick.player_id);
+            if (r?.position === "QB" && r.team) out.set(r.team, r.fullName);
+          }
+        }
+        return out;
+      });
+
+      // Counts the user's drafted picks per bye week.
+      // Shared between NeedMultiplier (δ bye-cluster penalty) and wcsExplanationByPlayer (#14 template).
+      const userByeWeekCounts = computed((): Map<number, number> => {
+        const rowByPlayerId = new Map(store.rows().map((r) => [r.playerId, r]));
+        const userRosterId = store.userRosterId();
+        const out = new Map<number, number>();
+        if (userRosterId !== null) {
+          for (const pick of store.picks()) {
+            if (pick.roster_id !== userRosterId || !pick.player_id) continue;
+            const r = rowByPlayerId.get(pick.player_id);
+            if (r?.byeWeek != null) {
+              out.set(r.byeWeek, (out.get(r.byeWeek) ?? 0) + 1);
+            }
+          }
+        }
+        return out;
+      });
+
       // NeedMultiplier: roster-aware position need score per player.
-      // Formula: clamp(1 + α·unfilledGap − β·stackedPenalty, 0.5, 1.6)
-      // StackSynergy (γ) and ByeCluster (δ) are Phase 3 additions; defaulting to 0 here.
+      // Formula: clamp(1 + α·unfilledGap − β·stackedPenalty + γ·stackSynergy − δ·byeCluster, 0.5, 1.6)
       const needMultiplierByPlayer = computed((): Map<string, number> => {
         const mode = store.draftMode();
-        const { alpha, beta } = NEED_WEIGHTS[mode];
+        const { alpha, beta, gamma, delta } = NEED_WEIGHTS[mode];
         const league = appStore.selectedLeague();
         const rosterPositions = league?.roster_positions ?? [];
         const { configuredByPos, filledByPos } = buildRosterFillInfo(
@@ -427,6 +464,10 @@ export const DraftStore = signalStore(
           store.rows(),
           store.existingRosterPlayerIds(),
         );
+
+        const byeWeekCounts = userByeWeekCounts();
+        const qbByTeam = userQbByTeam();
+
         const out = new Map<string, number>();
         for (const row of store.rows()) {
           const pos = row.position;
@@ -440,7 +481,17 @@ export const DraftStore = signalStore(
           const unfilledGap = Math.max(0, configured - filled) / configured;
           // StackedPenalty: how far above (configured + 1 bench) we are.
           const stackedPenalty = Math.max(0, filled - (configured + 1)) / configured;
-          const raw = 1 + alpha * unfilledGap - beta * stackedPenalty;
+          // "Pass-catcher" includes RB: QB-RB stacks are a real dynasty strategy.
+          const stackSynergy =
+            gamma > 0 && row.position !== "QB" && row.team && qbByTeam.has(row.team) ? 1 : 0;
+          const byeCluster =
+            delta > 0 && row.byeWeek != null && (byeWeekCounts.get(row.byeWeek) ?? 0) >= 3 ? 1 : 0;
+          const raw =
+            1 +
+            alpha * unfilledGap -
+            beta * stackedPenalty +
+            gamma * stackSynergy -
+            delta * byeCluster;
           out.set(row.playerId, Math.max(0.5, Math.min(1.6, raw)));
         }
         return out;
@@ -588,21 +639,11 @@ export const DraftStore = signalStore(
           number
         >;
 
-        // #12 StackSynergy — map each NFL team to the QB name on the user's roster.
-        const rowByPlayerId = new Map(store.rows().map((r) => [r.playerId, r]));
-        const userQbByTeam = new Map<string, string>();
-        const userRosterId = store.userRosterId();
-        for (const pid of store.existingRosterPlayerIds()) {
-          const r = rowByPlayerId.get(pid);
-          if (r?.position === "QB" && r.team) userQbByTeam.set(r.team, r.fullName);
-        }
-        if (userRosterId !== null) {
-          for (const pick of store.picks()) {
-            if (pick.roster_id !== userRosterId || !pick.player_id) continue;
-            const r = rowByPlayerId.get(pick.player_id);
-            if (r?.position === "QB" && r.team) userQbByTeam.set(r.team, r.fullName);
-          }
-        }
+        // #12 StackSynergy — reuse the shared QB-by-team signal.
+        const qbByTeam = userQbByTeam();
+        // #14 ByeWeekCluster — reuse the shared bye-week histogram signal.
+        const byeWeekCounts = userByeWeekCounts();
+        const { delta } = NEED_WEIGHTS[store.draftMode()];
         const trendingMap = trendingTopTenMap();
 
         const out = new Map<string, string>();
@@ -613,7 +654,9 @@ export const DraftStore = signalStore(
           const effScore = effMap.get(row.playerId) ?? null;
           const playerStats = playerStatsMap().get(row.playerId);
           const stackSynergyQbName =
-            row.position !== "QB" && row.team ? (userQbByTeam.get(row.team) ?? null) : null;
+            row.position !== "QB" && row.team ? (qbByTeam.get(row.team) ?? null) : null;
+          const byeWeekCluster =
+            delta > 0 && row.byeWeek != null && (byeWeekCounts.get(row.byeWeek) ?? 0) >= 3;
           const explanation = generateExplanation({
             baseValue: base.baseValue,
             baseValueDivergence: base.divergence,
@@ -644,6 +687,7 @@ export const DraftStore = signalStore(
                 : null,
             vnp: vnpMap.get(row.playerId) ?? null,
             stackSynergyQbName,
+            byeWeekCluster,
             trendingAdds: trendingMap.get(row.playerId) ?? null,
             injuryStatus: row.injuryStatus,
           });

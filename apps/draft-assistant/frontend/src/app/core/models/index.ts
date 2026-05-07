@@ -134,6 +134,8 @@ export interface DraftPlayerRow {
   adpMean: number | null;
   /** FantasyFootballCalculator ADP standard deviation in picks. */
   adpStd: number | null;
+  /** NFL bye week (1–14) sourced from FFC ADP data. Null when unavailable. */
+  byeWeek: number | null;
   /**
    * Consensus base value on a 0–100 scale, position-normalized via trimmed
    * z-mean of all available ranking sources. Higher = better. See

@@ -136,6 +136,23 @@ describe("score-explanation.util", () => {
     });
   });
 
+  describe("template #14 — bye-week cluster", () => {
+    it("fires when byeWeekCluster is true", () => {
+      const out = generateExplanation(buildSignals({ byeWeekCluster: true }));
+      expect(out).toContain("Bye-week cluster: 3+ of your picks already share this bye");
+    });
+
+    it("does not fire when byeWeekCluster is false", () => {
+      const out = generateExplanation(buildSignals({ byeWeekCluster: false }));
+      expect(out).not.toContain("Bye-week cluster");
+    });
+
+    it("does not fire when byeWeekCluster is undefined", () => {
+      const out = generateExplanation(buildSignals({}));
+      expect(out).not.toContain("Bye-week cluster");
+    });
+  });
+
   describe("template #21 — injury designation", () => {
     it("fires with magnitude 20 for Out status", () => {
       const out = generateExplanation(buildSignals({ injuryStatus: "Out" }));

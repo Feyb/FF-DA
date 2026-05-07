@@ -50,7 +50,7 @@ export interface ExplanationSignals {
   needMultiplier?: number;
   /** Active draft mode. */
   draftMode?: DraftMode;
-  /** Bye-week cluster flag (3+ starters share this player's bye). Phase 1 stub. */
+  /** Bye-week cluster flag (3+ of the user's picks share this player's bye week). */
   byeWeekCluster?: boolean;
   // Phase 2 signals — optional until nflverse data lands.
   /** NFL draft round (1-7; 8 = UDFA). Null for veterans. */
@@ -272,11 +272,11 @@ export function generateExplanation(
     });
   }
 
-  // #14 Bye-week cluster warning (stub — byeWeekCluster set by Phase 3)
+  // #14 Bye-week cluster warning
   if (signals.byeWeekCluster) {
     clauses.push({
       magnitude: 7,
-      text: `⛔ Bye-week cluster: 3+ starters already on this bye`,
+      text: `⛔ Bye-week cluster: 3+ of your picks already share this bye`,
     });
   }
 

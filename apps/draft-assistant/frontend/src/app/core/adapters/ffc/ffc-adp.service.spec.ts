@@ -74,4 +74,13 @@ describe("FfcAdpService", () => {
     const lookup = service.buildNameLookup(FIXTURE);
     expect(lookup.get(service.normalizeName("Bijan Robinson"))?.adp).toBe(2.8);
   });
+
+  it("preserves bye week in the parsed player object", (done) => {
+    service.getAdp("half-ppr").subscribe((players) => {
+      expect(players[0].bye).toBe(12);
+      expect(players[1].bye).toBe(5);
+      done();
+    });
+    http.expectOne("assets/ffc/adp-half-ppr-12team.json").flush(FIXTURE);
+  });
 });
