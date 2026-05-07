@@ -139,7 +139,7 @@ describe("score-explanation.util", () => {
   describe("template #14 — bye-week cluster", () => {
     it("fires when byeWeekCluster is true", () => {
       const out = generateExplanation(buildSignals({ byeWeekCluster: true }));
-      expect(out).toContain("Bye-week cluster");
+      expect(out).toContain("Bye-week cluster: 3+ of your picks already share this bye");
     });
 
     it("does not fire when byeWeekCluster is false", () => {

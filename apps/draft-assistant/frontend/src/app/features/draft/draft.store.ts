@@ -432,6 +432,24 @@ export const DraftStore = signalStore(
         return out;
       });
 
+      // Counts the user's drafted picks per bye week.
+      // Shared between NeedMultiplier (δ bye-cluster penalty) and wcsExplanationByPlayer (#14 template).
+      const userByeWeekCounts = computed((): Map<number, number> => {
+        const rowByPlayerId = new Map(store.rows().map((r) => [r.playerId, r]));
+        const userRosterId = store.userRosterId();
+        const out = new Map<number, number>();
+        if (userRosterId !== null) {
+          for (const pick of store.picks()) {
+            if (pick.roster_id !== userRosterId || !pick.player_id) continue;
+            const r = rowByPlayerId.get(pick.player_id);
+            if (r?.byeWeek != null) {
+              out.set(r.byeWeek, (out.get(r.byeWeek) ?? 0) + 1);
+            }
+          }
+        }
+        return out;
+      });
+
       // NeedMultiplier: roster-aware position need score per player.
       // Formula: clamp(1 + α·unfilledGap − β·stackedPenalty + γ·stackSynergy − δ·byeCluster, 0.5, 1.6)
       const needMultiplierByPlayer = computed((): Map<string, number> => {
@@ -447,19 +465,7 @@ export const DraftStore = signalStore(
           store.existingRosterPlayerIds(),
         );
 
-        // Bye-week histogram: count user's drafted picks per bye week for cluster detection.
-        const rowByPlayerId = new Map(store.rows().map((r) => [r.playerId, r]));
-        const userRosterId = store.userRosterId();
-        const userByeWeekCounts = new Map<number, number>();
-        if (userRosterId !== null) {
-          for (const pick of store.picks()) {
-            if (pick.roster_id !== userRosterId || !pick.player_id) continue;
-            const r = rowByPlayerId.get(pick.player_id);
-            if (r?.byeWeek != null) {
-              userByeWeekCounts.set(r.byeWeek, (userByeWeekCounts.get(r.byeWeek) ?? 0) + 1);
-            }
-          }
-        }
+        const byeWeekCounts = userByeWeekCounts();
         const qbByTeam = userQbByTeam();
 
         const out = new Map<string, number>();
@@ -475,12 +481,11 @@ export const DraftStore = signalStore(
           const unfilledGap = Math.max(0, configured - filled) / configured;
           // StackedPenalty: how far above (configured + 1 bench) we are.
           const stackedPenalty = Math.max(0, filled - (configured + 1)) / configured;
+          // "Pass-catcher" includes RB: QB-RB stacks are a real dynasty strategy.
           const stackSynergy =
             gamma > 0 && row.position !== "QB" && row.team && qbByTeam.has(row.team) ? 1 : 0;
           const byeCluster =
-            delta > 0 && row.byeWeek != null && (userByeWeekCounts.get(row.byeWeek) ?? 0) >= 3
-              ? 1
-              : 0;
+            delta > 0 && row.byeWeek != null && (byeWeekCounts.get(row.byeWeek) ?? 0) >= 3 ? 1 : 0;
           const raw =
             1 +
             alpha * unfilledGap -
@@ -636,21 +641,9 @@ export const DraftStore = signalStore(
 
         // #12 StackSynergy — reuse the shared QB-by-team signal.
         const qbByTeam = userQbByTeam();
-
-        // #14 ByeWeekCluster — bye-week histogram from user's picks.
-        const rowByPlayerId = new Map(store.rows().map((r) => [r.playerId, r]));
-        const userRosterId = store.userRosterId();
+        // #14 ByeWeekCluster — reuse the shared bye-week histogram signal.
+        const byeWeekCounts = userByeWeekCounts();
         const { delta } = NEED_WEIGHTS[store.draftMode()];
-        const userByeWeekCounts = new Map<number, number>();
-        if (userRosterId !== null) {
-          for (const pick of store.picks()) {
-            if (pick.roster_id !== userRosterId || !pick.player_id) continue;
-            const r = rowByPlayerId.get(pick.player_id);
-            if (r?.byeWeek != null) {
-              userByeWeekCounts.set(r.byeWeek, (userByeWeekCounts.get(r.byeWeek) ?? 0) + 1);
-            }
-          }
-        }
         const trendingMap = trendingTopTenMap();
 
         const out = new Map<string, string>();
@@ -663,7 +656,7 @@ export const DraftStore = signalStore(
           const stackSynergyQbName =
             row.position !== "QB" && row.team ? (qbByTeam.get(row.team) ?? null) : null;
           const byeWeekCluster =
-            delta > 0 && row.byeWeek != null && (userByeWeekCounts.get(row.byeWeek) ?? 0) >= 3;
+            delta > 0 && row.byeWeek != null && (byeWeekCounts.get(row.byeWeek) ?? 0) >= 3;
           const explanation = generateExplanation({
             baseValue: base.baseValue,
             baseValueDivergence: base.divergence,
