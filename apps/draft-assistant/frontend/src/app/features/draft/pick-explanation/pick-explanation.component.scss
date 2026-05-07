@@ -10,8 +10,8 @@
   border-radius: 1.5px;
   background: linear-gradient(
     90deg,
-    var(--mat-sys-tertiary, #7c3aed),
-    var(--mat-sys-primary, #2563eb)
+    var(--mat-sys-tertiary, var(--primary-container)),
+    var(--mat-sys-primary, var(--primary))
   );
   opacity: 0.7;
 }
@@ -31,9 +31,14 @@
   line-height: 1.3;
   padding: 0.15rem 0.45rem;
   border-radius: 0.75rem;
-  background: color-mix(in srgb, var(--mat-sys-surface-variant, #e2e8f0) 60%, transparent);
-  color: var(--mat-sys-on-surface-variant, #475569);
-  border: 1px solid color-mix(in srgb, var(--mat-sys-outline-variant, #cbd5e1) 50%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--mat-sys-surface-variant, var(--border-subtle)) 60%,
+    transparent
+  );
+  color: var(--mat-sys-on-surface-variant, var(--text-muted));
+  border: 1px solid
+    color-mix(in srgb, var(--mat-sys-outline-variant, var(--border-default)) 50%, transparent);
   white-space: nowrap;
   font-style: italic;
 }

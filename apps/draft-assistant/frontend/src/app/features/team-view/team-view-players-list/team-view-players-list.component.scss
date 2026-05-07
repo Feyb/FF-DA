@@ -74,7 +74,7 @@
 }
 
 .status-pill--warn {
-  background: color-mix(in srgb, #ef4444 16%, var(--surface-container-high));
+  background: color-mix(in srgb, var(--danger-border) 16%, var(--surface-container-high));
 }
 
 .expand-button {

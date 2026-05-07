@@ -31,7 +31,7 @@
 }
 
 .bottom-nav-league-icon {
-  color: rgb(22 163 74);
+  color: var(--success);
   font-size: 1rem;
   width: 1rem;
   height: 1rem;
@@ -130,18 +130,11 @@
 }
 
 // ── Dark mode ─────────────────────────────────────────
+// Active-item primary swaps to a lighter tint (--primary-on-active) and the
+// pill behind it deepens for contrast against the dark surface.
 html.dark {
-  .bottom-nav {
-    background: var(--surface-container-low);
-    border-top-color: var(--outline-variant);
-  }
-
-  .bottom-nav-league-icon {
-    color: rgb(74 222 128);
-  }
-
   .bottom-nav-item--active {
-    color: #c4b5fd;
+    color: var(--primary-on-active);
 
     .bottom-nav-pill {
       background: color-mix(in srgb, var(--primary) 22%, transparent);

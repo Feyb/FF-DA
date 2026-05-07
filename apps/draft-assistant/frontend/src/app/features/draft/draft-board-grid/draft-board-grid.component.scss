@@ -34,8 +34,8 @@
   min-width: 0;
 
   &.header-mine {
-    background: rgba(76, 34, 189, 0.08);
-    box-shadow: inset 0 -3px 0 var(--primary, #4c22bd);
+    background: color-mix(in srgb, var(--primary) 8%, transparent);
+    box-shadow: inset 0 -3px 0 var(--primary);
   }
 }
 
@@ -45,11 +45,11 @@
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  background: #e2e8f0;
+  background: var(--border-subtle);
   border: 2px solid transparent;
 
   .header-mine & {
-    border-color: var(--primary, #4c22bd);
+    border-color: var(--primary);
   }
 }
 
@@ -81,21 +81,21 @@
 }
 
 .legend-current {
-  background: rgba(37, 99, 235, 0.14);
-  border: 1.5px solid #2563eb;
-  color: #1d4ed8;
+  background: color-mix(in srgb, var(--info-border-strong) 14%, transparent);
+  border: 1.5px solid var(--info-border-strong);
+  color: var(--info-strong);
 }
 
 .legend-mine {
-  background: rgba(76, 34, 189, 0.07);
-  border: 1.5px solid var(--primary, #4c22bd);
-  color: var(--primary, #4c22bd);
+  background: color-mix(in srgb, var(--primary) 7%, transparent);
+  border: 1.5px solid var(--primary);
+  color: var(--primary-on-active);
 }
 
 .legend-traded {
-  background: rgba(234, 88, 12, 0.08);
-  border: 1.5px solid #ea580c;
-  color: #c2410c;
+  background: color-mix(in srgb, var(--warning-border) 16%, transparent);
+  border: 1.5px solid var(--warning-border);
+  color: var(--warning-fg);
 }
 
 // ── Grid rows ────────────────────────────────────────────────────────── //
@@ -123,21 +123,21 @@
 
   // Current pick → strong blue glow
   &.cell-current {
-    background: rgba(37, 99, 235, 0.1) !important;
-    box-shadow: 0 0 0 2px #2563eb;
-    border-color: #2563eb;
+    background: color-mix(in srgb, var(--info-border-strong) 10%, transparent) !important;
+    box-shadow: 0 0 0 2px var(--info-border-strong);
+    border-color: var(--info-border-strong);
   }
 
   // My upcoming empty picks → subtle brand outline
   &.cell-mine-empty {
-    border: 2px solid var(--primary, #4c22bd);
-    background: rgba(76, 34, 189, 0.04);
+    border: 2px solid var(--primary);
+    background: color-mix(in srgb, var(--primary) 6%, transparent);
   }
 
   // Traded pick → orange accent border + subtle tint
   &.cell-traded {
-    border-color: #ea580c;
-    box-shadow: inset 3px 0 0 #ea580c;
+    border-color: var(--warning-border);
+    box-shadow: inset 3px 0 0 var(--warning-border);
   }
 }
 
@@ -262,47 +262,9 @@
   }
 }
 
-// ── Dark-mode overrides ──────────────────────────────────────────────── //
-
-html.dark {
-  .header-avatar {
-    background: rgb(51 65 85);
-  }
-
-  .legend-current {
-    background: rgba(37, 99, 235, 0.2);
-    border-color: #3b82f6;
-    color: #93c5fd;
-  }
-
-  .legend-mine {
-    background: rgba(76, 34, 189, 0.15);
-    color: #c4b5fd;
-  }
-
-  .legend-traded {
-    background: rgba(234, 88, 12, 0.15);
-    border-color: #fb923c;
-    color: #fdba74;
-  }
-
-  .board-cell {
-    &.cell-current {
-      background: rgba(59, 130, 246, 0.15) !important;
-      box-shadow: 0 0 0 2px #3b82f6;
-      border-color: #3b82f6;
-    }
-
-    &.cell-mine-empty {
-      background: rgba(76, 34, 189, 0.12);
-    }
-
-    &.cell-traded {
-      border-color: #fb923c;
-      box-shadow: inset 3px 0 0 #fb923c;
-    }
-  }
-}
+// Dark-mode appearance is driven entirely by themed CSS variables
+// (--info-*, --primary, --warning-*, --border-subtle, --primary-on-active),
+// so no explicit html.dark overrides are needed here.
 
 // ── Responsive ──────────────────────────────────────────────────────── //
 

@@ -19,7 +19,7 @@
 
 .section-hint {
   font-size: 0.75rem;
-  color: rgb(100 116 139);
+  color: var(--text-faint);
   flex: 1 0 auto;
   text-align: right;
 }
@@ -50,14 +50,14 @@
   margin-top: 0.75rem;
   margin-bottom: 0.5rem;
   padding: 0.5rem 0.75rem;
-  border-top: 2px solid rgb(59 130 246);
-  border-bottom: 1px solid rgb(191 219 254);
-  background: rgb(239 246 255);
+  border-top: 2px solid var(--info-border);
+  border-bottom: 1px solid color-mix(in srgb, var(--info-border) 35%, transparent);
+  background: var(--info-bg-soft);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: rgb(30 64 175);
+  color: var(--info-strong);
 }
 
 .next-pick-divider-label {
@@ -74,24 +74,7 @@
 .tier-divider-label {
   font-size: 0.75rem;
   font-weight: 700;
-  color: rgb(51 65 85);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-}
-
-html.dark {
-  .section-header h2 {
-    color: rgb(226 232 240);
-  }
-
-  .next-pick-divider-row {
-    background: rgb(23 37 84);
-    border-top-color: #3b82f6;
-    border-bottom-color: rgba(59, 130, 246, 0.3);
-    color: rgb(147 197 253);
-  }
-
-  .tier-divider-label {
-    color: rgb(148 163 184);
-  }
 }

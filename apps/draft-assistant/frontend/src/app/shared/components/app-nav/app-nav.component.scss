@@ -113,7 +113,7 @@
 }
 
 .nav-league-check {
-  color: rgb(22 163 74);
+  color: var(--success);
   font-size: 1rem;
   width: 1rem;
   height: 1rem;
@@ -169,21 +169,19 @@
 }
 
 // ── Dark mode ─────────────────────────────────────────
+// Active-item styling intensifies in dark; --primary-on-active swaps to a
+// lighter primary tint for legibility against the dark surface.
 html.dark {
   .nav-item--active {
     background: color-mix(in srgb, var(--primary) 22%, transparent);
-    color: #c4b5fd;
+    color: var(--primary-on-active);
 
     .nav-item-icon {
-      color: #c4b5fd;
+      color: var(--primary-on-active);
     }
   }
 
   .nav-item:hover {
     background: color-mix(in srgb, var(--primary) 12%, transparent);
-  }
-
-  .nav-league-check {
-    color: rgb(74 222 128);
   }
 }

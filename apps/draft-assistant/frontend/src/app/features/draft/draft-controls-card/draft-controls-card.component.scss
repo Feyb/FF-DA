@@ -14,7 +14,7 @@
 .source-switch-label {
   font-size: 0.8125rem;
   font-weight: 600;
-  color: rgb(71 85 105);
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -57,12 +57,12 @@
 .mock-draft-error {
   margin-top: 0.25rem;
   font-size: 0.8125rem;
-  color: rgb(185 28 28);
+  color: var(--danger-strong);
 }
 
 .updated-at {
   font-size: 0.8125rem;
-  color: rgb(71 85 105);
+  color: var(--text-muted);
 }
 
 .draft-option-content {
@@ -85,7 +85,7 @@
 
 .draft-option-title {
   font-weight: 600;
-  color: rgb(15 23 42);
+  color: var(--on-surface);
 }
 
 .draft-option-status {
@@ -98,29 +98,29 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   white-space: nowrap;
-  background: rgb(226 232 240);
-  color: rgb(51 65 85);
+  background: var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 .draft-option-status-drafting {
-  background: rgb(220 252 231);
-  color: rgb(22 101 52);
+  background: var(--success-soft-bg);
+  color: var(--success-strong);
 }
 
 .draft-option-status-pre-draft,
 .draft-option-status-scheduled {
-  background: rgb(254 249 195);
-  color: rgb(133 77 14);
+  background: var(--caution-bg);
+  color: var(--caution-fg-strong);
 }
 
 .draft-option-status-complete {
-  background: rgb(226 232 240);
-  color: rgb(71 85 105);
+  background: var(--surface-muted);
+  color: var(--text-muted);
 }
 
 .draft-option-status-direct {
-  background: rgb(219 234 254);
-  color: rgb(30 64 175);
+  background: var(--info-bg);
+  color: var(--info-strong);
 }
 
 .draft-option-meta-row {
@@ -131,15 +131,15 @@
 
 .draft-option-meta-pill {
   border-radius: 9999px;
-  background: rgb(241 245 249);
+  background: var(--surface-muted);
   padding: 0.125rem 0.5rem;
   font-size: 0.75rem;
-  color: rgb(51 65 85);
+  color: var(--text-secondary);
 }
 
 .draft-option-subtitle {
   font-size: 0.75rem;
-  color: rgb(100 116 139);
+  color: var(--text-faint);
 }
 
 @media (max-width: 720px) {
@@ -152,51 +152,5 @@
   }
 }
 
-html.dark {
-  .source-switch-label {
-    color: rgb(148 163 184);
-  }
-
-  .updated-at {
-    color: rgb(148 163 184);
-  }
-
-  .draft-option-title {
-    color: rgb(226 232 240);
-  }
-
-  .draft-option-status {
-    background: rgb(51 65 85);
-    color: rgb(203 213 225);
-  }
-
-  .draft-option-status-drafting {
-    background: rgb(6 78 59);
-    color: rgb(110 231 183);
-  }
-
-  .draft-option-status-pre-draft,
-  .draft-option-status-scheduled {
-    background: rgb(66 32 6);
-    color: rgb(253 211 77);
-  }
-
-  .draft-option-status-complete {
-    background: rgb(30 41 59);
-    color: rgb(148 163 184);
-  }
-
-  .draft-option-status-direct {
-    background: rgb(23 37 84);
-    color: rgb(147 197 253);
-  }
-
-  .draft-option-meta-pill {
-    background: rgb(30 41 59);
-    color: rgb(148 163 184);
-  }
-
-  .mock-draft-error {
-    color: rgb(252 165 165);
-  }
-}
+// All status, label, and pill colors come from theme variables and swap
+// automatically between light and dark mode — no html.dark block needed.

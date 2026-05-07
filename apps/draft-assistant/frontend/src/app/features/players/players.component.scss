@@ -63,11 +63,11 @@
 .expand-btn {
   flex-shrink: 0;
   align-self: center;
-  color: rgb(100 116 139);
+  color: var(--text-faint);
   margin-left: 0.125rem;
 
   &:hover {
-    background: rgb(241 245 249);
+    background: var(--surface-muted);
   }
 }
 
@@ -91,43 +91,23 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background: rgb(254 249 195);
-  border: 1px solid rgb(252 211 77);
+  background: var(--caution-bg);
+  border: 1px solid var(--caution-border-soft);
   border-radius: 0.5rem;
   font-size: 0.875rem;
-  color: rgb(120 53 15);
+  color: var(--warning-fg-strong);
 
   mat-icon {
-    color: rgb(161 98 7);
+    color: var(--warning);
     flex-shrink: 0;
   }
 
   code {
     font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
     font-size: 0.8125rem;
-    background: rgb(254 243 199);
+    background: var(--warning-bg-soft);
     padding: 0.1rem 0.3rem;
     border-radius: 0.25rem;
-  }
-}
-
-html.dark {
-  .expand-btn:hover {
-    background: rgb(30 41 59);
-  }
-
-  .stale-banner {
-    background: rgb(78 35 9);
-    border-color: rgb(217 119 6);
-    color: rgb(253 186 116);
-
-    mat-icon {
-      color: rgb(251 191 36);
-    }
-
-    code {
-      background: rgb(66 32 6);
-      color: rgb(253 211 77);
-    }
+    color: var(--caution-fg);
   }
 }

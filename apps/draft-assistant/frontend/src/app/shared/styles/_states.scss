@@ -22,32 +22,19 @@
 // ── Empty / no-data ───────────────────────────────────────────────────────────
 .empty-copy {
   font-size: 0.875rem;
-  color: rgb(71 85 105);
+  color: var(--text-muted);
   padding: 0.25rem 0;
 }
 
 // ── Warning banner ────────────────────────────────────────────────────────────
 .warning-banner {
   border-radius: 0.5rem;
-  border: 1px solid rgb(252 211 77);
-  background: rgb(255 251 235);
-  color: rgb(120 53 15);
+  border: 1px solid var(--caution-border-soft);
+  background: color-mix(in srgb, var(--caution-bg) 50%, var(--surface));
+  color: var(--warning-fg-strong);
   padding: 0.5rem 0.75rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.875rem;
-}
-
-// ── Dark-mode overrides ────────────────────────────────────────────────────────
-html.dark {
-  .empty-copy {
-    color: rgb(148 163 184);
-  }
-
-  .warning-banner {
-    border-color: rgb(180 130 20);
-    background: rgb(40 30 5);
-    color: rgb(253 211 77);
-  }
 }

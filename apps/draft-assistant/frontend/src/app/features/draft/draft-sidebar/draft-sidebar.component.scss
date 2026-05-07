@@ -20,7 +20,7 @@
 
 .summary-title {
   font-size: 0.875rem;
-  color: rgb(71 85 105);
+  color: var(--text-muted);
   margin-bottom: 0.75rem;
 }
 
@@ -32,7 +32,7 @@
 
 .summary-label {
   font-size: 0.75rem;
-  color: rgb(100 116 139);
+  color: var(--text-faint);
 }
 
 .summary-value {
@@ -63,7 +63,7 @@
 
 .section-hint {
   font-size: 0.75rem;
-  color: rgb(100 116 139);
+  color: var(--text-faint);
   flex: 1 0 auto;
   text-align: right;
 }
@@ -86,7 +86,7 @@
   align-items: center;
   gap: 0.625rem;
   padding: 0.25rem 0;
-  border-bottom: 1px solid rgb(241 245 249);
+  border-bottom: 1px solid var(--border-subtle);
 
   &.need-filled {
     opacity: 0.55;
@@ -97,7 +97,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   min-width: 2.5rem;
-  color: rgb(71 85 105);
+  color: var(--text-muted);
   text-transform: uppercase;
 }
 
@@ -111,21 +111,21 @@
   width: 0.625rem;
   height: 0.625rem;
   border-radius: 50%;
-  background: rgb(226 232 240);
+  background: var(--border-subtle);
 
   &.filled {
-    background: rgb(99 102 241);
+    background: var(--primary);
   }
 }
 
 .need-label {
   font-size: 0.75rem;
-  color: rgb(100 116 139);
+  color: var(--text-faint);
   min-width: 2.5rem;
   text-align: right;
 
   &.need-complete {
-    color: rgb(22 163 74);
+    color: var(--success);
   }
 }
 
@@ -133,7 +133,7 @@
   font-size: 1rem;
   height: 1rem;
   width: 1rem;
-  color: rgb(22 163 74);
+  color: var(--success);
 }
 
 .roster-list {
@@ -148,17 +148,21 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.25rem 0;
-  border-bottom: 1px solid rgb(241 245 249);
+  border-bottom: 1px solid var(--border-subtle);
   font-size: 0.8125rem;
 
   &.roster-row--clickable {
     cursor: pointer;
     &:hover {
-      background: var(--mat-sys-surface-variant, #f8fafc);
+      background: var(--mat-sys-surface-variant, var(--surface-container-high));
     }
   }
 }
 
+// NOTE: This sidebar's position badges use a different palette from the
+// app-wide --pos-{qb,rb,wr,te}-bg/fg tokens (e.g. QB renders blue here, not
+// red). Kept as-is intentionally; if these should align with the global
+// position palette, swap for the --pos-* tokens.
 .roster-pos-badge {
   font-size: 0.7rem;
   font-weight: 700;
@@ -169,20 +173,20 @@
   text-transform: uppercase;
 
   &.pos-qb {
-    background: rgb(219 234 254);
-    color: rgb(30 64 175);
+    background: var(--pos-wr-bg);
+    color: var(--pos-wr-fg);
   }
   &.pos-rb {
-    background: rgb(220 252 231);
-    color: rgb(22 101 52);
+    background: var(--pos-rb-bg);
+    color: var(--pos-rb-fg);
   }
   &.pos-wr {
-    background: rgb(253 230 138);
-    color: rgb(120 53 15);
+    background: var(--caution-bg);
+    color: var(--warning-fg-strong);
   }
   &.pos-te {
-    background: rgb(252 231 243);
-    color: rgb(136 19 55);
+    background: var(--pos-te-bg);
+    color: var(--pos-te-fg);
   }
 }
 
@@ -196,7 +200,7 @@
 
 .roster-tier {
   font-size: 0.75rem;
-  color: rgb(100 116 139);
+  color: var(--text-faint);
   white-space: nowrap;
 }
 
@@ -207,50 +211,11 @@
 }
 
 .adp-value {
-  color: rgb(22 163 74);
+  color: var(--success);
 }
 .adp-reach {
-  color: rgb(220 38 38);
+  color: var(--danger);
 }
 .adp-neutral {
-  color: rgb(100 116 139);
-}
-
-html.dark {
-  .section-header h2 {
-    color: rgb(226 232 240);
-  }
-
-  .need-dot {
-    background: rgb(51 65 85);
-  }
-  .need-dot.filled {
-    background: rgb(129 140 248);
-  }
-  .need-row {
-    border-bottom-color: rgb(30 41 59);
-  }
-  .need-pos {
-    color: rgb(148 163 184);
-  }
-  .need-label {
-    color: rgb(100 116 139);
-  }
-
-  .roster-row {
-    border-bottom-color: rgb(30 41 59);
-  }
-  .roster-tier {
-    color: rgb(100 116 139);
-  }
-
-  .adp-value {
-    color: rgb(74 222 128);
-  }
-  .adp-reach {
-    color: rgb(252 165 165);
-  }
-  .adp-neutral {
-    color: rgb(100 116 139);
-  }
+  color: var(--text-faint);
 }
