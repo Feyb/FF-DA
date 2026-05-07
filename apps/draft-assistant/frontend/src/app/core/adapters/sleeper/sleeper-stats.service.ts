@@ -10,11 +10,13 @@ export class SleeperStatsService {
 
   /**
    * Load season stats for the given year from the bundled static asset.
-   * Returns an empty map when the asset is unavailable (script not yet run).
+   * When the requested year's asset is missing (e.g. current year before
+   * the season begins), falls back to `year - 1` one time before giving up.
+   * Returns an empty map when neither asset is available.
    *
    * Results are cached per year for the lifetime of the service.
    */
-  fetchStats(year: number): Observable<Map<string, SleeperPlayerStats>> {
+  fetchStats(year: number, allowFallback = true): Observable<Map<string, SleeperPlayerStats>> {
     const cached = this.cache.get(year);
     if (cached) return cached;
 
@@ -39,6 +41,10 @@ export class SleeperStatsService {
             msg = String(err);
           }
           console.warn(`[SleeperStatsService] stats asset unavailable for year ${year}: ${msg}`);
+          if (allowFallback) {
+            console.info(`[SleeperStatsService] falling back to ${year - 1} stats`);
+            return this.fetchStats(year - 1, false);
+          }
           return of(new Map<string, SleeperPlayerStats>());
         }),
         shareReplay(1),
