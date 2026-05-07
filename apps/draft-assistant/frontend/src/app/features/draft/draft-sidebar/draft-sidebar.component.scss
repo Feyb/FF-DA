@@ -159,10 +159,16 @@
   }
 }
 
-// NOTE: This sidebar's position badges use a different palette from the
-// app-wide --pos-{qb,rb,wr,te}-bg/fg tokens (e.g. QB renders blue here, not
-// red). Kept as-is intentionally; if these should align with the global
-// position palette, swap for the --pos-* tokens.
+// NOTE: this sidebar's roster badges intentionally do NOT match the app-wide
+// position palette. They preserve the original sidebar look by remapping each
+// position to a different theme token:
+//   QB → --pos-wr-bg/fg   (renders blue, not the QB red used elsewhere)
+//   RB → --pos-rb-bg/fg   (green — same as elsewhere)
+//   WR → --caution-bg / --warning-fg-strong  (yellow, not the WR blue)
+//   TE → --pos-te-bg/fg   (orange; original was a bespoke pink that has no
+//                          theme token, so this is a small visual change)
+// To make this view consistent with the global position palette, swap each
+// branch for the matching --pos-{qb,rb,wr,te}-bg/fg pair.
 .roster-pos-badge {
   font-size: 0.7rem;
   font-weight: 700;
