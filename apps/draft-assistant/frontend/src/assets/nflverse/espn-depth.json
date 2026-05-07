@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T07:26:28.122Z",
+  "generatedAt": "2026-05-07T14:53:19.084Z",
   "players": [
     {
       "espn_id": "4869816",
@@ -4023,15 +4023,6 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "19"
-    },
-    {
-      "espn_id": "4878943",
-      "full_name": "Sidney Fugar",
-      "position": "OT",
-      "team_abbr": "DAL",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": "69"
     },
     {
       "espn_id": "4609048",
@@ -8678,6 +8669,15 @@
       "jersey": "3"
     },
     {
+      "espn_id": "2517081",
+      "full_name": "Jack Wilson",
+      "position": "OT",
+      "team_abbr": "IND",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": "76"
+    },
+    {
       "espn_id": "4912218",
       "full_name": "Cyrus Allen",
       "position": "WR",
@@ -8698,7 +8698,7 @@
     {
       "espn_id": "4566190",
       "full_name": "Kahlil Benson",
-      "position": "OL",
+      "position": "OT",
       "team_abbr": "KC",
       "depth_chart_order": null,
       "injury_status": null,
@@ -9234,15 +9234,6 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "8"
-    },
-    {
-      "espn_id": "4568661",
-      "full_name": "Brandon George",
-      "position": "LB",
-      "team_abbr": "KC",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": "50"
     },
     {
       "espn_id": "4684432",
@@ -16670,6 +16661,15 @@
       "jersey": null
     },
     {
+      "espn_id": "4878896",
+      "full_name": "Tucker Large",
+      "position": "S",
+      "team_abbr": "PHI",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
+    },
+    {
       "espn_id": "5084939",
       "full_name": "Isaiah Adams",
       "position": "G",
@@ -17993,15 +17993,6 @@
       "jersey": null
     },
     {
-      "espn_id": "4429743",
-      "full_name": "Daequan Hardy",
-      "position": "CB",
-      "team_abbr": "PIT",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": null
-    },
-    {
       "espn_id": "4682980",
       "full_name": "Derrick Harmon",
       "position": "DT",
@@ -18284,6 +18275,15 @@
       "espn_id": "4710727",
       "full_name": "Laith Marjan",
       "position": "PK",
+      "team_abbr": "PIT",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
+    },
+    {
+      "espn_id": "4429743",
+      "full_name": "Daequan Hardy",
+      "position": "CB",
       "team_abbr": "PIT",
       "depth_chart_order": null,
       "injury_status": null,
@@ -20430,6 +20430,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "30"
+    },
+    {
+      "espn_id": "2980100",
+      "full_name": "Dante Fowler Jr.",
+      "position": "DE",
+      "team_abbr": "SEA",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
     },
     {
       "espn_id": "4693934",
@@ -24282,15 +24291,6 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "79"
-    },
-    {
-      "espn_id": "4433908",
-      "full_name": "Trevonte Sylvester",
-      "position": "OT",
-      "team_abbr": "BAL",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": null
     },
     {
       "espn_id": "4876311",
