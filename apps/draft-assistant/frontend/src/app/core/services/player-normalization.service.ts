@@ -219,6 +219,7 @@ export class PlayerNormalizationService {
       fantasyCalcTrend30Day: fcPlayer?.trend30Day ?? null,
       adpMean: ffcPlayer?.adp ?? null,
       adpStd: ffcPlayer?.stdev ?? null,
+      byeWeek: ffcPlayer?.bye ?? null,
       baseValue: null,
       baseValueDivergence: null,
       pAvailAtNext: null,

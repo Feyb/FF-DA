@@ -34,6 +34,7 @@ function buildRow(overrides: Partial<DraftPlayerRow> = {}): DraftPlayerRow {
     fantasyCalcTrend30Day: null,
     adpMean: null,
     adpStd: null,
+    byeWeek: null,
     baseValue: null,
     baseValueDivergence: null,
     pAvailAtNext: null,
