@@ -1,7 +1,6 @@
 {
-  "outputDirectory": "browser",
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "cleanUrls": true,
+  "rewrites": [
+{ "source": "/FF-DA/(.*)", "destination": "/FF-DA/index.html" }
   ]
 }
