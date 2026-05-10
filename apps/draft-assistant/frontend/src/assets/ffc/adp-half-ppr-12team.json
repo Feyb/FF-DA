@@ -962,14 +962,14 @@
   {
     "playerName": "Jauan Jennings",
     "position": "WR",
-    "team": "FA",
+    "team": "MIN",
     "adp": 82.5,
     "adpFormatted": "7.10",
     "stdev": 6.3,
     "high": 72,
     "low": 91,
     "timesDrafted": 10,
-    "bye": 0
+    "bye": 6
   },
   {
     "playerName": "Stefon Diggs",

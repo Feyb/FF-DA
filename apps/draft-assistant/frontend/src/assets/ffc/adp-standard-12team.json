@@ -926,14 +926,14 @@
   {
     "playerName": "Jauan Jennings",
     "position": "WR",
-    "team": "FA",
+    "team": "MIN",
     "adp": 82.3,
     "adpFormatted": "7.10",
     "stdev": 6.2,
     "high": 73,
     "low": 93,
     "timesDrafted": 12,
-    "bye": 0
+    "bye": 6
   },
   {
     "playerName": "Emeka Egbuka",

@@ -998,14 +998,14 @@
   {
     "playerName": "Jauan Jennings",
     "position": "WR",
-    "team": "FA",
+    "team": "MIN",
     "adp": 81.3,
     "adpFormatted": "7.09",
     "stdev": 10.9,
     "high": 64,
     "low": 97,
     "timesDrafted": 23,
-    "bye": 0
+    "bye": 6
   },
   {
     "playerName": "Kyler Murray",

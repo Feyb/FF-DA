@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:52:58.712Z",
+  "generatedAt": "2026-05-10T15:26:50.826Z",
   "players": [
     {
       "player_id": "00-0023459",
@@ -1507,9 +1507,9 @@
       "birth_date": "1994-07-01",
       "years_exp": 10,
       "position": "DL",
-      "team": "DET",
-      "status": "UFA",
-      "depth_chart_position": "DE",
+      "team": "NYG",
+      "status": "ACT",
+      "depth_chart_position": "DT",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -2432,7 +2432,7 @@
       "years_exp": 9,
       "position": "DB",
       "team": "IND",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "CB",
       "depth_chart_order": null,
       "season": 2026
@@ -6656,7 +6656,7 @@
       "years_exp": 7,
       "position": "DB",
       "team": "IND",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "DB",
       "depth_chart_order": null,
       "season": 2026
@@ -7112,7 +7112,7 @@
       "years_exp": 5,
       "position": "WR",
       "team": "ARI",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2026
@@ -10724,7 +10724,7 @@
       "years_exp": 5,
       "position": "DL",
       "team": "NYG",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "DT",
       "depth_chart_order": null,
       "season": 2026
@@ -10975,8 +10975,8 @@
       "birth_date": "2000-05-02",
       "years_exp": 5,
       "position": "DB",
-      "team": "ARI",
-      "status": "UFA",
+      "team": "ATL",
+      "status": "ACT",
       "depth_chart_position": "CB",
       "depth_chart_order": null,
       "season": 2026
@@ -11062,6 +11062,18 @@
       "team": "CAR",
       "status": "UFA",
       "depth_chart_position": "OT",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0036970",
+      "full_name": "Kyle Pitts",
+      "birth_date": "2000-10-06",
+      "years_exp": 5,
+      "position": "TE",
+      "team": "ATL",
+      "status": "ACT",
+      "depth_chart_position": "TE",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -16646,18 +16658,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0038602",
-      "full_name": "Chris Smith II",
-      "birth_date": "2000-05-01",
-      "years_exp": 3,
-      "position": "DB",
-      "team": "NYJ",
-      "status": "ACT",
-      "depth_chart_position": "S",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0038603",
       "full_name": "Robert Beal Jr.",
       "birth_date": "1999-08-18",
@@ -19646,18 +19646,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0039313",
-      "full_name": "Swayze Bozeman",
-      "birth_date": "1998-11-02",
-      "years_exp": 2,
-      "position": "LB",
-      "team": "NYG",
-      "status": "ACT",
-      "depth_chart_position": "LB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0039317",
       "full_name": "Ethan Driskell",
       "birth_date": "2000-06-29",
@@ -20914,18 +20902,6 @@
       "team": "NO",
       "status": "ACT",
       "depth_chart_position": "CB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0039457",
-      "full_name": "Jacoby Windmon",
-      "birth_date": "2001-08-20",
-      "years_exp": 2,
-      "position": "LB",
-      "team": "CAR",
-      "status": "ACT",
-      "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -22222,18 +22198,6 @@
       "team": "BUF",
       "status": "ACT",
       "depth_chart_position": "LB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0039764",
-      "full_name": "Elijah Chatman",
-      "birth_date": "2000-12-05",
-      "years_exp": 2,
-      "position": "DL",
-      "team": "NYG",
-      "status": "ACT",
-      "depth_chart_position": "DT",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -25562,18 +25526,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040191",
-      "full_name": "Zah Frazier",
-      "birth_date": "2000-10-05",
-      "years_exp": 1,
-      "position": "DB",
-      "team": "CHI",
-      "status": "ACT",
-      "depth_chart_position": "CB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040192",
       "full_name": "Jordan Hancock",
       "birth_date": "2003-08-12",
@@ -26390,18 +26342,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040273",
-      "full_name": "Tysheem Johnson",
-      "birth_date": "2002-09-30",
-      "years_exp": 1,
-      "position": "DB",
-      "team": "ATL",
-      "status": "ACT",
-      "depth_chart_position": "SAF",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040275",
       "full_name": "JP Richardson",
       "birth_date": "2002-03-23",
@@ -26870,18 +26810,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040344",
-      "full_name": "Sal Wormley",
-      "birth_date": "2001-07-23",
-      "years_exp": 1,
-      "position": "OL",
-      "team": "JAX",
-      "status": "ACT",
-      "depth_chart_position": "OL",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040347",
       "full_name": "Johnathan Edwards",
       "birth_date": "2001-11-16",
@@ -27302,18 +27230,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040401",
-      "full_name": "Gus Hartwig",
-      "birth_date": "2002-01-21",
-      "years_exp": 1,
-      "position": "OL",
-      "team": "NYJ",
-      "status": "ACT",
-      "depth_chart_position": "C",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040404",
       "full_name": "Payton Page",
       "birth_date": "2002-09-27",
@@ -27418,18 +27334,6 @@
       "team": "TB",
       "status": "ACT",
       "depth_chart_position": "QB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0040416",
-      "full_name": "John Bullock",
-      "birth_date": "2001-04-22",
-      "years_exp": 1,
-      "position": "LB",
-      "team": "IND",
-      "status": "ACT",
-      "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -27578,18 +27482,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040445",
-      "full_name": "Courtney Jackson",
-      "birth_date": "2001-03-13",
-      "years_exp": 1,
-      "position": "WR",
-      "team": "NYG",
-      "status": "ACT",
-      "depth_chart_position": "WR",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040449",
       "full_name": "Karene Reid",
       "birth_date": "2000-02-19",
@@ -27662,18 +27554,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040459",
-      "full_name": "Josh Fuga",
-      "birth_date": "2001-02-14",
-      "years_exp": 1,
-      "position": "DL",
-      "team": "LAC",
-      "status": "ACT",
-      "depth_chart_position": "DT",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040460",
       "full_name": "Marlowe Wax",
       "birth_date": "2002-12-13",
@@ -27737,18 +27617,6 @@
       "player_id": "00-0040468",
       "full_name": "Eric Rogers",
       "birth_date": "2002-04-02",
-      "years_exp": 1,
-      "position": "DB",
-      "team": "LAC",
-      "status": "ACT",
-      "depth_chart_position": "CB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0040470",
-      "full_name": "Jordan Oladokun",
-      "birth_date": "2002-07-29",
       "years_exp": 1,
       "position": "DB",
       "team": "LAC",
@@ -32786,18 +32654,6 @@
       "season": 2025
     },
     {
-      "player_id": "00-0036970",
-      "full_name": "Kyle Pitts",
-      "birth_date": "2000-10-06",
-      "years_exp": 4,
-      "position": "TE",
-      "team": "ATL",
-      "status": "ACT",
-      "depth_chart_position": "TE",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
       "player_id": "00-0036978",
       "full_name": "Ronnie Perkins",
       "birth_date": "1999-09-29",
@@ -33782,6 +33638,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0038602",
+      "full_name": "Chris Smith II",
+      "birth_date": "2000-05-01",
+      "years_exp": 2,
+      "position": "DB",
+      "team": "NYJ",
+      "status": "ACT",
+      "depth_chart_position": "FS",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0038604",
       "full_name": "Eric Scott Jr.",
       "birth_date": "1999-08-07",
@@ -34574,6 +34442,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0039313",
+      "full_name": "Swayze Bozeman",
+      "birth_date": "1998-11-02",
+      "years_exp": 1,
+      "position": "LB",
+      "team": "NYG",
+      "status": "DEV",
+      "depth_chart_position": "ILB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0039316",
       "full_name": "Baylor Cupp",
       "birth_date": "2000-05-10",
@@ -34810,6 +34690,18 @@
       "team": "PIT",
       "status": "DEV",
       "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0039457",
+      "full_name": "Jacoby Windmon",
+      "birth_date": "2001-08-20",
+      "years_exp": 1,
+      "position": "LB",
+      "team": "CAR",
+      "status": "DEV",
+      "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -35306,6 +35198,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0039764",
+      "full_name": "Elijah Chatman",
+      "birth_date": "2000-12-05",
+      "years_exp": 1,
+      "position": "DL",
+      "team": "NYG",
+      "status": "ACT",
+      "depth_chart_position": "DE",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0039767",
       "full_name": "Quinton Newsome",
       "birth_date": "2001-07-11",
@@ -35786,6 +35690,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0040191",
+      "full_name": "Zah Frazier",
+      "birth_date": "2000-10-05",
+      "years_exp": 0,
+      "position": "DB",
+      "team": "CHI",
+      "status": "RES",
+      "depth_chart_position": "CB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0040220",
       "full_name": "Tommy Mellott",
       "birth_date": "2001-10-16",
@@ -35890,6 +35806,18 @@
       "team": "HOU",
       "status": "DEV",
       "depth_chart_position": "LB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0040273",
+      "full_name": "Tysheem Johnson",
+      "birth_date": "2002-09-30",
+      "years_exp": 0,
+      "position": "DB",
+      "team": "ATL",
+      "status": "DEV",
+      "depth_chart_position": "FS",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -36122,6 +36050,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0040344",
+      "full_name": "Sal Wormley",
+      "birth_date": "2001-07-23",
+      "years_exp": 0,
+      "position": "OL",
+      "team": "JAX",
+      "status": "DEV",
+      "depth_chart_position": "G",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0040345",
       "full_name": "Devonta Davis",
       "birth_date": "",
@@ -36302,6 +36242,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0040401",
+      "full_name": "Gus Hartwig",
+      "birth_date": "2002-01-21",
+      "years_exp": 0,
+      "position": "OL",
+      "team": "NYJ",
+      "status": "RES",
+      "depth_chart_position": "C",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0040402",
       "full_name": "Dymere Miller",
       "birth_date": "",
@@ -36358,6 +36310,18 @@
       "team": "MIA",
       "status": "DEV",
       "depth_chart_position": "LB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0040416",
+      "full_name": "John Bullock",
+      "birth_date": "2001-04-22",
+      "years_exp": 0,
+      "position": "LB",
+      "team": "TB",
+      "status": "CUT",
+      "depth_chart_position": "ILB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -36470,6 +36434,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0040445",
+      "full_name": "Courtney Jackson",
+      "birth_date": "2001-03-13",
+      "years_exp": 0,
+      "position": "WR",
+      "team": "SEA",
+      "status": "DEV",
+      "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0040446",
       "full_name": "Joseph Michalski",
       "birth_date": "2001-04-06",
@@ -36554,6 +36530,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0040459",
+      "full_name": "Josh Fuga",
+      "birth_date": "2001-02-14",
+      "years_exp": 0,
+      "position": "DL",
+      "team": "LAC",
+      "status": "RES",
+      "depth_chart_position": "DT",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0040462",
       "full_name": "Savion Washington",
       "birth_date": "2002-04-12",
@@ -36598,6 +36586,18 @@
       "team": "LAC",
       "status": "CUT",
       "depth_chart_position": "TE",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0040470",
+      "full_name": "Jordan Oladokun",
+      "birth_date": "2002-07-29",
+      "years_exp": 0,
+      "position": "DB",
+      "team": "LAC",
+      "status": "RES",
+      "depth_chart_position": "CB",
       "depth_chart_order": null,
       "season": 2025
     },
