@@ -35,10 +35,10 @@ $_tiers: (
 }
 
 .tier-unranked {
-  background: rgb(241 245 249);
-  border: 2px solid rgb(203 213 225);
-  --tier-card-border: rgb(203 213 225);
-  --tier-card-bg: rgb(241 245 249);
+  background: var(--surface-muted);
+  border: 2px solid var(--border-default);
+  --tier-card-border: var(--border-default);
+  --tier-card-bg: var(--surface-muted);
 }
 
 // ── Players-table row variants (prefixed with row-) ────────────────────────────
@@ -52,11 +52,14 @@ $_tiers: (
 }
 
 .row-tier-unranked {
-  background: rgb(241 245 249);
-  border: 2px solid rgb(203 213 225);
+  background: var(--surface-muted);
+  border: 2px solid var(--border-default);
 }
 
 // ── Dark-mode overrides ────────────────────────────────────────────────────────
+// Tier numeric backgrounds/borders use bespoke per-tier dark values; the
+// "unranked" neutral picks up its colors from the theme variables above and
+// needs no override.
 html.dark {
   @each $tier, $bg, $border, $bg-dark, $border-dark in $_tiers {
     .tier-#{$tier} {
@@ -67,22 +70,10 @@ html.dark {
     }
   }
 
-  .tier-unranked {
-    background: rgb(30 30 35);
-    border-color: rgb(75 85 99);
-    --tier-card-border: rgb(75 85 99);
-    --tier-card-bg: rgb(30 30 35);
-  }
-
   @each $tier, $bg, $border, $bg-dark, $border-dark in $_tiers {
     .row-tier-#{$tier} {
       border-color: $border-dark;
       background: $bg-dark;
     }
-  }
-
-  .row-tier-unranked {
-    background: rgb(30 30 35);
-    border-color: rgb(75 85 99);
   }
 }

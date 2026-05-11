@@ -1,79 +1,52 @@
 // ── Position color tokens ──────────────────────────────────────────────────────
 // Extracted from draft-board-grid.component.scss.
 // Global utility classes for position-based background + border coloring.
+// Position color values come from --pos-{qb,rb,wr,te} in styles.scss; dark-mode
+// label uses --pos-{qb,rb,wr,te}-fg.
 // ──────────────────────────────────────────────────────────────────────────────
 
-.pos-qb {
-  background: rgba(239, 68, 68, 0.16) !important;
-  border-color: rgba(239, 68, 68, 0.28) !important;
+@mixin pos-tint($solid, $label, $bg-pct, $border-pct, $label-pct) {
+  background: color-mix(in srgb, #{$solid} $bg-pct, transparent) !important;
+  border-color: color-mix(in srgb, #{$solid} $border-pct, transparent) !important;
 
   .cell-label {
-    color: rgba(185, 28, 28, 0.55);
+    color: color-mix(in srgb, #{$label} $label-pct, transparent);
   }
+}
+
+.pos-qb {
+  @include pos-tint(var(--pos-qb), var(--pos-qb-fg), 16%, 28%, 55%);
 }
 
 .pos-rb {
-  background: rgba(34, 197, 94, 0.16) !important;
-  border-color: rgba(34, 197, 94, 0.28) !important;
-
-  .cell-label {
-    color: rgba(21, 128, 61, 0.55);
-  }
+  @include pos-tint(var(--pos-rb), var(--pos-rb-fg), 16%, 28%, 55%);
 }
 
 .pos-wr {
-  background: rgba(59, 130, 246, 0.16) !important;
-  border-color: rgba(59, 130, 246, 0.28) !important;
-
-  .cell-label {
-    color: rgba(29, 78, 216, 0.55);
-  }
+  @include pos-tint(var(--pos-wr), var(--pos-wr-fg), 16%, 28%, 55%);
 }
 
 .pos-te {
-  background: rgba(249, 115, 22, 0.16) !important;
-  border-color: rgba(249, 115, 22, 0.28) !important;
-
-  .cell-label {
-    color: rgba(194, 65, 12, 0.55);
-  }
+  @include pos-tint(var(--pos-te), var(--pos-te-fg), 16%, 28%, 55%);
 }
 
 // ── Dark-mode overrides ────────────────────────────────────────────────────────
+// Higher alphas keep the tint visible against the dark surface; --pos-*-fg
+// already swaps to a lighter shade for label legibility.
 html.dark {
   .pos-qb {
-    background: rgba(239, 68, 68, 0.22) !important;
-    border-color: rgba(239, 68, 68, 0.45) !important;
-
-    .cell-label {
-      color: rgba(252, 165, 165, 0.7);
-    }
+    @include pos-tint(var(--pos-qb), var(--pos-qb-fg), 22%, 45%, 70%);
   }
 
   .pos-rb {
-    background: rgba(34, 197, 94, 0.22) !important;
-    border-color: rgba(34, 197, 94, 0.45) !important;
-
-    .cell-label {
-      color: rgba(134, 239, 172, 0.7);
-    }
+    @include pos-tint(var(--pos-rb), var(--pos-rb-fg), 22%, 45%, 70%);
   }
 
   .pos-wr {
-    background: rgba(59, 130, 246, 0.22) !important;
-    border-color: rgba(59, 130, 246, 0.45) !important;
-
-    .cell-label {
-      color: rgba(147, 197, 253, 0.7);
-    }
+    @include pos-tint(var(--pos-wr), var(--pos-wr-fg), 22%, 45%, 70%);
   }
 
   .pos-te {
-    background: rgba(249, 115, 22, 0.22) !important;
-    border-color: rgba(249, 115, 22, 0.45) !important;
-
-    .cell-label {
-      color: rgba(253, 186, 116, 0.7);
-    }
+    @include pos-tint(var(--pos-te), var(--pos-te-fg), 22%, 45%, 70%);
   }
 }

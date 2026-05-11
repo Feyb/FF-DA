@@ -10,7 +10,7 @@
 
 .page-subtitle {
   font-size: 0.875rem;
-  color: rgb(71 85 105);
+  color: var(--text-muted);
 }
 
 .section-title {
@@ -36,18 +36,7 @@
 
 .section-hint {
   font-size: 0.75rem;
-  color: rgb(100 116 139);
+  color: var(--text-faint);
   flex: 1 0 auto;
   text-align: right;
-}
-
-// ── Dark-mode overrides ────────────────────────────────────────────────────────
-html.dark {
-  .page-subtitle {
-    color: rgb(148 163 184);
-  }
-
-  .section-hint {
-    color: rgb(100 116 139);
-  }
 }

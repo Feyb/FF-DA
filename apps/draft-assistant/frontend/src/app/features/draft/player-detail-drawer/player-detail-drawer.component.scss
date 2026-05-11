@@ -18,9 +18,9 @@
 .drawer-panel {
   height: 100%;
   overflow-y: auto;
-  background: var(--mat-sys-surface, #fff);
-  border-left: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
-  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.12);
+  background: var(--mat-sys-surface, var(--surface));
+  border-left: 1px solid var(--mat-sys-outline-variant, var(--outline-variant));
+  box-shadow: -4px 0 16px rgb(0 0 0 / 0.12);
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -33,7 +33,7 @@
   align-items: flex-start;
   gap: 0.75rem;
   padding: 1rem;
-  border-bottom: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
+  border-bottom: 1px solid var(--mat-sys-outline-variant, var(--outline-variant));
   position: sticky;
   top: 0;
   background: inherit;
@@ -46,7 +46,7 @@
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  background: var(--mat-sys-surface-variant, #f5f5f5);
+  background: var(--mat-sys-surface-variant, var(--surface-container-high));
 }
 
 .drawer-player-meta {
@@ -62,6 +62,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: var(--on-surface);
 }
 
 .drawer-sub {
@@ -71,7 +72,7 @@
   gap: 0.3rem;
   margin-top: 0.2rem;
   font-size: 0.75rem;
-  color: var(--mat-sys-on-surface-variant, #666);
+  color: var(--mat-sys-on-surface-variant, var(--text-faint));
 }
 
 .pos-badge {
@@ -81,20 +82,25 @@
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: #fff;
+  background: var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 .pos-badge--qb {
-  background: #ef4444;
+  background: var(--pos-qb-bg);
+  color: var(--pos-qb-fg);
 }
 .pos-badge--rb {
-  background: #22c55e;
+  background: var(--pos-rb-bg);
+  color: var(--pos-rb-fg);
 }
 .pos-badge--wr {
-  background: #3b82f6;
+  background: var(--pos-wr-bg);
+  color: var(--pos-wr-fg);
 }
 .pos-badge--te {
-  background: #f59e0b;
+  background: var(--pos-te-bg);
+  color: var(--pos-te-fg);
 }
 
 .injury-pill {
@@ -104,20 +110,20 @@
   font-weight: 600;
 }
 .injury-out {
-  background: #fca5a5;
-  color: #991b1b;
+  background: var(--danger-bg);
+  color: var(--danger-fg);
 }
 .injury-doubtful {
-  background: #fbbf24;
-  color: #78350f;
+  background: var(--warning-bg);
+  color: var(--warning-fg);
 }
 .injury-q {
-  background: #fde68a;
-  color: #92400e;
+  background: var(--caution-bg);
+  color: var(--caution-fg);
 }
 .injury-other {
-  background: #e5e7eb;
-  color: #374151;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
 }
 
 .drawer-close-btn {
@@ -129,7 +135,7 @@
 
 .drawer-section {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
+  border-bottom: 1px solid var(--mat-sys-outline-variant, var(--outline-variant));
 }
 
 .drawer-section:last-child {
@@ -141,7 +147,7 @@
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--mat-sys-on-surface-variant, #666);
+  color: var(--mat-sys-on-surface-variant, var(--text-faint));
   margin: 0 0 0.5rem;
 }
 
@@ -159,7 +165,7 @@
 }
 
 .stat-label {
-  color: var(--mat-sys-on-surface-variant, #666);
+  color: var(--mat-sys-on-surface-variant, var(--text-faint));
   white-space: nowrap;
   width: 30%;
 }
@@ -168,37 +174,38 @@
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   width: 20%;
+  color: var(--on-surface);
 }
 
 .wcs-highlight {
-  color: var(--mat-sys-primary, #1d4ed8);
+  color: var(--mat-sys-primary, var(--primary-on-active));
 }
 
 .adp-std {
-  color: var(--mat-sys-on-surface-variant, #888);
+  color: var(--text-disabled);
   font-weight: 400;
   font-size: 0.75em;
   margin-left: 0.15rem;
 }
 
 .trend-up {
-  color: #16a34a;
+  color: var(--success);
 }
 .trend-down {
-  color: #dc2626;
+  color: var(--danger);
 }
 
 .eff-a {
-  color: #15803d;
+  color: var(--success-strong);
 }
 .eff-b {
-  color: #0369a1;
+  color: var(--info-strong);
 }
 .eff-c {
-  color: #b45309;
+  color: var(--warning);
 }
 .eff-d {
-  color: #b91c1c;
+  color: var(--danger-strong);
 }
 
 // ── Placeholder ───────────────────────────────────────────────────────────────
@@ -210,7 +217,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  color: var(--mat-sys-on-surface-variant, #999);
+  color: var(--mat-sys-on-surface-variant, var(--text-disabled));
   padding: 2rem;
 
   mat-icon {
@@ -227,78 +234,8 @@
 
 .drawer-empty {
   font-size: 0.8rem;
-  color: var(--mat-sys-on-surface-variant, #888);
+  color: var(--mat-sys-on-surface-variant, var(--text-faint));
   margin: 0.25rem 0 0;
 }
 
-// ── Dark mode ─────────────────────────────────────────────────────────────────
-
-html.dark {
-  .drawer-panel {
-    background: rgb(15 13 19);
-    border-left-color: rgb(30 41 59);
-  }
-
-  .drawer-header,
-  .drawer-section {
-    border-bottom-color: rgb(30 41 59);
-  }
-
-  .drawer-section-title,
-  .stat-label,
-  .drawer-sub,
-  .drawer-empty {
-    color: rgb(100 116 139);
-  }
-
-  .drawer-name,
-  .stat-val {
-    color: rgb(226 232 240);
-  }
-
-  .wcs-highlight {
-    color: rgb(129 140 248);
-  }
-
-  .adp-std {
-    color: rgb(71 85 105);
-  }
-
-  .pos-badge--qb {
-    background: rgb(127 29 29);
-    color: rgb(252 165 165);
-  }
-  .pos-badge--rb {
-    background: rgb(20 83 45);
-    color: rgb(134 239 172);
-  }
-  .pos-badge--wr {
-    background: rgb(30 58 138);
-    color: rgb(147 197 253);
-  }
-  .pos-badge--te {
-    background: rgb(120 53 15);
-    color: rgb(253 186 116);
-  }
-
-  .injury-out {
-    background: rgb(127 29 29);
-    color: rgb(252 165 165);
-  }
-  .injury-doubtful {
-    background: rgb(120 53 15);
-    color: rgb(253 186 116);
-  }
-  .injury-q {
-    background: rgb(113 63 18);
-    color: rgb(253 224 71);
-  }
-  .injury-other {
-    background: rgb(30 41 59);
-    color: rgb(148 163 184);
-  }
-
-  .drawer-placeholder {
-    color: rgb(71 85 105);
-  }
-}
+// All colors come from theme variables — no html.dark block needed.

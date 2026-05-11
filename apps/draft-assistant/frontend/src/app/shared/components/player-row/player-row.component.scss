@@ -7,7 +7,7 @@
   grid-template-columns: auto minmax(0, 1fr) auto auto auto;
   align-items: center;
   gap: 0.5rem;
-  border: 1px solid rgb(226 232 240);
+  border: 1px solid var(--border-subtle);
   border-radius: 0.5rem;
   padding: 0.5rem;
 }
@@ -17,7 +17,7 @@
   height: 2rem;
   border-radius: 9999px;
   object-fit: cover;
-  background: rgb(226 232 240);
+  background: var(--border-subtle);
   flex-shrink: 0;
 }
 
@@ -36,55 +36,31 @@
 
 .player-sub {
   font-size: 0.75rem;
-  color: rgb(100 116 139);
+  color: var(--text-faint);
 }
 
 .player-rank {
   font-size: 0.8125rem;
-  color: rgb(51 65 85);
+  color: var(--text-secondary);
   white-space: nowrap;
 }
 
 .player-value {
   font-size: 0.8125rem;
-  color: rgb(51 65 85);
+  color: var(--text-secondary);
   white-space: nowrap;
 }
 
 .star-button {
-  color: rgb(100 116 139);
+  color: var(--text-faint);
 
   &:hover {
-    background: rgb(241 245 249);
+    background: var(--surface-muted);
   }
 }
 
 .star-active {
-  color: rgb(202 138 4);
-}
-
-// ── Dark-mode overrides ────────────────────────────────────────────────────────
-html.dark {
-  .player-row {
-    border-color: rgb(51 65 85);
-  }
-
-  .player-sub {
-    color: rgb(100 116 139);
-  }
-
-  .player-rank,
-  .player-value {
-    color: rgb(148 163 184);
-  }
-
-  .star-button:hover {
-    background: rgb(30 41 59);
-  }
-
-  .player-avatar {
-    background: rgb(51 65 85);
-  }
+  color: var(--star-active);
 }
 
 // ── Responsive ─────────────────────────────────────────────────────────────────

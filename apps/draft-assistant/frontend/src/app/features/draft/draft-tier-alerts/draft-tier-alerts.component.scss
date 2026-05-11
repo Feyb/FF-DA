@@ -3,16 +3,16 @@
   align-items: center;
   gap: 0.625rem;
   padding: 0.625rem 0.875rem;
-  background: rgb(255 237 213);
-  border: 1px solid rgb(251 191 36);
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border-strong);
   border-radius: 0.375rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: rgb(120 53 15);
+  color: var(--warning-fg-strong);
   animation: slideIn 0.25s ease;
 
   mat-icon {
-    color: rgb(217 119 6);
+    color: var(--warning);
     flex-shrink: 0;
   }
 
@@ -25,7 +25,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: rgb(120 53 15);
+  color: var(--warning-fg-strong);
   padding: 0.125rem;
   border-radius: 50%;
   display: flex;
@@ -33,7 +33,7 @@
   transition: background 0.15s;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.08);
+    background: color-mix(in srgb, currentColor 12%, transparent);
   }
 
   mat-icon {
@@ -54,18 +54,4 @@
   }
 }
 
-html.dark {
-  .tier-alert-banner {
-    background: rgb(78 35 9);
-    border-color: rgb(217 119 6);
-    color: rgb(253 186 116);
-
-    mat-icon {
-      color: rgb(251 191 36);
-    }
-  }
-
-  .tier-alert-dismiss {
-    color: rgb(253 186 116);
-  }
-}
+// Dark mode handled entirely via theme variables (--warning-*).

@@ -105,6 +105,7 @@ strong {
 :root {
   --primary: #4c22bd;
   --primary-container: #6442d6;
+  --primary-on-active: var(--primary);
   --surface: #fdf8fb;
   --surface-container-low: #f7f2f5;
   --surface-container-lowest: #ffffff;
@@ -112,6 +113,75 @@ strong {
   --surface-container-highest: #e6e1e4;
   --on-surface: #1c1b1d;
   --outline-variant: #4c22bd26; // 15% opacity
+
+  // ── Neutral text scale (slate palette) ───────────────────────────────────
+  --text-strong: rgb(15 23 42); // slate-900
+  --text-heading: rgb(30 41 59); // slate-800
+  --text-secondary: rgb(51 65 85); // slate-700
+  --text-muted: rgb(71 85 105); // slate-600
+  --text-faint: rgb(100 116 139); // slate-500
+  --text-disabled: rgb(148 163 184); // slate-400
+
+  // ── Neutral borders & background tints ──────────────────────────────────
+  --border-default: rgb(203 213 225); // slate-300
+  --border-subtle: rgb(226 232 240); // slate-200
+  --surface-muted: rgb(241 245 249); // slate-100
+
+  // ── Semantic: success (green) ────────────────────────────────────────────
+  --success: rgb(22 163 74);
+  --success-strong: rgb(22 101 52);
+  --success-soft-bg: rgb(220 252 231);
+  --success-bold-bg: rgb(187 247 208);
+  --success-border: rgb(74 222 128);
+
+  // ── Semantic: danger (red) ───────────────────────────────────────────────
+  --danger: rgb(220 38 38);
+  --danger-strong: rgb(185 28 28);
+  --danger-fg: rgb(153 27 27);
+  --danger-bg: rgb(254 226 226);
+  --danger-border: rgb(239 68 68);
+
+  // ── Semantic: warning (orange) ───────────────────────────────────────────
+  --warning: rgb(217 119 6);
+  --warning-fg: rgb(154 52 18);
+  --warning-fg-strong: rgb(120 53 15);
+  --warning-bg: rgb(255 237 213);
+  --warning-bg-soft: rgb(254 243 199);
+  --warning-border: rgb(251 146 60);
+  --warning-border-strong: rgb(251 191 36);
+
+  // ── Semantic: caution (yellow) ───────────────────────────────────────────
+  --caution-fg: rgb(113 63 18);
+  --caution-fg-strong: rgb(133 77 14);
+  --caution-bg: rgb(254 249 195);
+  --caution-border: rgb(234 179 8);
+  --caution-border-soft: rgb(252 211 77);
+
+  // ── Semantic: info (blue) ────────────────────────────────────────────────
+  --info: rgb(29 78 216);
+  --info-strong: rgb(30 64 175);
+  --info-fg: rgb(29 78 216);
+  --info-bg: rgb(219 234 254);
+  --info-bg-soft: rgb(239 246 255);
+  --info-border: rgb(59 130 246);
+  --info-border-strong: rgb(37 99 235);
+
+  // ── Position colors (solid + tinted bg/fg pairs) ────────────────────────
+  --pos-qb: rgb(239 68 68);
+  --pos-rb: rgb(34 197 94);
+  --pos-wr: rgb(59 130 246);
+  --pos-te: rgb(249 115 22);
+  --pos-qb-bg: rgb(254 226 226);
+  --pos-qb-fg: rgb(185 28 28);
+  --pos-rb-bg: rgb(220 252 231);
+  --pos-rb-fg: rgb(22 101 52);
+  --pos-wr-bg: rgb(219 234 254);
+  --pos-wr-fg: rgb(29 78 216);
+  --pos-te-bg: rgb(255 237 213);
+  --pos-te-fg: rgb(154 52 18);
+
+  // ── Misc accents ─────────────────────────────────────────────────────────
+  --star-active: rgb(202 138 4);
 }
 
 // ── Dark-mode CSS variable overrides ─────────────────────────────────────────
@@ -123,6 +193,64 @@ html.dark {
   --surface-container-highest: #36343b;
   --on-surface: #e6e0e9;
   --outline-variant: #b0acbc40; // 25% opacity
+
+  --primary-on-active: #c4b5fd;
+
+  --text-strong: rgb(226 232 240);
+  --text-heading: rgb(226 232 240);
+  --text-secondary: rgb(203 213 225);
+  --text-muted: rgb(148 163 184);
+  --text-faint: rgb(100 116 139);
+  --text-disabled: rgb(71 85 105);
+
+  --border-default: rgb(75 85 99);
+  --border-subtle: rgb(51 65 85);
+  --surface-muted: rgb(30 41 59);
+
+  --success: rgb(74 222 128);
+  --success-strong: rgb(110 231 183);
+  --success-soft-bg: rgb(20 83 45);
+  --success-bold-bg: rgb(6 78 59);
+  --success-border: rgb(34 197 94);
+
+  --danger: rgb(248 113 113); // red-400 — solid/icon use on neutral surface
+  --danger-strong: rgb(254 202 202); // red-200 — emphasized danger text
+  --danger-fg: rgb(252 165 165); // red-300 — text on --danger-bg
+  --danger-bg: rgb(127 29 29);
+  --danger-border: rgb(220 38 38);
+
+  --warning: rgb(251 191 36);
+  --warning-fg: rgb(253 186 116); // orange-300 — text on --warning-bg
+  --warning-fg-strong: rgb(254 215 170); // orange-200 — emphasized text on --warning-bg
+  --warning-bg: rgb(67 20 7);
+  --warning-bg-soft: rgb(78 35 9);
+  --warning-border: rgb(234 88 12);
+  --warning-border-strong: rgb(217 119 6);
+
+  --caution-fg: rgb(252 211 77); // yellow-300 — text on --caution-bg
+  --caution-fg-strong: rgb(254 240 138); // yellow-200 — emphasized text on --caution-bg
+  --caution-bg: rgb(66 32 6);
+  --caution-border: rgb(202 138 4);
+  --caution-border-soft: rgb(180 130 20);
+
+  --info: rgb(147 197 253);
+  --info-strong: rgb(147 197 253);
+  --info-fg: rgb(147 197 253);
+  --info-bg: rgb(30 58 138);
+  --info-bg-soft: rgb(23 37 84);
+  --info-border: rgb(59 130 246);
+  --info-border-strong: rgb(59 130 246);
+
+  --pos-qb-bg: rgb(127 29 29);
+  --pos-qb-fg: rgb(252 165 165);
+  --pos-rb-bg: rgb(20 83 45);
+  --pos-rb-fg: rgb(134 239 172);
+  --pos-wr-bg: rgb(30 58 138);
+  --pos-wr-fg: rgb(147 197 253);
+  --pos-te-bg: rgb(67 20 7);
+  --pos-te-fg: rgb(253 186 116);
+
+  --star-active: rgb(252 211 77);
 
   body {
     background: var(--surface);

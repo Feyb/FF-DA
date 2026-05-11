@@ -15,7 +15,7 @@
 }
 
 .page-header-subtitle {
-  color: var(--mat-sys-on-surface-variant, #49454f);
+  color: var(--mat-sys-on-surface-variant, var(--text-muted));
   font-size: 0.9375rem;
   margin: 0;
 }
