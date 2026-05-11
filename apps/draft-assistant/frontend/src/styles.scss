@@ -213,22 +213,22 @@ html.dark {
   --success-bold-bg: rgb(6 78 59);
   --success-border: rgb(34 197 94);
 
-  --danger: rgb(252 165 165);
-  --danger-strong: rgb(252 165 165);
-  --danger-fg: rgb(252 165 165);
+  --danger: rgb(248 113 113); // red-400 — solid/icon use on neutral surface
+  --danger-strong: rgb(254 202 202); // red-200 — emphasized danger text
+  --danger-fg: rgb(252 165 165); // red-300 — text on --danger-bg
   --danger-bg: rgb(127 29 29);
   --danger-border: rgb(220 38 38);
 
   --warning: rgb(251 191 36);
-  --warning-fg: rgb(253 186 116);
-  --warning-fg-strong: rgb(253 186 116);
+  --warning-fg: rgb(253 186 116); // orange-300 — text on --warning-bg
+  --warning-fg-strong: rgb(254 215 170); // orange-200 — emphasized text on --warning-bg
   --warning-bg: rgb(67 20 7);
   --warning-bg-soft: rgb(78 35 9);
   --warning-border: rgb(234 88 12);
   --warning-border-strong: rgb(217 119 6);
 
-  --caution-fg: rgb(252 211 77);
-  --caution-fg-strong: rgb(252 211 77);
+  --caution-fg: rgb(252 211 77); // yellow-300 — text on --caution-bg
+  --caution-fg-strong: rgb(254 240 138); // yellow-200 — emphasized text on --caution-bg
   --caution-bg: rgb(66 32 6);
   --caution-border: rgb(202 138 4);
   --caution-border-soft: rgb(180 130 20);
