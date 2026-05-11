@@ -153,6 +153,8 @@ export const buildGridRows = (
   const myRosterId = typeof myRawRosterId === "number" ? myRawRosterId : null;
 
   const nextPickNo = picks.length + 1;
+  const rosterDisplayNameForId = (rosterId: number): string =>
+    rosterDisplayNames[String(rosterId)] ?? `Roster ${rosterId}`;
 
   const picksByNo = new Map<number, SleeperDraftPick>();
   for (const p of picks) {
@@ -204,7 +206,7 @@ export const buildGridRows = (
           draftedPick.roster_id !== slotRosterId);
       const tradedToDisplayName =
         isTraded && effectiveRosterId !== null && effectiveRosterId !== slotRosterId
-          ? (rosterDisplayNames[String(effectiveRosterId)] ?? `Roster ${effectiveRosterId}`)
+          ? rosterDisplayNameForId(effectiveRosterId)
           : null;
 
       return {
