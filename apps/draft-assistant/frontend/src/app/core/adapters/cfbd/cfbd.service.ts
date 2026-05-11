@@ -65,8 +65,9 @@ export function buildCfbdMetricsByName(players: CfbdAssetPlayer[]): Map<string, 
 
   for (const p of players) {
     const key = normalizeCfbdName(p.player_name);
+    const season = Number.isFinite(p.season) ? p.season : Number.MIN_SAFE_INTEGER;
     const incoming: CfbdCandidate = {
-      season: Number(p.season ?? 0),
+      season,
       metrics: {
         dominatorRating: p.dominator_rating,
         breakoutAge: p.breakout_age,
