@@ -698,6 +698,8 @@ export const DraftStore = signalStore(
 
       // MC tie-break: when the top-3 WCS scores are within 2 pts, simulate 1 000
       // drafts to estimate each player's P(still on board at userNextPick).
+      // Also include the currently selected detail player so the drawer can show
+      // MC Survival even when tie-break mode is not active.
       const mcTriggerSignal = computed((): McSimRequest | null => {
         const wcsMap = weightedCompositeByPlayer();
         const nextPickN = store.userNextPickNumber();
@@ -718,11 +720,25 @@ export const DraftStore = signalStore(
         );
 
         const top3 = undrafted.slice(0, 3);
-        if (top3.length < 2) return null;
+        const selectedDetailPlayerId = store.selectedDetailPlayerId();
+        const selectedInPool =
+          selectedDetailPlayerId !== null &&
+          undrafted.some((r) => r.playerId === selectedDetailPlayerId);
 
-        const maxWcs = wcsMap.get(top3[0].playerId) ?? 0;
-        const minWcs = wcsMap.get(top3[top3.length - 1].playerId) ?? 0;
-        if (maxWcs - minWcs > 2) return null; // spread too large — static ranking is decisive
+        const tieBreakTargets =
+          top3.length >= 2
+            ? (() => {
+                const maxWcs = wcsMap.get(top3[0].playerId) ?? 0;
+                const minWcs = wcsMap.get(top3[top3.length - 1].playerId) ?? 0;
+                return maxWcs - minWcs <= 2 ? top3.map((r) => r.playerId) : [];
+              })()
+            : [];
+
+        const targetPlayerIds = new Set<string>(tieBreakTargets);
+        if (selectedInPool && selectedDetailPlayerId !== null) {
+          targetPlayerIds.add(selectedDetailPlayerId);
+        }
+        if (targetPlayerIds.size === 0) return null;
 
         return {
           players: rows
@@ -730,7 +746,7 @@ export const DraftStore = signalStore(
             .map((r) => ({ playerId: r.playerId, adpMean: r.adpMean, adpStd: r.adpStd })),
           currentPickNumber: currentPickN,
           userNextPickNumber: nextPickN,
-          targetPlayerIds: top3.map((r) => r.playerId),
+          targetPlayerIds: [...targetPlayerIds],
           trials: 1000,
         };
       });
