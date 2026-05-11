@@ -297,6 +297,7 @@ describe("draft-board-grid.util", () => {
       };
       const rows = buildGridRows(baseDraft, [], {}, new Map(), null, [tradedPick]);
       expect(rows[0].cells[0].rosterId).toBe(20);
+      expect(rows[0].cells[0].tradedToDisplayName).toBe("Roster 20");
     });
 
     it("sets tradedToDisplayName to the new owner's team name for traded picks", () => {
