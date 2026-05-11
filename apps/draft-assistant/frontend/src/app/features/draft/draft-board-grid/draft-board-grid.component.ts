@@ -76,6 +76,7 @@ export class DraftBoardGridComponent {
       this.tierByPlayerId(),
       this.currentUserId(),
       this.tradedPicks(),
+      this.rosterDisplayNames(),
     ),
   );
 

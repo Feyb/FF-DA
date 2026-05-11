@@ -199,6 +199,16 @@
   text-transform: uppercase;
 }
 
+.cell-traded-to {
+  margin-top: auto;
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--warning-fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .cell-tier-badge {
   position: absolute;
   top: 3px;

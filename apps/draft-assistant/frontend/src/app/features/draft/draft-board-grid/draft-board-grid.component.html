@@ -101,6 +101,14 @@
                 {{ row.flowRight ? "→" : "←" }}
               </span>
             }
+            @if (cell.tradedToDisplayName) {
+              <span
+                class="cell-traded-to"
+                [attr.title]="'Now owned by ' + cell.tradedToDisplayName"
+              >
+                {{ cell.tradedToDisplayName }}
+              </span>
+            }
           </div>
         }
       </div>
