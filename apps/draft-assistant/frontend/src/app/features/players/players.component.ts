@@ -37,6 +37,7 @@ import { PlayerCardComponent } from "../../shared/components/player-card";
 interface PlayersStoreView {
   selectedPositions: () => PositionFilter[];
   rookiesOnly: () => boolean;
+  freeAgentsOnly: () => boolean;
   searchQuery: () => string;
   sortBy: () => SortBy;
   sortDirection: () => SortDirection;
@@ -49,6 +50,7 @@ interface PlayersStoreView {
   error: () => string | null;
   displayedRows: () => PlayerRow[];
   setRookiesOnly: (value: boolean) => void;
+  setFreeAgentsOnly: (value: boolean) => void;
   setSearchQuery: (query: string) => void;
   setSortBy: (value: SortBy) => void;
   setSortDirection: (value: SortDirection) => void;
@@ -98,6 +100,8 @@ export class PlayersComponent {
   ];
   protected expandedPlayerId: string | null = null;
   protected readonly positions = ["QB", "RB", "WR", "TE"] as const;
+
+  protected readonly hasLeague = computed(() => !!this.appStore.selectedLeague());
 
   private readonly seasonYear = computed(() => {
     const season = this.appStore.selectedLeague()?.season;

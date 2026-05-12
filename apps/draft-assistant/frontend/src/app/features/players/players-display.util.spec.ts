@@ -33,6 +33,8 @@ function run(
   rows: PlayerRow[],
   selectedPositions: PositionFilter[] = ["QB", "RB", "WR", "TE"],
   rookiesOnly = false,
+  freeAgentsOnly = false,
+  assignedPlayerIds: string[] = [],
   sortBy: SortBy = "default",
   sortDirection: SortDirection = "asc",
   valueSource: ValueSource = "ktcValue",
@@ -42,6 +44,8 @@ function run(
     rows,
     selectedPositions,
     rookiesOnly,
+    freeAgentsOnly,
+    assignedPlayerIds,
     sortBy,
     sortDirection,
     valueSource,
@@ -78,7 +82,7 @@ describe("players-display.util", () => {
       buildRow({ playerId: "fallback", averageRank: null, ktcRank: 4 }),
     ];
 
-    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, "default", "asc", "averageRank");
+    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, false, [], "default", "asc", "averageRank");
     expect(displayed.map((row) => row.playerId)).toEqual(["avg", "fallback"]);
   });
 
@@ -89,7 +93,7 @@ describe("players-display.util", () => {
       buildRow({ playerId: "chi", team: "CHI" }),
     ];
 
-    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, "team", "asc", "ktcValue");
+    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, false, [], "team", "asc", "ktcValue");
     expect(displayed.map((row) => row.playerId)).toEqual(["atl", "chi", "null-team"]);
   });
 
@@ -99,7 +103,27 @@ describe("players-display.util", () => {
       buildRow({ playerId: "low", ktcValue: 1000 }),
     ];
 
-    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, "ktcValue", "desc", "ktcValue");
+    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, false, [], "ktcValue", "desc", "ktcValue");
     expect(displayed.map((row) => row.playerId)).toEqual(["high", "low"]);
+  });
+
+  it("hides rostered players when freeAgentsOnly is true", () => {
+    const rows = [
+      buildRow({ playerId: "rostered", fullName: "Rostered Player" }),
+      buildRow({ playerId: "free", fullName: "Free Agent" }),
+    ];
+
+    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, true, ["rostered"]);
+    expect(displayed.map((row) => row.playerId)).toEqual(["free"]);
+  });
+
+  it("shows all players when freeAgentsOnly is false regardless of assignedPlayerIds", () => {
+    const rows = [
+      buildRow({ playerId: "rostered" }),
+      buildRow({ playerId: "free" }),
+    ];
+
+    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, false, ["rostered"]);
+    expect(displayed.map((row) => row.playerId)).toEqual(["rostered", "free"]);
   });
 });

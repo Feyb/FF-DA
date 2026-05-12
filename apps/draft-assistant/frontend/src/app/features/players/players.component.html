@@ -24,6 +24,14 @@
         Rookies only
       </mat-slide-toggle>
 
+      <mat-slide-toggle
+        [ngModel]="store.freeAgentsOnly()"
+        (ngModelChange)="store.setFreeAgentsOnly($event)"
+        [disabled]="!hasLeague()"
+      >
+        Free agents only
+      </mat-slide-toggle>
+
       <mat-form-field appearance="outline">
         <mat-label>Sort by</mat-label>
         <mat-select [ngModel]="store.sortBy()" (ngModelChange)="store.setSortBy($event)">
