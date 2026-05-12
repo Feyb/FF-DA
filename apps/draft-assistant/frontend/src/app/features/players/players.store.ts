@@ -13,6 +13,10 @@ import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import { TierSource } from "../../core/models";
 import { AppStore } from "../../core/state/app.store";
 import { PlayerNormalizationService } from "../../core/services/player-normalization.service";
+import {
+  ConsensusAggregatorService,
+  ConsensusInput,
+} from "../../core/services/consensus-aggregator.service";
 import { toErrorMessage } from "../../core/utils/error.util";
 import { togglePositionFilter } from "../../core/utils/position-filter.util";
 import {
@@ -57,10 +61,10 @@ export const PlayersStore = signalStore(
     freeAgentsOnly: false,
     assignedPlayerIds: [],
     searchQuery: "",
-    sortBy: "default",
+    sortBy: "weightedComposite",
     sortDirection: "asc",
-    tierSource: "average",
-    valueSource: "ktcValue",
+    tierSource: "flock",
+    valueSource: "averageRank",
   }),
   withComputed((store) => ({
     hasRows: computed(() => store.rows().length > 0),
@@ -91,6 +95,7 @@ export const PlayersStore = signalStore(
       ktcService = inject(KtcRatingService),
       playerNorm = inject(PlayerNormalizationService),
       sleeperService = inject(SleeperService),
+      aggregator = inject(ConsensusAggregatorService),
     ) => {
       return {
         async loadPlayers(): Promise<void> {
@@ -118,8 +123,22 @@ export const PlayersStore = signalStore(
 
             const assignedPlayerIds = rosters.flatMap((r) => r.players ?? []);
 
+            const inputs: ConsensusInput[] = rows.map((row) => ({
+              playerId: row.playerId,
+              position: row.position,
+              sources: [
+                ...(row.ktcRank != null ? [{ source: "ktc", rank: row.ktcRank }] : []),
+                ...(row.averageRank != null ? [{ source: "flock", rank: row.averageRank }] : []),
+              ],
+            }));
+            const consensus = aggregator.aggregate(inputs, { weights: { ktc: 1, flock: 1 } });
+            const enrichedRows: PlayerRow[] = rows.map((row) => ({
+              ...row,
+              baseValue: consensus.get(row.playerId)?.baseValue ?? null,
+            }));
+
             patchState(store, {
-              rows,
+              rows: enrichedRows,
               assignedPlayerIds,
               loading: false,
               ktcUnavailable: ktcPlayers.length === 0,

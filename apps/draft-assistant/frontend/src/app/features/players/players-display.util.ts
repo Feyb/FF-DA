@@ -1,5 +1,5 @@
 export type PositionFilter = "QB" | "RB" | "WR" | "TE";
-export type SortBy = "default" | "name" | "position" | "age" | "ktcValue" | "team";
+export type SortBy = "default" | "name" | "position" | "age" | "ktcValue" | "team" | "weightedComposite";
 export type SortDirection = "asc" | "desc";
 export type ValueSource = "ktcValue" | "averageRank";
 
@@ -18,6 +18,7 @@ export interface PlayerRow {
   flockAverageTier: number | null;
   flockAveragePositionalTier: number | null;
   sleeperRank: number;
+  baseValue: number | null;
 }
 
 export function filterAndSortPlayerRows(
@@ -74,6 +75,12 @@ export function filterAndSortPlayerRows(
       const aValue = (valueSource === "ktcValue" ? a.ktcValue : a.averageRank) ?? -1;
       const bValue = (valueSource === "ktcValue" ? b.ktcValue : b.averageRank) ?? -1;
       return (aValue - bValue) * dir;
+    }
+
+    if (sortBy === "weightedComposite") {
+      const aScore = a.baseValue ?? -1;
+      const bScore = b.baseValue ?? -1;
+      return (bScore - aScore) * dir;
     }
 
     const aTeam = a.team ?? "ZZZ";
