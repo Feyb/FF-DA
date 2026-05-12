@@ -62,7 +62,7 @@ export const PlayersStore = signalStore(
     assignedPlayerIds: [],
     searchQuery: "",
     sortBy: "weightedComposite",
-    sortDirection: "asc",
+    sortDirection: "desc",
     tierSource: "flock",
     valueSource: "averageRank",
   }),
@@ -107,7 +107,9 @@ export const PlayersStore = signalStore(
             const currentSeason = Number(selectedLeague?.season ?? new Date().getFullYear());
 
             const rostersPromise = selectedLeague
-              ? firstValueFrom(sleeperService.getLeagueRosters(selectedLeague.league_id)).catch(() => [])
+              ? firstValueFrom(sleeperService.getLeagueRosters(selectedLeague.league_id)).catch(
+                  () => [],
+                )
               : Promise.resolve([]);
 
             const [rows, ktcPlayers, metadata, rosters] = await Promise.all([
