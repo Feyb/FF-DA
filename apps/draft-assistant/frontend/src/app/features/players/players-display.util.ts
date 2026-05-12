@@ -24,17 +24,21 @@ export function filterAndSortPlayerRows(
   rows: PlayerRow[],
   selectedPositions: PositionFilter[],
   rookiesOnly: boolean,
+  freeAgentsOnly: boolean,
+  assignedPlayerIds: string[],
   sortBy: SortBy,
   sortDirection: SortDirection,
   valueSource: ValueSource,
   searchQuery: string,
 ): PlayerRow[] {
   const selected = new Set(selectedPositions);
+  const assignedSet = freeAgentsOnly ? new Set(assignedPlayerIds) : null;
   const normalizedQuery = searchQuery.toLowerCase().trim();
   const filtered = rows.filter((row) => {
     if (normalizedQuery && !row.fullName.toLowerCase().includes(normalizedQuery)) return false;
     if (!selected.has(row.position)) return false;
     if (rookiesOnly && !row.rookie) return false;
+    if (assignedSet && assignedSet.has(row.playerId)) return false;
     return true;
   });
 

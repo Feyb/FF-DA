@@ -9,6 +9,7 @@ import {
 } from "@ngrx/signals";
 import { firstValueFrom } from "rxjs";
 import { KtcRatingService } from "../../core/adapters/ktc/ktc-rating.service";
+import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import { TierSource } from "../../core/models";
 import { AppStore } from "../../core/state/app.store";
 import { PlayerNormalizationService } from "../../core/services/player-normalization.service";
@@ -33,6 +34,8 @@ interface PlayersState {
   rows: PlayerRow[];
   selectedPositions: PositionFilter[];
   rookiesOnly: boolean;
+  freeAgentsOnly: boolean;
+  assignedPlayerIds: string[];
   searchQuery: string;
   sortBy: SortBy;
   sortDirection: SortDirection;
@@ -51,6 +54,8 @@ export const PlayersStore = signalStore(
     rows: [],
     selectedPositions: DEFAULT_POSITIONS,
     rookiesOnly: false,
+    freeAgentsOnly: false,
+    assignedPlayerIds: [],
     searchQuery: "",
     sortBy: "default",
     sortDirection: "asc",
@@ -64,6 +69,8 @@ export const PlayersStore = signalStore(
         store.rows(),
         store.selectedPositions(),
         store.rookiesOnly(),
+        store.freeAgentsOnly(),
+        store.assignedPlayerIds(),
         store.sortBy(),
         store.sortDirection(),
         store.valueSource(),
@@ -83,6 +90,7 @@ export const PlayersStore = signalStore(
       appStore = inject(AppStore),
       ktcService = inject(KtcRatingService),
       playerNorm = inject(PlayerNormalizationService),
+      sleeperService = inject(SleeperService),
     ) => {
       return {
         async loadPlayers(): Promise<void> {
@@ -93,7 +101,11 @@ export const PlayersStore = signalStore(
             const isSuperflex = (selectedLeague?.roster_positions ?? []).includes("SUPER_FLEX");
             const currentSeason = Number(selectedLeague?.season ?? new Date().getFullYear());
 
-            const [rows, ktcPlayers, metadata] = await Promise.all([
+            const rostersPromise = selectedLeague
+              ? firstValueFrom(sleeperService.getLeagueRosters(selectedLeague.league_id))
+              : Promise.resolve([]);
+
+            const [rows, ktcPlayers, metadata, rosters] = await Promise.all([
               playerNorm.buildPlayerRows({
                 format: { isSuperflex, isRookie: false },
                 season: currentSeason,
@@ -101,10 +113,14 @@ export const PlayersStore = signalStore(
               }),
               firstValueFrom(ktcService.fetchPlayers(isSuperflex)),
               firstValueFrom(ktcService.fetchMetadata()),
+              rostersPromise,
             ]);
+
+            const assignedPlayerIds = rosters.flatMap((r) => r.players ?? []);
 
             patchState(store, {
               rows,
+              assignedPlayerIds,
               loading: false,
               ktcUnavailable: ktcPlayers.length === 0,
               ktcSyncedAt: metadata?.generatedAt ?? null,
@@ -123,6 +139,9 @@ export const PlayersStore = signalStore(
         },
         setRookiesOnly(rookiesOnly: boolean): void {
           patchState(store, { rookiesOnly });
+        },
+        setFreeAgentsOnly(freeAgentsOnly: boolean): void {
+          patchState(store, { freeAgentsOnly });
         },
         setSortBy(sortBy: SortBy): void {
           patchState(store, { sortBy });
