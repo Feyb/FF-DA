@@ -286,6 +286,35 @@ describe("draft-board-grid.util", () => {
         }
       }
     });
+
+    it("resolves effective roster_id from traded_picks owner_id before the pick is made", () => {
+      const tradedPick: SleeperTradedPick = {
+        season: "2024",
+        round: 1,
+        roster_id: 10,
+        previous_owner_id: 10,
+        owner_id: 20,
+      };
+      const rows = buildGridRows(baseDraft, [], {}, new Map(), null, [tradedPick]);
+      expect(rows[0].cells[0].rosterId).toBe(20);
+      expect(rows[0].cells[0].tradedToDisplayName).toBe("Roster 20");
+    });
+
+    it("sets tradedToDisplayName to the new owner's team name for traded picks", () => {
+      const tradedPick: SleeperTradedPick = {
+        season: "2024",
+        round: 1,
+        roster_id: 10,
+        previous_owner_id: 10,
+        owner_id: 20,
+      };
+      const rows = buildGridRows(baseDraft, [], {}, new Map(), null, [tradedPick], {
+        "10": "Alice",
+        "20": "Bob",
+      });
+      expect(rows[0].cells[0].tradedToDisplayName).toBe("Bob");
+      expect(rows[0].cells[1].tradedToDisplayName).toBeNull();
+    });
   });
 
   // ------------------------------------------------------------------ //

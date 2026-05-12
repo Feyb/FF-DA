@@ -35,6 +35,8 @@ export interface GridCell {
   isMyTeam: boolean;
   /** True when this pick has been traded away from its original draft slot owner. */
   isTraded: boolean;
+  /** Team name of the current holder when the pick is traded. */
+  tradedToDisplayName: string | null;
 }
 
 export interface GridRow {
@@ -136,6 +138,7 @@ export const buildGridRows = (
   tierByPlayerId: Map<string, number | null>,
   currentUserId: string | null,
   tradedPicks: SleeperTradedPick[] = [],
+  rosterDisplayNames: Record<string, string> = {},
 ): GridRow[] => {
   const teams = Number(draft.settings?.["teams"] ?? 0);
   const rounds = Number(draft.settings?.["rounds"] ?? 0);
@@ -156,10 +159,13 @@ export const buildGridRows = (
     picksByNo.set(p.pick_no, p);
   }
 
-  // Build a set of "round-originalRosterId" keys for picks that have been traded.
+  // Build traded-pick lookup maps keyed by "round-originalRosterId".
   const tradedPickKeys = new Set<string>();
+  const tradedPickOwnerByKey = new Map<string, number>();
   for (const tp of tradedPicks) {
-    tradedPickKeys.add(`${tp.round}-${tp.roster_id}`);
+    const key = `${tp.round}-${tp.roster_id}`;
+    tradedPickKeys.add(key);
+    tradedPickOwnerByKey.set(key, tp.owner_id);
   }
 
   return Array.from({ length: rounds }, (_, ri) => {
@@ -171,10 +177,12 @@ export const buildGridRows = (
       const pickNo = computePickNo(round, slot, teams, isLinear);
       const rawRid = slotMap[String(slot)];
       const slotRosterId = typeof rawRid === "number" ? rawRid : null;
+      const tradedKey = slotRosterId !== null ? `${round}-${slotRosterId}` : null;
+      const tradedOwnerId = tradedKey ? (tradedPickOwnerByKey.get(tradedKey) ?? null) : null;
 
       const draftedPick = picksByNo.get(pickNo) ?? null;
       // For traded picks the pick's own roster_id takes precedence
-      const effectiveRosterId = draftedPick?.roster_id ?? slotRosterId;
+      const effectiveRosterId = draftedPick?.roster_id ?? tradedOwnerId ?? slotRosterId;
 
       const playerId = draftedPick?.player_id ?? null;
       const position = draftedPick?.metadata?.["position"] ?? null;
@@ -189,11 +197,17 @@ export const buildGridRows = (
       // A pick is traded if it appears in the traded_picks endpoint (keyed by round + original roster)
       // or if the drafted pick's current roster differs from the original slot owner.
       const isTraded =
-        (slotRosterId !== null && tradedPickKeys.has(`${round}-${slotRosterId}`)) ||
+        (tradedKey !== null && tradedPickKeys.has(tradedKey)) ||
         (draftedPick !== null &&
           slotRosterId !== null &&
           draftedPick.roster_id !== null &&
           draftedPick.roster_id !== slotRosterId);
+      const tradedToDisplayName =
+        // Keep this explicit owner-diff check because traded_picks can include chains
+        // where a pick is later moved back to the original roster.
+        isTraded && effectiveRosterId !== null && effectiveRosterId !== slotRosterId
+          ? (rosterDisplayNames[String(effectiveRosterId)] ?? `Roster ${effectiveRosterId}`)
+          : null;
 
       return {
         pickNo,
@@ -209,6 +223,7 @@ export const buildGridRows = (
         isCurrentPick: pickNo === nextPickNo,
         isMyTeam: effectiveRosterId !== null && effectiveRosterId === myRosterId,
         isTraded,
+        tradedToDisplayName,
       };
     });
 
