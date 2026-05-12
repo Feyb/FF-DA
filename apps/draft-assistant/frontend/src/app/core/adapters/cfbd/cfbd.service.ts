@@ -29,6 +29,11 @@ interface CfbdAssetEnvelope {
   players: CfbdAssetPlayer[];
 }
 
+interface CfbdCandidate {
+  season: number;
+  metrics: CfbdMetrics;
+}
+
 /** Normalize a player name for fuzzy lookup across feeds with inconsistent suffixes. */
 export function normalizeCfbdName(name: string): string {
   return name
@@ -37,6 +42,50 @@ export function normalizeCfbdName(name: string): string {
     .replace(/[̀-ͯ]/g, "")
     .replace(/\b(jr|sr|ii|iii|iv|v)\b/g, "")
     .replace(/[^a-z0-9]/g, "");
+}
+
+function countKnownMetrics(metrics: CfbdMetrics): number {
+  let known = 0;
+  if (metrics.dominatorRating !== null) known += 1;
+  if (metrics.breakoutAge !== null) known += 1;
+  if (metrics.yptpa !== null) known += 1;
+  if (metrics.ras !== null) known += 1;
+  return known;
+}
+
+function shouldReplaceCandidate(existing: CfbdCandidate, incoming: CfbdCandidate): boolean {
+  const existingKnown = countKnownMetrics(existing.metrics);
+  const incomingKnown = countKnownMetrics(incoming.metrics);
+  if (incomingKnown !== existingKnown) return incomingKnown > existingKnown;
+  return incoming.season > existing.season;
+}
+
+export function buildCfbdMetricsByName(players: CfbdAssetPlayer[]): Map<string, CfbdMetrics> {
+  const byName = new Map<string, CfbdCandidate>();
+
+  for (const p of players) {
+    const key = normalizeCfbdName(p.player_name);
+    const season = Number.isFinite(p.season) ? p.season : Number.MIN_SAFE_INTEGER;
+    const incoming: CfbdCandidate = {
+      season,
+      metrics: {
+        dominatorRating: p.dominator_rating,
+        breakoutAge: p.breakout_age,
+        yptpa: p.yptpa,
+        ras: p.ras,
+      },
+    };
+    const existing = byName.get(key);
+    if (!existing || shouldReplaceCandidate(existing, incoming)) {
+      byName.set(key, incoming);
+    }
+  }
+
+  const output = new Map<string, CfbdMetrics>();
+  for (const [key, value] of byName) {
+    output.set(key, value.metrics);
+  }
+  return output;
 }
 
 @Injectable({ providedIn: "root" })
@@ -50,19 +99,7 @@ export class CfbdService {
   readonly rookieMetricsByName$: Observable<Map<string, CfbdMetrics>> = this.http
     .get<CfbdAssetEnvelope>("assets/cfbd/rookie-metrics.json")
     .pipe(
-      map((envelope) => {
-        const m = new Map<string, CfbdMetrics>();
-        for (const p of envelope.players) {
-          const key = normalizeCfbdName(p.player_name);
-          m.set(key, {
-            dominatorRating: p.dominator_rating,
-            breakoutAge: p.breakout_age,
-            yptpa: p.yptpa,
-            ras: p.ras,
-          });
-        }
-        return m;
-      }),
+      map((envelope) => buildCfbdMetricsByName(envelope.players)),
       catchError(() => of(new Map<string, CfbdMetrics>())),
       shareReplay(1),
     );
