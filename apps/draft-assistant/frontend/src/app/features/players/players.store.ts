@@ -102,7 +102,7 @@ export const PlayersStore = signalStore(
             const currentSeason = Number(selectedLeague?.season ?? new Date().getFullYear());
 
             const rostersPromise = selectedLeague
-              ? firstValueFrom(sleeperService.getLeagueRosters(selectedLeague.league_id))
+              ? firstValueFrom(sleeperService.getLeagueRosters(selectedLeague.league_id)).catch(() => [])
               : Promise.resolve([]);
 
             const [rows, ktcPlayers, metadata, rosters] = await Promise.all([
