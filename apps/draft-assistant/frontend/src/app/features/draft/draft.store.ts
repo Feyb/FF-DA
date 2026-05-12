@@ -740,13 +740,20 @@ export const DraftStore = signalStore(
         }
         if (targetPlayerIds.size === 0) return null;
 
+        const simPlayers = rows
+          .filter((r) => !draftedIds.has(r.playerId) && r.adpMean !== null)
+          .map((r) => ({ playerId: r.playerId, adpMean: r.adpMean, adpStd: r.adpStd }));
+        const simPlayerIds = new Set(simPlayers.map((player) => player.playerId));
+        const validTargetPlayerIds = [...targetPlayerIds].filter((playerId) =>
+          simPlayerIds.has(playerId),
+        );
+        if (validTargetPlayerIds.length === 0) return null;
+
         return {
-          players: rows
-            .filter((r) => !draftedIds.has(r.playerId) && r.adpMean !== null)
-            .map((r) => ({ playerId: r.playerId, adpMean: r.adpMean, adpStd: r.adpStd })),
+          players: simPlayers,
           currentPickNumber: currentPickN,
           userNextPickNumber: nextPickN,
-          targetPlayerIds: [...targetPlayerIds],
+          targetPlayerIds: validTargetPlayerIds,
           trials: 1000,
         };
       });
