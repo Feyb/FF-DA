@@ -35,6 +35,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Sort by</mat-label>
         <mat-select [ngModel]="store.sortBy()" (ngModelChange)="store.setSortBy($event)">
+          <mat-option value="weightedComposite">Weighted Composite (WCS)</mat-option>
           <mat-option value="default">Rank (default)</mat-option>
           <mat-option value="ktcValue">Value</mat-option>
           <mat-option value="name">Name</mat-option>

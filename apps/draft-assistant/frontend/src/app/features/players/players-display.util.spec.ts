@@ -82,7 +82,16 @@ describe("players-display.util", () => {
       buildRow({ playerId: "fallback", averageRank: null, ktcRank: 4 }),
     ];
 
-    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, false, [], "default", "asc", "averageRank");
+    const displayed = run(
+      rows,
+      ["QB", "RB", "WR", "TE"],
+      false,
+      false,
+      [],
+      "default",
+      "asc",
+      "averageRank",
+    );
     expect(displayed.map((row) => row.playerId)).toEqual(["avg", "fallback"]);
   });
 
@@ -93,7 +102,16 @@ describe("players-display.util", () => {
       buildRow({ playerId: "chi", team: "CHI" }),
     ];
 
-    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, false, [], "team", "asc", "ktcValue");
+    const displayed = run(
+      rows,
+      ["QB", "RB", "WR", "TE"],
+      false,
+      false,
+      [],
+      "team",
+      "asc",
+      "ktcValue",
+    );
     expect(displayed.map((row) => row.playerId)).toEqual(["atl", "chi", "null-team"]);
   });
 
@@ -103,7 +121,16 @@ describe("players-display.util", () => {
       buildRow({ playerId: "low", ktcValue: 1000 }),
     ];
 
-    const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, false, [], "ktcValue", "desc", "ktcValue");
+    const displayed = run(
+      rows,
+      ["QB", "RB", "WR", "TE"],
+      false,
+      false,
+      [],
+      "ktcValue",
+      "desc",
+      "ktcValue",
+    );
     expect(displayed.map((row) => row.playerId)).toEqual(["high", "low"]);
   });
 
@@ -118,10 +145,7 @@ describe("players-display.util", () => {
   });
 
   it("shows all players when freeAgentsOnly is false regardless of assignedPlayerIds", () => {
-    const rows = [
-      buildRow({ playerId: "rostered" }),
-      buildRow({ playerId: "free" }),
-    ];
+    const rows = [buildRow({ playerId: "rostered" }), buildRow({ playerId: "free" })];
 
     const displayed = run(rows, ["QB", "RB", "WR", "TE"], false, false, ["rostered"]);
     expect(displayed.map((row) => row.playerId)).toEqual(["rostered", "free"]);

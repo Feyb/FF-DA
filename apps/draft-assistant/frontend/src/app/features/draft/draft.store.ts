@@ -223,9 +223,9 @@ export const DraftStore = signalStore(
     rookiesOnly: false,
     starredPlayerIds: [],
     lastUpdatedAt: null,
-    tierSource: "ktc",
-    valueSource: "ktcValue",
-    sortSource: "combinedTier" as DraftSortSource,
+    tierSource: "flock",
+    valueSource: "averageRank",
+    sortSource: "weightedComposite" as DraftSortSource,
     searchQuery: "",
     neededPositionsOnly: false,
     tierDropAlerts: [],
@@ -1384,7 +1384,7 @@ export const DraftStore = signalStore(
       };
 
       const loadSortSource = (leagueId: string | null): DraftSortSource => {
-        if (!leagueId) return "combinedTier";
+        if (!leagueId) return "weightedComposite";
         const saved = storage.getRawItem(sortSourceStorageKey(leagueId));
         const valid: DraftSortSource[] = [
           "combinedTier",
@@ -1399,7 +1399,7 @@ export const DraftStore = signalStore(
         ];
         return valid.includes(saved as DraftSortSource)
           ? (saved as DraftSortSource)
-          : "combinedTier";
+          : "weightedComposite";
       };
 
       const loadSavedPositions = (leagueId: string | null): DraftPositionFilter[] => {
