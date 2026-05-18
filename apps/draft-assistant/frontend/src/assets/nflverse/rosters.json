@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-10T15:26:50.826Z",
+  "generatedAt": "2026-05-18T10:44:53.973Z",
   "players": [
     {
       "player_id": "00-0023459",
@@ -428,7 +428,7 @@
       "years_exp": 12,
       "position": "K",
       "team": "GB",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "K",
       "depth_chart_order": null,
       "season": 2026
@@ -3918,10 +3918,10 @@
       "full_name": "Josh Sweat",
       "birth_date": "1997-03-29",
       "years_exp": 8,
-      "position": "DL",
+      "position": "LB",
       "team": "ARI",
       "status": "ACT",
-      "depth_chart_position": "DE",
+      "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -6117,7 +6117,7 @@
       "position": "DB",
       "team": "ARI",
       "status": "ACT",
-      "depth_chart_position": "DB",
+      "depth_chart_position": "SAF",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -10688,7 +10688,7 @@
       "years_exp": 5,
       "position": "LB",
       "team": "CLE",
-      "status": "ACT",
+      "status": "PUP",
       "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
@@ -15698,18 +15698,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0038456",
-      "full_name": "Travis Vokolek",
-      "birth_date": "1998-06-04",
-      "years_exp": 3,
-      "position": "TE",
-      "team": "ARI",
-      "status": "ACT",
-      "depth_chart_position": "TE",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0038458",
       "full_name": "Owen Wright",
       "birth_date": "1999-02-28",
@@ -16658,6 +16646,18 @@
       "season": 2026
     },
     {
+      "player_id": "00-0038602",
+      "full_name": "Chris Smith II",
+      "birth_date": "2000-05-01",
+      "years_exp": 3,
+      "position": "DB",
+      "team": "NYJ",
+      "status": "RES",
+      "depth_chart_position": "S",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
       "player_id": "00-0038603",
       "full_name": "Robert Beal Jr.",
       "birth_date": "1999-08-18",
@@ -17158,18 +17158,6 @@
       "team": "GB",
       "status": "ACT",
       "depth_chart_position": "RB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0038693",
-      "full_name": "Garrett Nelson",
-      "birth_date": "2000-03-01",
-      "years_exp": 3,
-      "position": "DL",
-      "team": "DEN",
-      "status": "ACT",
-      "depth_chart_position": "DE",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -19642,6 +19630,18 @@
       "team": "MIA",
       "status": "ACT",
       "depth_chart_position": "CB",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0039313",
+      "full_name": "Swayze Bozeman",
+      "birth_date": "1998-11-02",
+      "years_exp": 2,
+      "position": "LB",
+      "team": "CIN",
+      "status": "ACT",
+      "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -22202,6 +22202,18 @@
       "season": 2026
     },
     {
+      "player_id": "00-0039764",
+      "full_name": "Elijah Chatman",
+      "birth_date": "2000-12-05",
+      "years_exp": 2,
+      "position": "DL",
+      "team": "CLE",
+      "status": "ACT",
+      "depth_chart_position": "DT",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
       "player_id": "00-0039770",
       "full_name": "Charles Woods",
       "birth_date": "2000-06-17",
@@ -23037,7 +23049,7 @@
       "position": "DB",
       "team": "ARI",
       "status": "ACT",
-      "depth_chart_position": "DB",
+      "depth_chart_position": "SAF",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -26942,18 +26954,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040366",
-      "full_name": "Hal Presley",
-      "birth_date": "2002-01-22",
-      "years_exp": 1,
-      "position": "WR",
-      "team": "TEN",
-      "status": "ACT",
-      "depth_chart_position": "WR",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040369",
       "full_name": "Howard Cross III",
       "birth_date": "2001-07-31",
@@ -27230,6 +27230,18 @@
       "season": 2026
     },
     {
+      "player_id": "00-0040401",
+      "full_name": "Gus Hartwig",
+      "birth_date": "2002-01-21",
+      "years_exp": 1,
+      "position": "OL",
+      "team": "NYJ",
+      "status": "PUP",
+      "depth_chart_position": "C",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
       "player_id": "00-0040404",
       "full_name": "Payton Page",
       "birth_date": "2002-09-27",
@@ -27334,6 +27346,18 @@
       "team": "TB",
       "status": "ACT",
       "depth_chart_position": "QB",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0040416",
+      "full_name": "John Bullock",
+      "birth_date": "2001-04-22",
+      "years_exp": 1,
+      "position": "LB",
+      "team": "TB",
+      "status": "ACT",
+      "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -27458,24 +27482,24 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040442",
-      "full_name": "Marques Cox",
-      "birth_date": "1999-12-28",
-      "years_exp": 1,
-      "position": "OL",
-      "team": "DEN",
-      "status": "ACT",
-      "depth_chart_position": "OT",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040443",
       "full_name": "Joaquin Davis",
       "birth_date": "2002-08-18",
       "years_exp": 1,
       "position": "WR",
       "team": "MIN",
+      "status": "ACT",
+      "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0040445",
+      "full_name": "Courtney Jackson",
+      "birth_date": "2001-03-13",
+      "years_exp": 1,
+      "position": "WR",
+      "team": "TEN",
       "status": "ACT",
       "depth_chart_position": "WR",
       "depth_chart_order": null,
@@ -33506,6 +33530,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0038456",
+      "full_name": "Travis Vokolek",
+      "birth_date": "1998-06-04",
+      "years_exp": 2,
+      "position": "TE",
+      "team": "ARI",
+      "status": "RES",
+      "depth_chart_position": "TE",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0038471",
       "full_name": "Kadeem Telfort",
       "birth_date": "1998-11-10",
@@ -33634,18 +33670,6 @@
       "team": "PHI",
       "status": "CUT",
       "depth_chart_position": "QB",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0038602",
-      "full_name": "Chris Smith II",
-      "birth_date": "2000-05-01",
-      "years_exp": 2,
-      "position": "DB",
-      "team": "NYJ",
-      "status": "ACT",
-      "depth_chart_position": "FS",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -33862,6 +33886,18 @@
       "team": "DET",
       "status": "CUT",
       "depth_chart_position": "OLB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0038693",
+      "full_name": "Garrett Nelson",
+      "birth_date": "2000-03-01",
+      "years_exp": 2,
+      "position": "DL",
+      "team": "DEN",
+      "status": "CUT",
+      "depth_chart_position": "DE",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -34438,18 +34474,6 @@
       "team": "CAR",
       "status": "CUT",
       "depth_chart_position": "RB",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0039313",
-      "full_name": "Swayze Bozeman",
-      "birth_date": "1998-11-02",
-      "years_exp": 1,
-      "position": "LB",
-      "team": "NYG",
-      "status": "DEV",
-      "depth_chart_position": "ILB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -35194,18 +35218,6 @@
       "team": "MIN",
       "status": "DEV",
       "depth_chart_position": "OLB",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0039764",
-      "full_name": "Elijah Chatman",
-      "birth_date": "2000-12-05",
-      "years_exp": 1,
-      "position": "DL",
-      "team": "NYG",
-      "status": "ACT",
-      "depth_chart_position": "DE",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -36158,6 +36170,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0040366",
+      "full_name": "Hal Presley",
+      "birth_date": "2002-01-22",
+      "years_exp": 0,
+      "position": "WR",
+      "team": "TEN",
+      "status": "DEV",
+      "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0040367",
       "full_name": "Rush Reimer",
       "birth_date": "",
@@ -36242,18 +36266,6 @@
       "season": 2025
     },
     {
-      "player_id": "00-0040401",
-      "full_name": "Gus Hartwig",
-      "birth_date": "2002-01-21",
-      "years_exp": 0,
-      "position": "OL",
-      "team": "NYJ",
-      "status": "RES",
-      "depth_chart_position": "C",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
       "player_id": "00-0040402",
       "full_name": "Dymere Miller",
       "birth_date": "",
@@ -36310,18 +36322,6 @@
       "team": "MIA",
       "status": "DEV",
       "depth_chart_position": "LB",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0040416",
-      "full_name": "John Bullock",
-      "birth_date": "2001-04-22",
-      "years_exp": 0,
-      "position": "LB",
-      "team": "TB",
-      "status": "CUT",
-      "depth_chart_position": "ILB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -36434,14 +36434,14 @@
       "season": 2025
     },
     {
-      "player_id": "00-0040445",
-      "full_name": "Courtney Jackson",
-      "birth_date": "2001-03-13",
+      "player_id": "00-0040442",
+      "full_name": "Marques Cox",
+      "birth_date": "1999-12-28",
       "years_exp": 0,
-      "position": "WR",
-      "team": "SEA",
+      "position": "OL",
+      "team": "ARI",
       "status": "DEV",
-      "depth_chart_position": "WR",
+      "depth_chart_position": "T",
       "depth_chart_order": null,
       "season": 2025
     },
