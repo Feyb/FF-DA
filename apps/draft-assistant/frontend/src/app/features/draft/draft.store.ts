@@ -560,6 +560,7 @@ export const DraftStore = signalStore(
       const contextModByPlayer = computed((): Map<string, number> => {
         const effMap = effScoreByPlayer();
         const schemeMap = schemeFitByPlayer();
+        const rookieMap = rookieScoreByPlayer();
         const picksMap = draftPicksMap();
         const mode = store.draftMode();
         const inputs: ContextModInputs[] = store.rows().map((row) => ({
@@ -570,6 +571,7 @@ export const DraftStore = signalStore(
           yearsExp: row.yearsExp,
           effScore: effMap.get(row.playerId) ?? null,
           schemeFit: schemeMap.get(row.playerId) ?? null,
+          rookieScore: rookieMap.get(row.playerId) ?? null,
         }));
         return buildContextModMap(inputs, mode);
       });

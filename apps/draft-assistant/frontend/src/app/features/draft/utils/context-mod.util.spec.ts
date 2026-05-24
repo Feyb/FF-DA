@@ -78,6 +78,43 @@ describe("context-mod.util", () => {
       );
       expect(dual).toBeGreaterThan(pocket);
     });
+
+    it("uses rookieScore instead of effScore for players with yearsExp ≤ 2", () => {
+      // rookieScore=1.5 (elite) should boost EffMult just like effScore=1.5
+      const withRookie = contextModFor(
+        base({ yearsExp: 1, effScore: null, rookieScore: 1.5 }),
+        "startup",
+      );
+      const withEff = contextModFor(
+        base({ yearsExp: 1, effScore: 1.5, rookieScore: null }),
+        "startup",
+      );
+      expect(withRookie).toBeCloseTo(withEff, 4);
+    });
+
+    it("ignores rookieScore for veterans (yearsExp > 2) and uses effScore", () => {
+      const veteran = contextModFor(
+        base({ yearsExp: 5, effScore: 1.5, rookieScore: -1.5 }),
+        "startup",
+      );
+      const veteranNoRookie = contextModFor(
+        base({ yearsExp: 5, effScore: 1.5, rookieScore: null }),
+        "startup",
+      );
+      expect(veteran).toBeCloseTo(veteranNoRookie, 4);
+    });
+
+    it("falls back to effScore when rookieScore is null for a rookie", () => {
+      const fallback = contextModFor(
+        base({ yearsExp: 0, effScore: 1.0, rookieScore: null }),
+        "startup",
+      );
+      const direct = contextModFor(
+        base({ yearsExp: 0, effScore: 1.0, rookieScore: undefined }),
+        "startup",
+      );
+      expect(fallback).toBeCloseTo(direct, 4);
+    });
   });
 
   describe("buildContextModMap", () => {

@@ -1,11 +1,12 @@
 /**
  * ContextMod — per-player multiplier combining age curve, NFL draft capital,
- * and efficiency score.
+ * and efficiency score (or rookie score for players with yearsExp ≤ 2).
  *
  * Formula (spec §3):
- *   ContextMod = AgeMult(age, pos, mode) × CapitalMult(round, yearsExp) × EffMult
- *   EffMult    = 1 + 0.15 · clamp(EffScore, -2, +2)   → [0.70, 1.30]
- *   SchemeFit  = 1 + 0.10 · fit                        → [0.90, 1.10] (Phase 3)
+ *   ContextMod = AgeMult(age, pos, mode) × CapitalMult(round, yearsExp) × EffMult × SchemeMult
+ *   EffMult    = 1 + 0.15 · clamp(score, -2, +2)   → [0.70, 1.30]
+ *     where score = rookieScore when yearsExp ≤ 2 && rookieScore != null, else effScore
+ *   SchemeFit  = 1 + 0.10 · fit                     → [0.90, 1.10]
  *
  * Used as a direct multiplier on BaseValue before NeedMultiplier in the WCS:
  *   WCS = BaseValue × ContextMod × NeedMultiplier × (1 + BoardStateAdj)
@@ -29,8 +30,13 @@ export interface ContextModInputs {
   isDualThreat?: boolean;
   /** Raw EffScore composite (from computeEffScores). Null = insufficient data. */
   effScore: number | null;
-  /** SchemeFit score in [-1, +1]. Null until Phase 3. */
+  /** SchemeFit score in [-1, +1]. Null = no team data. */
   schemeFit?: number | null;
+  /**
+   * Rookie Score composite on z-score scale ~[-1.5, +1.5].
+   * When non-null and yearsExp ≤ 2, replaces effScore in the EffMult term.
+   */
+  rookieScore?: number | null;
 }
 
 /**
@@ -40,8 +46,12 @@ export interface ContextModInputs {
 export function contextModFor(inputs: ContextModInputs, mode: DraftMode): number {
   const ageMult = getAgeMult(inputs.position, inputs.age, mode, inputs.isDualThreat ?? false);
   const capMult = getCapitalMult(inputs.position, inputs.nflRound, inputs.yearsExp);
-  const effMult = getEffMultiplier(inputs.effScore);
-  // SchemeFit stub: 1.0 until Phase 3 populates the OC tendency map.
+
+  // For players in their first two NFL seasons, prefer rookieScore over effScore.
+  const isRookie = inputs.yearsExp !== null && inputs.yearsExp <= 2;
+  const scoreForEff = isRookie && inputs.rookieScore != null ? inputs.rookieScore : inputs.effScore;
+  const effMult = getEffMultiplier(scoreForEff);
+
   const schemeMult =
     inputs.schemeFit !== null && inputs.schemeFit !== undefined
       ? 1 + 0.1 * Math.max(-1, Math.min(1, inputs.schemeFit))
