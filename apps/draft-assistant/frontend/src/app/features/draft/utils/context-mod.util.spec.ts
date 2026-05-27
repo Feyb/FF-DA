@@ -105,15 +105,17 @@ describe("context-mod.util", () => {
     });
 
     it("falls back to effScore when rookieScore is null for a rookie", () => {
-      const fallback = contextModFor(
+      // effMult = 1 + 0.15 * 1.0 = 1.15; should be applied when rookieScore is absent
+      const withEff = contextModFor(
         base({ yearsExp: 0, effScore: 1.0, rookieScore: null }),
         "startup",
       );
-      const direct = contextModFor(
-        base({ yearsExp: 0, effScore: 1.0, rookieScore: undefined }),
+      const noEff = contextModFor(
+        base({ yearsExp: 0, effScore: null, rookieScore: null }),
         "startup",
       );
-      expect(fallback).toBeCloseTo(direct, 4);
+      expect(withEff).toBeGreaterThan(noEff);
+      expect(withEff / noEff).toBeCloseTo(1.15, 2);
     });
   });
 

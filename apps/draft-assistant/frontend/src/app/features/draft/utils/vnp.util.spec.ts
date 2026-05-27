@@ -29,7 +29,7 @@ describe("vnp.util — computeVnp", () => {
     expect(result.get("p1")).toBeCloseTo(0, 4);
   });
 
-  it("returns positive VNP for the best player at a position", () => {
+  it("best player has VNP 0 (is its own expected best); lesser players have negative VNP proportional to the gap", () => {
     const players = [
       player({ playerId: "p1", projection: 90 }),
       player({ playerId: "p2", projection: 60 }),
