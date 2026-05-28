@@ -9,7 +9,7 @@
     "high": 1,
     "low": 3,
     "timesDrafted": 52,
-    "bye": 10
+    "bye": 6
   },
   {
     "playerName": "Saquon Barkley",
@@ -21,7 +21,7 @@
     "high": 1,
     "low": 3,
     "timesDrafted": 17,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Bijan Robinson",
@@ -33,7 +33,7 @@
     "high": 1,
     "low": 3,
     "timesDrafted": 58,
-    "bye": 5
+    "bye": 11
   },
   {
     "playerName": "Jahmyr Gibbs",
@@ -45,7 +45,7 @@
     "high": 1,
     "low": 8,
     "timesDrafted": 58,
-    "bye": 8
+    "bye": 6
   },
   {
     "playerName": "Derrick Henry",
@@ -57,7 +57,7 @@
     "high": 3,
     "low": 7,
     "timesDrafted": 15,
-    "bye": 7
+    "bye": 13
   },
   {
     "playerName": "Justin Jefferson",
@@ -81,7 +81,7 @@
     "high": 2,
     "low": 10,
     "timesDrafted": 64,
-    "bye": 10
+    "bye": 14
   },
   {
     "playerName": "Christian McCaffrey",
@@ -93,7 +93,7 @@
     "high": 3,
     "low": 11,
     "timesDrafted": 51,
-    "bye": 14
+    "bye": 8
   },
   {
     "playerName": "Ashton Jeanty",
@@ -105,7 +105,7 @@
     "high": 5,
     "low": 14,
     "timesDrafted": 55,
-    "bye": 8
+    "bye": 13
   },
   {
     "playerName": "Nico Collins",
@@ -117,7 +117,7 @@
     "high": 7,
     "low": 13,
     "timesDrafted": 34,
-    "bye": 6
+    "bye": 8
   },
   {
     "playerName": "Malik Nabers",
@@ -129,7 +129,7 @@
     "high": 6,
     "low": 16,
     "timesDrafted": 59,
-    "bye": 14
+    "bye": 8
   },
   {
     "playerName": "Josh Jacobs",
@@ -141,7 +141,7 @@
     "high": 8,
     "low": 15,
     "timesDrafted": 36,
-    "bye": 5
+    "bye": 11
   },
   {
     "playerName": "Puka Nacua",
@@ -153,7 +153,7 @@
     "high": 10,
     "low": 18,
     "timesDrafted": 24,
-    "bye": 8
+    "bye": 11
   },
   {
     "playerName": "De'Von Achane",
@@ -165,7 +165,7 @@
     "high": 10,
     "low": 19,
     "timesDrafted": 34,
-    "bye": 12
+    "bye": 6
   },
   {
     "playerName": "Jonathan Taylor",
@@ -177,7 +177,7 @@
     "high": 8,
     "low": 19,
     "timesDrafted": 31,
-    "bye": 11
+    "bye": 13
   },
   {
     "playerName": "Brian Thomas Jr.",
@@ -189,7 +189,7 @@
     "high": 12,
     "low": 20,
     "timesDrafted": 32,
-    "bye": 8
+    "bye": 7
   },
   {
     "playerName": "Amon-Ra St. Brown",
@@ -201,7 +201,7 @@
     "high": 9,
     "low": 22,
     "timesDrafted": 69,
-    "bye": 8
+    "bye": 6
   },
   {
     "playerName": "Drake London",
@@ -213,7 +213,7 @@
     "high": 11,
     "low": 22,
     "timesDrafted": 55,
-    "bye": 5
+    "bye": 11
   },
   {
     "playerName": "Kyren Williams",
@@ -225,7 +225,7 @@
     "high": 15,
     "low": 21,
     "timesDrafted": 26,
-    "bye": 8
+    "bye": 11
   },
   {
     "playerName": "Lamar Jackson",
@@ -237,7 +237,7 @@
     "high": 8,
     "low": 28,
     "timesDrafted": 32,
-    "bye": 7
+    "bye": 13
   },
   {
     "playerName": "Bucky Irving",
@@ -249,7 +249,7 @@
     "high": 10,
     "low": 24,
     "timesDrafted": 49,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Chase Brown",
@@ -261,7 +261,7 @@
     "high": 11,
     "low": 28,
     "timesDrafted": 106,
-    "bye": 10
+    "bye": 6
   },
   {
     "playerName": "A.J. Brown",
@@ -273,7 +273,7 @@
     "high": 16,
     "low": 26,
     "timesDrafted": 44,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Josh Allen",
@@ -297,7 +297,7 @@
     "high": 20,
     "low": 32,
     "timesDrafted": 17,
-    "bye": 10
+    "bye": 6
   },
   {
     "playerName": "Ladd McConkey",
@@ -309,7 +309,7 @@
     "high": 17,
     "low": 30,
     "timesDrafted": 35,
-    "bye": 12
+    "bye": 7
   },
   {
     "playerName": "Mike Evans",
@@ -321,7 +321,7 @@
     "high": 22,
     "low": 32,
     "timesDrafted": 12,
-    "bye": 14
+    "bye": 8
   },
   {
     "playerName": "Jayden Daniels",
@@ -333,10 +333,10 @@
     "high": 25,
     "low": 32,
     "timesDrafted": 37,
-    "bye": 12
+    "bye": 7
   },
   {
-    "playerName": "James Cook",
+    "playerName": "James Cook III",
     "position": "RB",
     "team": "BUF",
     "adp": 29,
@@ -357,7 +357,7 @@
     "high": 19,
     "low": 37,
     "timesDrafted": 32,
-    "bye": 10
+    "bye": 6
   },
   {
     "playerName": "Davante Adams",
@@ -369,7 +369,7 @@
     "high": 27,
     "low": 38,
     "timesDrafted": 21,
-    "bye": 8
+    "bye": 11
   },
   {
     "playerName": "Tyreek Hill",
@@ -393,7 +393,7 @@
     "high": 27,
     "low": 42,
     "timesDrafted": 14,
-    "bye": 5
+    "bye": 9
   },
   {
     "playerName": "Brock Bowers",
@@ -405,7 +405,7 @@
     "high": 13,
     "low": 49,
     "timesDrafted": 109,
-    "bye": 8
+    "bye": 13
   },
   {
     "playerName": "Omarion Hampton",
@@ -417,7 +417,7 @@
     "high": 19,
     "low": 47,
     "timesDrafted": 114,
-    "bye": 12
+    "bye": 7
   },
   {
     "playerName": "Terry McLaurin",
@@ -429,7 +429,7 @@
     "high": 28,
     "low": 43,
     "timesDrafted": 32,
-    "bye": 12
+    "bye": 7
   },
   {
     "playerName": "Chuba Hubbard",
@@ -441,7 +441,7 @@
     "high": 25,
     "low": 41,
     "timesDrafted": 32,
-    "bye": 14
+    "bye": 5
   },
   {
     "playerName": "Marvin Harrison Jr.",
@@ -453,7 +453,7 @@
     "high": 30,
     "low": 43,
     "timesDrafted": 28,
-    "bye": 8
+    "bye": 14
   },
   {
     "playerName": "James Conner",
@@ -465,7 +465,7 @@
     "high": 26,
     "low": 43,
     "timesDrafted": 27,
-    "bye": 8
+    "bye": 14
   },
   {
     "playerName": "Jalen Hurts",
@@ -477,7 +477,7 @@
     "high": 26,
     "low": 47,
     "timesDrafted": 54,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Alvin Kamara",
@@ -489,7 +489,7 @@
     "high": 25,
     "low": 46,
     "timesDrafted": 32,
-    "bye": 11
+    "bye": 8
   },
   {
     "playerName": "Jaxon Smith-Njigba",
@@ -501,7 +501,7 @@
     "high": 27,
     "low": 48,
     "timesDrafted": 57,
-    "bye": 8
+    "bye": 11
   },
   {
     "playerName": "Trey McBride",
@@ -513,7 +513,7 @@
     "high": 17,
     "low": 54,
     "timesDrafted": 56,
-    "bye": 8
+    "bye": 14
   },
   {
     "playerName": "Garrett Wilson",
@@ -525,7 +525,7 @@
     "high": 26,
     "low": 51,
     "timesDrafted": 27,
-    "bye": 9
+    "bye": 13
   },
   {
     "playerName": "Kenneth Walker III",
@@ -537,7 +537,7 @@
     "high": 26,
     "low": 56,
     "timesDrafted": 73,
-    "bye": 10
+    "bye": 5
   },
   {
     "playerName": "DJ Moore",
@@ -561,7 +561,7 @@
     "high": 39,
     "low": 60,
     "timesDrafted": 15,
-    "bye": 10
+    "bye": 5
   },
   {
     "playerName": "Tetairoa McMillan",
@@ -573,7 +573,7 @@
     "high": 38,
     "low": 59,
     "timesDrafted": 31,
-    "bye": 14
+    "bye": 5
   },
   {
     "playerName": "TreVeyon Henderson",
@@ -585,7 +585,7 @@
     "high": 33,
     "low": 58,
     "timesDrafted": 99,
-    "bye": 14
+    "bye": 11
   },
   {
     "playerName": "DeVonta Smith",
@@ -597,7 +597,7 @@
     "high": 43,
     "low": 54,
     "timesDrafted": 16,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Breece Hall",
@@ -609,7 +609,7 @@
     "high": 39,
     "low": 57,
     "timesDrafted": 29,
-    "bye": 9
+    "bye": 13
   },
   {
     "playerName": "Courtland Sutton",
@@ -621,7 +621,7 @@
     "high": 36,
     "low": 61,
     "timesDrafted": 65,
-    "bye": 12
+    "bye": 10
   },
   {
     "playerName": "George Kittle",
@@ -633,7 +633,7 @@
     "high": 42,
     "low": 58,
     "timesDrafted": 34,
-    "bye": 14
+    "bye": 8
   },
   {
     "playerName": "Baker Mayfield",
@@ -645,7 +645,7 @@
     "high": 32,
     "low": 67,
     "timesDrafted": 17,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Jameson Williams",
@@ -657,7 +657,7 @@
     "high": 47,
     "low": 65,
     "timesDrafted": 38,
-    "bye": 8
+    "bye": 6
   },
   {
     "playerName": "Patrick Mahomes",
@@ -669,7 +669,7 @@
     "high": 38,
     "low": 62,
     "timesDrafted": 18,
-    "bye": 10
+    "bye": 5
   },
   {
     "playerName": "Tony Pollard",
@@ -681,7 +681,7 @@
     "high": 49,
     "low": 66,
     "timesDrafted": 28,
-    "bye": 10
+    "bye": 9
   },
   {
     "playerName": "Calvin Ridley",
@@ -693,7 +693,7 @@
     "high": 49,
     "low": 70,
     "timesDrafted": 55,
-    "bye": 10
+    "bye": 9
   },
   {
     "playerName": "D'Andre Swift",
@@ -705,7 +705,7 @@
     "high": 46,
     "low": 66,
     "timesDrafted": 50,
-    "bye": 5
+    "bye": 10
   },
   {
     "playerName": "David Montgomery",
@@ -717,7 +717,7 @@
     "high": 42,
     "low": 67,
     "timesDrafted": 17,
-    "bye": 6
+    "bye": 8
   },
   {
     "playerName": "RJ Harvey",
@@ -729,7 +729,7 @@
     "high": 47,
     "low": 71,
     "timesDrafted": 55,
-    "bye": 12
+    "bye": 10
   },
   {
     "playerName": "George Pickens",
@@ -741,7 +741,7 @@
     "high": 50,
     "low": 71,
     "timesDrafted": 74,
-    "bye": 10
+    "bye": 14
   },
   {
     "playerName": "Jerry Jeudy",
@@ -753,7 +753,7 @@
     "high": 49,
     "low": 73,
     "timesDrafted": 18,
-    "bye": 9
+    "bye": 11
   },
   {
     "playerName": "Zay Flowers",
@@ -765,7 +765,7 @@
     "high": 58,
     "low": 80,
     "timesDrafted": 28,
-    "bye": 7
+    "bye": 13
   },
   {
     "playerName": "Isiah Pacheco",
@@ -777,7 +777,7 @@
     "high": 51,
     "low": 71,
     "timesDrafted": 39,
-    "bye": 8
+    "bye": 6
   },
   {
     "playerName": "Aaron Jones Sr.",
@@ -801,7 +801,7 @@
     "high": 57,
     "low": 82,
     "timesDrafted": 32,
-    "bye": 12
+    "bye": 10
   },
   {
     "playerName": "Kaleb Johnson",
@@ -813,7 +813,7 @@
     "high": 61,
     "low": 77,
     "timesDrafted": 11,
-    "bye": 5
+    "bye": 9
   },
   {
     "playerName": "Deebo Samuel Sr.",
@@ -837,7 +837,7 @@
     "high": 54,
     "low": 79,
     "timesDrafted": 34,
-    "bye": 8
+    "bye": 6
   },
   {
     "playerName": "Bo Nix",
@@ -849,7 +849,7 @@
     "high": 53,
     "low": 90,
     "timesDrafted": 34,
-    "bye": 12
+    "bye": 10
   },
   {
     "playerName": "Tyrone Tracy Jr.",
@@ -861,7 +861,19 @@
     "high": 64,
     "low": 80,
     "timesDrafted": 12,
-    "bye": 14
+    "bye": 8
+  },
+  {
+    "playerName": "Travis Hunter",
+    "position": "WR",
+    "team": "JAX",
+    "adp": 71.4,
+    "adpFormatted": "6.11",
+    "stdev": 6.5,
+    "high": 57,
+    "low": 88,
+    "timesDrafted": 33,
+    "bye": 7
   },
   {
     "playerName": "Matthew Golden",
@@ -873,7 +885,7 @@
     "high": 60,
     "low": 89,
     "timesDrafted": 74,
-    "bye": 5
+    "bye": 11
   },
   {
     "playerName": "Chris Olave",
@@ -885,7 +897,7 @@
     "high": 58,
     "low": 83,
     "timesDrafted": 18,
-    "bye": 11
+    "bye": 8
   },
   {
     "playerName": "Travis Kelce",
@@ -897,7 +909,7 @@
     "high": 61,
     "low": 80,
     "timesDrafted": 11,
-    "bye": 10
+    "bye": 5
   },
   {
     "playerName": "Ricky Pearsall",
@@ -909,7 +921,7 @@
     "high": 53,
     "low": 92,
     "timesDrafted": 99,
-    "bye": 14
+    "bye": 8
   },
   {
     "playerName": "Jakobi Meyers",
@@ -921,7 +933,7 @@
     "high": 64,
     "low": 88,
     "timesDrafted": 21,
-    "bye": 8
+    "bye": 7
   },
   {
     "playerName": "Jaylen Warren",
@@ -933,7 +945,7 @@
     "high": 63,
     "low": 94,
     "timesDrafted": 25,
-    "bye": 5
+    "bye": 9
   },
   {
     "playerName": "Rome Odunze",
@@ -945,7 +957,7 @@
     "high": 65,
     "low": 94,
     "timesDrafted": 49,
-    "bye": 5
+    "bye": 10
   },
   {
     "playerName": "Emeka Egbuka",
@@ -957,7 +969,7 @@
     "high": 63,
     "low": 95,
     "timesDrafted": 117,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Jauan Jennings",
@@ -993,7 +1005,7 @@
     "high": 69,
     "low": 105,
     "timesDrafted": 19,
-    "bye": 7
+    "bye": 13
   },
   {
     "playerName": "Austin Ekeler",
@@ -1017,7 +1029,7 @@
     "high": 52,
     "low": 114,
     "timesDrafted": 53,
-    "bye": 10
+    "bye": 14
   },
   {
     "playerName": "Kyler Murray",
@@ -1041,7 +1053,7 @@
     "high": 62,
     "low": 117,
     "timesDrafted": 35,
-    "bye": 12
+    "bye": 10
   },
   {
     "playerName": "Khalil Shakir",
@@ -1089,7 +1101,7 @@
     "high": 82,
     "low": 108,
     "timesDrafted": 27,
-    "bye": 8
+    "bye": 11
   },
   {
     "playerName": "Jared Goff",
@@ -1101,7 +1113,7 @@
     "high": 61,
     "low": 109,
     "timesDrafted": 33,
-    "bye": 8
+    "bye": 6
   },
   {
     "playerName": "Rashee Rice",
@@ -1113,7 +1125,7 @@
     "high": 74,
     "low": 113,
     "timesDrafted": 66,
-    "bye": 10
+    "bye": 5
   },
   {
     "playerName": "Zach Charbonnet",
@@ -1125,7 +1137,7 @@
     "high": 74,
     "low": 122,
     "timesDrafted": 48,
-    "bye": 8
+    "bye": 11
   },
   {
     "playerName": "Jordan Addison",
@@ -1149,7 +1161,7 @@
     "high": 73,
     "low": 139,
     "timesDrafted": 57,
-    "bye": 11
+    "bye": 13
   },
   {
     "playerName": "Caleb Williams",
@@ -1161,7 +1173,7 @@
     "high": 84,
     "low": 112,
     "timesDrafted": 16,
-    "bye": 5
+    "bye": 10
   },
   {
     "playerName": "Jacory Croskey-Merritt",
@@ -1173,7 +1185,7 @@
     "high": 73,
     "low": 127,
     "timesDrafted": 64,
-    "bye": 12
+    "bye": 7
   },
   {
     "playerName": "Chris Godwin Jr.",
@@ -1185,7 +1197,7 @@
     "high": 87,
     "low": 117,
     "timesDrafted": 13,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Tucker Kraft",
@@ -1197,7 +1209,7 @@
     "high": 80,
     "low": 140,
     "timesDrafted": 21,
-    "bye": 5
+    "bye": 11
   },
   {
     "playerName": "Evan Engram",
@@ -1209,7 +1221,7 @@
     "high": 80,
     "low": 155,
     "timesDrafted": 53,
-    "bye": 12
+    "bye": 10
   },
   {
     "playerName": "Justin Herbert",
@@ -1221,7 +1233,7 @@
     "high": 89,
     "low": 131,
     "timesDrafted": 19,
-    "bye": 12
+    "bye": 7
   },
   {
     "playerName": "Travis Etienne Jr.",
@@ -1233,7 +1245,7 @@
     "high": 83,
     "low": 137,
     "timesDrafted": 33,
-    "bye": 11
+    "bye": 8
   },
   {
     "playerName": "Christian Kirk",
@@ -1245,7 +1257,7 @@
     "high": 94,
     "low": 125,
     "timesDrafted": 15,
-    "bye": 14
+    "bye": 8
   },
   {
     "playerName": "Denver Defense",
@@ -1257,7 +1269,7 @@
     "high": 96,
     "low": 126,
     "timesDrafted": 18,
-    "bye": 12
+    "bye": 10
   },
   {
     "playerName": "J.J. McCarthy",
@@ -1281,7 +1293,7 @@
     "high": 86,
     "low": 144,
     "timesDrafted": 33,
-    "bye": 10
+    "bye": 14
   },
   {
     "playerName": "Marvin Mims Jr.",
@@ -1293,7 +1305,7 @@
     "high": 91,
     "low": 145,
     "timesDrafted": 27,
-    "bye": 12
+    "bye": 10
   },
   {
     "playerName": "Justin Fields",
@@ -1305,7 +1317,7 @@
     "high": 96,
     "low": 132,
     "timesDrafted": 33,
-    "bye": 10
+    "bye": 5
   },
   {
     "playerName": "Philadelphia Defense",
@@ -1317,7 +1329,7 @@
     "high": 100,
     "low": 130,
     "timesDrafted": 13,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Drake Maye",
@@ -1329,7 +1341,7 @@
     "high": 90,
     "low": 132,
     "timesDrafted": 30,
-    "bye": 14
+    "bye": 11
   },
   {
     "playerName": "Keenan Allen",
@@ -1353,7 +1365,7 @@
     "high": 73,
     "low": 161,
     "timesDrafted": 27,
-    "bye": 10
+    "bye": 14
   },
   {
     "playerName": "Baltimore Defense",
@@ -1365,7 +1377,7 @@
     "high": 91,
     "low": 141,
     "timesDrafted": 10,
-    "bye": 7
+    "bye": 13
   },
   {
     "playerName": "Jayden Higgins",
@@ -1377,7 +1389,7 @@
     "high": 96,
     "low": 147,
     "timesDrafted": 22,
-    "bye": 6
+    "bye": 8
   },
   {
     "playerName": "Rhamondre Stevenson",
@@ -1389,7 +1401,7 @@
     "high": 101,
     "low": 145,
     "timesDrafted": 16,
-    "bye": 14
+    "bye": 11
   },
   {
     "playerName": "C.J. Stroud",
@@ -1401,7 +1413,7 @@
     "high": 87,
     "low": 149,
     "timesDrafted": 24,
-    "bye": 6
+    "bye": 8
   },
   {
     "playerName": "Quinshon Judkins",
@@ -1413,7 +1425,7 @@
     "high": 87,
     "low": 150,
     "timesDrafted": 33,
-    "bye": 9
+    "bye": 11
   },
   {
     "playerName": "Jordan Love",
@@ -1425,7 +1437,7 @@
     "high": 97,
     "low": 147,
     "timesDrafted": 33,
-    "bye": 5
+    "bye": 11
   },
   {
     "playerName": "Pittsburgh Defense",
@@ -1437,7 +1449,7 @@
     "high": 114,
     "low": 132,
     "timesDrafted": 13,
-    "bye": 5
+    "bye": 9
   },
   {
     "playerName": "Tank Bigsby",
@@ -1449,7 +1461,7 @@
     "high": 84,
     "low": 155,
     "timesDrafted": 24,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Green Bay Defense",
@@ -1461,7 +1473,7 @@
     "high": 112,
     "low": 156,
     "timesDrafted": 13,
-    "bye": 5
+    "bye": 11
   },
   {
     "playerName": "Brandon Aubrey",
@@ -1473,7 +1485,7 @@
     "high": 83,
     "low": 160,
     "timesDrafted": 45,
-    "bye": 10
+    "bye": 14
   },
   {
     "playerName": "Cam Skattebo",
@@ -1485,7 +1497,7 @@
     "high": 95,
     "low": 161,
     "timesDrafted": 36,
-    "bye": 14
+    "bye": 8
   },
   {
     "playerName": "Dallas Goedert",
@@ -1497,7 +1509,7 @@
     "high": 81,
     "low": 168,
     "timesDrafted": 10,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Jerome Ford",
@@ -1509,7 +1521,7 @@
     "high": 118,
     "low": 158,
     "timesDrafted": 10,
-    "bye": 12
+    "bye": 7
   },
   {
     "playerName": "Nick Chubb",
@@ -1557,7 +1569,7 @@
     "high": 120,
     "low": 165,
     "timesDrafted": 20,
-    "bye": 14
+    "bye": 8
   },
   {
     "playerName": "Houston Defense",
@@ -1569,7 +1581,7 @@
     "high": 113,
     "low": 175,
     "timesDrafted": 19,
-    "bye": 6
+    "bye": 8
   },
   {
     "playerName": "Chase McLaughlin",
@@ -1581,7 +1593,7 @@
     "high": 108,
     "low": 164,
     "timesDrafted": 10,
-    "bye": 9
+    "bye": 10
   },
   {
     "playerName": "Trey Benson",
@@ -1593,7 +1605,7 @@
     "high": 115,
     "low": 164,
     "timesDrafted": 17,
-    "bye": 8
+    "bye": 14
   },
   {
     "playerName": "Minnesota Defense",
@@ -1617,7 +1629,7 @@
     "high": 111,
     "low": 174,
     "timesDrafted": 22,
-    "bye": 12
+    "bye": 6
   },
   {
     "playerName": "Colston Loveland",
@@ -1629,7 +1641,7 @@
     "high": 98,
     "low": 179,
     "timesDrafted": 19,
-    "bye": 5
+    "bye": 10
   },
   {
     "playerName": "Braelon Allen",
@@ -1641,7 +1653,7 @@
     "high": 99,
     "low": 180,
     "timesDrafted": 28,
-    "bye": 9
+    "bye": 13
   },
   {
     "playerName": "LA Rams Defense",
@@ -1653,7 +1665,7 @@
     "high": 132,
     "low": 174,
     "timesDrafted": 11,
-    "bye": 8
+    "bye": 11
   },
   {
     "playerName": "Kyle Pitts Sr.",
@@ -1665,7 +1677,7 @@
     "high": 108,
     "low": 176,
     "timesDrafted": 16,
-    "bye": 5
+    "bye": 11
   },
   {
     "playerName": "Jaydon Blue",
@@ -1677,7 +1689,7 @@
     "high": 117,
     "low": 176,
     "timesDrafted": 21,
-    "bye": 10
+    "bye": 14
   },
   {
     "playerName": "Dylan Sampson",
@@ -1689,7 +1701,7 @@
     "high": 110,
     "low": 177,
     "timesDrafted": 13,
-    "bye": 9
+    "bye": 11
   },
   {
     "playerName": "Adam Thielen",
@@ -1713,6 +1725,6 @@
     "high": 127,
     "low": 180,
     "timesDrafted": 13,
-    "bye": 14
+    "bye": 8
   }
 ]

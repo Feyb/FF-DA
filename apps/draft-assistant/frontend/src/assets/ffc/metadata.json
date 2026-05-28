@@ -1,12 +1,12 @@
 {
   "source": "fantasyfootballcalculator.com",
-  "generatedAt": "2026-05-18T10:44:52.849Z",
+  "generatedAt": "2026-05-28T08:45:23.715Z",
   "year": "2026",
   "teams": "12",
   "formats": {
     "half-ppr": {
       "output": "adp-half-ppr-12team.json",
-      "count": 143,
+      "count": 144,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/half-ppr?teams=12&year=2026",
       "meta": {
         "type": "Half-PPR",
@@ -19,7 +19,7 @@
     },
     "ppr": {
       "output": "adp-ppr-12team.json",
-      "count": 170,
+      "count": 171,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/ppr?teams=12&year=2026",
       "meta": {
         "type": "PPR",
@@ -32,7 +32,7 @@
     },
     "standard": {
       "output": "adp-standard-12team.json",
-      "count": 146,
+      "count": 147,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/standard?teams=12&year=2026",
       "meta": {
         "type": "Non-PPR",
