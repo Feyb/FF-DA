@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, input } from "@angular/core";
-import { CommonModule } from "@angular/common";
 
 /** Threshold above which the divergence bar is shown. */
 const DIVERGENCE_BAR_THRESHOLD = 1.5;
@@ -9,7 +8,7 @@ const DIVERGENCE_BAR_THRESHOLD = 1.5;
   templateUrl: "./pick-explanation.component.html",
   styleUrl: "./pick-explanation.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule],
+  imports: [],
 })
 export class PickExplanationComponent {
   /** Joined explanation string from generateExplanation() — clauses separated by " • ". */

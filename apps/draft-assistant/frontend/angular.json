@@ -60,8 +60,7 @@
               ],
               "outputHashing": "all",
               "baseHref": "/FF-DA/",
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
+              "serviceWorker": "ngsw-config.json"
             },
             "development": {
               "optimization": false,

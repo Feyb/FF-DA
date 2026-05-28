@@ -35,27 +35,27 @@
     "fmt:check": "oxfmt --check ."
   },
   "dependencies": {
-    "@angular/animations": "^20.0.0",
-    "@angular/cdk": "^20.0.0",
-    "@angular/common": "^20.0.0",
-    "@angular/compiler": "^20.0.0",
-    "@angular/core": "^20.0.0",
-    "@angular/forms": "^20.0.0",
-    "@angular/material": "^20.0.0",
-    "@angular/platform-browser": "^20.0.0",
-    "@angular/platform-browser-dynamic": "^20.0.0",
-    "@angular/router": "^20.0.0",
-    "@angular/service-worker": "^20.3.18",
-    "@ngrx/operators": "^20.0.0",
-    "@ngrx/signals": "^20.0.0",
+    "@angular/animations": "^21.2.14",
+    "@angular/cdk": "^21.2.13",
+    "@angular/common": "^21.2.14",
+    "@angular/compiler": "^21.2.14",
+    "@angular/core": "^21.2.14",
+    "@angular/forms": "^21.2.14",
+    "@angular/material": "^21.2.13",
+    "@angular/platform-browser": "^21.2.14",
+    "@angular/platform-browser-dynamic": "^21.2.14",
+    "@angular/router": "^21.2.14",
+    "@angular/service-worker": "^21.2.14",
+    "@ngrx/operators": "^21.1.0",
+    "@ngrx/signals": "^21.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.16.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^20.0.0",
-    "@angular/cli": "^20.0.0",
-    "@angular/compiler-cli": "^20.0.0",
+    "@angular-devkit/build-angular": "^21.2.13",
+    "@angular/cli": "^21.2.13",
+    "@angular/compiler-cli": "^21.2.14",
     "@types/jasmine": "~5.1.0",
     "angular-cli-ghpages": "^2.0.2",
     "autoprefixer": "^10.4.0",
@@ -69,6 +69,6 @@
     "oxlint": "^1.15.0",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.0",
-    "typescript": "~5.8.0"
+    "typescript": "~5.9.3"
   }
 }
