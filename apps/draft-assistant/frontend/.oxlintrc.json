@@ -9,7 +9,7 @@
     "correctness": "error",
     "suspicious": "off"
   },
-  "ignorePatterns": ["dist/**", ".angular/**", "coverage/**", "src/assets/**/*.json"],
+  "ignorePatterns": ["dist/**", ".angular/**", "coverage/**"],
   "overrides": [
     {
       "files": ["**/*.spec.ts", "**/*.test.ts"],
