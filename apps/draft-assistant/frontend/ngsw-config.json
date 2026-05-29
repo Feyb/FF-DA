@@ -1,0 +1,39 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app-shell",
+      "installMode": "prefetch",
+      "resources": {
+        "files": ["/index.html", "/manifest.webmanifest", "/*.css", "/*.js"]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": ["/assets/icons/**", "/assets/favicon.png", "/assets/logo.png"],
+        "urls": ["https://fonts.googleapis.com/**", "https://fonts.gstatic.com/**"]
+      }
+    },
+    {
+      "name": "ranking-data",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/flock/**",
+          "/assets/ffc/**",
+          "/assets/fantasypros/**",
+          "/assets/fantasycalc/**",
+          "/assets/ktc/**",
+          "/assets/sleeper-stats/**",
+          "/assets/cfbd/**",
+          "/assets/nflverse/**"
+        ]
+      }
+    }
+  ]
+}

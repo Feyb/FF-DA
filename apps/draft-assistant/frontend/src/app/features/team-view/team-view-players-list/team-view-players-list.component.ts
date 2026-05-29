@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from "@angular/core";
-import { CommonModule } from "@angular/common";
+
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { PLAYER_FALLBACK_IMAGE } from "../../../core/constants/images.constants";
@@ -19,7 +19,7 @@ interface PlayerGroup {
   templateUrl: "./team-view-players-list.component.html",
   styleUrl: "./team-view-players-list.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatButtonModule, MatIconModule, PlayerDetailsGridComponent],
+  imports: [MatButtonModule, MatIconModule, PlayerDetailsGridComponent],
 })
 export class TeamViewPlayersListComponent {
   readonly sectionTitle = input.required<string>();

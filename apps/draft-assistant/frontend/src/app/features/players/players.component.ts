@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from "@angular/core";
-import { CommonModule } from "@angular/common";
+
 import { FormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
@@ -67,7 +67,6 @@ interface PlayersStoreView {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [PlayersStore],
   imports: [
-    CommonModule,
     FormsModule,
     MatButtonModule,
     MatCardModule,

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from "@angular/core";
-import { CommonModule } from "@angular/common";
+
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -23,7 +23,6 @@ import { TeamViewStandingsPanelComponent } from "./team-view-standings-panel/tea
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [TeamViewStore],
   imports: [
-    CommonModule,
     MatListModule,
     MatButtonModule,
     MatFormFieldModule,
