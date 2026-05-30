@@ -1,0 +1,28 @@
+@if (visible()) {
+  <div class="pwa-banner" role="banner" aria-label="Install app">
+    <img
+      class="pwa-banner-icon"
+      src="assets/icons/icon-96x96.png"
+      alt="Draft Assistant icon"
+      width="48"
+      height="48"
+    />
+    <div class="pwa-banner-text">
+      <span class="pwa-banner-title">Install Draft Assistant</span>
+      @if (isIos()) {
+        <span class="pwa-banner-sub">
+          Tap <mat-icon class="pwa-banner-inline-icon">ios_share</mat-icon> then
+          <strong>Add to Home Screen</strong>
+        </span>
+      } @else {
+        <span class="pwa-banner-sub">Add to your home screen for the best experience</span>
+      }
+    </div>
+    @if (!isIos()) {
+      <button mat-flat-button class="pwa-banner-install-btn" (click)="install()">Install</button>
+    }
+    <button mat-icon-button class="pwa-banner-close" aria-label="Dismiss" (click)="dismiss()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+}
