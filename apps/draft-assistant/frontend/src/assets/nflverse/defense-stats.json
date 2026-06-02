@@ -1,0 +1,1576 @@
+{
+  "generatedAt": "2026-06-02T10:58:51.104Z",
+  "currentSeason": 2024,
+  "teams": {
+    "BUF": {
+      "QB": {
+        "curAvgPts": 15.7,
+        "curGames": 17,
+        "curRank": 25,
+        "prevAvgPts": 13.9,
+        "prevRank": 28
+      },
+      "RB": {
+        "curAvgPts": 25.3,
+        "curGames": 17,
+        "curRank": 4,
+        "prevAvgPts": 20.8,
+        "prevRank": 16
+      },
+      "WR": {
+        "curAvgPts": 33.3,
+        "curGames": 17,
+        "curRank": 15,
+        "prevAvgPts": 30,
+        "prevRank": 26
+      },
+      "TE": {
+        "curAvgPts": 12.5,
+        "curGames": 17,
+        "curRank": 14,
+        "prevAvgPts": 10.4,
+        "prevRank": 28
+      }
+    },
+    "DEN": {
+      "QB": {
+        "curAvgPts": 15.7,
+        "curGames": 17,
+        "curRank": 23,
+        "prevAvgPts": 17.1,
+        "prevRank": 12
+      },
+      "RB": {
+        "curAvgPts": 20.8,
+        "curGames": 17,
+        "curRank": 21,
+        "prevAvgPts": 26.7,
+        "prevRank": 2
+      },
+      "WR": {
+        "curAvgPts": 31.6,
+        "curGames": 17,
+        "curRank": 24,
+        "prevAvgPts": 31.9,
+        "prevRank": 21
+      },
+      "TE": {
+        "curAvgPts": 11.9,
+        "curGames": 17,
+        "curRank": 18,
+        "prevAvgPts": 15.7,
+        "prevRank": 1
+      }
+    },
+    "LV": {
+      "QB": {
+        "curAvgPts": 17.8,
+        "curGames": 17,
+        "curRank": 8,
+        "prevAvgPts": 14.6,
+        "prevRank": 21
+      },
+      "RB": {
+        "curAvgPts": 21.7,
+        "curGames": 17,
+        "curRank": 16,
+        "prevAvgPts": 22.9,
+        "prevRank": 9
+      },
+      "WR": {
+        "curAvgPts": 31.9,
+        "curGames": 17,
+        "curRank": 23,
+        "prevAvgPts": 32,
+        "prevRank": 20
+      },
+      "TE": {
+        "curAvgPts": 15.5,
+        "curGames": 17,
+        "curRank": 2,
+        "prevAvgPts": 11.2,
+        "prevRank": 22
+      }
+    },
+    "DET": {
+      "QB": {
+        "curAvgPts": 17.5,
+        "curGames": 17,
+        "curRank": 11,
+        "prevAvgPts": 18.6,
+        "prevRank": 5
+      },
+      "RB": {
+        "curAvgPts": 18.4,
+        "curGames": 17,
+        "curRank": 30,
+        "prevAvgPts": 15.4,
+        "prevRank": 32
+      },
+      "WR": {
+        "curAvgPts": 37.2,
+        "curGames": 17,
+        "curRank": 3,
+        "prevAvgPts": 39.9,
+        "prevRank": 3
+      },
+      "TE": {
+        "curAvgPts": 8.8,
+        "curGames": 17,
+        "curRank": 32,
+        "prevAvgPts": 13.4,
+        "prevRank": 8
+      }
+    },
+    "ARI": {
+      "QB": {
+        "curAvgPts": 16.4,
+        "curGames": 17,
+        "curRank": 17,
+        "prevAvgPts": 18.9,
+        "prevRank": 4
+      },
+      "RB": {
+        "curAvgPts": 22.9,
+        "curGames": 17,
+        "curRank": 12,
+        "prevAvgPts": 27.1,
+        "prevRank": 1
+      },
+      "WR": {
+        "curAvgPts": 32.4,
+        "curGames": 17,
+        "curRank": 21,
+        "prevAvgPts": 32.7,
+        "prevRank": 16
+      },
+      "TE": {
+        "curAvgPts": 9.8,
+        "curGames": 17,
+        "curRank": 28,
+        "prevAvgPts": 11.9,
+        "prevRank": 18
+      }
+    },
+    "LA": {
+      "QB": {
+        "curAvgPts": 17.5,
+        "curGames": 17,
+        "curRank": 10,
+        "prevAvgPts": 18.9,
+        "prevRank": 3
+      },
+      "RB": {
+        "curAvgPts": 20.9,
+        "curGames": 17,
+        "curRank": 20,
+        "prevAvgPts": 16.6,
+        "prevRank": 31
+      },
+      "WR": {
+        "curAvgPts": 32.8,
+        "curGames": 17,
+        "curRank": 18,
+        "prevAvgPts": 36.2,
+        "prevRank": 8
+      },
+      "TE": {
+        "curAvgPts": 15.2,
+        "curGames": 17,
+        "curRank": 3,
+        "prevAvgPts": 13.5,
+        "prevRank": 7
+      }
+    },
+    "JAX": {
+      "QB": {
+        "curAvgPts": 20.1,
+        "curGames": 17,
+        "curRank": 3,
+        "prevAvgPts": 17.8,
+        "prevRank": 7
+      },
+      "RB": {
+        "curAvgPts": 26.7,
+        "curGames": 17,
+        "curRank": 2,
+        "prevAvgPts": 21.7,
+        "prevRank": 12
+      },
+      "WR": {
+        "curAvgPts": 37,
+        "curGames": 17,
+        "curRank": 4,
+        "prevAvgPts": 35.3,
+        "prevRank": 12
+      },
+      "TE": {
+        "curAvgPts": 13.5,
+        "curGames": 17,
+        "curRank": 10,
+        "prevAvgPts": 12.4,
+        "prevRank": 15
+      }
+    },
+    "CHI": {
+      "QB": {
+        "curAvgPts": 13.2,
+        "curGames": 17,
+        "curRank": 32,
+        "prevAvgPts": 15.8,
+        "prevRank": 16
+      },
+      "RB": {
+        "curAvgPts": 25.1,
+        "curGames": 17,
+        "curRank": 5,
+        "prevAvgPts": 23.8,
+        "prevRank": 8
+      },
+      "WR": {
+        "curAvgPts": 28.9,
+        "curGames": 17,
+        "curRank": 32,
+        "prevAvgPts": 32.3,
+        "prevRank": 18
+      },
+      "TE": {
+        "curAvgPts": 12.3,
+        "curGames": 17,
+        "curRank": 17,
+        "prevAvgPts": 13.8,
+        "prevRank": 5
+      }
+    },
+    "HOU": {
+      "QB": {
+        "curAvgPts": 16.9,
+        "curGames": 17,
+        "curRank": 15,
+        "prevAvgPts": 16.8,
+        "prevRank": 13
+      },
+      "RB": {
+        "curAvgPts": 18.7,
+        "curGames": 17,
+        "curRank": 27,
+        "prevAvgPts": 20.4,
+        "prevRank": 17
+      },
+      "WR": {
+        "curAvgPts": 34,
+        "curGames": 17,
+        "curRank": 11,
+        "prevAvgPts": 31.7,
+        "prevRank": 22
+      },
+      "TE": {
+        "curAvgPts": 11.3,
+        "curGames": 17,
+        "curRank": 23,
+        "prevAvgPts": 14,
+        "prevRank": 4
+      }
+    },
+    "NYJ": {
+      "QB": {
+        "curAvgPts": 16.2,
+        "curGames": 17,
+        "curRank": 19,
+        "prevAvgPts": 12.3,
+        "prevRank": 32
+      },
+      "RB": {
+        "curAvgPts": 19.3,
+        "curGames": 17,
+        "curRank": 25,
+        "prevAvgPts": 24.5,
+        "prevRank": 7
+      },
+      "WR": {
+        "curAvgPts": 30.5,
+        "curGames": 17,
+        "curRank": 30,
+        "prevAvgPts": 21.9,
+        "prevRank": 32
+      },
+      "TE": {
+        "curAvgPts": 10.8,
+        "curGames": 17,
+        "curRank": 25,
+        "prevAvgPts": 12.3,
+        "prevRank": 16
+      }
+    },
+    "SEA": {
+      "QB": {
+        "curAvgPts": 16.2,
+        "curGames": 17,
+        "curRank": 20,
+        "prevAvgPts": 16.7,
+        "prevRank": 14
+      },
+      "RB": {
+        "curAvgPts": 21,
+        "curGames": 17,
+        "curRank": 19,
+        "prevAvgPts": 26.6,
+        "prevRank": 3
+      },
+      "WR": {
+        "curAvgPts": 33.9,
+        "curGames": 17,
+        "curRank": 12,
+        "prevAvgPts": 35,
+        "prevRank": 13
+      },
+      "TE": {
+        "curAvgPts": 11.5,
+        "curGames": 17,
+        "curRank": 20,
+        "prevAvgPts": 12.4,
+        "prevRank": 14
+      }
+    },
+    "SF": {
+      "QB": {
+        "curAvgPts": 15.7,
+        "curGames": 17,
+        "curRank": 24,
+        "prevAvgPts": 14,
+        "prevRank": 27
+      },
+      "RB": {
+        "curAvgPts": 25.5,
+        "curGames": 17,
+        "curRank": 3,
+        "prevAvgPts": 18.5,
+        "prevRank": 27
+      },
+      "WR": {
+        "curAvgPts": 31.1,
+        "curGames": 17,
+        "curRank": 27,
+        "prevAvgPts": 34.5,
+        "prevRank": 14
+      },
+      "TE": {
+        "curAvgPts": 10.9,
+        "curGames": 16,
+        "curRank": 24,
+        "prevAvgPts": 11,
+        "prevRank": 23
+      }
+    },
+    "CIN": {
+      "QB": {
+        "curAvgPts": 18.9,
+        "curGames": 17,
+        "curRank": 6,
+        "prevAvgPts": 17.1,
+        "prevRank": 11
+      },
+      "RB": {
+        "curAvgPts": 22.1,
+        "curGames": 17,
+        "curRank": 13,
+        "prevAvgPts": 21.3,
+        "prevRank": 15
+      },
+      "WR": {
+        "curAvgPts": 31.3,
+        "curGames": 17,
+        "curRank": 25,
+        "prevAvgPts": 35.5,
+        "prevRank": 11
+      },
+      "TE": {
+        "curAvgPts": 16.6,
+        "curGames": 17,
+        "curRank": 1,
+        "prevAvgPts": 14.6,
+        "prevRank": 3
+      }
+    },
+    "IND": {
+      "QB": {
+        "curAvgPts": 17.2,
+        "curGames": 17,
+        "curRank": 12,
+        "prevAvgPts": 15.4,
+        "prevRank": 18
+      },
+      "RB": {
+        "curAvgPts": 23.9,
+        "curGames": 17,
+        "curRank": 10,
+        "prevAvgPts": 25.7,
+        "prevRank": 5
+      },
+      "WR": {
+        "curAvgPts": 33.6,
+        "curGames": 17,
+        "curRank": 14,
+        "prevAvgPts": 31.6,
+        "prevRank": 23
+      },
+      "TE": {
+        "curAvgPts": 15,
+        "curGames": 17,
+        "curRank": 4,
+        "prevAvgPts": 12.9,
+        "prevRank": 11
+      }
+    },
+    "PHI": {
+      "QB": {
+        "curAvgPts": 14.5,
+        "curGames": 17,
+        "curRank": 28,
+        "prevAvgPts": 20.6,
+        "prevRank": 2
+      },
+      "RB": {
+        "curAvgPts": 16.3,
+        "curGames": 17,
+        "curRank": 31,
+        "prevAvgPts": 19.4,
+        "prevRank": 22
+      },
+      "WR": {
+        "curAvgPts": 31.1,
+        "curGames": 17,
+        "curRank": 26,
+        "prevAvgPts": 44.5,
+        "prevRank": 1
+      },
+      "TE": {
+        "curAvgPts": 9.1,
+        "curGames": 17,
+        "curRank": 30,
+        "prevAvgPts": 13.2,
+        "prevRank": 10
+      }
+    },
+    "PIT": {
+      "QB": {
+        "curAvgPts": 14.8,
+        "curGames": 17,
+        "curRank": 27,
+        "prevAvgPts": 14.6,
+        "prevRank": 22
+      },
+      "RB": {
+        "curAvgPts": 19.8,
+        "curGames": 17,
+        "curRank": 22,
+        "prevAvgPts": 21.4,
+        "prevRank": 14
+      },
+      "WR": {
+        "curAvgPts": 32.9,
+        "curGames": 17,
+        "curRank": 17,
+        "prevAvgPts": 32.4,
+        "prevRank": 17
+      },
+      "TE": {
+        "curAvgPts": 14.4,
+        "curGames": 17,
+        "curRank": 7,
+        "prevAvgPts": 12.5,
+        "prevRank": 12
+      }
+    },
+    "DAL": {
+      "QB": {
+        "curAvgPts": 20.9,
+        "curGames": 17,
+        "curRank": 1,
+        "prevAvgPts": 14.2,
+        "prevRank": 26
+      },
+      "RB": {
+        "curAvgPts": 23.1,
+        "curGames": 17,
+        "curRank": 11,
+        "prevAvgPts": 18.1,
+        "prevRank": 29
+      },
+      "WR": {
+        "curAvgPts": 36.1,
+        "curGames": 17,
+        "curRank": 8,
+        "prevAvgPts": 28.8,
+        "prevRank": 28
+      },
+      "TE": {
+        "curAvgPts": 10.3,
+        "curGames": 17,
+        "curRank": 27,
+        "prevAvgPts": 10.1,
+        "prevRank": 29
+      }
+    },
+    "CLE": {
+      "QB": {
+        "curAvgPts": 17.5,
+        "curGames": 17,
+        "curRank": 9,
+        "prevAvgPts": 13.4,
+        "prevRank": 29
+      },
+      "RB": {
+        "curAvgPts": 18.7,
+        "curGames": 17,
+        "curRank": 28,
+        "prevAvgPts": 20,
+        "prevRank": 19
+      },
+      "WR": {
+        "curAvgPts": 35.4,
+        "curGames": 17,
+        "curRank": 9,
+        "prevAvgPts": 27.5,
+        "prevRank": 31
+      },
+      "TE": {
+        "curAvgPts": 13.6,
+        "curGames": 17,
+        "curRank": 9,
+        "prevAvgPts": 9.2,
+        "prevRank": 32
+      }
+    },
+    "BAL": {
+      "QB": {
+        "curAvgPts": 17.9,
+        "curGames": 17,
+        "curRank": 7,
+        "prevAvgPts": 12.4,
+        "prevRank": 30
+      },
+      "RB": {
+        "curAvgPts": 18.9,
+        "curGames": 17,
+        "curRank": 26,
+        "prevAvgPts": 19.6,
+        "prevRank": 21
+      },
+      "WR": {
+        "curAvgPts": 36.4,
+        "curGames": 17,
+        "curRank": 5,
+        "prevAvgPts": 31.3,
+        "prevRank": 24
+      },
+      "TE": {
+        "curAvgPts": 12.9,
+        "curGames": 17,
+        "curRank": 12,
+        "prevAvgPts": 10.6,
+        "prevRank": 26
+      }
+    },
+    "WAS": {
+      "QB": {
+        "curAvgPts": 15.5,
+        "curGames": 17,
+        "curRank": 26,
+        "prevAvgPts": 20.8,
+        "prevRank": 1
+      },
+      "RB": {
+        "curAvgPts": 21.8,
+        "curGames": 17,
+        "curRank": 15,
+        "prevAvgPts": 25.9,
+        "prevRank": 4
+      },
+      "WR": {
+        "curAvgPts": 32,
+        "curGames": 17,
+        "curRank": 22,
+        "prevAvgPts": 43.1,
+        "prevRank": 2
+      },
+      "TE": {
+        "curAvgPts": 12.4,
+        "curGames": 15,
+        "curRank": 16,
+        "prevAvgPts": 10.5,
+        "prevRank": 27
+      }
+    },
+    "NO": {
+      "QB": {
+        "curAvgPts": 16,
+        "curGames": 17,
+        "curRank": 21,
+        "prevAvgPts": 14.6,
+        "prevRank": 23
+      },
+      "RB": {
+        "curAvgPts": 24.5,
+        "curGames": 17,
+        "curRank": 7,
+        "prevAvgPts": 19.1,
+        "prevRank": 24
+      },
+      "WR": {
+        "curAvgPts": 36.3,
+        "curGames": 17,
+        "curRank": 6,
+        "prevAvgPts": 30.3,
+        "prevRank": 25
+      },
+      "TE": {
+        "curAvgPts": 11.3,
+        "curGames": 17,
+        "curRank": 22,
+        "prevAvgPts": 12.4,
+        "prevRank": 13
+      }
+    },
+    "NYG": {
+      "QB": {
+        "curAvgPts": 17.1,
+        "curGames": 17,
+        "curRank": 13,
+        "prevAvgPts": 15.2,
+        "prevRank": 19
+      },
+      "RB": {
+        "curAvgPts": 24.7,
+        "curGames": 17,
+        "curRank": 6,
+        "prevAvgPts": 22.8,
+        "prevRank": 10
+      },
+      "WR": {
+        "curAvgPts": 33.7,
+        "curGames": 17,
+        "curRank": 13,
+        "prevAvgPts": 38.9,
+        "prevRank": 4
+      },
+      "TE": {
+        "curAvgPts": 9.3,
+        "curGames": 17,
+        "curRank": 29,
+        "prevAvgPts": 11,
+        "prevRank": 24
+      }
+    },
+    "NE": {
+      "QB": {
+        "curAvgPts": 16.3,
+        "curGames": 17,
+        "curRank": 18,
+        "prevAvgPts": 14.4,
+        "prevRank": 25
+      },
+      "RB": {
+        "curAvgPts": 24,
+        "curGames": 17,
+        "curRank": 9,
+        "prevAvgPts": 20,
+        "prevRank": 18
+      },
+      "WR": {
+        "curAvgPts": 32.6,
+        "curGames": 17,
+        "curRank": 20,
+        "prevAvgPts": 32.8,
+        "prevRank": 15
+      },
+      "TE": {
+        "curAvgPts": 11.8,
+        "curGames": 17,
+        "curRank": 19,
+        "prevAvgPts": 9.4,
+        "prevRank": 31
+      }
+    },
+    "GB": {
+      "QB": {
+        "curAvgPts": 14.1,
+        "curGames": 17,
+        "curRank": 30,
+        "prevAvgPts": 15.1,
+        "prevRank": 20
+      },
+      "RB": {
+        "curAvgPts": 22,
+        "curGames": 17,
+        "curRank": 14,
+        "prevAvgPts": 21.7,
+        "prevRank": 13
+      },
+      "WR": {
+        "curAvgPts": 30.7,
+        "curGames": 17,
+        "curRank": 28,
+        "prevAvgPts": 32,
+        "prevRank": 19
+      },
+      "TE": {
+        "curAvgPts": 12.6,
+        "curGames": 17,
+        "curRank": 13,
+        "prevAvgPts": 12,
+        "prevRank": 17
+      }
+    },
+    "CAR": {
+      "QB": {
+        "curAvgPts": 20.5,
+        "curGames": 17,
+        "curRank": 2,
+        "prevAvgPts": 12.3,
+        "prevRank": 31
+      },
+      "RB": {
+        "curAvgPts": 30,
+        "curGames": 17,
+        "curRank": 1,
+        "prevAvgPts": 25.1,
+        "prevRank": 6
+      },
+      "WR": {
+        "curAvgPts": 34.4,
+        "curGames": 17,
+        "curRank": 10,
+        "prevAvgPts": 27.7,
+        "prevRank": 29
+      },
+      "TE": {
+        "curAvgPts": 14.8,
+        "curGames": 17,
+        "curRank": 6,
+        "prevAvgPts": 10.6,
+        "prevRank": 25
+      }
+    },
+    "MIA": {
+      "QB": {
+        "curAvgPts": 13.8,
+        "curGames": 17,
+        "curRank": 31,
+        "prevAvgPts": 17.3,
+        "prevRank": 10
+      },
+      "RB": {
+        "curAvgPts": 21.5,
+        "curGames": 17,
+        "curRank": 17,
+        "prevAvgPts": 18.5,
+        "prevRank": 26
+      },
+      "WR": {
+        "curAvgPts": 30.6,
+        "curGames": 17,
+        "curRank": 29,
+        "prevAvgPts": 35.6,
+        "prevRank": 10
+      },
+      "TE": {
+        "curAvgPts": 13.1,
+        "curGames": 17,
+        "curRank": 11,
+        "prevAvgPts": 13.3,
+        "prevRank": 9
+      }
+    },
+    "KC": {
+      "QB": {
+        "curAvgPts": 17,
+        "curGames": 17,
+        "curRank": 14,
+        "prevAvgPts": 14.5,
+        "prevRank": 24
+      },
+      "RB": {
+        "curAvgPts": 16.1,
+        "curGames": 17,
+        "curRank": 32,
+        "prevAvgPts": 19.3,
+        "prevRank": 23
+      },
+      "WR": {
+        "curAvgPts": 33.3,
+        "curGames": 17,
+        "curRank": 16,
+        "prevAvgPts": 27.5,
+        "prevRank": 30
+      },
+      "TE": {
+        "curAvgPts": 14.9,
+        "curGames": 17,
+        "curRank": 5,
+        "prevAvgPts": 11.2,
+        "prevRank": 21
+      }
+    },
+    "LAC": {
+      "QB": {
+        "curAvgPts": 15.9,
+        "curGames": 17,
+        "curRank": 22,
+        "prevAvgPts": 18.5,
+        "prevRank": 6
+      },
+      "RB": {
+        "curAvgPts": 18.5,
+        "curGames": 17,
+        "curRank": 29,
+        "prevAvgPts": 22.5,
+        "prevRank": 11
+      },
+      "WR": {
+        "curAvgPts": 32.7,
+        "curGames": 17,
+        "curRank": 19,
+        "prevAvgPts": 37.9,
+        "prevRank": 7
+      },
+      "TE": {
+        "curAvgPts": 10.7,
+        "curGames": 17,
+        "curRank": 26,
+        "prevAvgPts": 11.7,
+        "prevRank": 19
+      }
+    },
+    "TEN": {
+      "QB": {
+        "curAvgPts": 16.7,
+        "curGames": 17,
+        "curRank": 16,
+        "prevAvgPts": 15.4,
+        "prevRank": 17
+      },
+      "RB": {
+        "curAvgPts": 24.3,
+        "curGames": 17,
+        "curRank": 8,
+        "prevAvgPts": 18.6,
+        "prevRank": 25
+      },
+      "WR": {
+        "curAvgPts": 29.9,
+        "curGames": 17,
+        "curRank": 31,
+        "prevAvgPts": 37.9,
+        "prevRank": 6
+      },
+      "TE": {
+        "curAvgPts": 9.1,
+        "curGames": 17,
+        "curRank": 31,
+        "prevAvgPts": 9.9,
+        "prevRank": 30
+      }
+    },
+    "MIN": {
+      "QB": {
+        "curAvgPts": 14.5,
+        "curGames": 17,
+        "curRank": 29,
+        "prevAvgPts": 16.3,
+        "prevRank": 15
+      },
+      "RB": {
+        "curAvgPts": 19.4,
+        "curGames": 17,
+        "curRank": 24,
+        "prevAvgPts": 19.8,
+        "prevRank": 20
+      },
+      "WR": {
+        "curAvgPts": 40.4,
+        "curGames": 17,
+        "curRank": 1,
+        "prevAvgPts": 38.8,
+        "prevRank": 5
+      },
+      "TE": {
+        "curAvgPts": 11.4,
+        "curGames": 17,
+        "curRank": 21,
+        "prevAvgPts": 11.5,
+        "prevRank": 20
+      }
+    },
+    "TB": {
+      "QB": {
+        "curAvgPts": 19.8,
+        "curGames": 17,
+        "curRank": 5,
+        "prevAvgPts": 17.5,
+        "prevRank": 8
+      },
+      "RB": {
+        "curAvgPts": 19.7,
+        "curGames": 17,
+        "curRank": 23,
+        "prevAvgPts": 17.1,
+        "prevRank": 30
+      },
+      "WR": {
+        "curAvgPts": 36.2,
+        "curGames": 17,
+        "curRank": 7,
+        "prevAvgPts": 36.1,
+        "prevRank": 9
+      },
+      "TE": {
+        "curAvgPts": 14.3,
+        "curGames": 17,
+        "curRank": 8,
+        "prevAvgPts": 14.8,
+        "prevRank": 2
+      }
+    },
+    "ATL": {
+      "QB": {
+        "curAvgPts": 20,
+        "curGames": 17,
+        "curRank": 4,
+        "prevAvgPts": 17.3,
+        "prevRank": 9
+      },
+      "RB": {
+        "curAvgPts": 21.3,
+        "curGames": 17,
+        "curRank": 18,
+        "prevAvgPts": 18.4,
+        "prevRank": 28
+      },
+      "WR": {
+        "curAvgPts": 37.3,
+        "curGames": 17,
+        "curRank": 2,
+        "prevAvgPts": 29.2,
+        "prevRank": 27
+      },
+      "TE": {
+        "curAvgPts": 12.4,
+        "curGames": 17,
+        "curRank": 15,
+        "prevAvgPts": 13.8,
+        "prevRank": 6
+      }
+    }
+  },
+  "schedule": {
+    "NYJ": {
+      "1": "SF",
+      "2": "TEN",
+      "3": "NE",
+      "4": "DEN",
+      "5": "MIN",
+      "6": "BUF",
+      "7": "PIT",
+      "8": "NE",
+      "9": "HOU",
+      "10": "ARI",
+      "11": "IND",
+      "13": "SEA",
+      "14": "MIA",
+      "15": "JAX",
+      "16": "LA",
+      "17": "BUF",
+      "18": "MIA"
+    },
+    "CHI": {
+      "1": "TEN",
+      "2": "HOU",
+      "3": "IND",
+      "4": "LA",
+      "5": "CAR",
+      "6": "JAX",
+      "8": "WAS",
+      "9": "ARI",
+      "10": "NE",
+      "11": "GB",
+      "12": "MIN",
+      "13": "DET",
+      "14": "SF",
+      "15": "MIN",
+      "16": "DET",
+      "17": "SEA",
+      "18": "GB"
+    },
+    "IND": {
+      "1": "HOU",
+      "2": "GB",
+      "3": "CHI",
+      "4": "PIT",
+      "5": "JAX",
+      "6": "TEN",
+      "7": "MIA",
+      "8": "HOU",
+      "9": "MIN",
+      "10": "BUF",
+      "11": "NYJ",
+      "12": "DET",
+      "13": "NE",
+      "15": "DEN",
+      "16": "TEN",
+      "17": "NYG",
+      "18": "JAX"
+    },
+    "BAL": {
+      "1": "KC",
+      "2": "LV",
+      "3": "DAL",
+      "4": "BUF",
+      "5": "CIN",
+      "6": "WAS",
+      "7": "TB",
+      "8": "CLE",
+      "9": "DEN",
+      "10": "CIN",
+      "11": "PIT",
+      "12": "LAC",
+      "13": "PHI",
+      "15": "NYG",
+      "16": "PIT",
+      "17": "HOU",
+      "18": "CLE"
+    },
+    "LA": {
+      "1": "DET",
+      "2": "ARI",
+      "3": "SF",
+      "4": "CHI",
+      "5": "GB",
+      "7": "LV",
+      "8": "MIN",
+      "9": "SEA",
+      "10": "MIA",
+      "11": "NE",
+      "12": "PHI",
+      "13": "NO",
+      "14": "BUF",
+      "15": "SF",
+      "16": "NYJ",
+      "17": "ARI",
+      "18": "SEA"
+    },
+    "CAR": {
+      "1": "NO",
+      "2": "LAC",
+      "3": "LV",
+      "4": "CIN",
+      "5": "CHI",
+      "6": "ATL",
+      "7": "WAS",
+      "8": "DEN",
+      "9": "NO",
+      "10": "NYG",
+      "12": "KC",
+      "13": "TB",
+      "14": "PHI",
+      "15": "DAL",
+      "16": "ARI",
+      "17": "TB",
+      "18": "ATL"
+    },
+    "CLE": {
+      "1": "DAL",
+      "2": "JAX",
+      "3": "NYG",
+      "4": "LV",
+      "5": "WAS",
+      "6": "PHI",
+      "7": "CIN",
+      "8": "BAL",
+      "9": "LAC",
+      "11": "NO",
+      "12": "PIT",
+      "13": "DEN",
+      "14": "PIT",
+      "15": "KC",
+      "16": "CIN",
+      "17": "MIA",
+      "18": "BAL"
+    },
+    "PIT": {
+      "1": "ATL",
+      "2": "DEN",
+      "3": "LAC",
+      "4": "IND",
+      "5": "DAL",
+      "6": "LV",
+      "7": "NYJ",
+      "8": "NYG",
+      "10": "WAS",
+      "11": "BAL",
+      "12": "CLE",
+      "13": "CIN",
+      "14": "CLE",
+      "15": "PHI",
+      "16": "BAL",
+      "17": "KC",
+      "18": "CIN"
+    },
+    "ATL": {
+      "1": "PIT",
+      "2": "PHI",
+      "3": "KC",
+      "4": "NO",
+      "5": "TB",
+      "6": "CAR",
+      "7": "SEA",
+      "8": "TB",
+      "9": "DAL",
+      "10": "NO",
+      "11": "DEN",
+      "13": "LAC",
+      "14": "MIN",
+      "15": "LV",
+      "16": "NYG",
+      "17": "WAS",
+      "18": "CAR"
+    },
+    "DAL": {
+      "1": "CLE",
+      "2": "NO",
+      "3": "BAL",
+      "4": "NYG",
+      "5": "PIT",
+      "6": "DET",
+      "8": "SF",
+      "9": "ATL",
+      "10": "PHI",
+      "11": "HOU",
+      "12": "WAS",
+      "13": "NYG",
+      "14": "CIN",
+      "15": "CAR",
+      "16": "TB",
+      "17": "PHI",
+      "18": "WAS"
+    },
+    "SF": {
+      "1": "NYJ",
+      "2": "MIN",
+      "3": "LA",
+      "4": "NE",
+      "5": "ARI",
+      "6": "SEA",
+      "7": "KC",
+      "8": "DAL",
+      "10": "TB",
+      "11": "SEA",
+      "12": "GB",
+      "13": "BUF",
+      "14": "CHI",
+      "15": "LA",
+      "16": "MIA",
+      "17": "DET",
+      "18": "ARI"
+    },
+    "WAS": {
+      "1": "TB",
+      "2": "NYG",
+      "3": "CIN",
+      "4": "ARI",
+      "5": "CLE",
+      "6": "BAL",
+      "7": "CAR",
+      "8": "CHI",
+      "9": "NYG",
+      "10": "PIT",
+      "11": "PHI",
+      "12": "DAL",
+      "13": "TEN",
+      "15": "NO",
+      "16": "PHI",
+      "17": "ATL",
+      "18": "DAL"
+    },
+    "HOU": {
+      "1": "IND",
+      "2": "CHI",
+      "3": "MIN",
+      "4": "JAX",
+      "5": "BUF",
+      "6": "NE",
+      "7": "GB",
+      "8": "IND",
+      "9": "NYJ",
+      "10": "DET",
+      "11": "DAL",
+      "12": "TEN",
+      "13": "JAX",
+      "15": "MIA",
+      "16": "KC",
+      "17": "BAL",
+      "18": "TEN"
+    },
+    "KC": {
+      "1": "BAL",
+      "2": "CIN",
+      "3": "ATL",
+      "4": "LAC",
+      "5": "NO",
+      "7": "SF",
+      "8": "LV",
+      "9": "TB",
+      "10": "DEN",
+      "11": "BUF",
+      "12": "CAR",
+      "13": "LV",
+      "14": "LAC",
+      "15": "CLE",
+      "16": "HOU",
+      "17": "PIT",
+      "18": "DEN"
+    },
+    "TEN": {
+      "1": "CHI",
+      "2": "NYJ",
+      "3": "GB",
+      "4": "MIA",
+      "6": "IND",
+      "7": "BUF",
+      "8": "DET",
+      "9": "NE",
+      "10": "LAC",
+      "11": "MIN",
+      "12": "HOU",
+      "13": "WAS",
+      "14": "JAX",
+      "15": "CIN",
+      "16": "IND",
+      "17": "JAX",
+      "18": "HOU"
+    },
+    "SEA": {
+      "1": "DEN",
+      "2": "NE",
+      "3": "MIA",
+      "4": "DET",
+      "5": "NYG",
+      "6": "SF",
+      "7": "ATL",
+      "8": "BUF",
+      "9": "LA",
+      "11": "SF",
+      "12": "ARI",
+      "13": "NYJ",
+      "14": "ARI",
+      "15": "GB",
+      "16": "MIN",
+      "17": "CHI",
+      "18": "LA"
+    },
+    "MIA": {
+      "1": "JAX",
+      "2": "BUF",
+      "3": "SEA",
+      "4": "TEN",
+      "5": "NE",
+      "7": "IND",
+      "8": "ARI",
+      "9": "BUF",
+      "10": "LA",
+      "11": "LV",
+      "12": "NE",
+      "13": "GB",
+      "14": "NYJ",
+      "15": "HOU",
+      "16": "SF",
+      "17": "CLE",
+      "18": "NYJ"
+    },
+    "NO": {
+      "1": "CAR",
+      "2": "DAL",
+      "3": "PHI",
+      "4": "ATL",
+      "5": "KC",
+      "6": "TB",
+      "7": "DEN",
+      "8": "LAC",
+      "9": "CAR",
+      "10": "ATL",
+      "11": "CLE",
+      "13": "LA",
+      "14": "NYG",
+      "15": "WAS",
+      "16": "GB",
+      "17": "LV",
+      "18": "TB"
+    },
+    "LV": {
+      "1": "LAC",
+      "2": "BAL",
+      "3": "CAR",
+      "4": "CLE",
+      "5": "DEN",
+      "6": "PIT",
+      "7": "LA",
+      "8": "KC",
+      "9": "CIN",
+      "11": "MIA",
+      "12": "DEN",
+      "13": "KC",
+      "14": "TB",
+      "15": "ATL",
+      "16": "JAX",
+      "17": "NO",
+      "18": "LAC"
+    },
+    "TB": {
+      "1": "WAS",
+      "2": "DET",
+      "3": "DEN",
+      "4": "PHI",
+      "5": "ATL",
+      "6": "NO",
+      "7": "BAL",
+      "8": "ATL",
+      "9": "KC",
+      "10": "SF",
+      "12": "NYG",
+      "13": "CAR",
+      "14": "LV",
+      "15": "LAC",
+      "16": "DAL",
+      "17": "CAR",
+      "18": "NO"
+    },
+    "DET": {
+      "1": "LA",
+      "2": "TB",
+      "3": "ARI",
+      "4": "SEA",
+      "6": "DAL",
+      "7": "MIN",
+      "8": "TEN",
+      "9": "GB",
+      "10": "HOU",
+      "11": "JAX",
+      "12": "IND",
+      "13": "CHI",
+      "14": "GB",
+      "15": "BUF",
+      "16": "CHI",
+      "17": "SF",
+      "18": "MIN"
+    },
+    "NYG": {
+      "1": "MIN",
+      "2": "WAS",
+      "3": "CLE",
+      "4": "DAL",
+      "5": "SEA",
+      "6": "CIN",
+      "7": "PHI",
+      "8": "PIT",
+      "9": "WAS",
+      "10": "CAR",
+      "12": "TB",
+      "13": "DAL",
+      "14": "NO",
+      "15": "BAL",
+      "16": "ATL",
+      "17": "IND",
+      "18": "PHI"
+    },
+    "BUF": {
+      "1": "ARI",
+      "2": "MIA",
+      "3": "JAX",
+      "4": "BAL",
+      "5": "HOU",
+      "6": "NYJ",
+      "7": "TEN",
+      "8": "SEA",
+      "9": "MIA",
+      "10": "IND",
+      "11": "KC",
+      "13": "SF",
+      "14": "LA",
+      "15": "DET",
+      "16": "NE",
+      "17": "NYJ",
+      "18": "NE"
+    },
+    "DEN": {
+      "1": "SEA",
+      "2": "PIT",
+      "3": "TB",
+      "4": "NYJ",
+      "5": "LV",
+      "6": "LAC",
+      "7": "NO",
+      "8": "CAR",
+      "9": "BAL",
+      "10": "KC",
+      "11": "ATL",
+      "12": "LV",
+      "13": "CLE",
+      "15": "IND",
+      "16": "LAC",
+      "17": "CIN",
+      "18": "KC"
+    },
+    "LAC": {
+      "1": "LV",
+      "2": "CAR",
+      "3": "PIT",
+      "4": "KC",
+      "6": "DEN",
+      "7": "ARI",
+      "8": "NO",
+      "9": "CLE",
+      "10": "TEN",
+      "11": "CIN",
+      "12": "BAL",
+      "13": "ATL",
+      "14": "KC",
+      "15": "TB",
+      "16": "DEN",
+      "17": "NE",
+      "18": "LV"
+    },
+    "NE": {
+      "1": "CIN",
+      "2": "SEA",
+      "3": "NYJ",
+      "4": "SF",
+      "5": "MIA",
+      "6": "HOU",
+      "7": "JAX",
+      "8": "NYJ",
+      "9": "TEN",
+      "10": "CHI",
+      "11": "LA",
+      "12": "MIA",
+      "13": "IND",
+      "15": "ARI",
+      "16": "BUF",
+      "17": "LAC",
+      "18": "BUF"
+    },
+    "MIN": {
+      "1": "NYG",
+      "2": "SF",
+      "3": "HOU",
+      "4": "GB",
+      "5": "NYJ",
+      "7": "DET",
+      "8": "LA",
+      "9": "IND",
+      "10": "JAX",
+      "11": "TEN",
+      "12": "CHI",
+      "13": "ARI",
+      "14": "ATL",
+      "15": "CHI",
+      "16": "SEA",
+      "17": "GB",
+      "18": "DET"
+    },
+    "PHI": {
+      "1": "GB",
+      "2": "ATL",
+      "3": "NO",
+      "4": "TB",
+      "6": "CLE",
+      "7": "NYG",
+      "8": "CIN",
+      "9": "JAX",
+      "10": "DAL",
+      "11": "WAS",
+      "12": "LA",
+      "13": "BAL",
+      "14": "CAR",
+      "15": "PIT",
+      "16": "WAS",
+      "17": "DAL",
+      "18": "NYG"
+    },
+    "ARI": {
+      "1": "BUF",
+      "2": "LA",
+      "3": "DET",
+      "4": "WAS",
+      "5": "SF",
+      "6": "GB",
+      "7": "LAC",
+      "8": "MIA",
+      "9": "CHI",
+      "10": "NYJ",
+      "12": "SEA",
+      "13": "MIN",
+      "14": "SEA",
+      "15": "NE",
+      "16": "CAR",
+      "17": "LA",
+      "18": "SF"
+    },
+    "JAX": {
+      "1": "MIA",
+      "2": "CLE",
+      "3": "BUF",
+      "4": "HOU",
+      "5": "IND",
+      "6": "CHI",
+      "7": "NE",
+      "8": "GB",
+      "9": "PHI",
+      "10": "MIN",
+      "11": "DET",
+      "13": "HOU",
+      "14": "TEN",
+      "15": "NYJ",
+      "16": "LV",
+      "17": "TEN",
+      "18": "IND"
+    },
+    "CIN": {
+      "1": "NE",
+      "2": "KC",
+      "3": "WAS",
+      "4": "CAR",
+      "5": "BAL",
+      "6": "NYG",
+      "7": "CLE",
+      "8": "PHI",
+      "9": "LV",
+      "10": "BAL",
+      "11": "LAC",
+      "13": "PIT",
+      "14": "DAL",
+      "15": "TEN",
+      "16": "CLE",
+      "17": "DEN",
+      "18": "PIT"
+    },
+    "GB": {
+      "1": "PHI",
+      "2": "IND",
+      "3": "TEN",
+      "4": "MIN",
+      "5": "LA",
+      "6": "ARI",
+      "7": "HOU",
+      "8": "JAX",
+      "9": "DET",
+      "11": "CHI",
+      "12": "SF",
+      "13": "MIA",
+      "14": "DET",
+      "15": "SEA",
+      "16": "NO",
+      "17": "MIN",
+      "18": "CHI"
+    }
+  }
+}

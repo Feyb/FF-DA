@@ -13,6 +13,7 @@ import { TierLegendComponent } from "../../shared/components/tier-legend";
 import { LoadingStateComponent } from "../../shared/components/loading-state";
 import { ErrorStateComponent } from "../../shared/components/error-state";
 import { PageHeaderComponent } from "../../shared/components/page-header";
+import { TeamViewLineupPanelComponent } from "./team-view-lineup-panel/team-view-lineup-panel.component";
 import { TeamViewPlayersListComponent } from "./team-view-players-list/team-view-players-list.component";
 import { TeamViewStandingsPanelComponent } from "./team-view-standings-panel/team-view-standings-panel.component";
 
@@ -33,6 +34,7 @@ import { TeamViewStandingsPanelComponent } from "./team-view-standings-panel/tea
     LoadingStateComponent,
     ErrorStateComponent,
     PageHeaderComponent,
+    TeamViewLineupPanelComponent,
     TeamViewPlayersListComponent,
     TeamViewStandingsPanelComponent,
   ],

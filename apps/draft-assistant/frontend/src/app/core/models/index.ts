@@ -413,3 +413,54 @@ export interface LeagueStandingEntry {
   };
   rank: number;
 }
+
+export interface NflState {
+  week: number;
+  season: string;
+  season_type: string;
+  display_week: number;
+}
+
+export interface DefenseStatEntry {
+  curAvgPts: number | null;
+  curGames: number;
+  curRank: number | null;
+  prevAvgPts: number | null;
+  prevRank: number | null;
+}
+
+export interface TeamDefenseStats {
+  QB: DefenseStatEntry;
+  RB: DefenseStatEntry;
+  WR: DefenseStatEntry;
+  TE: DefenseStatEntry;
+}
+
+export interface NflDefenseStatsAsset {
+  generatedAt: string;
+  currentSeason: number;
+  teams: Record<string, TeamDefenseStats>;
+  /** Derived from player_stats: team → week → opponent (REG season only). */
+  schedule: Record<string, Record<string, string>>;
+}
+
+export type MatchupGrade = "A" | "B" | "C" | "D" | "F";
+
+export interface PlayerMatchup {
+  playerId: string;
+  opponentTeam: string | null;
+  onBye: boolean;
+  defenseRank: number | null;
+  curAvgPtsAllowed: number | null;
+  prevAvgPtsAllowed: number | null;
+  grade: MatchupGrade | null;
+}
+
+export interface LineupSuggestion {
+  position: string;
+  /** Bench player recommended to start this week. */
+  toStart: TeamViewPlayer;
+  /** Current starter recommended to sit this week. */
+  toSit: TeamViewPlayer;
+  reason: string;
+}

@@ -1,0 +1,115 @@
+<section class="section-block">
+  <h2 class="section-title">
+    Weekly Lineup Suggestions
+    @if (currentWeek()) {
+      <span class="week-badge">Week {{ currentWeek() }}</span>
+    }
+  </h2>
+
+  @if (suggestions().length > 0) {
+    <div class="suggestions-list">
+      @for (suggestion of suggestions(); track suggestion.toStart.playerId) {
+        <div class="suggestion-card">
+          <mat-icon class="suggestion-icon">swap_vert</mat-icon>
+          <div class="suggestion-body">
+            <p class="suggestion-headline">
+              Consider starting
+              <strong>{{ suggestion.toStart.fullName }}</strong>
+              ({{ suggestion.position }}) over
+              <strong>{{ suggestion.toSit.fullName }}</strong>
+            </p>
+            <p class="suggestion-reason">{{ suggestion.reason }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="no-suggestions">No obvious matchup upgrades found for your current lineup.</p>
+  }
+
+  @if (starterRows().length > 0) {
+    <div class="matchup-group">
+      <h3 class="matchup-group-heading">Starters — Matchup Grades</h3>
+      <div class="matchup-table">
+        <div class="matchup-header">
+          <span>Player</span>
+          <span>Pos</span>
+          <span>Opponent</span>
+          <span class="col-pts">Cur Avg</span>
+          <span class="col-pts">Prev Avg</span>
+          <span>Grade</span>
+        </div>
+        @for (row of starterRows(); track row.player.playerId) {
+          <div class="matchup-row">
+            <span class="player-name">{{ row.player.fullName }}</span>
+            <span class="pos-badge">{{ row.player.position }}</span>
+            <span class="opponent-label" [class.opponent-bye]="row.matchup?.onBye">
+              {{ opponentLabel(row.matchup) }}
+            </span>
+            <span class="col-pts pts-value">
+              {{ avgPtsLabel(row.matchup?.curAvgPtsAllowed ?? null) }}
+            </span>
+            <span class="col-pts pts-value">
+              {{ avgPtsLabel(row.matchup?.prevAvgPtsAllowed ?? null) }}
+            </span>
+            <span class="grade-chip" [ngClass]="gradeClass(row.matchup?.grade)">
+              @if (row.matchup?.onBye) {
+                BYE
+              } @else {
+                {{ row.matchup?.grade ?? "—" }}
+              }
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  @if (benchRows().length > 0) {
+    <div class="matchup-group">
+      <h3 class="matchup-group-heading">Bench — Matchup Grades</h3>
+      <div class="matchup-table">
+        <div class="matchup-header">
+          <span>Player</span>
+          <span>Pos</span>
+          <span>Opponent</span>
+          <span class="col-pts">Cur Avg</span>
+          <span class="col-pts">Prev Avg</span>
+          <span>Grade</span>
+        </div>
+        @for (row of benchRows(); track row.player.playerId) {
+          <div class="matchup-row">
+            <span class="player-name">{{ row.player.fullName }}</span>
+            <span class="pos-badge">{{ row.player.position }}</span>
+            <span class="opponent-label" [class.opponent-bye]="row.matchup?.onBye">
+              {{ opponentLabel(row.matchup) }}
+            </span>
+            <span class="col-pts pts-value">
+              {{ avgPtsLabel(row.matchup?.curAvgPtsAllowed ?? null) }}
+            </span>
+            <span class="col-pts pts-value">
+              {{ avgPtsLabel(row.matchup?.prevAvgPtsAllowed ?? null) }}
+            </span>
+            <span class="grade-chip" [ngClass]="gradeClass(row.matchup?.grade)">
+              @if (row.matchup?.onBye) {
+                BYE
+              } @else {
+                {{ row.matchup?.grade ?? "—" }}
+              }
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <p class="matchup-legend">
+    <strong>Grade key:</strong>
+    <span class="grade-chip grade-a">A</span> rank 1–8 (easiest) &nbsp;
+    <span class="grade-chip grade-b">B</span> 9–16 &nbsp;
+    <span class="grade-chip grade-c">C</span> 17–24 &nbsp;
+    <span class="grade-chip grade-d">D</span> 25–29 &nbsp;
+    <span class="grade-chip grade-f">F</span> 30–32 (hardest). Avg = PPR fantasy pts allowed per
+    game to that position.
+  </p>
+</section>

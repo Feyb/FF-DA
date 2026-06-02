@@ -2,6 +2,7 @@ import { effect, inject } from "@angular/core";
 import { patchState, signalStore, withHooks, withMethods, withState } from "@ngrx/signals";
 import { firstValueFrom } from "rxjs";
 import { KtcRatingService } from "../../core/adapters/ktc/ktc-rating.service";
+import { NflverseService } from "../../core/adapters/nflverse/nflverse.service";
 import { SleeperService } from "../../core/adapters/sleeper/sleeper.service";
 import {
   DraftPlayerRow,
@@ -10,12 +11,15 @@ import {
   LeagueRoster,
   LeagueStandingEntry,
   LeagueUser,
+  LineupSuggestion,
+  PlayerMatchup,
   SleeperCatalogPlayer,
   TeamViewPlayer,
   TeamViewRating,
   TeamViewRosterOption,
   TeamViewRosterSections,
 } from "../../core/models";
+import { LineupSuggestionService } from "../../core/services/lineup-suggestion.service";
 import { PlayerNormalizationService } from "../../core/services/player-normalization.service";
 import { AppStore } from "../../core/state/app.store";
 import { toErrorMessage } from "../../core/utils/error.util";
@@ -32,6 +36,9 @@ interface TeamViewState {
   rating: TeamViewRating | null;
   ratingWarning: string | null;
   leagueStandings: LeagueStandingEntry[];
+  currentWeek: number | null;
+  matchupsByPlayerId: Map<string, PlayerMatchup>;
+  lineupSuggestions: LineupSuggestion[];
 }
 
 const emptySections = (): TeamViewRosterSections => ({
@@ -52,6 +59,9 @@ export const TeamViewStore = signalStore(
     rating: null,
     ratingWarning: null,
     leagueStandings: [],
+    currentWeek: null,
+    matchupsByPlayerId: new Map(),
+    lineupSuggestions: [],
   }),
   withMethods(
     (
@@ -59,6 +69,8 @@ export const TeamViewStore = signalStore(
       appStore = inject(AppStore),
       sleeperService = inject(SleeperService),
       ratingService = inject(KtcRatingService),
+      nflverseService = inject(NflverseService),
+      lineupSuggestionService = inject(LineupSuggestionService),
       playerNormalizationService = inject(PlayerNormalizationService),
     ) => {
       let rostersCache: LeagueRoster[] = [];
@@ -165,7 +177,7 @@ export const TeamViewStore = signalStore(
           .map((entry, i) => ({ ...entry, rank: i + 1 }));
       };
 
-      const applyRosterSelection = (rosterId: number): void => {
+      const applyRosterSelection = (rosterId: number): TeamViewRosterSections | null => {
         const selectedRoster = rostersCache.find((roster) => roster.roster_id === rosterId);
         if (!selectedRoster) {
           patchState(store, {
@@ -176,7 +188,7 @@ export const TeamViewStore = signalStore(
             selectedRosterId: null,
             loading: false,
           });
-          return;
+          return null;
         }
 
         const starterSet = new Set(selectedRoster.starters ?? []);
@@ -205,13 +217,10 @@ export const TeamViewStore = signalStore(
         const allTeamPlayers = [...starters, ...bench, ...ir];
         const rating = ratingService.computeTeamRating(allTeamPlayers, ktcLookupCache);
 
+        const sections: TeamViewRosterSections = { starters, bench, ir, futurePicks };
+
         patchState(store, {
-          sections: {
-            starters,
-            bench,
-            ir,
-            futurePicks,
-          },
+          sections,
           selectedRosterId: rosterId,
           rating,
           ratingWarning: rating.ktcUnavailable
@@ -220,6 +229,8 @@ export const TeamViewStore = signalStore(
           loading: false,
           error: null,
         });
+
+        return sections;
       };
 
       const resetForNoLeague = (): void => {
@@ -239,7 +250,40 @@ export const TeamViewStore = signalStore(
           rating: null,
           ratingWarning: null,
           leagueStandings: [],
+          currentWeek: null,
+          matchupsByPlayerId: new Map(),
+          lineupSuggestions: [],
         });
+      };
+
+      const loadMatchupData = async (sections: TeamViewRosterSections): Promise<void> => {
+        try {
+          const [nflState, defenseStats] = await Promise.all([
+            firstValueFrom(sleeperService.getNflState()),
+            firstValueFrom(nflverseService.defenseStats$),
+          ]);
+
+          if (!defenseStats || nflState.season_type !== "regular") {
+            return;
+          }
+
+          const week = nflState.display_week ?? nflState.week;
+          const allPlayers = [...sections.starters, ...sections.bench];
+          const matchupsByPlayerId = lineupSuggestionService.buildMatchupMap(
+            allPlayers,
+            week,
+            defenseStats,
+          );
+          const lineupSuggestions = lineupSuggestionService.buildSuggestions(
+            sections.starters,
+            sections.bench,
+            matchupsByPlayerId,
+          );
+
+          patchState(store, { currentWeek: week, matchupsByPlayerId, lineupSuggestions });
+        } catch {
+          // Matchup data is supplementary — never surface errors to the user
+        }
       };
 
       const loadForLeague = async (leagueId: string, season: string): Promise<void> => {
@@ -301,7 +345,10 @@ export const TeamViewStore = signalStore(
             return;
           }
 
-          applyRosterSelection(matchedRoster.roster_id);
+          const sections = applyRosterSelection(matchedRoster.roster_id);
+          if (sections) {
+            void loadMatchupData(sections);
+          }
         } catch (error: unknown) {
           patchState(store, {
             loading: false,
@@ -327,7 +374,10 @@ export const TeamViewStore = signalStore(
 
         selectRoster(rosterId: number): void {
           patchState(store, { loading: true, error: null });
-          applyRosterSelection(rosterId);
+          const sections = applyRosterSelection(rosterId);
+          if (sections) {
+            void loadMatchupData(sections);
+          }
         },
 
         retry(): void {
