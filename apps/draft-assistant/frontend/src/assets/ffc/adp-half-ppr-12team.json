@@ -266,14 +266,14 @@
   {
     "playerName": "A.J. Brown",
     "position": "WR",
-    "team": "PHI",
+    "team": "NE",
     "adp": 21.5,
     "adpFormatted": "2.09",
     "stdev": 2.1,
     "high": 16,
     "low": 26,
     "timesDrafted": 44,
-    "bye": 10
+    "bye": 11
   },
   {
     "playerName": "Josh Allen",

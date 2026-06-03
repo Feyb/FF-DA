@@ -278,14 +278,14 @@
   {
     "playerName": "A.J. Brown",
     "position": "WR",
-    "team": "PHI",
+    "team": "NE",
     "adp": 23,
     "adpFormatted": "2.11",
     "stdev": 9.7,
     "high": 1,
     "low": 35,
     "timesDrafted": 7,
-    "bye": 10
+    "bye": 11
   },
   {
     "playerName": "Jaylen Waddle",
@@ -722,14 +722,14 @@
   {
     "playerName": "Elijah Mitchell",
     "position": "RB",
-    "team": "FA",
+    "team": "PHI",
     "adp": 53.9,
     "adpFormatted": "5.06",
     "stdev": 5.7,
     "high": 45,
     "low": 67,
     "timesDrafted": 24,
-    "bye": 0
+    "bye": 10
   },
   {
     "playerName": "Kyler Murray",
@@ -1058,14 +1058,14 @@
   {
     "playerName": "JuJu Smith-Schuster",
     "position": "WR",
-    "team": "FA",
+    "team": "NYG",
     "adp": 85.9,
     "adpFormatted": "8.02",
     "stdev": 8.8,
     "high": 67,
     "low": 100,
     "timesDrafted": 46,
-    "bye": 0
+    "bye": 8
   },
   {
     "playerName": "Chase Claypool",
@@ -2582,14 +2582,14 @@
   {
     "playerName": "Jason Sanders",
     "position": "PK",
-    "team": "NYG",
+    "team": "FA",
     "adp": 172.5,
     "adpFormatted": "15.04",
     "stdev": 2.5,
     "high": 169,
     "low": 175,
     "timesDrafted": 4,
-    "bye": 8
+    "bye": 0
   },
   {
     "playerName": "Cincinnati Defense",

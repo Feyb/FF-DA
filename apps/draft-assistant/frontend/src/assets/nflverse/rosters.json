@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:45:24.861Z",
+  "generatedAt": "2026-06-03T11:20:55.249Z",
   "players": [
     {
       "player_id": "00-0023459",
@@ -706,6 +706,18 @@
       "team": "CHI",
       "status": "ACT",
       "depth_chart_position": "K",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0031235",
+      "full_name": "Odell Beckham Jr.",
+      "birth_date": "1992-11-05",
+      "years_exp": 12,
+      "position": "WR",
+      "team": "NYG",
+      "status": "ACT",
+      "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -2132,7 +2144,7 @@
       "years_exp": 9,
       "position": "LS",
       "team": "NYG",
-      "status": "ACT",
+      "status": "UFA",
       "depth_chart_position": "LS",
       "depth_chart_order": null,
       "season": 2026
@@ -2374,6 +2386,18 @@
       "team": "MIN",
       "status": "ACT",
       "depth_chart_position": "LB",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0033347",
+      "full_name": "Josh Tupou",
+      "birth_date": "1994-05-02",
+      "years_exp": 9,
+      "position": "DL",
+      "team": "NYG",
+      "status": "ACT",
+      "depth_chart_position": "DT",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -2722,6 +2746,18 @@
       "team": "WAS",
       "status": "UFA",
       "depth_chart_position": "RB",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0033702",
+      "full_name": "Younghoe Koo",
+      "birth_date": "1994-08-03",
+      "years_exp": 9,
+      "position": "K",
+      "team": "NYJ",
+      "status": "ACT",
+      "depth_chart_position": "K",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -4051,8 +4087,8 @@
       "birth_date": "1995-10-06",
       "years_exp": 8,
       "position": "WR",
-      "team": "HOU",
-      "status": "UFA",
+      "team": "NYG",
+      "status": "ACT",
       "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2026
@@ -5239,8 +5275,8 @@
       "birth_date": "1996-09-04",
       "years_exp": 7,
       "position": "LB",
-      "team": "NYG",
-      "status": "UFA",
+      "team": "BUF",
+      "status": "ACT",
       "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
@@ -5923,8 +5959,8 @@
       "birth_date": "1995-09-09",
       "years_exp": 7,
       "position": "QB",
-      "team": "ATL",
-      "status": "UFA",
+      "team": "IND",
+      "status": "ACT",
       "depth_chart_position": "QB",
       "depth_chart_order": null,
       "season": 2026
@@ -6422,18 +6458,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0035639",
-      "full_name": "Parris Campbell",
-      "birth_date": "1997-07-16",
-      "years_exp": 7,
-      "position": "WR",
-      "team": "DAL",
-      "status": "ACT",
-      "depth_chart_position": "WR",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0035640",
       "full_name": "DK Metcalf",
       "birth_date": "1997-12-14",
@@ -6488,7 +6512,7 @@
       "years_exp": 7,
       "position": "WR",
       "team": "NYG",
-      "status": "ACT",
+      "status": "RES",
       "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2026
@@ -9776,7 +9800,7 @@
       "years_exp": 5,
       "position": "DB",
       "team": "SF",
-      "status": "ACT",
+      "status": "RES",
       "depth_chart_position": "SAF",
       "depth_chart_order": null,
       "season": 2026
@@ -9854,6 +9878,18 @@
       "season": 2026
     },
     {
+      "player_id": "00-0036649",
+      "full_name": "Quinton Bohanna",
+      "birth_date": "1999-03-16",
+      "years_exp": 5,
+      "position": "DL",
+      "team": "JAX",
+      "status": "ACT",
+      "depth_chart_position": "DT",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
       "player_id": "00-0036653",
       "full_name": "Stone Forsythe",
       "birth_date": "1997-12-29",
@@ -9910,6 +9946,18 @@
       "team": "SF",
       "status": "ACT",
       "depth_chart_position": "DE",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0036670",
+      "full_name": "Jermar Jefferson",
+      "birth_date": "2000-04-15",
+      "years_exp": 5,
+      "position": "RB",
+      "team": "SF",
+      "status": "ACT",
+      "depth_chart_position": "RB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -11834,6 +11882,18 @@
       "season": 2026
     },
     {
+      "player_id": "00-0037098",
+      "full_name": "Samori Toure",
+      "birth_date": "1998-03-24",
+      "years_exp": 4,
+      "position": "WR",
+      "team": "PHI",
+      "status": "ACT",
+      "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
       "player_id": "00-0037106",
       "full_name": "Jaylon Jones",
       "birth_date": "1997-10-14",
@@ -11971,7 +12031,7 @@
       "birth_date": "1997-04-13",
       "years_exp": 8861,
       "position": "WR",
-      "team": "NYJ",
+      "team": "SEA",
       "status": "ACT",
       "depth_chart_position": "WR",
       "depth_chart_order": null,
@@ -13462,18 +13522,6 @@
       "team": "NO",
       "status": "ACT",
       "depth_chart_position": "P",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0037509",
-      "full_name": "Sincere McCormick",
-      "birth_date": "2000-09-10",
-      "years_exp": 4,
-      "position": "RB",
-      "team": "SF",
-      "status": "ACT",
-      "depth_chart_position": "RB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -16286,18 +16334,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0038569",
-      "full_name": "Sidy Sow",
-      "birth_date": "1998-06-10",
-      "years_exp": 3,
-      "position": "OL",
-      "team": "HOU",
-      "status": "ACT",
-      "depth_chart_position": "G",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0038570",
       "full_name": "Ventrell Miller",
       "birth_date": "1999-01-15",
@@ -17062,6 +17098,18 @@
       "team": "AZ",
       "status": "ACT",
       "depth_chart_position": "CB",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0038678",
+      "full_name": "Jordan Mims",
+      "birth_date": "1999-06-16",
+      "years_exp": 3,
+      "position": "RB",
+      "team": "SF",
+      "status": "ACT",
+      "depth_chart_position": "RB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -19406,6 +19454,18 @@
       "season": 2026
     },
     {
+      "player_id": "00-0039288",
+      "full_name": "Jackson Sirmon",
+      "birth_date": "2000-04-15",
+      "years_exp": 2,
+      "position": "LB",
+      "team": "NO",
+      "status": "ACT",
+      "depth_chart_position": "LB",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
       "player_id": "00-0039289",
       "full_name": "Leonard Taylor III",
       "birth_date": "2002-05-29",
@@ -20638,18 +20698,6 @@
       "team": "KC",
       "status": "ACT",
       "depth_chart_position": "DT",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0039434",
-      "full_name": "LaDarius Henderson",
-      "birth_date": "2001-12-11",
-      "years_exp": 2,
-      "position": "OL",
-      "team": "IND",
-      "status": "ACT",
-      "depth_chart_position": "OT",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -23558,18 +23606,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040003",
-      "full_name": "Lenny Krieg",
-      "birth_date": "2002-03-08",
-      "years_exp": 1,
-      "position": "K",
-      "team": "NYJ",
-      "status": "ACT",
-      "depth_chart_position": "K",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040004",
       "full_name": "T.J. Maguranyanga",
       "birth_date": "2002-12-22",
@@ -24290,6 +24326,18 @@
       "season": 2026
     },
     {
+      "player_id": "00-0040086",
+      "full_name": "Mac Dalena",
+      "birth_date": "2001-10-04",
+      "years_exp": null,
+      "position": "WR",
+      "team": "BUF",
+      "status": "ACT",
+      "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
       "player_id": "00-0040088",
       "full_name": "Coziah Izzard",
       "birth_date": "2001-11-06",
@@ -24386,18 +24434,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040101",
-      "full_name": "Reid Holskey",
-      "birth_date": "2002-01-03",
-      "years_exp": 1,
-      "position": "OL",
-      "team": "NYG",
-      "status": "ACT",
-      "depth_chart_position": "OT",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040104",
       "full_name": "Keondre Jackson",
       "birth_date": "2002-05-02",
@@ -24430,18 +24466,6 @@
       "team": "IND",
       "status": "ACT",
       "depth_chart_position": "DB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0040108",
-      "full_name": "Chandler Martin",
-      "birth_date": "2002-12-11",
-      "years_exp": 1,
-      "position": "LB",
-      "team": "PHI",
-      "status": "ACT",
-      "depth_chart_position": "LB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -25598,18 +25622,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040214",
-      "full_name": "Kobe King",
-      "birth_date": "2003-01-28",
-      "years_exp": 1,
-      "position": "LB",
-      "team": "NYJ",
-      "status": "ACT",
-      "depth_chart_position": "LB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040215",
       "full_name": "Gavin Bartholomew",
       "birth_date": "2003-04-30",
@@ -26474,18 +26486,6 @@
       "season": 2026
     },
     {
-      "player_id": "00-0040330",
-      "full_name": "Seth Henigan",
-      "birth_date": "2003-03-10",
-      "years_exp": 1,
-      "position": "QB",
-      "team": "IND",
-      "status": "ACT",
-      "depth_chart_position": "QB",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
       "player_id": "00-0040331",
       "full_name": "Patrick Herbert",
       "birth_date": "2000-10-18",
@@ -26686,18 +26686,6 @@
       "team": "BUF",
       "status": "ACT",
       "depth_chart_position": "SAF",
-      "depth_chart_order": null,
-      "season": 2026
-    },
-    {
-      "player_id": "00-0040365",
-      "full_name": "Daryl Porter",
-      "birth_date": "2002-02-03",
-      "years_exp": 1,
-      "position": "DB",
-      "team": "BUF",
-      "status": "ACT",
-      "depth_chart_position": "CB",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -27334,6 +27322,18 @@
       "team": "DEN",
       "status": "ACT",
       "depth_chart_position": "DT",
+      "depth_chart_order": null,
+      "season": 2026
+    },
+    {
+      "player_id": "00-0040456",
+      "full_name": "Da'Quan Felton",
+      "birth_date": "2001-01-13",
+      "years_exp": 1,
+      "position": "WR",
+      "team": "NYJ",
+      "status": "ACT",
+      "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2026
     },
@@ -30194,18 +30194,6 @@
       "season": 2025
     },
     {
-      "player_id": "00-0033347",
-      "full_name": "Josh Tupou",
-      "birth_date": "1994-05-02",
-      "years_exp": 8,
-      "position": "DL",
-      "team": "BAL",
-      "status": "DEV",
-      "depth_chart_position": "NT",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
       "player_id": "00-0033463",
       "full_name": "Carl Lawson",
       "birth_date": "1995-06-29",
@@ -30310,18 +30298,6 @@
       "team": "DET",
       "status": "DEV",
       "depth_chart_position": "DE",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0033702",
-      "full_name": "Younghoe Koo",
-      "birth_date": "1994-08-03",
-      "years_exp": 8,
-      "position": "K",
-      "team": "NYG",
-      "status": "TRD",
-      "depth_chart_position": "K",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -31286,6 +31262,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0035639",
+      "full_name": "Parris Campbell",
+      "birth_date": "1997-07-16",
+      "years_exp": 6,
+      "position": "WR",
+      "team": "DAL",
+      "status": "DEV",
+      "depth_chart_position": "WR",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0035646",
       "full_name": "Sione Takitaki",
       "birth_date": "1995-06-08",
@@ -32186,18 +32174,6 @@
       "season": 2025
     },
     {
-      "player_id": "00-0036649",
-      "full_name": "Quinton Bohanna",
-      "birth_date": "1999-03-16",
-      "years_exp": 4,
-      "position": "DL",
-      "team": "GB",
-      "status": "CUT",
-      "depth_chart_position": "DT",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
       "player_id": "00-0036654",
       "full_name": "Demetric Felton",
       "birth_date": "1998-07-16",
@@ -32218,18 +32194,6 @@
       "team": "CAR",
       "status": "CUT",
       "depth_chart_position": "FS",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0036670",
-      "full_name": "Jermar Jefferson",
-      "birth_date": "2000-04-15",
-      "years_exp": 4,
-      "position": "RB",
-      "team": "ARI",
-      "status": "DEV",
-      "depth_chart_position": "RB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -32530,18 +32494,6 @@
       "team": "ATL",
       "status": "INA",
       "depth_chart_position": "P",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0037098",
-      "full_name": "Samori Toure",
-      "birth_date": "1998-03-24",
-      "years_exp": 3,
-      "position": "WR",
-      "team": "NO",
-      "status": "ACT",
-      "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -32902,6 +32854,18 @@
       "team": "NE",
       "status": "CUT",
       "depth_chart_position": "TE",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0037509",
+      "full_name": "Sincere McCormick",
+      "birth_date": "2000-09-10",
+      "years_exp": 3,
+      "position": "RB",
+      "team": "MIN",
+      "status": "DEV",
+      "depth_chart_position": "RB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -33422,6 +33386,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0038569",
+      "full_name": "Sidy Sow",
+      "birth_date": "1998-06-10",
+      "years_exp": 2,
+      "position": "OL",
+      "team": "HOU",
+      "status": "DEV",
+      "depth_chart_position": "G",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0038575",
       "full_name": "Viliami Fehoko Jr.",
       "birth_date": "1999-12-16",
@@ -33682,18 +33658,6 @@
       "team": "BUF",
       "status": "CUT",
       "depth_chart_position": "T",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0038678",
-      "full_name": "Jordan Mims",
-      "birth_date": "1999-06-16",
-      "years_exp": 2,
-      "position": "RB",
-      "team": "TEN",
-      "status": "DEV",
-      "depth_chart_position": "RB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -34310,18 +34274,6 @@
       "season": 2025
     },
     {
-      "player_id": "00-0039288",
-      "full_name": "Jackson Sirmon",
-      "birth_date": "2000-04-15",
-      "years_exp": 1,
-      "position": "LB",
-      "team": "NYJ",
-      "status": "DEV",
-      "depth_chart_position": "MLB",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
       "player_id": "00-0039294",
       "full_name": "Nelson Ceaser",
       "birth_date": "",
@@ -34546,6 +34498,18 @@
       "team": "PHI",
       "status": "CUT",
       "depth_chart_position": "DT",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0039434",
+      "full_name": "LaDarius Henderson",
+      "birth_date": "2001-12-11",
+      "years_exp": 1,
+      "position": "OL",
+      "team": "IND",
+      "status": "DEV",
+      "depth_chart_position": "G",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -35378,6 +35342,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0040003",
+      "full_name": "Lenny Krieg",
+      "birth_date": "2002-03-08",
+      "years_exp": 0,
+      "position": "K",
+      "team": "ATL",
+      "status": "DEV",
+      "depth_chart_position": "K",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0040025",
       "full_name": "Lance Dixon",
       "birth_date": "2001-07-18",
@@ -35546,18 +35522,6 @@
       "season": 2025
     },
     {
-      "player_id": "00-0040086",
-      "full_name": "Mac Dalena",
-      "birth_date": "",
-      "years_exp": 0,
-      "position": "WR",
-      "team": "SEA",
-      "status": "DEV",
-      "depth_chart_position": "WR",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
       "player_id": "00-0040087",
       "full_name": "Brandon George",
       "birth_date": "2000-11-19",
@@ -35606,6 +35570,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0040101",
+      "full_name": "Reid Holskey",
+      "birth_date": "2002-01-03",
+      "years_exp": 0,
+      "position": "OL",
+      "team": "NYG",
+      "status": "DEV",
+      "depth_chart_position": "T",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0040103",
       "full_name": "Desmond Igbinosun",
       "birth_date": "",
@@ -35614,6 +35590,18 @@
       "team": "BAL",
       "status": "CUT",
       "depth_chart_position": "DB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0040108",
+      "full_name": "Chandler Martin",
+      "birth_date": "2002-12-11",
+      "years_exp": 0,
+      "position": "LB",
+      "team": "BAL",
+      "status": "DEV",
+      "depth_chart_position": "ILB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -35662,6 +35650,18 @@
       "team": "CHI",
       "status": "RES",
       "depth_chart_position": "CB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0040214",
+      "full_name": "Kobe King",
+      "birth_date": "2003-01-28",
+      "years_exp": 0,
+      "position": "LB",
+      "team": "NYJ",
+      "status": "ACT",
+      "depth_chart_position": "ILB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -36014,6 +36014,18 @@
       "season": 2025
     },
     {
+      "player_id": "00-0040330",
+      "full_name": "Seth Henigan",
+      "birth_date": "2003-03-10",
+      "years_exp": 0,
+      "position": "QB",
+      "team": "IND",
+      "status": "ACT",
+      "depth_chart_position": "QB",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
       "player_id": "00-0040332",
       "full_name": "Ja'Quinden Jackson",
       "birth_date": "2001-09-12",
@@ -36166,6 +36178,18 @@
       "team": "BUF",
       "status": "RES",
       "depth_chart_position": "K",
+      "depth_chart_order": null,
+      "season": 2025
+    },
+    {
+      "player_id": "00-0040365",
+      "full_name": "Daryl Porter",
+      "birth_date": "2002-02-03",
+      "years_exp": 0,
+      "position": "DB",
+      "team": "BUF",
+      "status": "DEV",
+      "depth_chart_position": "CB",
       "depth_chart_order": null,
       "season": 2025
     },
@@ -36478,18 +36502,6 @@
       "team": "NE",
       "status": "CUT",
       "depth_chart_position": "RB",
-      "depth_chart_order": null,
-      "season": 2025
-    },
-    {
-      "player_id": "00-0040456",
-      "full_name": "Da'Quan Felton",
-      "birth_date": "2001-01-13",
-      "years_exp": 0,
-      "position": "WR",
-      "team": "NYG",
-      "status": "RES",
-      "depth_chart_position": "WR",
       "depth_chart_order": null,
       "season": 2025
     },

@@ -218,14 +218,14 @@
   {
     "playerName": "A.J. Brown",
     "position": "WR",
-    "team": "PHI",
+    "team": "NE",
     "adp": 17.7,
     "adpFormatted": "2.06",
     "stdev": 2.3,
     "high": 13,
     "low": 22,
     "timesDrafted": 35,
-    "bye": 10
+    "bye": 11
   },
   {
     "playerName": "Chase Brown",
