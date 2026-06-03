@@ -43,10 +43,16 @@ export class LineupSuggestionService {
     const opponentTeam = defenseStats.schedule[team]?.[weekStr] ?? null;
 
     if (opponentTeam === null) {
+      // Distinguish a confirmed bye (week ≤ maxPlayedWeek with no game entry)
+      // from a future game where data simply isn't available yet.
+      const maxPlayed = defenseStats.maxPlayedWeek ?? 0;
+      const isConfirmedBye =
+        week <= maxPlayed && (defenseStats.byeWeeks[team]?.includes(weekStr) ?? false);
+
       return {
         playerId,
         opponentTeam: null,
-        onBye: true,
+        onBye: isConfirmedBye,
         defenseRank: null,
         curAvgPtsAllowed: null,
         prevAvgPtsAllowed: null,
@@ -135,7 +141,7 @@ export class LineupSuggestionService {
             reason =
               `${opponent} allows ${avgPts} to ${starter.position}s ` +
               `(rank #${candidateRank} easiest) vs ` +
-              `${candidate.fullName}'s current matchup vs ${starterOpponent} (rank #${starterRank}).`;
+              `${starter.fullName}'s current matchup vs ${starterOpponent} (rank #${starterRank}).`;
           }
 
           suggestions.push({

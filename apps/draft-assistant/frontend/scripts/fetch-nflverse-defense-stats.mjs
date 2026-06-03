@@ -147,19 +147,43 @@ function computeRanks(defStats, season) {
 }
 
 /**
- * Extract schedule from player rows: recent_team played opponent_team in (season, week).
- * Returns: Record<team, Record<week, opponent>> for the given season.
+ * Extract schedule from player rows and identify confirmed bye weeks.
+ *
+ * A missing schedule entry for week W is a confirmed bye only when W ≤ maxPlayedWeek
+ * (i.e. the week has already been played league-wide). Weeks > maxPlayedWeek are future
+ * games with no data yet — those must NOT be treated as byes.
+ *
+ * Returns: { byTeam, byeWeeks, maxPlayedWeek }
+ *   byTeam: Record<team, Record<week, opponent>>
+ *   byeWeeks: Record<team, string[]>   – week numbers confirmed as byes
+ *   maxPlayedWeek: number              – highest week with any game data
  */
 function buildSchedule(rows, seasonYear) {
   const byTeam = {};
+  let maxPlayedWeek = 0;
+
   for (const row of rows) {
     if (row.season_type !== "REG") continue;
     if (Number(row.season) !== seasonYear) continue;
     if (!row.recent_team || !row.opponent_team || !row.week) continue;
+    const week = Number(row.week);
     if (!byTeam[row.recent_team]) byTeam[row.recent_team] = {};
     byTeam[row.recent_team][row.week] = row.opponent_team;
+    if (week > maxPlayedWeek) maxPlayedWeek = week;
   }
-  return byTeam;
+
+  // Bye weeks: weeks 1..maxPlayedWeek where a team has no schedule entry
+  const byeWeeks = {};
+  for (const team of Object.keys(byTeam)) {
+    byeWeeks[team] = [];
+    for (let w = 1; w <= maxPlayedWeek; w++) {
+      if (!byTeam[team][String(w)]) {
+        byeWeeks[team].push(String(w));
+      }
+    }
+  }
+
+  return { byTeam, byeWeeks, maxPlayedWeek };
 }
 
 async function main() {
@@ -172,7 +196,7 @@ async function main() {
   const defStats = buildDefenseStats(rows, SEASON_YEAR, PREV_SEASON_YEAR);
   const curRanks = computeRanks(defStats, SEASON_YEAR);
   const prevRanks = computeRanks(defStats, PREV_SEASON_YEAR);
-  const schedule = buildSchedule(rows, SEASON_YEAR);
+  const { byTeam: schedule, byeWeeks, maxPlayedWeek } = buildSchedule(rows, SEASON_YEAR);
 
   // Collect all teams
   const allTeams = new Set();
@@ -203,6 +227,8 @@ async function main() {
     currentSeason: SEASON_YEAR,
     teams,
     schedule,
+    byeWeeks,
+    maxPlayedWeek,
   };
 
   await mkdir(OUTPUT_DIR, { recursive: true });
@@ -210,7 +236,7 @@ async function main() {
   const schedTeams = Object.keys(schedule).length;
   console.log(
     `Wrote defense stats for ${allTeams.size} teams, schedule for ${schedTeams} teams ` +
-      `(season ${SEASON_YEAR}) → ${OUTPUT_FILE}`,
+      `(season ${SEASON_YEAR}, maxPlayedWeek=${maxPlayedWeek}) → ${OUTPUT_FILE}`,
   );
 }
 

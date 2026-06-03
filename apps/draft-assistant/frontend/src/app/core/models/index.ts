@@ -442,6 +442,15 @@ export interface NflDefenseStatsAsset {
   teams: Record<string, TeamDefenseStats>;
   /** Derived from player_stats: team → week → opponent (REG season only). */
   schedule: Record<string, Record<string, string>>;
+  /**
+   * Confirmed bye weeks per team (week numbers as strings).
+   * A week is a confirmed bye only when it falls within the range of already-played
+   * weeks (≤ maxPlayedWeek) and has no schedule entry — NOT when data is simply absent
+   * because the game hasn't been played yet.
+   */
+  byeWeeks: Record<string, string[]>;
+  /** Highest week number for which any game data exists in the current season. */
+  maxPlayedWeek: number;
 }
 
 export type MatchupGrade = "A" | "B" | "C" | "D" | "F";
