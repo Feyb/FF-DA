@@ -2114,14 +2114,14 @@
   {
     "playerName": "Robert Tonyan",
     "position": "TE",
-    "team": "FA",
+    "team": "PIT",
     "adp": 156.6,
     "adpFormatted": "14.01",
     "stdev": 21.7,
     "high": 102,
     "low": 178,
     "timesDrafted": 12,
-    "bye": 0
+    "bye": 9
   },
   {
     "playerName": "Raheem Mostert",
@@ -2558,14 +2558,14 @@
   {
     "playerName": "Younghoe Koo",
     "position": "PK",
-    "team": "NYJ",
+    "team": "FA",
     "adp": 171.8,
     "adpFormatted": "15.04",
     "stdev": 5.1,
     "high": 163,
     "low": 180,
     "timesDrafted": 10,
-    "bye": 13
+    "bye": 0
   },
   {
     "playerName": "Jake Elliott",
@@ -2582,14 +2582,14 @@
   {
     "playerName": "Jason Sanders",
     "position": "PK",
-    "team": "FA",
+    "team": "NYJ",
     "adp": 172.5,
     "adpFormatted": "15.04",
     "stdev": 2.5,
     "high": 169,
     "low": 175,
     "timesDrafted": 4,
-    "bye": 0
+    "bye": 13
   },
   {
     "playerName": "Cincinnati Defense",

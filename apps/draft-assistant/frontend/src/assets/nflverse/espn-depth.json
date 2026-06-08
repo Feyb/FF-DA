@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T11:21:10.952Z",
+  "generatedAt": "2026-06-08T10:48:54.023Z",
   "players": [
     {
       "espn_id": "4869816",
@@ -3982,7 +3982,7 @@
     {
       "espn_id": "4578085",
       "full_name": "Jared Verse",
-      "position": "LB",
+      "position": "DE",
       "team_abbr": "CLE",
       "depth_chart_order": null,
       "injury_status": null,
@@ -4014,6 +4014,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "40"
+    },
+    {
+      "espn_id": "4247722",
+      "full_name": "Benton Whitley",
+      "position": "LB",
+      "team_abbr": "CLE",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
     },
     {
       "espn_id": "3110565",
@@ -4392,6 +4401,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "83"
+    },
+    {
+      "espn_id": "4581750",
+      "full_name": "Jaden Smith",
+      "position": "WR",
+      "team_abbr": "DAL",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": "80"
     },
     {
       "espn_id": "4568652",
@@ -5769,6 +5787,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "8"
+    },
+    {
+      "espn_id": "4708621",
+      "full_name": "Kyre Duplessis",
+      "position": "WR",
+      "team_abbr": "DET",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
     },
     {
       "espn_id": "4608890",
@@ -10793,15 +10820,6 @@
       "jersey": "50"
     },
     {
-      "espn_id": "4429078",
-      "full_name": "Chad Lindberg",
-      "position": "OT",
-      "team_abbr": "LAR",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": null
-    },
-    {
       "espn_id": "4426512",
       "full_name": "Warren McClendon Jr.",
       "position": "OT",
@@ -11051,7 +11069,7 @@
       "team_abbr": "LAR",
       "depth_chart_order": null,
       "injury_status": null,
-      "jersey": "95"
+      "jersey": "97"
     },
     {
       "espn_id": "5160648",
@@ -11069,7 +11087,7 @@
       "team_abbr": "LAR",
       "depth_chart_order": null,
       "injury_status": null,
-      "jersey": null
+      "jersey": "95"
     },
     {
       "espn_id": "4690606",
@@ -11222,7 +11240,7 @@
       "team_abbr": "LAR",
       "depth_chart_order": null,
       "injury_status": null,
-      "jersey": "97"
+      "jersey": "93"
     },
     {
       "espn_id": "4431581",
@@ -11306,15 +11324,6 @@
       "jersey": "30"
     },
     {
-      "espn_id": "4877357",
-      "full_name": "Eddie Walls III",
-      "position": "LB",
-      "team_abbr": "LAR",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": null
-    },
-    {
       "espn_id": "4697639",
       "full_name": "Jaylen Watson",
       "position": "CB",
@@ -11367,6 +11376,24 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "92"
+    },
+    {
+      "espn_id": "4429078",
+      "full_name": "Chad Lindberg",
+      "position": "OT",
+      "team_abbr": "LAR",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
+    },
+    {
+      "espn_id": "4877357",
+      "full_name": "Eddie Walls III",
+      "position": "LB",
+      "team_abbr": "LAR",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
     },
     {
       "espn_id": "4429160",
@@ -12233,6 +12260,15 @@
       "jersey": "45"
     },
     {
+      "espn_id": "4688418",
+      "full_name": "Michael Briscoe",
+      "position": "WR",
+      "team_abbr": "MIN",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
+    },
+    {
       "espn_id": "4573398",
       "full_name": "Max Brosmer",
       "position": "QB",
@@ -12267,15 +12303,6 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "71"
-    },
-    {
-      "espn_id": "4696907",
-      "full_name": "Joaquin Davis",
-      "position": "WR",
-      "team_abbr": "MIN",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": "81"
     },
     {
       "espn_id": "5279633",
@@ -12519,6 +12546,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "73"
+    },
+    {
+      "espn_id": "4433906",
+      "full_name": "Trayvon Rudolph",
+      "position": "WR",
+      "team_abbr": "MIN",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
     },
     {
       "espn_id": "4907543",
@@ -13022,7 +13058,7 @@
       "team_abbr": "NE",
       "depth_chart_order": null,
       "injury_status": null,
-      "jersey": null
+      "jersey": "1"
     },
     {
       "espn_id": "4362890",
@@ -13824,6 +13860,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "36"
+    },
+    {
+      "espn_id": "4365395",
+      "full_name": "Julian Hill",
+      "position": "TE",
+      "team_abbr": "NE",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": "80"
     },
     {
       "espn_id": "4605489",
@@ -14687,7 +14732,7 @@
       "team_abbr": "NYG",
       "depth_chart_order": null,
       "injury_status": null,
-      "jersey": "13"
+      "jersey": "3"
     },
     {
       "espn_id": "3123075",
@@ -14696,7 +14741,7 @@
       "team_abbr": "NYG",
       "depth_chart_order": null,
       "injury_status": null,
-      "jersey": null
+      "jersey": "87"
     },
     {
       "espn_id": "4570296",
@@ -15020,7 +15065,7 @@
       "team_abbr": "NYG",
       "depth_chart_order": null,
       "injury_status": null,
-      "jersey": null
+      "jersey": "8"
     },
     {
       "espn_id": "3049339",
@@ -15482,6 +15527,15 @@
       "jersey": null
     },
     {
+      "espn_id": "4424106",
+      "full_name": "Gunner Olszewski",
+      "position": "WR",
+      "team_abbr": "NYG",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": "80"
+    },
+    {
       "espn_id": "4685247",
       "full_name": "Braelon Allen",
       "position": "RB",
@@ -15554,18 +15608,9 @@
       "jersey": "74"
     },
     {
-      "espn_id": "4575348",
-      "full_name": "Da'Quan Felton",
-      "position": "WR",
-      "team_abbr": "NYJ",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": null
-    },
-    {
       "espn_id": "4429770",
       "full_name": "Courtland Ford",
-      "position": "OL",
+      "position": "OT",
       "team_abbr": "NYJ",
       "depth_chart_order": null,
       "injury_status": null,
@@ -15755,6 +15800,15 @@
       "espn_id": "4700138",
       "full_name": "Sam Scott",
       "position": "RB",
+      "team_abbr": "NYJ",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
+    },
+    {
+      "espn_id": "4429115",
+      "full_name": "Gee Scott Jr.",
+      "position": "WR",
       "team_abbr": "NYJ",
       "depth_chart_order": null,
       "injury_status": null,
@@ -16274,15 +16328,6 @@
       "jersey": "42"
     },
     {
-      "espn_id": "3049899",
-      "full_name": "Younghoe Koo",
-      "position": "PK",
-      "team_abbr": "NYJ",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": null
-    },
-    {
       "espn_id": "4427982",
       "full_name": "Austin McNamara",
       "position": "P",
@@ -16290,6 +16335,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "14"
+    },
+    {
+      "espn_id": "3124679",
+      "full_name": "Jason Sanders",
+      "position": "PK",
+      "team_abbr": "NYJ",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": "8"
     },
     {
       "espn_id": "4428963",
@@ -16301,13 +16355,13 @@
       "jersey": "36"
     },
     {
-      "espn_id": "4432237",
-      "full_name": "Gus Hartwig",
-      "position": "C",
+      "espn_id": "4588300",
+      "full_name": "Kobe King",
+      "position": "LB",
       "team_abbr": "NYJ",
       "depth_chart_order": null,
       "injury_status": null,
-      "jersey": "63"
+      "jersey": "45"
     },
     {
       "espn_id": "3929630",
@@ -16407,15 +16461,6 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "82"
-    },
-    {
-      "espn_id": "4606713",
-      "full_name": "Brandon Hayes",
-      "position": "WR",
-      "team_abbr": "PHI",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": null
     },
     {
       "espn_id": "4429000",
@@ -16533,6 +16578,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "16"
+    },
+    {
+      "espn_id": "4241555",
+      "full_name": "Elijah Mitchell",
+      "position": "RB",
+      "team_abbr": "PHI",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
     },
     {
       "espn_id": "4372414",
@@ -16922,6 +16976,15 @@
       "jersey": null
     },
     {
+      "espn_id": "4695086",
+      "full_name": "Chandler Martin",
+      "position": "LB",
+      "team_abbr": "PHI",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
+    },
+    {
       "espn_id": "4689651",
       "full_name": "Mac McWilliams",
       "position": "CB",
@@ -17051,6 +17114,15 @@
       "espn_id": "5344965",
       "full_name": "Joshua Weru",
       "position": "DE",
+      "team_abbr": "PHI",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
+    },
+    {
+      "espn_id": "4872850",
+      "full_name": "Zion Wilson",
+      "position": "DT",
       "team_abbr": "PHI",
       "depth_chart_order": null,
       "injury_status": null,
@@ -17759,6 +17831,15 @@
       "jersey": "9"
     },
     {
+      "espn_id": "3915437",
+      "full_name": "Isaiah Oliver",
+      "position": "S",
+      "team_abbr": "ARI",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": "26"
+    },
+    {
       "espn_id": "4567219",
       "full_name": "Owen Pappoe",
       "position": "LB",
@@ -17910,15 +17991,6 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "12"
-    },
-    {
-      "espn_id": "4566192",
-      "full_name": "Joshua Karty",
-      "position": "PK",
-      "team_abbr": "ARI",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": "98"
     },
     {
       "espn_id": "17304",
@@ -18182,15 +18254,6 @@
       "jersey": null
     },
     {
-      "espn_id": "4431461",
-      "full_name": "Chamon Metayer",
-      "position": "TE",
-      "team_abbr": "PIT",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": null
-    },
-    {
       "espn_id": "4047650",
       "full_name": "DK Metcalf",
       "position": "WR",
@@ -18288,6 +18351,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": null
+    },
+    {
+      "espn_id": "2975674",
+      "full_name": "Robert Tonyan",
+      "position": "TE",
+      "team_abbr": "PIT",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": "85"
     },
     {
       "espn_id": "4569987",
@@ -18405,6 +18477,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "49"
+    },
+    {
+      "espn_id": "4240778",
+      "full_name": "Jamin Davis",
+      "position": "LB",
+      "team_abbr": "PIT",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
     },
     {
       "espn_id": "3873935",
@@ -19577,15 +19658,6 @@
       "jersey": "16"
     },
     {
-      "espn_id": "4837203",
-      "full_name": "Jerry Wilson",
-      "position": "CB",
-      "team_abbr": "LAC",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": "41"
-    },
-    {
       "espn_id": "4360438",
       "full_name": "Brandon Aiyuk",
       "position": "WR",
@@ -19809,15 +19881,6 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": null
-    },
-    {
-      "espn_id": "4241555",
-      "full_name": "Elijah Mitchell",
-      "position": "RB",
-      "team_abbr": "SF",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": "25"
     },
     {
       "espn_id": "4428144",
@@ -23843,6 +23906,15 @@
       "jersey": "76"
     },
     {
+      "espn_id": "4035112",
+      "full_name": "Trystan Colon",
+      "position": "C",
+      "team_abbr": "JAX",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": null
+    },
+    {
       "espn_id": "5151528",
       "full_name": "Ethan Conner",
       "position": "TE",
@@ -24140,15 +24212,6 @@
       "jersey": "18"
     },
     {
-      "espn_id": "4428935",
-      "full_name": "Sal Wormley",
-      "position": "G",
-      "team_abbr": "JAX",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": "61"
-    },
-    {
       "espn_id": "5152117",
       "full_name": "Michael Wortham",
       "position": "WR",
@@ -24329,6 +24392,15 @@
       "jersey": "22"
     },
     {
+      "espn_id": "3895791",
+      "full_name": "Dane Jackson",
+      "position": "CB",
+      "team_abbr": "JAX",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": "23"
+    },
+    {
       "espn_id": "4429168",
       "full_name": "Antonio Johnson",
       "position": "S",
@@ -24500,15 +24572,6 @@
       "jersey": "92"
     },
     {
-      "espn_id": "4243332",
-      "full_name": "Keith Taylor",
-      "position": "CB",
-      "team_abbr": "JAX",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": "32"
-    },
-    {
       "espn_id": "4570633",
       "full_name": "Trevian Thomas",
       "position": "S",
@@ -24570,6 +24633,15 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "46"
+    },
+    {
+      "espn_id": "4243332",
+      "full_name": "Keith Taylor",
+      "position": "CB",
+      "team_abbr": "JAX",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": "32"
     },
     {
       "espn_id": "4690013",
@@ -25499,6 +25571,15 @@
       "jersey": "76"
     },
     {
+      "espn_id": "4569727",
+      "full_name": "Louis Hansen",
+      "position": "TE",
+      "team_abbr": "HOU",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "jersey": "81"
+    },
+    {
       "espn_id": "4877706",
       "full_name": "Jayden Higgins",
       "position": "WR",
@@ -25758,15 +25839,6 @@
       "depth_chart_order": null,
       "injury_status": null,
       "jersey": "75"
-    },
-    {
-      "espn_id": "4875788",
-      "full_name": "Jalen Walthall",
-      "position": "WR",
-      "team_abbr": "HOU",
-      "depth_chart_order": null,
-      "injury_status": null,
-      "jersey": "16"
     },
     {
       "espn_id": "3118892",
