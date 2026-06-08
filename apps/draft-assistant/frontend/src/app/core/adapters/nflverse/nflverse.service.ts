@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { catchError, map, Observable, of, shareReplay } from "rxjs";
+import { NflDefenseStatsAsset } from "../../models";
 
 /** Slim nflverse player-stats record (seasonal totals, most recent season). */
 export interface NflversePlayerStats {
@@ -121,4 +122,11 @@ export class NflverseService {
 
   readonly rosters$: Observable<Map<string, NflverseRoster>> =
     this.load<NflverseRoster>("rosters.json");
+
+  readonly defenseStats$: Observable<NflDefenseStatsAsset | null> = this.http
+    .get<NflDefenseStatsAsset>("assets/nflverse/defense-stats.json")
+    .pipe(
+      catchError(() => of(null)),
+      shareReplay(1),
+    );
 }

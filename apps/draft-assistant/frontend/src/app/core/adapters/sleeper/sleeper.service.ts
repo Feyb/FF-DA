@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import {
   League,
+  NflState,
   SleeperDraft,
   SleeperDraftPick,
   SleeperTradedPick,
@@ -65,5 +66,9 @@ export class SleeperService {
     return this.http.get<{ player_id: string; count: number }[]>(
       `${BASE}/players/nfl/trending/${type}?limit=${limit}`,
     );
+  }
+
+  getNflState(): Observable<NflState> {
+    return this.http.get<NflState>(`${BASE}/state/nfl`);
   }
 }

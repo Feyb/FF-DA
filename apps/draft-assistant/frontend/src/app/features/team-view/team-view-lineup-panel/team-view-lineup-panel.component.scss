@@ -1,0 +1,189 @@
+:host {
+  display: block;
+}
+
+.section-block {
+  @apply flex flex-col gap-4;
+}
+
+.section-title {
+  @apply flex items-center gap-3 text-lg font-bold m-0;
+  color: var(--on-surface);
+}
+
+.week-badge {
+  @apply text-sm font-semibold rounded-full px-3 py-0.5;
+  background: color-mix(in srgb, var(--primary) 18%, var(--surface-container-high));
+  color: var(--primary);
+}
+
+// ── Suggestions ─────────────────────────────────────────────
+
+.suggestions-list {
+  @apply flex flex-col gap-2;
+}
+
+.suggestion-card {
+  @apply flex items-start gap-3 rounded-xl p-4;
+  background: color-mix(in srgb, var(--primary) 8%, var(--surface-container));
+  border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.suggestion-icon {
+  @apply shrink-0 mt-0.5;
+  color: var(--primary);
+}
+
+.suggestion-body {
+  @apply flex flex-col gap-1 min-w-0;
+}
+
+.suggestion-headline {
+  @apply m-0 text-sm font-medium;
+  color: var(--on-surface);
+}
+
+.suggestion-reason {
+  @apply m-0 text-xs;
+  color: color-mix(in srgb, var(--on-surface) 70%, transparent);
+}
+
+.no-suggestions {
+  @apply text-sm m-0;
+  color: color-mix(in srgb, var(--on-surface) 60%, transparent);
+}
+
+// ── Matchup table ────────────────────────────────────────────
+
+.matchup-group {
+  @apply flex flex-col gap-2;
+}
+
+.matchup-group-heading {
+  @apply text-sm font-semibold uppercase tracking-wider m-0;
+  color: color-mix(in srgb, var(--on-surface) 68%, transparent);
+}
+
+.matchup-table {
+  @apply flex flex-col rounded-xl overflow-hidden;
+  border: 1px solid var(--outline-variant);
+}
+
+.matchup-header,
+.matchup-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3rem 4rem 5rem 5rem 4rem;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  align-items: center;
+}
+
+.matchup-header {
+  @apply text-xs font-semibold uppercase tracking-wider;
+  background: var(--surface-container-high);
+  color: color-mix(in srgb, var(--on-surface) 60%, transparent);
+}
+
+.matchup-row {
+  @apply text-sm;
+  background: var(--surface-container);
+  border-top: 1px solid var(--outline-variant);
+  color: var(--on-surface);
+
+  &:nth-child(even) {
+    background: color-mix(in srgb, var(--surface-container) 70%, var(--surface-container-low));
+  }
+}
+
+.player-name {
+  @apply truncate font-medium;
+  min-width: 0;
+}
+
+.pos-badge {
+  @apply text-xs font-bold text-center;
+  color: var(--primary);
+}
+
+.opponent-label {
+  @apply text-sm font-semibold text-center;
+}
+
+.opponent-bye {
+  @apply text-xs;
+  color: color-mix(in srgb, var(--on-surface) 50%, transparent);
+}
+
+.col-pts {
+  @apply text-center;
+}
+
+.pts-value {
+  @apply text-xs;
+  color: color-mix(in srgb, var(--on-surface) 78%, transparent);
+}
+
+// ── Grade chips ───────────────────────────────────────────────
+
+.grade-chip {
+  @apply inline-flex items-center justify-center rounded-full text-xs font-bold;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+}
+
+.grade-a {
+  background: color-mix(in srgb, #22c55e 18%, var(--surface-container-high));
+  color: #16a34a;
+}
+
+.grade-b {
+  background: color-mix(in srgb, #3b82f6 18%, var(--surface-container-high));
+  color: #2563eb;
+}
+
+.grade-c {
+  background: color-mix(in srgb, #eab308 18%, var(--surface-container-high));
+  color: #a16207;
+}
+
+.grade-d {
+  background: color-mix(in srgb, #f97316 18%, var(--surface-container-high));
+  color: #c2410c;
+}
+
+.grade-f {
+  background: color-mix(in srgb, #ef4444 18%, var(--surface-container-high));
+  color: #dc2626;
+}
+
+.grade-unknown {
+  background: var(--surface-container-high);
+  color: color-mix(in srgb, var(--on-surface) 40%, transparent);
+}
+
+// ── Legend ────────────────────────────────────────────────────
+
+.matchup-legend {
+  @apply text-xs m-0 flex flex-wrap items-center gap-2;
+  color: color-mix(in srgb, var(--on-surface) 60%, transparent);
+
+  .grade-chip {
+    width: 1.5rem;
+    height: 1.5rem;
+    @apply text-xs;
+  }
+}
+
+@media (max-width: 640px) {
+  .matchup-header,
+  .matchup-row {
+    grid-template-columns: minmax(0, 1fr) 2.5rem 3.5rem 3rem;
+    gap: 0.25rem;
+    padding: 0.5rem;
+  }
+
+  .col-pts {
+    display: none;
+  }
+}

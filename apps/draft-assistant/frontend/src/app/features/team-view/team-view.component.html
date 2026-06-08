@@ -55,6 +55,16 @@
             [positionOrder]="positionOrder"
           />
 
+          @if (store.currentWeek()) {
+            <app-team-view-lineup-panel
+              [starters]="store.sections().starters"
+              [bench]="store.sections().bench"
+              [matchups]="store.matchupsByPlayerId()"
+              [suggestions]="store.lineupSuggestions()"
+              [currentWeek]="store.currentWeek()"
+            />
+          }
+
           <app-team-view-players-list
             sectionTitle="Bench"
             [players]="store.sections().bench"
