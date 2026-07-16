@@ -1,72 +1,72 @@
 {
   "source": "fantasyfootballcalculator.com",
-  "generatedAt": "2026-06-08T10:48:34.706Z",
+  "generatedAt": "2026-07-16T11:05:18.786Z",
   "year": "2026",
   "teams": "12",
   "formats": {
     "half-ppr": {
       "output": "adp-half-ppr-12team.json",
-      "count": 144,
+      "count": 172,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/half-ppr?teams=12&year=2026",
       "meta": {
         "type": "Half-PPR",
         "teams": 12,
         "rounds": 15,
-        "total_drafts": 627,
-        "start_date": "2025-09-02",
-        "end_date": "2025-09-03"
+        "total_drafts": 631,
+        "start_date": "2026-07-11",
+        "end_date": "2026-07-16"
       }
     },
     "ppr": {
       "output": "adp-ppr-12team.json",
-      "count": 171,
+      "count": 207,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/ppr?teams=12&year=2026",
       "meta": {
         "type": "PPR",
         "teams": 12,
         "rounds": 15,
-        "total_drafts": 870,
-        "start_date": "2025-09-03",
-        "end_date": "2025-09-10"
+        "total_drafts": 2072,
+        "start_date": "2026-07-09",
+        "end_date": "2026-07-16"
       }
     },
     "standard": {
       "output": "adp-standard-12team.json",
-      "count": 147,
+      "count": 166,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/standard?teams=12&year=2026",
       "meta": {
         "type": "Non-PPR",
         "teams": 12,
         "rounds": 15,
-        "total_drafts": 518,
-        "start_date": "2025-08-30",
-        "end_date": "2025-09-01"
+        "total_drafts": 407,
+        "start_date": "2026-07-09",
+        "end_date": "2026-07-16"
       }
     },
     "dynasty": {
       "output": "adp-dynasty-12team.json",
-      "count": 221,
+      "count": 0,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/dynasty?teams=12&year=2026",
       "meta": {
         "type": "Dynasty",
         "teams": 12,
         "rounds": 15,
-        "total_drafts": 511,
-        "start_date": "2022-08-12",
-        "end_date": "2022-09-10"
+        "total_drafts": 41,
+        "start_date": "2026-06-16",
+        "end_date": "2026-07-16"
       }
     },
     "rookie": {
       "output": "adp-rookie-12team.json",
-      "count": 44,
+      "count": 0,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/rookie?teams=12&year=2026",
       "meta": {
         "type": "Dynasty Rookie",
         "teams": 12,
         "rounds": 15,
-        "total_drafts": 500,
-        "start_date": "2023-08-05",
-        "end_date": "2023-09-15"
+        "total_drafts": 38,
+        "start_date": "2026-06-16",
+        "end_date": "2026-07-16"
       }
     }
   }
