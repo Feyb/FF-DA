@@ -1,59 +1,59 @@
 {
   "source": "fantasyfootballcalculator.com",
-  "generatedAt": "2026-07-16T11:05:18.786Z",
+  "generatedAt": "2026-09-06T16:54:09.257Z",
   "year": "2026",
   "teams": "12",
   "formats": {
     "half-ppr": {
       "output": "adp-half-ppr-12team.json",
-      "count": 172,
+      "count": 227,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/half-ppr?teams=12&year=2026",
       "meta": {
         "type": "Half-PPR",
         "teams": 12,
         "rounds": 15,
-        "total_drafts": 631,
-        "start_date": "2026-07-11",
-        "end_date": "2026-07-16"
+        "total_drafts": 2879,
+        "start_date": "2026-08-31",
+        "end_date": "2026-09-05"
       }
     },
     "ppr": {
       "output": "adp-ppr-12team.json",
-      "count": 207,
+      "count": 263,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/ppr?teams=12&year=2026",
       "meta": {
         "type": "PPR",
         "teams": 12,
         "rounds": 15,
-        "total_drafts": 2072,
-        "start_date": "2026-07-09",
-        "end_date": "2026-07-16"
+        "total_drafts": 7430,
+        "start_date": "2026-08-29",
+        "end_date": "2026-09-05"
       }
     },
     "standard": {
       "output": "adp-standard-12team.json",
-      "count": 166,
+      "count": 214,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/standard?teams=12&year=2026",
       "meta": {
         "type": "Non-PPR",
         "teams": 12,
         "rounds": 15,
-        "total_drafts": 407,
-        "start_date": "2026-07-09",
-        "end_date": "2026-07-16"
+        "total_drafts": 1606,
+        "start_date": "2026-08-29",
+        "end_date": "2026-09-05"
       }
     },
     "dynasty": {
       "output": "adp-dynasty-12team.json",
-      "count": 0,
+      "count": 27,
       "url": "https://fantasyfootballcalculator.com/api/v1/adp/dynasty?teams=12&year=2026",
       "meta": {
         "type": "Dynasty",
         "teams": 12,
         "rounds": 15,
-        "total_drafts": 41,
-        "start_date": "2026-06-16",
-        "end_date": "2026-07-16"
+        "total_drafts": 111,
+        "start_date": "2026-08-06",
+        "end_date": "2026-09-05"
       }
     },
     "rookie": {
@@ -65,8 +65,8 @@
         "teams": 12,
         "rounds": 15,
         "total_drafts": 38,
-        "start_date": "2026-06-16",
-        "end_date": "2026-07-16"
+        "start_date": "2026-08-06",
+        "end_date": "2026-09-05"
       }
     }
   }
